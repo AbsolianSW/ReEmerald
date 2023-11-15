@@ -13,6 +13,12 @@ VerdanturfTown_Mart_EventScript_Clerk::
 
 	.align 2
 VerdanturfTown_Mart_Pokemart:
+	.2byte ITEM_PLACEHOLDER_DYNAMIC_SHOP_VERDANTURF
+	release
+	end
+
+	.align 2
+VerdanturfTown_Mart_Pokemart_Old:
 	.2byte ITEM_GREAT_BALL
 	.2byte ITEM_NEST_BALL
 	.2byte ITEM_SUPER_POTION

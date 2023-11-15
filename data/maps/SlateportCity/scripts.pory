@@ -593,22 +593,22 @@ SlateportCity_EventScript_ShowEggToIdentifier::
 
 @ Comment on the type of Hidden Power
 SlateportCity_EventScript_Hidden_Power_Type::
-	goto_if_eq VAR_0x8006, 0, SlateportCity_EventScript_Fighting_Type
-	goto_if_eq VAR_0x8006, 1, SlateportCity_EventScript_Flying_Type
-	goto_if_eq VAR_0x8006, 2, SlateportCity_EventScript_Poison_Type
-	goto_if_eq VAR_0x8006, 3, SlateportCity_EventScript_Ground_Type
-	goto_if_eq VAR_0x8006, 4, SlateportCity_EventScript_Rock_Type
-	goto_if_eq VAR_0x8006, 5, SlateportCity_EventScript_Bug_Type
-	goto_if_eq VAR_0x8006, 6, SlateportCity_EventScript_Dark_Type
-	goto_if_eq VAR_0x8006, 7, SlateportCity_EventScript_Steel_Type
-	goto_if_eq VAR_0x8006, 8, SlateportCity_EventScript_Fire_Type
-	goto_if_eq VAR_0x8006, 9, SlateportCity_EventScript_Water_Type
-	goto_if_eq VAR_0x8006, 10, SlateportCity_EventScript_Grass_Type
-	goto_if_eq VAR_0x8006, 11, SlateportCity_EventScript_Electric_Type
-	goto_if_eq VAR_0x8006, 12, SlateportCity_EventScript_Psychic_Type
-	goto_if_eq VAR_0x8006, 13, SlateportCity_EventScript_Ice_Type
-	goto_if_eq VAR_0x8006, 14, SlateportCity_EventScript_Dragon_Type
-	goto_if_eq VAR_0x8006, 15, SlateportCity_EventScript_Ghost_Type
+	goto_if_eq VAR_0x8006, 1, SlateportCity_EventScript_Fighting_Type
+	goto_if_eq VAR_0x8006, 2, SlateportCity_EventScript_Flying_Type
+	goto_if_eq VAR_0x8006, 3, SlateportCity_EventScript_Poison_Type
+	goto_if_eq VAR_0x8006, 4, SlateportCity_EventScript_Ground_Type
+	goto_if_eq VAR_0x8006, 5, SlateportCity_EventScript_Rock_Type
+	goto_if_eq VAR_0x8006, 6, SlateportCity_EventScript_Bug_Type
+	goto_if_eq VAR_0x8006, 7, SlateportCity_EventScript_Dark_Type
+	goto_if_eq VAR_0x8006, 8, SlateportCity_EventScript_Steel_Type
+	goto_if_eq VAR_0x8006, 9, SlateportCity_EventScript_Fire_Type
+	goto_if_eq VAR_0x8006, 10, SlateportCity_EventScript_Water_Type
+	goto_if_eq VAR_0x8006, 11, SlateportCity_EventScript_Grass_Type
+	goto_if_eq VAR_0x8006, 12, SlateportCity_EventScript_Electric_Type
+	goto_if_eq VAR_0x8006, 13, SlateportCity_EventScript_Psychic_Type
+	goto_if_eq VAR_0x8006, 14, SlateportCity_EventScript_Ice_Type
+	goto_if_eq VAR_0x8006, 15, SlateportCity_EventScript_Dragon_Type
+	goto_if_eq VAR_0x8006, 16, SlateportCity_EventScript_Ghost_Type
 	end
 
 SlateportCity_EventScript_EndIdentifierComments::

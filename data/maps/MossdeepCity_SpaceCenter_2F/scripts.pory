@@ -126,12 +126,14 @@ MossdeepCity_SpaceCenter_2F_EventScript_ScientistMagma::
 	
 MossdeepCity_SpaceCenter_2F_EventScript_ScientistTryToGiveProtect::
 	call_if_ge VAR_MOSSDEEP_CITY_STATE, 3 , MossdeepCity_SpaceCenter_2F_EventScript_ScientistGiveProtect
+	release
 	end
 	
 MossdeepCity_SpaceCenter_2F_EventScript_ScientistGiveProtect::
 	msgbox MossdeepCity_SpaceCenter_2F_Text_ThankYouForProtectingUs, MSGBOX_DEFAULT
 	giveitem ITEM_TM_PROTECT
 	setflag FLAG_MOSSDEEP_RECEIVED_TM_PROTECT
+	release
 	end
 	
 MossdeepCity_SpaceCenter_2F_EventScript_Gentleman::

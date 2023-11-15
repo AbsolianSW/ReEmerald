@@ -17,7 +17,7 @@ const struct Item gItems[] =
     {
         .name = _("MASTER BALL"),
         .itemId = ITEM_MASTER_BALL,
-        .price = 0,
+        .price = 10000,
         .description = sMasterBallDesc,
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_MASTER_BALL - FIRST_BALL,
@@ -1174,7 +1174,7 @@ const struct Item gItems[] =
     {
         .name = _("MOON STONE"),
         .itemId = ITEM_MOON_STONE,
-        .price = 0,
+        .price = 2100,
         .description = sMoonStoneDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
@@ -2774,10 +2774,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E2] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_OLDALE] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_OLDALE,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -2785,10 +2785,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E3] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_PETALBURG] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_PETALBURG,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -2796,10 +2796,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E4] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_RUSTBORO] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_RUSTBORO,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -2807,10 +2807,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E5] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_SLATEPORT] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_SLATEPORT,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -2818,10 +2818,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E6] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_MAUVILLE] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_MAUVILLE,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -2829,10 +2829,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E7] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_VERDANTURF] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_VERDANTURF,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -2840,10 +2840,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E8] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_FALLARBOR] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_FALLARBOR,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -2851,10 +2851,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0E9] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_LAVARIDGE] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_LAVARIDGE,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -2862,10 +2862,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0EA] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_FORTREE] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_FORTREE,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -2873,10 +2873,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0EB] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_MOSSDEEP] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_MOSSDEEP,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -2884,10 +2884,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0EC] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_SOOTOPOLIS] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_SOOTOPOLIS,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,
@@ -2895,10 +2895,10 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_0ED] =
+    [ITEM_PLACEHOLDER_DYNAMIC_SHOP_EVERGRANDE] =
     {
         .name = _("????????"),
-        .itemId = ITEM_NONE,
+        .itemId = ITEM_PLACEHOLDER_DYNAMIC_SHOP_EVERGRANDE,
         .price = 0,
         .description = sDummyDesc,
         .pocket = POCKET_ITEMS,

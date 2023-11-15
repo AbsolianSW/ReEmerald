@@ -227,7 +227,7 @@ static const u16 sPoints_MoveEffect[NUM_BATTLE_MOVE_EFFECTS] =
     [EFFECT_DEFENSE_UP_HIT] = 1,
     [EFFECT_ATTACK_UP_HIT] = 1,
     [EFFECT_ALL_STATS_UP_HIT] = 1,
-    [EFFECT_UNUSED_8D] = 1,
+    [EFFECT_BLIZZARD] = 1,
     [EFFECT_BELLY_DRUM] = 7,
     [EFFECT_PSYCH_UP] = 7,
     [EFFECT_MIRROR_COAT] = 6,
@@ -386,6 +386,7 @@ static const u16 sPoints_HailMoves[] =
 {
     MOVE_WEATHER_BALL, 3,
     MOVE_SOLAR_BEAM, -3,
+    MOVE_BLIZZARD, 3,
     TABLE_END, 0
 };
 static const u16 sPoints_ElectricMoves[] =

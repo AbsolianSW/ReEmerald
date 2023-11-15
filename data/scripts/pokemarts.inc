@@ -1,0 +1,44 @@
+PokeMart0Badges::
+	.2byte ITEM_POTION
+	.2byte ITEM_PARALYZE_HEAL
+	.2byte ITEM_ANTIDOTE
+	.2byte ITEM_AWAKENING
+	.2byte ITEM_POKEBALL
+	.2byte ITEM_REPEL
+	.2byte ITEM_ESCAPE_ROPE
+	
+	.align2
+PokeMart1Badge::
+	.2byte ITEM_POTION
+	.2byte ITEM_PARALYZE_HEAL
+	.2byte ITEM_ANTIDOTE
+	.2byte ITEM_AWAKENING
+	.2byte ITEM_BURN_HEAL
+	.2byte ITEM_POKEBALL
+	.2byte ITEM_REPEL
+	.2byte ITEM_ESCAPE_ROPE
+	.2byte ITEM_X_ATTACK
+	.2byte ITEM_X_SPEED
+	.2byte ITEM_X_DEFEND
+	.2byte ITEM_NONE
+	release
+	end
+	
+	.align2
+PokeMart2Badges::
+	.2byte ITEM_POTION
+	.2byte ITEM_SUPER_POTION
+	.2byte ITEM_PARALYZE_HEAL
+	.2byte ITEM_ANTIDOTE
+	.2byte ITEM_AWAKENING
+	.2byte ITEM_BURN_HEAL
+	.2byte ITEM_POKEBALL
+	.2byte ITEM_REPEL
+	.2byte ITEM_ESCAPE_ROPE
+	.2byte ITEM_X_ATTACK
+	.2byte ITEM_X_SPEED
+	.2byte ITEM_X_DEFEND
+	.2byte
+	.2byte ITEM_NONE
+	release
+	end

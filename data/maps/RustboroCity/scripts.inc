@@ -866,6 +866,7 @@ RustboroCity_EventScript_BattleMay::
 	case 0, RustboroCity_EventScript_BattleMayTreecko
 	case 1, RustboroCity_EventScript_BattleMayTorchic
 	case 2, RustboroCity_EventScript_BattleMayMudkip
+	setvar VAR_RUSTBORO_CITY_STATE, 8
 	end
 
 RustboroCity_EventScript_MayBrineyHint::
@@ -930,6 +931,7 @@ RustboroCity_EventScript_BattleBrendan::
 	case 0, RustboroCity_EventScript_BattleBrendanTreecko
 	case 1, RustboroCity_EventScript_BattleBrendanTorchic
 	case 2, RustboroCity_EventScript_BattleBrendanMudkip
+	setvar VAR_RUSTBORO_CITY_STATE, 8
 	end
 
 RustboroCity_EventScript_BrendanBrineyHint::
