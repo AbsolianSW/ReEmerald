@@ -66,29 +66,6 @@ MoveTutor_Text_FuryCutterTaught:
 	.string "I get a thrill watching to see if\n"
 	.string "the move keeps hitting in succession!$"
 
-MoveTutor_MimicTeach:
-	.string "Ah, young one!\p"
-	.string "I am also a young one, but I mimic\n"
-	.string "the styles and speech of the elderly\l"
-	.string "folks of this town.\p"
-	.string "What do you say, young one?\n"
-	.string "Would you agree to it if I were to\l"
-	.string "offer to teach the move MIMIC?$"
-
-MoveTutor_MimicDeclined:
-	.string "Oh, boo! I wanted to teach MIMIC\n"
-	.string "to your POKéMON!$"
-
-MoveTutor_Text_MimicWhichMon:
-	.string "Fwofwo! And so I shall!\n"
-	.string "Let me see the POKéMON\l"
-	.string "you wish me to teach.$"
-
-MoveTutor_Text_MimicTaught:
-	.string "MIMIC is a move of great depth.\p"
-	.string "Could you execute it to perfection\n"
-	.string "as well as me…?$"
-
 MoveTutor_Text_MetronomeTeach:
 	.string "I want all sorts of things!\n"
 	.string "But I used up my allowance…\p"
@@ -235,3 +212,27 @@ MoveTutor_Text_ExplosionTaught:
 	.string "to ignite my own EXPLOSION…\p"
 	.string "Maybe it's because deep down,\n"
 	.string "I would rather stay here…$"
+	
+MoveTutor_Text_MimicTeach:
+	.string "Oh honorable {PLAYER}, you have\n"
+	.string "managed to defeat the entire Mimic\p"
+	.string "circle all by yourself. To celebrate\n"
+	.string "this amazing feat, I, the mysterious\p"
+	.string "MIMIC MASTER, shall teach your Pokemon\n"
+	.string "the ultimate move, MIMIC! It can become\p"
+	.string "any move you want it to with the right\n"
+	.string "strategy!$"
+
+MoveTutor_Text_MimicDeclined:
+	.string "What? You're turning down this honor?\n"
+	.string "You must already be a MIMIC MASTER\p"
+	.string "yourself, then...$"
+
+MoveTutor_Text_MimicWhichMon:
+	.string "Wonderful! Which Pokemon shall become\n"
+	.string "a MIMIC MASTER?$"
+
+MoveTutor_Text_MimicTaught:
+	.string "Congratulions. You and your Pokemon\n"
+	.string "have joined the ranks of the\p"
+	.string "mysterious MIMIC MASTERs!$"

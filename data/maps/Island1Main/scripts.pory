@@ -1,1 +1,140 @@
-mapscripts Island1Main_MapScripts {}
+raw `
+.equ LOCALID_BILL, 1
+
+Island1Main_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Island1Main_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Island1Main_OnFrame
+	.byte 0
+
+Island1Main_OnTransition::
+	setflag FLAG_VISITED_ONE_ISLAND
+	end
+
+Island1Main_OnFrame::
+	map_script_2 VAR_ONE_ISLAND_STATE, 2, Island1Main_EventScript_EnterIsland1MainFirstTime
+	.2byte 0
+
+Island1Main_EventScript_EnterIsland1MainFirstTime::
+	lockall
+	applymovement OBJ_EVENT_ID_PLAYER, Island1Main_Movement_PlayerExitHarbor
+	waitmovement 0
+	msgbox Island1Main_Text_BillLetsGoSeeCelio
+	closemessage
+	applymovement LOCALID_BILL, Island1Main_Movement_BillWalkToPokeCenter
+	applymovement OBJ_EVENT_ID_PLAYER, Island1Main_Movement_PlayerWalkToPokeCenter
+	waitmovement 0
+	opendoor 14, 5
+	waitdooranim
+	applymovement LOCALID_BILL, Island1Main_Movement_BillEnterPokeCenter
+	applymovement OBJ_EVENT_ID_PLAYER, Island1Main_Movement_PlayerEnterPokeCenter
+	waitmovement 0
+	closedoor 14, 5
+	waitdooranim
+	removeobject LOCALID_BILL
+	setvar VAR_ONE_ISLAND_STATE, 3
+	warp MAP_ISLAND1POKE_CENTER_1F, 9, 9
+	waitstate
+	releaseall
+	end
+
+	.macro walk_to_pokecenter
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	.endm
+
+Island1Main_Movement_PlayerWalkToPokeCenter::
+	walk_up
+	walk_to_pokecenter
+	step_end
+
+Island1Main_Movement_PlayerEnterPokeCenter::
+	walk_up
+	walk_up
+	set_invisible
+	step_end
+
+Island1Main_Movement_PlayerExitHarbor::
+	walk_up
+	step_end
+
+Island1Main_Movement_BillWalkToPokeCenter::
+	walk_to_pokecenter
+	walk_up
+	step_end
+
+Island1Main_Movement_BillEnterPokeCenter::
+	walk_up
+	set_invisible
+	step_end
+
+Island1Main_EventScript_OldMan::
+	lock
+	faceplayer
+	msgbox Island1Main_Text_LuckyToHaveCelioHere
+	release
+	end
+
+Island1Main_EventScript_BaldingMan::
+	msgbox Island1Main_Text_IsntWarmClimateHereGreat, MSGBOX_NPC
+	end
+
+Island1Main_EventScript_IslandSign::
+	msgbox Island1Main_Text_IslandSign, MSGBOX_SIGN
+	end
+
+Island1Main_EventScript_PokemonNetCenterSign::
+	msgbox Island1Main_Text_PokemonNetCenterSign, MSGBOX_SIGN
+	end
+	
+Island1Main_Text_BillLetsGoSeeCelio::
+    .string "BILL: Here we are!\n"
+    .string "This is ONE ISLAND.\p"
+    .string "There are several islands around\n"
+    .string "here, and this is one of them.\p"
+    .string "My friend CELIO sent the boat to\n"
+    .string "fetch me here.\p"
+    .string "He's in charge of the island's PC\n"
+    .string "network by his lonesome.\p"
+    .string "…Why am I telling you this now?\n"
+    .string "Let's just go see CELIO!$"
+
+Text_WhereDoYouWantToSail::
+    .string "Ahoy, there!\n"
+    .string "Where do you want to sail?$"
+
+Island1Main_Text_LuckyToHaveCelioHere::
+    .string "Here we are on an island smack in\n"
+    .string "the middle of nowhere.\p"
+    .string "We're lucky to have an upstanding\n"
+    .string "young man like CELIO here.\p"
+    .string "My granddaughter was in a tizzy\n"
+    .string "over CELIO's friend.\p"
+    .string "Something about a famous\n"
+    .string "POKéMANIAC?\p"
+    .string "I'm not sure what that means, but\n"
+    .string "CELIO is quite the man!$"
+
+
+Island1Main_Text_IslandSign::
+    .string "ONE ISLAND\n"
+    .string "Friends Gather at Knot Island$"
+
+Island1Main_Text_PokemonNetCenterSign::
+    .string "Expanding the POKéMON World!\n"
+    .string "POKéMON NET CENTER$"
+
+
+Island1Main_Text_IsntWarmClimateHereGreat::
+    .string "Hi, sight-seeing, are you?\n"
+    .string "Isn't the warm climate here great?$"
+
+`

@@ -594,6 +594,7 @@
 // gMapGroup_Sevii_Islands
 #define MAP_ISLAND1TREASURE_BEACH (0 | (34 << 8))
 #define MAP_ISLAND1MAIN           (1 | (34 << 8))
+#define MAP_ISLAND1POKE_CENTER_1F (2 | (34 << 8))
 
 #define MAP_GROUPS_COUNT 35
 

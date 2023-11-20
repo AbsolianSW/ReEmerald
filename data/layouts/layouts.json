@@ -4430,6 +4430,16 @@
       "secondary_tileset": "gTileset_Lilycove",
       "border_filepath": "data/layouts/Island1Main/border.bin",
       "blockdata_filepath": "data/layouts/Island1Main/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND1POKE_CENTER_1F",
+      "name": "Island1PokeCenter_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island1PokeCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/Island1PokeCenter_1F/map.bin"
     }
   ]
 }

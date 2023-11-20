@@ -23,12 +23,18 @@ Route119_OnTransition:
 	call Common_EventScript_SetupRivalOnBikeGfxId
 	call_if_eq VAR_WEATHER_INSTITUTE_STATE, 1, Route119_EventScript_MoveInstituteWorkersDownstairs
 	special SetRoute119Weather
+	call Route119_EventScript_CountTrainersDefeated
+	call_if_eq VAR_0x8000, 6, Route119_EventScript_ShowMimicTutor
 	end
 
 Route119_EventScript_MoveInstituteWorkersDownstairs::
 	setflag FLAG_HIDE_WEATHER_INSTITUTE_2F_WORKERS
 	clearflag FLAG_HIDE_WEATHER_INSTITUTE_1F_WORKERS
 	setvar VAR_WEATHER_INSTITUTE_STATE, 2
+	return
+	
+Route119_EventScript_ShowMimicTutor::
+	clearflag FLAG_ROUTE_119_HIDE_MIMIC_TUTOR
 	return
 
 Route119_EventScript_RivalTrigger1::
@@ -479,6 +485,28 @@ Route119_EventScript_ScottWonAtFortreeGymCall::
 	addvar VAR_SCOTT_STATE, 1
 	releaseall
 	end
+	
+Route119_EventScript_CountTrainersDefeated::
+	setvar VAR_0x8000, 0
+	goto_if_not_defeated TRAINER_DONALD, Route119_EventScript_CheckGreg
+	addvar VAR_0x8000, 1
+Route119_EventScript_CheckGreg::
+	goto_if_not_defeated TRAINER_GREG, Route119_EventScript_CheckKent
+	addvar VAR_0x8000, 1
+Route119_EventScript_CheckKent::
+	goto_if_not_defeated TRAINER_KENT, Route119_EventScript_CheckTaylor
+	addvar VAR_0x8000, 1
+Route119_EventScript_CheckTaylor::
+	goto_if_not_defeated TRAINER_TAYLOR, Route119_EventScript_CheckBrent
+	addvar VAR_0x8000, 1
+Route119_EventScript_CheckBrent::
+	goto_if_not_defeated TRAINER_BRENT, Route119_EventScript_CheckDoug
+	addvar VAR_0x8000, 1
+Route119_EventScript_CheckDoug::
+	goto_if_not_defeated TRAINER_DOUG, Route119_EventScript_StopCountingTrainers
+	addvar VAR_0x8000, 1
+Route119_EventScript_StopCountingTrainers::
+	return
 
 Route119_Text_MayIntro:
 	.string "MAY: {PLAYER}{KUN}!\n"

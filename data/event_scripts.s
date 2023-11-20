@@ -1060,3 +1060,5 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/Island1TreasureBeach/scripts.inc"
 
 	.include "data/maps/Island1Main/scripts.inc"
+
+	.include "data/maps/Island1PokeCenter_1F/scripts.inc"

@@ -1962,6 +1962,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     u8 fixedIV;
     s32 i, j;
     u8 monsCount;
+    s8 natureOffset;
 
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
@@ -2060,6 +2061,43 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 {
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                }
+                break;
+            }
+            case F_TRAINER_EVERYTHING:
+            {
+                const struct TrainerMonEverything *partyData = gTrainers[trainerNum].party.Everything;
+
+                for (j = 0; gSpeciesNames[partyData[i].species][j] != EOS; j++)
+                    nameHash += gSpeciesNames[partyData[i].species][j];
+
+                personalityValue += nameHash << 8;
+                //ensure nature but keep gender intact
+                natureOffset = partyData[i].nature - personalityValue%NUM_NATURES;
+                if (gTrainers[trainerNum].encounterMusic_gender & F_TRAINER_FEMALE) {
+                    if(natureOffset < 0)
+                        personalityValue += natureOffset;
+                    else 
+                        personalityValue += (natureOffset -= NUM_NATURES);
+                } else {
+                    if(natureOffset < 0)
+                        personalityValue += (natureOffset += NUM_NATURES);
+                    else 
+                        personalityValue += natureOffset;
+                }
+                fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
+                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+
+                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+
+                for (j = 0; j < MAX_MON_MOVES; j++)
+                {
+                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
+                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                }
+                //evs
+                for(j=0; j < 6;j++) {
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &partyData[i].ev[j]);
                 }
                 break;
             }

@@ -980,6 +980,7 @@ void SetDefaultFlashLevel(void)
 
 void SetFlashLevel(s32 flashLevel)
 {
+    DebugPrintf("setting flash level to %d\n", flashLevel);
     if (flashLevel < 0 || flashLevel > gMaxFlashLevel)
         flashLevel = 0;
     gSaveBlock1Ptr->flashLevel = flashLevel;

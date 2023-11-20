@@ -64,28 +64,6 @@ MoveTutor_EventScript_FuryCutterTaught::
 	release
 	end
 
-LavaridgeTown_House_EventScript_MimicTutor::
-	lock
-	faceplayer
-	msgbox MoveTutor_MimicTeach, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, MoveTutor_EventScript_MimicDeclined
-	msgbox MoveTutor_Text_MimicWhichMon, MSGBOX_DEFAULT
-	setvar VAR_0x8005, TUTOR_MOVE_MIMIC
-	call MoveTutor_EventScript_OpenPartyMenu
-	goto_if_eq VAR_RESULT, 0, MoveTutor_EventScript_MimicDeclined
-	goto MoveTutor_EventScript_MimicTaught
-	end
-
-MoveTutor_EventScript_MimicDeclined::
-	msgbox MoveTutor_MimicDeclined, MSGBOX_DEFAULT
-	release
-	end
-
-MoveTutor_EventScript_MimicTaught::
-	msgbox MoveTutor_Text_MimicTaught, MSGBOX_DEFAULT
-	release
-	end
-
 FallarborTown_Mart_EventScript_MetronomeTutor::
 	lock
 	faceplayer
@@ -215,6 +193,28 @@ MoveTutor_EventScript_ExplosionDeclined::
 
 MoveTutor_EventScript_ExplosionTaught::
 	msgbox MoveTutor_Text_ExplosionTaught, MSGBOX_DEFAULT
+	release
+	end
+	
+Route119_EventScript_MimicTutor::
+	lock
+	faceplayer
+	msgbox MoveTutor_Text_MimicTeach, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MoveTutor_EventScript_MimicDeclined
+	msgbox MoveTutor_Text_MimicWhichMon, MSGBOX_DEFAULT
+	setvar VAR_0x8005, TUTOR_MOVE_MIMIC
+	call MoveTutor_EventScript_OpenPartyMenu
+	goto_if_eq VAR_RESULT, 0, MoveTutor_EventScript_MimicDeclined
+	goto MoveTutor_EventScript_MimicTaught
+	end
+
+MoveTutor_EventScript_MimicDeclined::
+	msgbox MoveTutor_Text_MimicDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+MoveTutor_EventScript_MimicTaught::
+	msgbox MoveTutor_Text_MimicTaught, MSGBOX_DEFAULT
 	release
 	end
 

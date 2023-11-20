@@ -4298,12 +4298,4 @@ void BufferVarsForHiddenPowerIdentifier(void)
                  | ((ivStorage[5] & 1) << 5);
     gSpecialVar_0x8005 = (40 * powerBits) / 63 + 30;
     gSpecialVar_0x8006 = ((NUMBER_OF_MON_TYPES - 3) * typeBits) / 63 + 1;
-    DebugPrintf("HP %d\n", ivStorage[0]);
-    DebugPrintf("ATK %d\n", ivStorage[1]);
-    DebugPrintf("DEF %d\n", ivStorage[2]);
-    DebugPrintf("SPE %d\n", ivStorage[3]);
-    DebugPrintf("SPA %d\n", ivStorage[4]);
-    DebugPrintf("SPD %d\n", ivStorage[5]);
-    DebugPrintf("power %d\n", gSpecialVar_0x8005);
-    DebugPrintf("type %d\n", gSpecialVar_0x8006);
 }

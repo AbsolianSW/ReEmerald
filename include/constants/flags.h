@@ -320,7 +320,7 @@
 #define FLAG_KECLEON_FLED_FORTREE            0x127
 #define FLAG_PETALBURG_MART_EXPANDED_ITEMS   0x128
 #define FLAG_RECEIVED_MIRACLE_SEED           0x129
-#define FLAG_RECEIVED_BELDUM                 0x12A
+#define FLAG_RECEIVED_JIRACHI                0x12A
 #define FLAG_RECEIVED_TM_FRUSTRATION         0x12B //changed
 #define FLAG_MET_FANCLUB_YOUNGER_BROTHER     0x12C
 #define FLAG_RIVAL_LEFT_FOR_ROUTE103         0x12D
@@ -1015,7 +1015,7 @@
 #define FLAG_HIDE_SLATEPORT_CITY_OCEANIC_MUSEUM_FAMILIAR_AQUA_GRUNT 0x3C5
 #define FLAG_HIDE_ROUTE_118_STEVEN                                  0x3C6
 #define FLAG_HIDE_MOSSDEEP_CITY_STEVENS_HOUSE_STEVEN                0x3C7
-#define FLAG_HIDE_MOSSDEEP_CITY_STEVENS_HOUSE_BELDUM_POKEBALL       0x3C8
+#define FLAG_HIDE_MOSSDEEP_CITY_STEVENS_HOUSE_JIRACHI_POKEBALL       0x3C8
 #define FLAG_HIDE_FORTREE_CITY_KECLEON                              0x3C9
 #define FLAG_HIDE_ROUTE_120_KECLEON_BRIDGE                          0x3CA
 #define FLAG_HIDE_LILYCOVE_CITY_RIVAL                               0x3CB
@@ -1194,7 +1194,7 @@
 #define FLAG_ITEM_ROUTE_111_ELIXIR                                  0x476
 #define FLAG_ITEM_ROUTE_113_HYPER_POTION                            0x477
 #define FLAG_ITEM_ROUTE_115_HEAL_POWDER                             0x478
-#define FLAG_UNUSED_0x479                                           0x479 // Unused Flag
+#define FLAG_ROUTE_119_HIDE_MIMIC_TUTOR                             0x479 // Previously unused Flag
 #define FLAG_ITEM_ROUTE_116_POTION                                  0x47A
 #define FLAG_ITEM_ROUTE_119_ELIXIR_2                                0x47B
 #define FLAG_ITEM_ROUTE_120_REVIVE                                  0x47C
@@ -1221,7 +1221,7 @@
 #define FLAG_ITEM_SAFARI_ZONE_NORTH_EAST_NUGGET                     0x491
 #define FLAG_ITEM_SAFARI_ZONE_SOUTH_EAST_BIG_PEARL                  0x492
 
-//these previously unused flags will be for Sevii Islands
+//these previously unused flags will be for Sevii Islands events
 #define FLAG_ITEM_TREASURE_BEACH_STAR_DUST                          0x493 // Unused Flag
 #define FLAG_ITEM_TREASURE_BEACH_STAR_DUST_2                        0x494 // Unused Flag
 #define FLAG_ITEM_TREASURE_BEACH_ULTRA_BALL                         0x495 // Unused Flag
@@ -1230,7 +1230,7 @@
 #define FLAG_ITEM_TREASURE_BEACH_PEARL_2                            0x498 // Unused Flag
 #define FLAG_ITEM_TREASURE_BEACH_STAR_PIECE                         0x499 // Unused Flag
 #define FLAG_ITEM_TREASURE_BEACH_BIG_PEARL                          0x49A // Unused Flag
-#define FLAG_UNUSED_0x49B                                           0x49B // Unused Flag
+#define FLAG_VISITED_ONE_ISLAND                                     0x49B // Unused Flag
 #define FLAG_UNUSED_0x49C                                           0x49C // Unused Flag
 #define FLAG_UNUSED_0x49D                                           0x49D // Unused Flag
 #define FLAG_UNUSED_0x49E                                           0x49E // Unused Flag
