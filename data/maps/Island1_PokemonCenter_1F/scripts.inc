@@ -1,0 +1,61 @@
+.set LOCALID_NURSE, 1
+
+Island1_PokemonCenter_1F_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Island1_PokemonCenter_1F_OnTransition
+	map_script MAP_SCRIPT_ON_RESUME, CableClub_OnResume
+	.byte 0
+	
+Island1_PokemonCenter_1F_OnTransition:
+	setrespawn HEAL_LOCATION_ISLAND1MAIN
+	end
+
+Island1_PokemonCenter_1F_EventScript_Nurse::
+	setvar VAR_0x800B, LOCALID_NURSE
+	call Common_EventScript_PkmnCenterNurse
+	waitmessage
+	waitbuttonpress
+	release
+	end
+
+Island1_PokemonCenter_1F_EventScript_BattleGirl::
+	lock
+	faceplayer
+	msgbox Island1_PokemonCenter_1F_Text_TradedWithBoyfriend
+	release
+	end
+
+Island1_PokemonCenter_1F_EventScript_LittleBoy::
+	lock
+	faceplayer
+	msgbox Island1_PokemonCenter_1F_Text_CameFromLittlerootDontKnowIt
+	release
+	end
+
+Island1_PokemonCenter_1F_EventScript_Hiker::
+	lock
+	faceplayer
+	msgbox Island1_PokemonCenter_1F_Text_EnormousVolcanoOnIsland
+	release
+	end
+
+
+
+
+Island1_PokemonCenter_1F_Text_TradedWithBoyfriend:
+	.string "I traded POKéMON with my boyfriend\n"
+    .string "far away!\p"
+    .string "Everyone's saying that we can\n"
+    .string "thank CELIO for that.\p"
+    .string "What a guy!$"
+    
+Island1_PokemonCenter_1F_Text_CameFromLittlerootDontKnowIt::
+    .string "Oh, you're a stranger here!\n"
+    .string "Hi! Where did you come from?\p"
+    .string "…LITTLEROOT TOWN?\n"
+    .string "I don't know it!$"
+
+Island1_PokemonCenter_1F_Text_EnormousVolcanoOnIsland::
+    .string "On this island, there's an enormous\n"
+    .string "volcano.\p"
+    .string "It hasn't erupted lately, so why\n"
+    .string "not enjoy a hike?$"

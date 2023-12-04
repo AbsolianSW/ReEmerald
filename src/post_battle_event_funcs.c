@@ -28,7 +28,7 @@ int GameClear(void)
     {
         gHasHallOfFameRecords = FALSE;
         FlagSet(FLAG_SYS_GAME_CLEAR);
-        VarSet(VAR_SKY_PILLAR_STATE, 3);
+        VarSet(VAR_SKY_PILLAR_STATE, 4);
     }
 
     if (GetGameStat(GAME_STAT_FIRST_HOF_PLAY_TIME) == 0)

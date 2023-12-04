@@ -23,6 +23,7 @@
 static EWRAM_DATA u8 sProcessInputDelay = 0;
 
 static u8 sLilycoveSSTidalSelections[SSTIDAL_SELECTION_COUNT];
+static u8 sSeviiFerrySelections[SEVII_FERRY_SELECTION_COUNT];
 
 static void Task_HandleMultichoiceInput(u8 taskId);
 static void Task_HandleYesNoInput(u8 taskId);
@@ -32,6 +33,7 @@ static void InitMultichoiceCheckWrap(bool8 ignoreBPress, u8 count, u8 windowId, 
 static void DrawLinkServicesMultichoiceMenu(u8 multichoiceId);
 static void CreatePCMultichoice(void);
 static void CreateLilycoveSSTidalMultichoice(void);
+static void CreateSeviiFerryMultichoice(void);
 static bool8 IsPicboxClosed(void);
 static void CreateStartMenuForPokenavTutorial(void);
 static void InitMultichoiceNoWrap(bool8 ignoreBPress, u8 unusedCount, u8 windowId, u8 multichoiceId);
@@ -491,6 +493,22 @@ static void CreateLilycoveSSTidalMultichoice(void)
         }
     }
 
+    if (CheckBagHasItem(ITEM_RAINBOW_PASS, 1) == TRUE && FlagGet(FLAG_SYS_GAME_CLEAR) == TRUE)
+    {
+        if (gSpecialVar_0x8004 == 0)
+        {
+            sLilycoveSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_ONE_ISLAND;
+            selectionCount++;
+        }
+
+        if (gSpecialVar_0x8004 == 1 && FlagGet(FLAG_SHOWN_RAINBOW_PASS) == FALSE)
+        {
+            sLilycoveSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_ONE_ISLAND;
+            selectionCount++;
+            FlagSet(FLAG_SHOWN_RAINBOW_PASS);
+        }
+    }
+
     sLilycoveSSTidalSelections[selectionCount] = SSTIDAL_SELECTION_EXIT;
     selectionCount++;
 
@@ -542,6 +560,35 @@ void GetLilycoveSSTidalSelection(void)
     if (gSpecialVar_Result != MULTI_B_PRESSED)
     {
         gSpecialVar_Result = sLilycoveSSTidalSelections[gSpecialVar_Result];
+    }
+}
+
+bool8 ScriptMenu_CreateSeviiFerryMultichoice(void)
+{
+    if (FuncIsActiveTask(Task_HandleMultichoiceInput) == TRUE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        gSpecialVar_Result = 0xFF;
+        CreateSeviiFerryMultichoice();
+        return TRUE;
+    }
+}
+
+// gSpecialVar_0x8004 is equal to the island number
+static void CreateSeviiFerryMultichoice(void)
+{
+    gSpecialVar_0x8004 += OFFSET_SEVII_MULTICHOICE_TO_ISLAND_NUMBER;
+        ShowScrollableMultichoice();
+}
+
+void GetSeviiFerrySelection(void)
+{
+    if (gSpecialVar_Result != MULTI_B_PRESSED)
+    {
+        gSpecialVar_Result = sSeviiFerrySelections[gSpecialVar_Result];
     }
 }
 

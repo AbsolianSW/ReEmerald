@@ -1,0 +1,15 @@
+mapscripts Island1_House1_MapScripts {}
+
+script Island1_House1_EventScript_OldMan {
+	lock
+	faceplayer
+	msgbox(format("On sunny days, I step out and gaze upon the volcano. That's my daily routine."))
+	release
+}
+
+script Island1_House1_EventScript_OldWoman {
+	lock
+	faceplayer
+	msgbox(format("Let me think… When was the last time MT. EMBER erupted?"))
+	release
+}

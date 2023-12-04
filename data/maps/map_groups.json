@@ -625,6 +625,11 @@
   "gMapGroup_Sevii_Islands": [
     "Island1TreasureBeach",
     "Island1Main",
-    "Island1PokeCenter_1F"
+    "Island1Harbor",
+    "Island1_PokemonCenter_1F",
+    "Island1_House1",
+    "Island1_House2",
+    "Island1_PokemonCenter_2F",
+    "Island1_KindleRoad"
   ]
 }

@@ -14,6 +14,8 @@ LittlerootTown_MapScripts::
 	@ 2: Saving Birch
 	@ 3: Received Pokedex
 	@ 4: Received Running Shoes
+	@ 5: Beat E4, haven't received Rainbow Pass
+	@ 6: Received Rainbow Pass
 
 	@ State descriptions for VAR_LITTLEROOT_INTRO_STATE
 	@ 1: In truck male
@@ -908,6 +910,9 @@ LittlerootTown_EventScript_GiveRunningShoes::
 	closemessage
 	delay 30
 	return
+	
+LittlerootTown_EventScript_GiveRainbowPass::
+	
 
 LittlerootTown_Text_OurNewHomeLetsGoInside:
 	.string "MOM: {PLAYER}, we're here, honey!\p"

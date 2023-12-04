@@ -1506,8 +1506,7 @@ static const u8 sTriPassDesc[] = _(
 
 static const u8 sRainbowPassDesc[] = _(
     "For ferries serving\n"
-    "VERMILION and the\n"
-    "SEVII ISLANDS.");
+    "the SEVII ISLANDS.");
 
 static const u8 sTeaDesc[] = _(
     "A thirst-quenching\n"

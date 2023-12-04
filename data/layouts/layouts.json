@@ -2417,7 +2417,7 @@
       "width": 58,
       "height": 26,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "0",
+      "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/UnusedOutdoorArea/border.bin",
       "blockdata_filepath": "data/layouts/UnusedOutdoorArea/map.bin"
     },
@@ -4432,14 +4432,64 @@
       "blockdata_filepath": "data/layouts/Island1Main/map.bin"
     },
     {
-      "id": "LAYOUT_ISLAND1POKE_CENTER_1F",
-      "name": "Island1PokeCenter_1F_Layout",
+      "id": "LAYOUT_ISLAND1HARBOR",
+      "name": "Island1Harbor_Layout",
+      "width": 17,
+      "height": 13,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/Island1Harbor/border.bin",
+      "blockdata_filepath": "data/layouts/Island1Harbor/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND1_POKEMON_CENTER_1F",
+      "name": "Island1_PokemonCenter_1F_Layout",
       "width": 14,
       "height": 9,
       "primary_tileset": "gTileset_Building",
       "secondary_tileset": "gTileset_PokemonCenter",
-      "border_filepath": "data/layouts/Island1PokeCenter_1F/border.bin",
-      "blockdata_filepath": "data/layouts/Island1PokeCenter_1F/map.bin"
+      "border_filepath": "data/layouts/Island1_PokemonCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/Island1_PokemonCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND1_HOUSE1",
+      "name": "Island1_House1_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island1_House1/border.bin",
+      "blockdata_filepath": "data/layouts/Island1_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND1_HOUSE2",
+      "name": "Island1_House2_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island1_House2/border.bin",
+      "blockdata_filepath": "data/layouts/Island1_House2/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND1_POKEMON_CENTER_2F",
+      "name": "Island1_PokemonCenter_2F_Layout",
+      "width": 14,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island1_PokemonCenter_2F/border.bin",
+      "blockdata_filepath": "data/layouts/Island1_PokemonCenter_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND1_KINDLE_ROAD",
+      "name": "Island1_KindleRoad_Layout",
+      "width": 24,
+      "height": 140,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Fallarbor",
+      "border_filepath": "data/layouts/Island1_KindleRoad/border.bin",
+      "blockdata_filepath": "data/layouts/Island1_KindleRoad/map.bin"
     }
   ]
 }

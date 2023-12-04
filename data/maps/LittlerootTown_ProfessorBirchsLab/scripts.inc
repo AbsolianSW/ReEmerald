@@ -203,6 +203,8 @@ LittlerootTown_ProfessorBirchsLab_EventScript_UpgradeToNationalDex::
 	setflag FLAG_SYS_NATIONAL_DEX
 	special EnableNationalPokedex
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_GrassyPatchWaiting2, MSGBOX_DEFAULT
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_ActuallyMore, MSGBOX_DEFAULT
+	giveitem ITEM_RAINBOW_PASS
 	closemessage
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL
@@ -999,3 +1001,10 @@ LittlerootTown_ProfessorBirchsLab_Text_ScottAboardSSTidalCall:
 	.string "we meet. I'll be waiting!\p"
 	.string "… … … … … …\n"
 	.string "… … … … … Click!$"
+	
+LittlerootTown_ProfessorBirchsLab_Text_ActuallyMore:
+	.string "Actually, {PLAYER}, there is something\n"
+	.string "else. A friend of mine contacted me\p"
+	.string "recently, he wants to meet you. If you\n"
+	.string "take this to the harbor, a boat should\p"
+	.string "take you to where you need to be.$"

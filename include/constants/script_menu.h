@@ -17,7 +17,7 @@
 #define MULTI_BASE_PC_WITH_REGISTRY        6
 #define MULTI_REGISTER_MENU                7
 #define MULTI_SSTIDAL_LILYCOVE             8 // Exit only, populated by CreateLilycoveSSTidalMultichoice
-#define MULTI_UNUSED_9                     9
+#define MULTI_SEVII_FERRY                  9 // Exit only, populated by CreateSeviiFerryMultichoice
 #define MULTI_UNUSED_10                    10
 #define MULTI_FRONTIER_PASS_INFO           11
 #define MULTI_BIKE                         12
@@ -130,8 +130,21 @@
 #define SSTIDAL_SELECTION_NAVEL_ROCK       3
 #define SSTIDAL_SELECTION_BIRTH_ISLAND     4
 #define SSTIDAL_SELECTION_FARAWAY_ISLAND   5
-#define SSTIDAL_SELECTION_EXIT             6
-#define SSTIDAL_SELECTION_COUNT            7
+#define SSTIDAL_SELECTION_ONE_ISLAND       6
+#define SSTIDAL_SELECTION_EXIT             7
+#define SSTIDAL_SELECTION_COUNT            8
+
+// Sevii Ferry Multichoice Selections
+#define SEVII_FERRY_SELECTION_LILYCOVE     0
+#define SEVII_FERRY_SELECTION_1            1
+#define SEVII_FERRY_SELECTION_2            2
+#define SEVII_FERRY_SELECTION_3            3
+#define SEVII_FERRY_SELECTION_4            4
+#define SEVII_FERRY_SELECTION_5            5
+#define SEVII_FERRY_SELECTION_6            6
+#define SEVII_FERRY_SELECTION_7            7
+#define SEVII_FERRY_SELECTION_EXIT         8
+#define SEVII_FERRY_SELECTION_COUNT        9
 
 // Std String Ids
 #define STDSTRING_COOL             0

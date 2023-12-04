@@ -2362,7 +2362,7 @@ void ShowScrollableMultichoice(void)
         break;
     case SCROLL_MULTI_SS_TIDAL_DESTINATION:
         task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
+        task->tNumItems = 8;
         task->tLeft = 19;
         task->tTop = 1;
         task->tWidth = 10;
@@ -2372,10 +2372,26 @@ void ShowScrollableMultichoice(void)
         break;
     case SCROLL_MULTI_BATTLE_TENT_RULES:
         task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
+        task->tNumItems = 8;
         task->tLeft = 17;
         task->tTop = 1;
         task->tWidth = 12;
+        task->tHeight = 12;
+        task->tKeepOpenAfterSelect = FALSE;
+        task->tTaskId = taskId;
+        break;
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_1:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_2:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_3:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_4:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_5:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_6:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_7:
+        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
+        task->tNumItems = 8;
+        task->tLeft = 19;
+        task->tTop = 1;
+        task->tWidth = 10;
         task->tHeight = 12;
         task->tKeepOpenAfterSelect = FALSE;
         task->tTaskId = taskId;
@@ -2529,6 +2545,7 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
         gText_NavelRock,
         gText_BirthIsland,
         gText_FarawayIsland,
+        gText_OneIsland,
         gText_Exit
     },
     [SCROLL_MULTI_BATTLE_TENT_RULES] =
@@ -2539,6 +2556,83 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
         gText_PokemonMoves,
         gText_Underpowered,
         gText_WhenInDanger,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_1] =
+    {
+        gText_LilycoveCity,
+        gText_TwoIsland,
+        gText_ThreeIsland,
+        gText_FourIsland,
+        gText_FiveIsland,
+        gText_SixIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_2] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_ThreeIsland,
+        gText_FourIsland,
+        gText_FiveIsland,
+        gText_SixIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_3] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_TwoIsland,
+        gText_FourIsland,
+        gText_FiveIsland,
+        gText_SixIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_4] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_TwoIsland,
+        gText_ThreeIsland,
+        gText_FiveIsland,
+        gText_SixIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_5] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_TwoIsland,
+        gText_ThreeIsland,
+        gText_FourIsland,
+        gText_SixIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_6] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_TwoIsland,
+        gText_ThreeIsland,
+        gText_FourIsland,
+        gText_FiveIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_7] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_TwoIsland,
+        gText_ThreeIsland,
+        gText_FourIsland,
+        gText_FiveIsland,
+        gText_SixIsland,
         gText_Exit
     }
 };

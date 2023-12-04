@@ -10,6 +10,8 @@ Route119_MapScripts::
 
 Route119_OnResume:
 	call_if_set FLAG_SYS_CTRL_OBJ_DELETE, Route119_EventScript_TryRemoveKecleon
+	call Route119_EventScript_CountTrainersDefeated
+	call_if_eq VAR_0x8000, 6, Route119_EventScript_ShowMimicTutor
 	end
 
 Route119_EventScript_TryRemoveKecleon::

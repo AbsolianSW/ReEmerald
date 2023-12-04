@@ -1017,6 +1017,7 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/scripts/tv.inc"
 	.include "data/text/tv.inc"
 	.include "data/scripts/interview.inc"
+	.include "data/scripts/island_harbors.inc"
 	.include "data/scripts/gabby_and_ty.inc"
 	.include "data/text/pokemon_news.inc"
 	.include "data/scripts/mauville_man.inc"
@@ -1061,4 +1062,14 @@ Common_EventScript_LegendaryFlewAway::
 
 	.include "data/maps/Island1Main/scripts.inc"
 
-	.include "data/maps/Island1PokeCenter_1F/scripts.inc"
+	.include "data/maps/Island1Harbor/scripts.inc"
+
+	.include "data/maps/Island1_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/Island1_House1/scripts.inc"
+
+	.include "data/maps/Island1_House2/scripts.inc"
+
+	.include "data/maps/Island1_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/Island1_KindleRoad/scripts.inc"

@@ -465,8 +465,8 @@
 #define FLAG_SHOWN_AURORA_TICKET             0x1AF
 #define FLAG_SHOWN_OLD_SEA_MAP               0x1B0
 // these flags were originally used for move tutors, but with our removable ones they are
-// now unnecessary
-//#define FLAG_MOVE_TUTOR_TAUGHT_SWAGGER       0x1B1
+// now unnecessary and used for something else
+#define FLAG_SHOWN_RAINBOW_PASS              0x1B1
 //#define FLAG_MOVE_TUTOR_TAUGHT_ROLLOUT       0x1B2
 //#define FLAG_MOVE_TUTOR_TAUGHT_FURY_CUTTER   0x1B3
 //#define FLAG_MOVE_TUTOR_TAUGHT_MIMIC         0x1B4
@@ -1231,7 +1231,7 @@
 #define FLAG_ITEM_TREASURE_BEACH_STAR_PIECE                         0x499 // Unused Flag
 #define FLAG_ITEM_TREASURE_BEACH_BIG_PEARL                          0x49A // Unused Flag
 #define FLAG_VISITED_ONE_ISLAND                                     0x49B // Unused Flag
-#define FLAG_UNUSED_0x49C                                           0x49C // Unused Flag
+#define FLAG_ONE_ISLAND_HIDE_BILL                                   0x49C // Unused Flag
 #define FLAG_UNUSED_0x49D                                           0x49D // Unused Flag
 #define FLAG_UNUSED_0x49E                                           0x49E // Unused Flag
 #define FLAG_UNUSED_0x49F                                           0x49F // Unused Flag

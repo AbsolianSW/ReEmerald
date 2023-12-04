@@ -792,7 +792,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_BASE_PC_WITH_REGISTRY]      = MULTICHOICE(MultichoiceList_BasePCWithRegistry),
     [MULTI_REGISTER_MENU]              = MULTICHOICE(MultichoiceList_RegisterMenu),
     [MULTI_SSTIDAL_LILYCOVE]           = MULTICHOICE(MultichoiceList_Exit),
-    [MULTI_UNUSED_9]                   = MULTICHOICE(MultichoiceList_Exit),
+    [MULTI_SEVII_FERRY]                   = MULTICHOICE(MultichoiceList_Exit),
     [MULTI_UNUSED_10]                  = MULTICHOICE(MultichoiceList_Exit),
     [MULTI_FRONTIER_PASS_INFO]         = MULTICHOICE(MultichoiceList_FrontierPassInfo),
     [MULTI_BIKE]                       = MULTICHOICE(MultichoiceList_Bike),
@@ -959,7 +959,21 @@ static const u8 *const sLilycoveSSTidalDestinations[SSTIDAL_SELECTION_COUNT] =
     [SSTIDAL_SELECTION_NAVEL_ROCK]      = gText_NavelRock,
     [SSTIDAL_SELECTION_BIRTH_ISLAND]    = gText_BirthIsland,
     [SSTIDAL_SELECTION_FARAWAY_ISLAND]  = gText_FarawayIsland,
+    [SSTIDAL_SELECTION_ONE_ISLAND]      = gText_OneIsland,
     [SSTIDAL_SELECTION_EXIT]            = gText_Exit,
+};
+
+static const u8 *const sSeviiFerryDestinations[SEVII_FERRY_SELECTION_COUNT] =
+{
+    [SEVII_FERRY_SELECTION_LILYCOVE]    = gText_LilycoveCity,
+    [SEVII_FERRY_SELECTION_1]           = gText_OneIsland,
+    [SEVII_FERRY_SELECTION_2]           = gText_TwoIsland,
+    [SEVII_FERRY_SELECTION_3]           = gText_ThreeIsland,
+    [SEVII_FERRY_SELECTION_4]           = gText_FourIsland,
+    [SEVII_FERRY_SELECTION_5]           = gText_FiveIsland,
+    [SEVII_FERRY_SELECTION_6]           = gText_SixIsland,
+    [SEVII_FERRY_SELECTION_7]           = gText_SevenIsland,
+    [SEVII_FERRY_SELECTION_EXIT]        = gText_Exit,
 };
 
 static const u8 *const sCableClubOptions_WithRecordMix[] =
