@@ -37,6 +37,8 @@
 #include "mirage_tower.h"
 #include "field_screen_effect.h"
 #include "data.h"
+#include "battle_anim.h"
+#include "overworld.h"
 #include "constants/battle_frontier.h"
 #include "constants/battle_setup.h"
 #include "constants/game_stat.h"
@@ -46,6 +48,7 @@
 #include "constants/trainers.h"
 #include "constants/trainer_hill.h"
 #include "constants/weather.h"
+#include "constants/region_map_sections.h"
 
 enum {
     TRANSITION_TYPE_NORMAL,
@@ -95,6 +98,7 @@ EWRAM_DATA static u16 sTrainerBattleMode = 0;
 EWRAM_DATA u16 gTrainerBattleOpponent_A = 0;
 EWRAM_DATA u16 gTrainerBattleOpponent_B = 0;
 EWRAM_DATA u16 gPartnerTrainerId = 0;
+EWRAM_DATA bool8 gCannotCatch = 0;
 EWRAM_DATA static u16 sTrainerObjectEventLocalId = 0;
 EWRAM_DATA static u8 *sTrainerAIntroSpeech = NULL;
 EWRAM_DATA static u8 *sTrainerBIntroSpeech = NULL;
@@ -387,6 +391,8 @@ static void CreateBattleStartTask(u8 transition, u16 song)
 
 void BattleSetup_StartWildBattle(void)
 {
+    if(FlagGet(FLAG_CHALLENGES_LIMITED_ENCOUNTERS) && FlagGet(FLAG_SYS_POKEDEX_GET))
+        gCannotCatch = HasWildPokmnOnThisRouteBeenSeen(GetCurrentRegionMapSectionId(), TRUE);
     if (GetSafariZoneFlag())
         DoSafariBattle();
     else
@@ -1893,4 +1899,362 @@ u16 CountBattledRematchTeams(u16 trainerId)
     }
 
     return i;
+}
+
+u8 HasWildPokmnOnThisRouteBeenSeen(u8 currLocation, bool8 setVarForThisEnc){
+    u8 varToCheck, bitToCheck;
+    u16 speciesEnemy;
+    u16 varValue;
+    const u16 pkmnSeenVars[] = {
+    VAR_WILD_PKMN_ROUTE_SEEN_0,
+    VAR_WILD_PKMN_ROUTE_SEEN_1,
+    VAR_WILD_PKMN_ROUTE_SEEN_2,
+    VAR_WILD_PKMN_ROUTE_SEEN_3,
+    VAR_WILD_PKMN_ROUTE_SEEN_4,
+    };
+    if (!FlagGet(FLAG_CHALLENGES_LIMITED_ENCOUNTERS)){
+        VarSet(VAR_WILD_PKMN_ROUTE_SEEN_0, 0);
+        VarSet(VAR_WILD_PKMN_ROUTE_SEEN_1, 0);
+        VarSet(VAR_WILD_PKMN_ROUTE_SEEN_2, 0);
+        VarSet(VAR_WILD_PKMN_ROUTE_SEEN_3, 0);
+        VarSet(VAR_WILD_PKMN_ROUTE_SEEN_4, 0);
+        return 0;
+    }
+    switch (currLocation)
+    {
+    case MAPSEC_LITTLEROOT_TOWN:
+        varToCheck = 0;
+        bitToCheck = 0;
+        break;
+   case MAPSEC_OLDALE_TOWN:
+        varToCheck = 0;
+        bitToCheck = 1;
+        break;
+        break;
+    case MAPSEC_DEWFORD_TOWN:
+        varToCheck = 0;
+        bitToCheck = 2;
+        break;
+    case MAPSEC_LAVARIDGE_TOWN:
+        varToCheck = 0;
+        bitToCheck = 3;
+        break;
+    case MAPSEC_FALLARBOR_TOWN:
+        varToCheck = 0;
+        bitToCheck = 4;
+        break;
+    case MAPSEC_VERDANTURF_TOWN:
+        varToCheck = 0;
+        bitToCheck = 5;
+        break;
+    case MAPSEC_PACIFIDLOG_TOWN:
+        varToCheck = 0;
+        bitToCheck = 6;
+        break;
+    case MAPSEC_PETALBURG_CITY:
+        varToCheck = 0;
+        bitToCheck = 7;
+        break;
+    case MAPSEC_SLATEPORT_CITY:
+        varToCheck = 0;
+        bitToCheck = 8;
+        break;
+    case MAPSEC_MAUVILLE_CITY:
+        varToCheck = 0;
+        bitToCheck = 9;
+        break;
+    case MAPSEC_RUSTBORO_CITY:
+        varToCheck = 0;
+        bitToCheck = 10;
+        break;
+    case MAPSEC_FORTREE_CITY:
+        varToCheck = 0;
+        bitToCheck = 11;
+        break;
+    case MAPSEC_LILYCOVE_CITY:
+        varToCheck = 0;
+        bitToCheck = 12;
+        break;
+    case MAPSEC_MOSSDEEP_CITY:
+        varToCheck = 0;
+        bitToCheck = 13;
+        break;
+    case MAPSEC_SOOTOPOLIS_CITY:
+    case MAPSEC_UNDERWATER_SOOTOPOLIS:
+        varToCheck = 0;
+        bitToCheck = 14;
+        break;
+    case MAPSEC_EVER_GRANDE_CITY:
+        varToCheck = 0;
+        bitToCheck = 15;   
+        break;
+       
+    case MAPSEC_ROUTE_101:
+        varToCheck = 1;
+        bitToCheck = 0;
+        break;
+    case MAPSEC_ROUTE_102:
+        varToCheck = 1;
+        bitToCheck = 1;
+        break;
+    case MAPSEC_ROUTE_103:
+        varToCheck = 1;
+        bitToCheck = 2;
+        break;
+    case MAPSEC_ROUTE_104:
+        varToCheck = 1;
+        bitToCheck = 3;
+        break;
+    case MAPSEC_ROUTE_105:
+    case MAPSEC_UNDERWATER_105:
+        varToCheck = 1;
+        bitToCheck = 4;
+        break;
+    case MAPSEC_ROUTE_106:
+        varToCheck = 1;
+        bitToCheck = 5;
+        break;
+    case MAPSEC_ROUTE_107:
+        varToCheck = 1;
+        bitToCheck = 6;
+        break;
+    case MAPSEC_ROUTE_108:
+        varToCheck = 1;
+        bitToCheck = 7;
+        break;
+    case MAPSEC_ROUTE_109:
+        varToCheck = 1;
+        bitToCheck = 8;
+        break;
+    case MAPSEC_ROUTE_110:
+        varToCheck = 1;
+        bitToCheck = 9;
+        break;
+    case MAPSEC_ROUTE_111:
+        varToCheck = 1;
+        bitToCheck = 10;
+        break;
+    case MAPSEC_ROUTE_112:
+        varToCheck = 1;
+        bitToCheck = 11;
+        break;
+    case MAPSEC_ROUTE_113:
+        varToCheck = 1;
+        bitToCheck = 12;
+        break;
+    case MAPSEC_ROUTE_114:
+        varToCheck = 1;
+        bitToCheck = 13;
+        break;
+    case MAPSEC_ROUTE_115:
+        varToCheck = 1;
+        bitToCheck = 14;
+        break;
+    case MAPSEC_ROUTE_116:
+        varToCheck = 1;
+        bitToCheck = 15;
+        break;
+        
+    case MAPSEC_ROUTE_117:
+        varToCheck = 2;
+        bitToCheck = 0;
+        break;
+    case MAPSEC_ROUTE_118:
+        varToCheck = 2;
+        bitToCheck = 1;
+        break;
+    case MAPSEC_ROUTE_119:
+        varToCheck = 2;
+        bitToCheck = 2;
+        break;
+    case MAPSEC_ROUTE_120:
+        varToCheck = 2;
+        bitToCheck = 3;
+        break;
+    case MAPSEC_ROUTE_121:
+        varToCheck = 2;
+        bitToCheck = 4;
+        break;
+    case MAPSEC_ROUTE_122:
+        varToCheck = 2;
+        bitToCheck = 5;
+        break;
+    case MAPSEC_ROUTE_123:
+        varToCheck = 2;
+        bitToCheck = 6;
+        break;
+    case MAPSEC_ROUTE_124:
+    case MAPSEC_UNDERWATER_124:
+        varToCheck = 2;
+        bitToCheck = 7;
+        break;
+    case MAPSEC_ROUTE_125:
+    case MAPSEC_UNDERWATER_125:
+        varToCheck = 2;
+        bitToCheck = 8;
+        break;
+    case MAPSEC_ROUTE_126:
+    case MAPSEC_UNDERWATER_126:
+        varToCheck = 2;
+        bitToCheck = 9;
+        break;
+    case MAPSEC_ROUTE_127:
+    case MAPSEC_UNDERWATER_127:
+        varToCheck = 2;
+        bitToCheck = 10;
+        break;
+    case MAPSEC_ROUTE_128:
+    case MAPSEC_UNDERWATER_128:
+        varToCheck = 2;
+        bitToCheck = 11;
+        break;
+    case MAPSEC_ROUTE_129:
+    case MAPSEC_UNDERWATER_129:
+        varToCheck = 2;
+        bitToCheck = 12;
+        break;
+    case MAPSEC_ROUTE_130:
+        varToCheck = 2;
+        bitToCheck = 13;	
+        break;
+    case MAPSEC_ROUTE_131:
+        varToCheck = 2;
+        bitToCheck = 14;
+        break;
+    case MAPSEC_ROUTE_132:
+        varToCheck = 2;
+        bitToCheck = 15;
+        break;
+
+    case MAPSEC_ROUTE_133:
+        varToCheck = 3;
+        bitToCheck = 0;
+        break;
+    case MAPSEC_ROUTE_134:
+        varToCheck = 3;
+        bitToCheck = 1;
+        break;
+    case MAPSEC_GRANITE_CAVE:
+        varToCheck = 3;
+        bitToCheck = 2;
+        break;
+    case MAPSEC_MT_CHIMNEY:
+        varToCheck = 3;
+        bitToCheck = 3;
+        break;
+    case MAPSEC_SAFARI_ZONE:
+        varToCheck = 3;
+        bitToCheck = 4;
+        break;
+    case MAPSEC_BATTLE_FRONTIER:
+        varToCheck = 3;
+        bitToCheck = 5;
+        break;
+    case MAPSEC_PETALBURG_WOODS:
+        varToCheck = 3;
+        bitToCheck = 6;
+        break;
+    case MAPSEC_RUSTURF_TUNNEL:
+        varToCheck = 3;
+        bitToCheck = 7;
+        break;
+    case MAPSEC_ABANDONED_SHIP:
+        varToCheck = 3;
+        bitToCheck = 8;
+        break;
+    case MAPSEC_METEOR_FALLS:
+    case MAPSEC_METEOR_FALLS2:
+        varToCheck = 3;
+        bitToCheck = 9;
+        break;
+    case MAPSEC_MT_PYRE:
+        varToCheck = 3;
+        bitToCheck = 10;
+        break;
+    case MAPSEC_AQUA_HIDEOUT_OLD:
+        varToCheck = 3;
+        bitToCheck = 11;
+        break;
+    case MAPSEC_SHOAL_CAVE:
+        varToCheck = 3;
+        bitToCheck = 12;
+        break;
+    case MAPSEC_SEAFLOOR_CAVERN:
+    case MAPSEC_UNDERWATER_SEAFLOOR_CAVERN:
+        varToCheck = 3;
+        bitToCheck = 13;
+        break;
+    case MAPSEC_VICTORY_ROAD:
+        varToCheck = 3;
+        bitToCheck = 14;
+        break;
+    case MAPSEC_MIRAGE_ISLAND:
+        varToCheck = 3;
+        bitToCheck = 15;
+        break;
+        
+    case MAPSEC_CAVE_OF_ORIGIN:
+        varToCheck = 4;
+        bitToCheck = 0;
+        break;
+    case MAPSEC_FIERY_PATH:
+    case MAPSEC_FIERY_PATH2:
+        varToCheck = 4;
+        bitToCheck = 1;
+        break;
+    case MAPSEC_JAGGED_PASS:
+    case MAPSEC_JAGGED_PASS2:
+       varToCheck = 4;
+        bitToCheck = 2;
+        break;
+    case MAPSEC_SEALED_CHAMBER:
+    case MAPSEC_UNDERWATER_SEALED_CHAMBER:
+        varToCheck = 4;
+        bitToCheck = 3;
+        break;
+    case MAPSEC_SCORCHED_SLAB:
+        varToCheck = 4;
+        bitToCheck = 4;
+        break;
+    case MAPSEC_AQUA_HIDEOUT:
+        varToCheck = 4;
+        bitToCheck = 5;
+        break;
+    case MAPSEC_MAGMA_HIDEOUT:
+        varToCheck = 4;
+        bitToCheck = 6;
+        break;
+    case MAPSEC_FARAWAY_ISLAND:
+        varToCheck = 4;
+        bitToCheck = 7;
+        break;
+    case MAPSEC_ARTISAN_CAVE:
+        varToCheck = 4;
+        bitToCheck = 8;
+        break;
+    case MAPSEC_DESERT_UNDERPASS:
+        varToCheck = 4;
+        bitToCheck = 9;
+        break;
+    case MAPSEC_ALTERING_CAVE:
+        varToCheck = 4;
+        bitToCheck = 10;
+    case MAPSEC_NEW_MAUVILLE:
+        varToCheck = 4;
+        bitToCheck = 11;
+    default:
+        return 0;
+    }
+    varValue = VarGet(pkmnSeenVars[varToCheck]);
+    if ((varValue & (1 << bitToCheck)) != 0){
+        return 1;
+    }
+    else if (setVarForThisEnc){
+        speciesEnemy = GetMonData(&gEnemyParty[gBattlerPartyIndexes[GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT)]], MON_DATA_SPECIES);
+        if (FlagGet(FLAG_CHALLENGES_SPECIES_CLAUSE)&& hasPlayerCaughtThisEvolutionLine(speciesEnemy)){
+            return 0;
+        }
+        VarSet(pkmnSeenVars[varToCheck], varValue | (1 << bitToCheck));
+    }
+    return 0;
 }

@@ -34,7 +34,8 @@
     "gMapGroup_IndoorRoute123",
     "gMapGroup_IndoorRoute119",
     "gMapGroup_IndoorRoute124",
-    "gMapGroup_Sevii_Islands"
+    "gMapGroup_Sevii_Islands",
+    "gMapGroup_Sevii_Islands_Dungeons"
   ],
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",
@@ -630,6 +631,12 @@
     "Island1_House1",
     "Island1_House2",
     "Island1_PokemonCenter_2F",
-    "Island1_KindleRoad"
+    "Island1_KindleRoad",
+    "Island1_KindleRoad_Entrance"
+  ],
+  "gMapGroup_Sevii_Islands_Dungeons": [
+    "MtEmber_Exterior",
+    "EmberSpa",
+    "MtEmber_RubyPath_1F"
   ]
 }

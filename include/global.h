@@ -531,6 +531,19 @@ struct SaveBlock2
     /*0x57C*/ struct RankingHall2P hallRecords2P[FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
+             u16 grassStarter;
+             u16 waterStarter;
+             u16 fireStarter;
+             u8 levelCap;
+             u8 infiniteCandy;
+             u8 permaDeath;
+             u8 noBattleItems;
+             u8 repellant;
+             u8 forceSetMode;
+             u8 xpMultiplier;
+             u8 limitedEncounters;
+             u8 speciesClause;
+             
 }; // sizeof=0xF2C
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -1056,7 +1069,7 @@ struct SaveBlock1
     /*0x31DC*/ struct Roamer roamer;
     /*0x31F8*/ struct EnigmaBerry enigmaBerry;
     /*0x322C*/ struct MysteryGiftSave mysteryGift;
-    /*0x3598*/ u8 unused_3598[0x180];
+    /*0x3598*/ u8 unused_3598[0x68];
     /*0x3718*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
     /*0x3728*/ struct RamScript ramScript;
     /*0x3B14*/ struct RecordMixingGift recordMixingGift;
@@ -1067,7 +1080,8 @@ struct SaveBlock1
     /*0x3D5A*/ u8 unused_3D5A[10];
     /*0x3D64*/ struct TrainerHillSave trainerHill;
     /*0x3D70*/ struct WaldaPhrase waldaPhrase;
-    // sizeof: 0x3D88
+    /*0x3D89*/ u8 unused_3D89[0x234]; //added this to keep track of save space available
+    // sizeof: 3DF0
 };
 
 extern struct SaveBlock1* gSaveBlock1Ptr;

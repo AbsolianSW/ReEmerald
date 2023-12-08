@@ -51,6 +51,7 @@ extern const u8 EventScript_ResetAllMapFlags[];
 static void ClearFrontierRecord(void);
 static void WarpToTruck(void);
 static void ResetMiniGamesRecords(void);
+static void HandleChallenges(void);
 
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
 EWRAM_DATA bool8 gEnableContestDebugging = FALSE;
@@ -90,12 +91,13 @@ static void InitPlayerTrainerId(void)
 // L=A isnt set here for some reason.
 static void SetDefaultOptions(void)
 {
-    gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_MID;
+    gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FAST;
     gSaveBlock2Ptr->optionsWindowFrameType = 0;
     gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_MONO;
     gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SHIFT;
     gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
     gSaveBlock2Ptr->regionMapZoom = FALSE;
+    gSaveBlock2Ptr->xpMultiplier=10;
 }
 
 static void ClearPokedexFlags(void)
@@ -204,6 +206,7 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
+    HandleChallenges();
 }
 
 static void ResetMiniGamesRecords(void)
@@ -212,4 +215,27 @@ static void ResetMiniGamesRecords(void)
     SetBerryPowder(&gSaveBlock2Ptr->berryCrush.berryPowderAmount, 0);
     ResetPokemonJumpRecords();
     CpuFill16(0, &gSaveBlock2Ptr->berryPick, sizeof(struct BerryPickingResults));
+}
+
+static void HandleChallenges(void)
+{
+    if(gSaveBlock2Ptr -> levelCap)
+        FlagSet(FLAG_CHALLENGES_LEVEL_CAP);
+    if(gSaveBlock2Ptr-> permaDeath)
+        FlagSet(FLAG_CHALLENGES_PERMA_DEATH);
+    if(gSaveBlock2Ptr -> limitedEncounters)
+        FlagSet(FLAG_CHALLENGES_LIMITED_ENCOUNTERS);
+    if(gSaveBlock2Ptr -> speciesClause)
+        FlagSet(FLAG_CHALLENGES_SPECIES_CLAUSE);
+    if(gSaveBlock2Ptr -> noBattleItems)
+        FlagSet(FLAG_CHALLENGES_NO_BATTLE_ITEMS);
+    if(gSaveBlock2Ptr -> forceSetMode)
+        FlagSet(FLAG_CHALLENGES_FORCE_SET_MODE);
+    if(gSaveBlock2Ptr -> infiniteCandy)
+        FlagSet(FLAG_CHALLENGES_INFINITE_CANDY);
+    if(gSaveBlock2Ptr -> repellant)
+        FlagSet(FLAG_CHALLENGES_REPELLANT);
+
+    
+    VarSet(VAR_XP_MULTIPLIER, gSaveBlock2Ptr->xpMultiplier);
 }

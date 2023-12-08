@@ -71,6 +71,7 @@ static bool8 ShouldGetStatBadgeBoost(u16 flagId, u8 battlerId);
 static u16 GiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move);
 static bool8 ShouldSkipFriendshipChange(void);
 static u8 SendMonToPC(struct Pokemon *mon);
+static u16 GetPreEvolution(u16 species);
 
 EWRAM_DATA static u8 sLearningMoveTableID = 0;
 EWRAM_DATA u8 gPlayerPartyCount = 0;
@@ -1389,6 +1390,23 @@ const s8 gNatureStatTable[NUM_NATURES][NUM_NATURE_STATS] =
     [NATURE_SASSY]   = {    0,      0,     -1,      0,     +1   },
     [NATURE_CAREFUL] = {    0,      0,      0,     -1,     +1   },
     [NATURE_QUIRKY]  = {    0,      0,      0,      0,      0   },
+};
+
+const u8 gLevelCaps[LEVEL_CAP_AMOUNT] =
+{
+    [0] = 15,
+    [1] = 19,
+    [2] = 24,
+    [3] = 29,
+    [4] = 31,
+    [5] = 35,
+    [6] = 43,
+    [7] = 48,
+    [8] = 52,
+    [9] = 54,
+    [10] = 56,
+    [11] = 58,
+    [12] = 61
 };
 
 #include "data/pokemon/tmhm_learnsets.h"
@@ -2900,6 +2918,11 @@ void BoxMonToMon(const struct BoxPokemon *src, struct Pokemon *dest)
     value = MAIL_NONE;
     SetMonData(dest, MON_DATA_MAIL, &value);
     CalculateMonStats(dest);
+    if (GetMonData(dest, MON_DATA_IS_DEAD) && FlagGet(FLAG_CHALLENGES_PERMA_DEATH))
+    {
+       value = 0;
+       SetMonData(dest, MON_DATA_HP, &value);
+    }
 }
 
 u8 GetLevelFromMonExp(struct Pokemon *mon)
@@ -2908,7 +2931,7 @@ u8 GetLevelFromMonExp(struct Pokemon *mon)
     u32 exp = GetMonData(mon, MON_DATA_EXP, NULL);
     s32 level = 1;
 
-    while (level <= MAX_LEVEL && gExperienceTables[gSpeciesInfo[species].growthRate][level] <= exp)
+    while (level <= getLevelCap() && gExperienceTables[gSpeciesInfo[species].growthRate][level] <= exp)
         level++;
 
     return level - 1;
@@ -2920,7 +2943,7 @@ u8 GetLevelFromBoxMonExp(struct BoxPokemon *boxMon)
     u32 exp = GetBoxMonData(boxMon, MON_DATA_EXP, NULL);
     s32 level = 1;
 
-    while (level <= MAX_LEVEL && gExperienceTables[gSpeciesInfo[species].growthRate][level] <= exp)
+    while (level <= getLevelCap() && gExperienceTables[gSpeciesInfo[species].growthRate][level] <= exp)
         level++;
 
     return level - 1;
@@ -4054,6 +4077,8 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
                 | (substruct3->worldRibbon << 26);
         }
         break;
+    case MON_DATA_IS_DEAD:
+        retVal = boxMon->isDead;
     default:
         break;
     }
@@ -4374,6 +4399,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         substruct3->spDefenseIV = (ivs >> 25) & MAX_IV_MASK;
         break;
     }
+    case MON_DATA_IS_DEAD:
+        SET8(boxMon->isDead);
+        break;
     default:
         break;
     }
@@ -4738,7 +4766,6 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
     u8 effectFlags;
     s8 evChange;
     u16 evCount;
-
     // Get item hold effect
     heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, NULL);
     if (heldItem == ITEM_ENIGMA_BERRY)
@@ -4780,7 +4807,9 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
         return TRUE;
     if (gItemEffectTable[item - ITEM_POTION] == NULL && item != ITEM_ENIGMA_BERRY)
         return TRUE;
-
+    //disallow item use on dead pokemon
+    if (FlagGet(FLAG_CHALLENGES_PERMA_DEATH) && !GetMonData(mon, MON_DATA_HP))
+        return TRUE;
     // Get item effect
     if (item == ITEM_ENIGMA_BERRY)
     {
@@ -4886,7 +4915,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 
             // Rare Candy
             if ((itemEffect[i] & ITEM3_LEVEL_UP)
-             && GetMonData(mon, MON_DATA_LEVEL, NULL) != MAX_LEVEL)
+             && GetMonData(mon, MON_DATA_LEVEL, NULL) != getLevelCap())
             {
                 dataUnsigned = gExperienceTables[gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].growthRate][GetMonData(mon, MON_DATA_LEVEL, NULL) + 1];
                 SetMonData(mon, MON_DATA_EXP, &dataUnsigned);
@@ -6184,12 +6213,12 @@ bool8 TryIncrementMonLevel(struct Pokemon *mon)
     u16 species = GetMonData(mon, MON_DATA_SPECIES, 0);
     u8 nextLevel = GetMonData(mon, MON_DATA_LEVEL, 0) + 1;
     u32 expPoints = GetMonData(mon, MON_DATA_EXP, 0);
-    if (expPoints > gExperienceTables[gSpeciesInfo[species].growthRate][MAX_LEVEL])
+    if (expPoints > gExperienceTables[gSpeciesInfo[species].growthRate][getLevelCap()])
     {
-        expPoints = gExperienceTables[gSpeciesInfo[species].growthRate][MAX_LEVEL];
+        expPoints = gExperienceTables[gSpeciesInfo[species].growthRate][getLevelCap()];
         SetMonData(mon, MON_DATA_EXP, &expPoints);
     }
-    if (nextLevel > MAX_LEVEL || expPoints < gExperienceTables[gSpeciesInfo[species].growthRate][nextLevel])
+    if (nextLevel > getLevelCap() || expPoints < gExperienceTables[gSpeciesInfo[species].growthRate][nextLevel])
     {
         return FALSE;
     }
@@ -6258,12 +6287,28 @@ u32 CanSpeciesLearnTMHM(u16 species, u8 tm)
     }
 }
 
+static u16 GetPreEvolution(u16 species){
+    int i, j;
+
+    for (i = 1; i < NUM_SPECIES; i++)
+    {
+        for (j = 0; j < EVOS_PER_MON; j++)
+        {
+            if (gEvolutionTable[i][j].targetSpecies == species)
+                return i;
+        }
+    }
+    return SPECIES_NONE;
+}
+
+
 u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
 {
     u16 learnedMoves[MAX_MON_MOVES];
     u8 numMoves = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES, 0);
     u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
+    u8 preEvLvl = (level > MAX_LEVEL_DIFF_PRE_EV) ? (level - MAX_LEVEL_DIFF_PRE_EV) : 1;
     int i, j, k;
 
     for (i = 0; i < MAX_MON_MOVES; i++)
@@ -6274,6 +6319,13 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
         u16 moveLevel;
 
         if (gLevelUpLearnsets[species][i] == LEVEL_UP_END)
+        {
+            i = 0;
+            level = preEvLvl;
+            species = GetPreEvolution(species);
+        }
+
+        if (species == SPECIES_NONE)
             break;
 
         moveLevel = gLevelUpLearnsets[species][i] & LEVEL_UP_MOVE_LV;
@@ -6315,6 +6367,7 @@ u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
     u8 numMoves = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
+    u8 preEvLvl = (level > MAX_LEVEL_DIFF_PRE_EV) ? (level - MAX_LEVEL_DIFF_PRE_EV) : 1;
     int i, j, k;
 
     if (species == SPECIES_EGG)
@@ -6328,6 +6381,12 @@ u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
         u16 moveLevel;
 
         if (gLevelUpLearnsets[species][i] == LEVEL_UP_END)
+                {
+            i = 0;
+            level = preEvLvl;
+            species = GetPreEvolution(species);
+        }
+        if (species == SPECIES_NONE)
             break;
 
         moveLevel = gLevelUpLearnsets[species][i] & LEVEL_UP_MOVE_LV;
@@ -7132,4 +7191,808 @@ u8 *MonSpritesGfxManager_GetSpritePtr(u8 managerId, u8 spriteNum)
 
         return gfx->spritePointers[spriteNum];
     }
+}
+
+u8 getLevelCap(void)
+{
+    u8 currentCap = 0;
+    if(!FlagGet(FLAG_CHALLENGES_LEVEL_CAP) || FlagGet(FLAG_SYS_GAME_CLEAR))
+        return MAX_LEVEL;
+    if(FlagGet(FLAG_BADGE01_GET))
+        currentCap = 1;
+    if(FlagGet(FLAG_BADGE02_GET))
+        currentCap = 2;
+    if(FlagGet(FLAG_BADGE03_GET))
+        currentCap = 3;
+    if(FlagGet(FLAG_BADGE04_GET))
+        currentCap = 4;
+    if(FlagGet(FLAG_BADGE05_GET))
+        currentCap = 5;
+    if(FlagGet(FLAG_BADGE06_GET))
+        currentCap = 6;
+    if(FlagGet(FLAG_BADGE07_GET))
+        currentCap = 7;
+    if(FlagGet(FLAG_BADGE08_GET))
+        currentCap = 8;
+    if(FlagGet(FLAG_DEFEATED_ELITE_4_SIDNEY))
+        currentCap = 9;
+    if(FlagGet(FLAG_DEFEATED_ELITE_4_PHOEBE))
+        currentCap = 10;
+    if(FlagGet(FLAG_DEFEATED_ELITE_4_GLACIA))
+        currentCap = 11;
+    if(FlagGet(FLAG_DEFEATED_ELITE_4_DRAKE))
+        currentCap = 12;
+    return gLevelCaps[currentCap];
+}
+
+u8 hasPlayerCaughtThisEvolutionLine(u16 species)
+{
+    u8 i= 0;
+    u8 j=0;
+    u8 index =0;
+    u16 tier2Evos[EVOS_PER_MON+1];
+    u16 tier3Evos[EVOS_PER_MON+1];
+    //convert species to base of the line:
+    switch (species)
+    {
+    case SPECIES_NONE:
+    case SPECIES_BULBASAUR:
+    case SPECIES_IVYSAUR:
+        species = SPECIES_BULBASAUR;
+    case SPECIES_VENUSAUR:
+        break;
+    case SPECIES_CHARMANDER:
+    case SPECIES_CHARMELEON:
+    case SPECIES_CHARIZARD:
+        species = SPECIES_CHARMANDER;
+        break;
+    case SPECIES_SQUIRTLE:
+    case SPECIES_WARTORTLE:
+    case SPECIES_BLASTOISE:
+        species = SPECIES_SQUIRTLE;
+        break;
+    case SPECIES_CATERPIE:
+    case SPECIES_METAPOD:
+    case SPECIES_BUTTERFREE:
+        species = SPECIES_CATERPIE;
+        break;
+    case SPECIES_WEEDLE:
+    case SPECIES_KAKUNA:
+    case SPECIES_BEEDRILL:
+        species = SPECIES_WEEDLE;
+        break;
+    case SPECIES_PIDGEY:
+    case SPECIES_PIDGEOTTO:
+    case SPECIES_PIDGEOT:
+        species = SPECIES_PIDGEY;
+        break;
+    case SPECIES_RATTATA:
+    case SPECIES_RATICATE:
+        species = SPECIES_RATTATA;
+        break;
+    case SPECIES_SPEAROW:
+    case SPECIES_FEAROW:
+        species = SPECIES_SPEAROW;
+        break;
+    case SPECIES_EKANS:
+    case SPECIES_ARBOK:
+        species = SPECIES_ARBOK;
+        break;
+    case SPECIES_PIKACHU:
+    case SPECIES_RAICHU:
+        species = SPECIES_PICHU;
+        break;
+    case SPECIES_SANDSHREW:
+    case SPECIES_SANDSLASH:
+        species = SPECIES_SANDSHREW;
+        break;
+    case SPECIES_NIDORAN_F:
+    case SPECIES_NIDORINA:
+    case SPECIES_NIDOQUEEN:
+        species = SPECIES_NIDORAN_F;
+        break;
+    case SPECIES_NIDORAN_M:
+    case SPECIES_NIDORINO:
+    case SPECIES_NIDOKING:
+        species = SPECIES_NIDORAN_M;
+        break;
+    case SPECIES_CLEFAIRY:
+    case SPECIES_CLEFABLE:
+        species = SPECIES_CLEFFA;
+        break;
+    case SPECIES_VULPIX:
+    case SPECIES_NINETALES:
+        species = SPECIES_VULPIX;
+        break;
+    case SPECIES_JIGGLYPUFF:
+    case SPECIES_WIGGLYTUFF:
+        species = SPECIES_IGGLYBUFF;
+        break;
+    case SPECIES_ZUBAT:
+    case SPECIES_GOLBAT:
+        species = SPECIES_ZUBAT;
+        break;
+    case SPECIES_ODDISH:
+    case SPECIES_GLOOM:
+    case SPECIES_VILEPLUME:
+        species = SPECIES_ODDISH;
+        break;
+    case SPECIES_PARAS:
+    case SPECIES_PARASECT:
+        species = SPECIES_PARAS;
+        break;
+    case SPECIES_VENONAT:
+    case SPECIES_VENOMOTH:
+        species = SPECIES_VENONAT;
+        break;
+    case SPECIES_DIGLETT:
+    case SPECIES_DUGTRIO:
+        species = SPECIES_DIGLETT;
+        break;
+    case SPECIES_MEOWTH:
+    case SPECIES_PERSIAN:
+        species = SPECIES_MEOWTH;
+        break;
+    case SPECIES_PSYDUCK:
+    case SPECIES_GOLDUCK:
+        species = SPECIES_PSYDUCK;
+        break;
+    case SPECIES_MANKEY:
+    case SPECIES_PRIMEAPE:
+        species = SPECIES_MANKEY;
+        break;
+    case SPECIES_GROWLITHE:
+    case SPECIES_ARCANINE:
+        species = SPECIES_GROWLITHE;
+        break;
+    case SPECIES_POLIWAG:
+    case SPECIES_POLIWHIRL:
+    case SPECIES_POLIWRATH:
+        species = SPECIES_POLIWAG;
+        break;
+    case SPECIES_ABRA:
+    case SPECIES_KADABRA:
+    case SPECIES_ALAKAZAM:
+        species = SPECIES_ABRA;
+        break;
+    case SPECIES_MACHOP:
+    case SPECIES_MACHOKE:
+    case SPECIES_MACHAMP:
+        species = SPECIES_MACHOP;
+        break;
+    case SPECIES_BELLSPROUT:
+    case SPECIES_WEEPINBELL:
+    case SPECIES_VICTREEBEL:
+        species = SPECIES_BELLSPROUT;
+        break;
+    case SPECIES_TENTACOOL:
+    case SPECIES_TENTACRUEL:
+        species = SPECIES_TENTACOOL;
+        break;
+    case SPECIES_GEODUDE:
+    case SPECIES_GRAVELER:
+    case SPECIES_GOLEM:
+        species = SPECIES_GEODUDE;
+        break;
+    case SPECIES_PONYTA:
+    case SPECIES_RAPIDASH:
+        species = SPECIES_PONYTA;
+        break;
+    case SPECIES_SLOWPOKE:
+    case SPECIES_SLOWBRO:
+        species = SPECIES_SLOWPOKE;
+        break;
+    case SPECIES_MAGNEMITE:
+    case SPECIES_MAGNETON:
+        species = SPECIES_MAGNEMITE;
+        break;
+    case SPECIES_FARFETCHD:
+        break;
+    case SPECIES_DODUO:
+    case SPECIES_DODRIO:
+        species = SPECIES_DODUO;
+        break;
+    case SPECIES_SEEL:
+    case SPECIES_DEWGONG:
+        species = SPECIES_SEEL;
+        break;
+    case SPECIES_GRIMER:
+    case SPECIES_MUK:
+        species = SPECIES_GRIMER;
+        break;
+    case SPECIES_SHELLDER:
+    case SPECIES_CLOYSTER:
+        species = SPECIES_SHELLDER;
+        break;
+    case SPECIES_GASTLY:
+    case SPECIES_HAUNTER:
+    case SPECIES_GENGAR:
+        species = SPECIES_GASTLY;
+        break;
+    case SPECIES_ONIX:
+        break;
+    case SPECIES_DROWZEE:
+    case SPECIES_HYPNO:
+        species = SPECIES_DROWZEE;
+        break;
+    case SPECIES_KRABBY:
+    case SPECIES_KINGLER:
+        species = SPECIES_KRABBY;
+        break;
+    case SPECIES_VOLTORB:
+    case SPECIES_ELECTRODE:
+        species = SPECIES_VOLTORB;
+        break;
+    case SPECIES_EXEGGCUTE:
+    case SPECIES_EXEGGUTOR:
+        species = SPECIES_EXEGGCUTE;
+        break;
+    case SPECIES_CUBONE:
+    case SPECIES_MAROWAK:
+        species = SPECIES_CUBONE;
+        break;
+    case SPECIES_HITMONLEE:
+    case SPECIES_HITMONCHAN:
+        species = SPECIES_TYROGUE;
+        break;
+    case SPECIES_LICKITUNG:
+        break;
+    case SPECIES_KOFFING:
+    case SPECIES_WEEZING:
+        species = SPECIES_KOFFING;
+        break;
+    case SPECIES_RHYHORN:
+    case SPECIES_RHYDON:
+        species = SPECIES_RHYHORN;
+        break;
+    case SPECIES_CHANSEY:
+    case SPECIES_TANGELA:
+    case SPECIES_KANGASKHAN:
+        break;
+    case SPECIES_HORSEA:
+    case SPECIES_SEADRA:
+        species = SPECIES_HORSEA;
+        break;
+    case SPECIES_GOLDEEN:
+    case SPECIES_SEAKING:
+        species = SPECIES_GOLDEEN;
+        break;
+    case SPECIES_STARYU:
+    case SPECIES_STARMIE:
+        species = SPECIES_STARYU;
+        break;
+    case SPECIES_MR_MIME:
+    case SPECIES_SCYTHER:
+        break;
+    case SPECIES_JYNX:
+        species = SPECIES_SMOOCHUM;
+        break;
+    case SPECIES_ELECTABUZZ:
+        species = SPECIES_ELEKID;
+        break;
+    case SPECIES_MAGMAR:
+        species = SPECIES_MAGBY;
+        break;
+    case SPECIES_PINSIR:
+    case SPECIES_TAUROS:
+        break;
+    case SPECIES_MAGIKARP:
+    case SPECIES_GYARADOS:
+        species = SPECIES_MAGIKARP;
+        break;
+    case SPECIES_LAPRAS:
+    case SPECIES_DITTO:
+        break;
+    case SPECIES_EEVEE:
+    case SPECIES_VAPOREON:
+    case SPECIES_JOLTEON:
+    case SPECIES_FLAREON:
+        species = SPECIES_EEVEE;
+        break;
+    case SPECIES_PORYGON:
+        break;
+    case SPECIES_OMANYTE:
+    case SPECIES_OMASTAR:
+        species = SPECIES_OMANYTE;
+        break;
+    case SPECIES_KABUTO:
+    case SPECIES_KABUTOPS:
+        species = SPECIES_KABUTO;
+        break;
+    case SPECIES_AERODACTYL:
+    case SPECIES_SNORLAX:
+    case SPECIES_ARTICUNO:
+    case SPECIES_ZAPDOS:
+    case SPECIES_MOLTRES:
+        break;
+    case SPECIES_DRATINI:
+    case SPECIES_DRAGONAIR:
+    case SPECIES_DRAGONITE:
+        species = SPECIES_DRATINI;
+        break;
+    case SPECIES_MEWTWO:
+    case SPECIES_MEW:
+        break;
+    case SPECIES_CHIKORITA:
+    case SPECIES_BAYLEEF:
+    case SPECIES_MEGANIUM:
+        species = SPECIES_CHIKORITA;
+        break;
+    case SPECIES_CYNDAQUIL:
+    case SPECIES_QUILAVA:
+    case SPECIES_TYPHLOSION:
+        species = SPECIES_CYNDAQUIL;
+        break;
+    case SPECIES_TOTODILE:
+    case SPECIES_CROCONAW:
+    case SPECIES_FERALIGATR:
+        species = SPECIES_TOTODILE;
+        break;
+    case SPECIES_SENTRET:
+    case SPECIES_FURRET:
+        species = SPECIES_SENTRET;
+        break;
+    case SPECIES_HOOTHOOT:
+    case SPECIES_NOCTOWL:
+        species = SPECIES_HOOTHOOT;
+        break;
+    case SPECIES_LEDYBA:
+    case SPECIES_LEDIAN:
+        species = SPECIES_LEDYBA;
+        break;
+    case SPECIES_SPINARAK:
+    case SPECIES_ARIADOS:
+        species = SPECIES_SPINARAK;
+        break;
+    case SPECIES_CROBAT:
+        species = SPECIES_ZUBAT;
+        break;
+    case SPECIES_CHINCHOU:
+    case SPECIES_LANTURN:
+        species = SPECIES_CHINCHOU;
+        break;
+    case SPECIES_PICHU:
+        species = SPECIES_PICHU;
+        break;
+    case SPECIES_CLEFFA:
+        species = SPECIES_CLEFFA;
+        break;
+    case SPECIES_IGGLYBUFF:
+        species = SPECIES_IGGLYBUFF;
+        break;
+    case SPECIES_TOGEPI:
+    case SPECIES_TOGETIC:
+        species = SPECIES_TOGEPI;
+        break;
+    case SPECIES_NATU:
+    case SPECIES_XATU:
+        species = SPECIES_NATU;
+        break;
+    case SPECIES_MAREEP:
+    case SPECIES_FLAAFFY:
+    case SPECIES_AMPHAROS:
+        species = SPECIES_MAREEP;
+        break;
+    case SPECIES_BELLOSSOM:
+        species = SPECIES_ODDISH;
+        break;
+    case SPECIES_MARILL:
+    case SPECIES_AZUMARILL:
+        species = SPECIES_AZURILL;
+        break;
+    case SPECIES_SUDOWOODO:
+        break;
+    case SPECIES_POLITOED:
+        species = SPECIES_POLIWAG;
+        break;
+    case SPECIES_HOPPIP:
+    case SPECIES_SKIPLOOM:
+    case SPECIES_JUMPLUFF:
+        species = SPECIES_HOPPIP;
+        break;
+    case SPECIES_AIPOM:
+        break;
+    case SPECIES_SUNKERN:
+    case SPECIES_SUNFLORA:
+        species = SPECIES_SUNKERN;
+        break;
+    case SPECIES_YANMA:
+        break;
+    case SPECIES_WOOPER:
+    case SPECIES_QUAGSIRE:
+        species = SPECIES_WOOPER;
+        break;
+    case SPECIES_ESPEON:
+    case SPECIES_UMBREON:
+        species = SPECIES_EEVEE;
+        break;
+    case SPECIES_MURKROW:
+        break;
+    case SPECIES_SLOWKING:
+        species = SPECIES_SLOWPOKE;
+        break;
+    case SPECIES_MISDREAVUS:
+    case SPECIES_UNOWN:
+        break;
+    case SPECIES_WOBBUFFET:
+        species = SPECIES_WYNAUT;
+        break;
+    case SPECIES_GIRAFARIG:
+        break;
+    case SPECIES_PINECO:
+    case SPECIES_FORRETRESS:
+        species = SPECIES_PINECO;
+        break;
+    case SPECIES_DUNSPARCE:
+    case SPECIES_GLIGAR:
+        break;
+    case SPECIES_STEELIX:
+        species = SPECIES_ONIX;
+        break;
+    case SPECIES_SNUBBULL:
+    case SPECIES_GRANBULL:
+        species = SPECIES_SNUBBULL;
+        break;
+    case SPECIES_QWILFISH:
+        break;
+    case SPECIES_SCIZOR:
+        species = SPECIES_SCYTHER;
+        break;
+    case SPECIES_SHUCKLE:
+    case SPECIES_HERACROSS:
+    case SPECIES_SNEASEL:
+        break;
+    case SPECIES_TEDDIURSA:
+    case SPECIES_URSARING:
+        species = SPECIES_TEDDIURSA;
+        break;
+    case SPECIES_SLUGMA:
+    case SPECIES_MAGCARGO:
+        species = SPECIES_SLUGMA;
+        break;
+    case SPECIES_SWINUB:
+    case SPECIES_PILOSWINE:
+        species = SPECIES_SWINUB;
+        break;
+    case SPECIES_CORSOLA:
+        break;
+    case SPECIES_REMORAID:
+    case SPECIES_OCTILLERY:
+        species = SPECIES_REMORAID;
+        break;
+    case SPECIES_DELIBIRD:
+    case SPECIES_MANTINE:
+    case SPECIES_SKARMORY:
+        break;
+    case SPECIES_HOUNDOUR:
+    case SPECIES_HOUNDOOM:
+        species = SPECIES_HOUNDOUR;
+        break;
+    case SPECIES_KINGDRA:
+            species = SPECIES_HORSEA;
+        break;
+    case SPECIES_PHANPY:
+    case SPECIES_DONPHAN:
+        species = SPECIES_PHANPY;
+        break;
+    case SPECIES_PORYGON2:
+        species = SPECIES_PORYGON;
+        break;
+    case SPECIES_STANTLER:
+    case SPECIES_SMEARGLE:
+        break;
+    case SPECIES_TYROGUE:
+    case SPECIES_HITMONTOP:
+        species = SPECIES_TYROGUE;
+        break;
+    case SPECIES_SMOOCHUM:
+    case SPECIES_ELEKID:
+    case SPECIES_MAGBY:
+    case SPECIES_MILTANK:
+        break;
+    case SPECIES_BLISSEY:
+        species = SPECIES_CHANSEY;
+        break;
+    case SPECIES_RAIKOU:
+    case SPECIES_ENTEI:
+    case SPECIES_SUICUNE:
+        break;
+    case SPECIES_LARVITAR:
+    case SPECIES_PUPITAR:
+    case SPECIES_TYRANITAR:
+        species = SPECIES_LARVITAR;
+        break;
+    case SPECIES_LUGIA:
+    case SPECIES_HO_OH:
+    case SPECIES_CELEBI:
+        break;
+    case SPECIES_OLD_UNOWN_B:
+    case SPECIES_OLD_UNOWN_C:
+    case SPECIES_OLD_UNOWN_D:
+    case SPECIES_OLD_UNOWN_E:
+    case SPECIES_OLD_UNOWN_F:
+    case SPECIES_OLD_UNOWN_G:
+    case SPECIES_OLD_UNOWN_H:
+    case SPECIES_OLD_UNOWN_I:
+    case SPECIES_OLD_UNOWN_J:
+    case SPECIES_OLD_UNOWN_K:
+    case SPECIES_OLD_UNOWN_L:
+    case SPECIES_OLD_UNOWN_M:
+    case SPECIES_OLD_UNOWN_N:
+    case SPECIES_OLD_UNOWN_O:
+    case SPECIES_OLD_UNOWN_P:
+    case SPECIES_OLD_UNOWN_Q:
+    case SPECIES_OLD_UNOWN_R:
+    case SPECIES_OLD_UNOWN_S:
+    case SPECIES_OLD_UNOWN_T:
+    case SPECIES_OLD_UNOWN_U:
+    case SPECIES_OLD_UNOWN_V:
+    case SPECIES_OLD_UNOWN_W:
+    case SPECIES_OLD_UNOWN_X:
+    case SPECIES_OLD_UNOWN_Y:
+    case SPECIES_OLD_UNOWN_Z:
+        species = SPECIES_UNOWN;
+        break;
+    case SPECIES_TREECKO:
+    case SPECIES_GROVYLE:
+    case SPECIES_SCEPTILE:
+        species = SPECIES_TREECKO;
+        break;
+    case SPECIES_TORCHIC:
+    case SPECIES_COMBUSKEN:
+    case SPECIES_BLAZIKEN:
+        species = SPECIES_TORCHIC;
+        break;
+    case SPECIES_MUDKIP:
+    case SPECIES_MARSHTOMP:
+    case SPECIES_SWAMPERT:
+        species = SPECIES_MUDKIP;
+        break;
+    case SPECIES_POOCHYENA:
+    case SPECIES_MIGHTYENA:
+        species = SPECIES_POOCHYENA;
+        break;
+    case SPECIES_ZIGZAGOON:
+    case SPECIES_LINOONE:
+        species = SPECIES_ZIGZAGOON;
+        break;
+    case SPECIES_WURMPLE:
+    case SPECIES_SILCOON:
+    case SPECIES_BEAUTIFLY:
+    case SPECIES_CASCOON:
+    case SPECIES_DUSTOX:
+        species = SPECIES_WURMPLE;
+        break;
+    case SPECIES_LOTAD:
+    case SPECIES_LOMBRE:
+    case SPECIES_LUDICOLO:
+        species = SPECIES_LOTAD;
+        break;
+    case SPECIES_SEEDOT:
+    case SPECIES_NUZLEAF:
+    case SPECIES_SHIFTRY:
+        species = SPECIES_SEEDOT;
+        break;
+    case SPECIES_NINCADA:
+    case SPECIES_NINJASK:
+    case SPECIES_SHEDINJA:
+        species = SPECIES_NINCADA;
+        break;
+    case SPECIES_TAILLOW:
+    case SPECIES_SWELLOW:
+        species = SPECIES_TAILLOW;
+        break;
+    case SPECIES_SHROOMISH:
+    case SPECIES_BRELOOM:
+        species = SPECIES_SHROOMISH;
+        break;
+    case SPECIES_SPINDA:
+        break;
+    case SPECIES_WINGULL:
+    case SPECIES_PELIPPER:
+        species = SPECIES_WINGULL;
+        break;
+    case SPECIES_SURSKIT:
+    case SPECIES_MASQUERAIN:
+        species = SPECIES_SURSKIT;
+        break;
+    case SPECIES_WAILMER:
+    case SPECIES_WAILORD:
+        species = SPECIES_WAILMER;
+        break;
+    case SPECIES_SKITTY:
+    case SPECIES_DELCATTY:
+        species = SPECIES_SKITTY;
+        break;
+    case SPECIES_KECLEON:
+        break;
+    case SPECIES_BALTOY:
+    case SPECIES_CLAYDOL:
+        species = SPECIES_BALTOY;
+        break;
+    case SPECIES_NOSEPASS:
+    case SPECIES_TORKOAL:
+    case SPECIES_SABLEYE:
+        break;
+    case SPECIES_BARBOACH:
+    case SPECIES_WHISCASH:
+        species = SPECIES_BARBOACH;
+        break;
+    case SPECIES_LUVDISC:
+        break;
+    case SPECIES_CORPHISH:
+    case SPECIES_CRAWDAUNT:
+        species = SPECIES_CORPHISH;
+        break;
+    case SPECIES_FEEBAS:
+    case SPECIES_MILOTIC:
+        species = SPECIES_FEEBAS;
+        break;
+    case SPECIES_CARVANHA:
+    case SPECIES_SHARPEDO:
+        species = SPECIES_CARVANHA;
+        break;
+    case SPECIES_TRAPINCH:
+    case SPECIES_VIBRAVA:
+    case SPECIES_FLYGON:
+        species = SPECIES_TRAPINCH;
+        break;
+    case SPECIES_MAKUHITA:
+    case SPECIES_HARIYAMA:
+        species = SPECIES_MAKUHITA;
+        break;
+    case SPECIES_ELECTRIKE:
+    case SPECIES_MANECTRIC:
+        species = SPECIES_ELECTRIKE;
+        break;
+    case SPECIES_NUMEL:
+    case SPECIES_CAMERUPT:
+        species = SPECIES_NUMEL;
+        break;
+    case SPECIES_SPHEAL:
+    case SPECIES_SEALEO:
+    case SPECIES_WALREIN:
+        species = SPECIES_SPHEAL;
+        break;
+    case SPECIES_CACNEA:
+    case SPECIES_CACTURNE:
+        species = SPECIES_CACNEA;
+        break;
+    case SPECIES_SNORUNT:
+    case SPECIES_GLALIE:
+        species = SPECIES_SNORUNT;
+        break;
+    case SPECIES_LUNATONE:
+    case SPECIES_SOLROCK:
+    case SPECIES_AZURILL:
+        break;
+    case SPECIES_SPOINK:
+    case SPECIES_GRUMPIG:
+        species = SPECIES_SPOINK;
+        break;
+    case SPECIES_PLUSLE:
+    case SPECIES_MINUN:
+    case SPECIES_MAWILE:
+        break;
+    case SPECIES_MEDITITE:
+    case SPECIES_MEDICHAM:
+        species = SPECIES_MEDITITE;
+        break;
+    case SPECIES_SWABLU:
+    case SPECIES_ALTARIA:
+        species = SPECIES_SWABLU;
+        break;
+    case SPECIES_WYNAUT:
+        break;
+    case SPECIES_DUSKULL:
+    case SPECIES_DUSCLOPS:
+        species = SPECIES_DUSKULL;
+        break;
+    case SPECIES_ROSELIA:
+        break;
+    case SPECIES_SLAKOTH:
+    case SPECIES_VIGOROTH:
+    case SPECIES_SLAKING:
+        species = SPECIES_SLAKOTH;
+        break;
+    case SPECIES_GULPIN:
+    case SPECIES_SWALOT:
+        species = SPECIES_GULPIN;
+        break;
+    case SPECIES_TROPIUS:
+        break;
+    case SPECIES_WHISMUR:
+    case SPECIES_LOUDRED:
+    case SPECIES_EXPLOUD:
+        species = SPECIES_WHISMUR;
+        break;
+    case SPECIES_CLAMPERL:
+    case SPECIES_HUNTAIL:
+    case SPECIES_GOREBYSS:
+        species = SPECIES_CLAMPERL;
+        break;
+    case SPECIES_ABSOL:
+        break;
+    case SPECIES_SHUPPET:
+    case SPECIES_BANETTE:
+        species = SPECIES_SHUPPET;
+        break;
+    case SPECIES_SEVIPER:
+    case SPECIES_ZANGOOSE:
+    case SPECIES_RELICANTH:
+        break;
+    case SPECIES_ARON:
+    case SPECIES_LAIRON:
+    case SPECIES_AGGRON:
+        species = SPECIES_ARON;
+        break;
+    case SPECIES_CASTFORM:
+    case SPECIES_VOLBEAT:
+    case SPECIES_ILLUMISE:
+        break;
+    case SPECIES_LILEEP:
+    case SPECIES_CRADILY:
+        species = SPECIES_LILEEP;
+        break;
+    case SPECIES_ANORITH:
+    case SPECIES_ARMALDO:
+        species = SPECIES_ANORITH;
+        break;
+    case SPECIES_RALTS:
+    case SPECIES_KIRLIA:
+    case SPECIES_GARDEVOIR:
+        species = SPECIES_RALTS;
+        break;
+    case SPECIES_BAGON:
+    case SPECIES_SHELGON:
+    case SPECIES_SALAMENCE:
+        species = SPECIES_BAGON;
+        break;
+    case SPECIES_BELDUM:
+    case SPECIES_METANG:
+    case SPECIES_METAGROSS:
+        species = SPECIES_BELDUM;
+        break;
+    case SPECIES_REGIROCK:
+    case SPECIES_REGICE:
+    case SPECIES_REGISTEEL:
+    case SPECIES_KYOGRE:
+    case SPECIES_GROUDON:
+    case SPECIES_RAYQUAZA:
+    case SPECIES_LATIAS:
+    case SPECIES_LATIOS:
+    case SPECIES_JIRACHI:
+    case SPECIES_DEOXYS:
+    case SPECIES_CHIMECHO:
+    case SPECIES_EGG:
+    default:
+        break;
+    }
+    if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
+        return 1;
+    for(i;gEvolutionTable[species][i].targetSpecies;i++) 
+    {
+
+        tier2Evos[i] = gEvolutionTable[species][i].targetSpecies;
+    }
+    tier2Evos[i] = SPECIES_NONE;
+    i=0;
+    for(i;tier2Evos[i];i++) 
+    {
+        if(GetSetPokedexFlag(SpeciesToNationalPokedexNum(tier2Evos[i]), FLAG_GET_CAUGHT))
+            return 1;
+        j=0;
+        for(j;gEvolutionTable[tier2Evos[i]][j].targetSpecies;j++)
+        {
+            tier3Evos[index++] = gEvolutionTable[tier2Evos[i]][j].targetSpecies;
+        }
+    }
+    tier3Evos[index] = SPECIES_NONE;
+    i=0;
+    for(i;tier3Evos[i];i++) 
+    {
+        if(GetSetPokedexFlag(SpeciesToNationalPokedexNum(tier3Evos[i]), FLAG_GET_CAUGHT))
+            return 1;
+    }
+    return 0;
 }

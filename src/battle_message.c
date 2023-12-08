@@ -1353,6 +1353,8 @@ static const u8 sText_Round2[] = _("Round 2");
 static const u8 sText_Semifinal[] = _("Semifinal");
 static const u8 sText_Final[] = _("Final");
 
+const u8 gText_CannotCatch[] = _("You already had your encounter here!{PAUSE_UNTIL_PRESS}");
+
 const u8 *const gRoundsStringTable[DOME_ROUNDS_COUNT] =
 {
     [DOME_ROUND1]    = sText_Round1,

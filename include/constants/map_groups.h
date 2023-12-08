@@ -592,15 +592,21 @@
 #define MAP_ROUTE124_DIVING_TREASURE_HUNTERS_HOUSE (0 | (33 << 8))
 
 // gMapGroup_Sevii_Islands
-#define MAP_ISLAND1TREASURE_BEACH     (0 | (34 << 8))
-#define MAP_ISLAND1MAIN               (1 | (34 << 8))
-#define MAP_ISLAND1HARBOR             (2 | (34 << 8))
-#define MAP_ISLAND1_POKEMON_CENTER_1F (3 | (34 << 8))
-#define MAP_ISLAND1_HOUSE1            (4 | (34 << 8))
-#define MAP_ISLAND1_HOUSE2            (5 | (34 << 8))
-#define MAP_ISLAND1_POKEMON_CENTER_2F (6 | (34 << 8))
-#define MAP_ISLAND1_KINDLE_ROAD       (7 | (34 << 8))
+#define MAP_ISLAND1TREASURE_BEACH        (0 | (34 << 8))
+#define MAP_ISLAND1MAIN                  (1 | (34 << 8))
+#define MAP_ISLAND1HARBOR                (2 | (34 << 8))
+#define MAP_ISLAND1_POKEMON_CENTER_1F    (3 | (34 << 8))
+#define MAP_ISLAND1_HOUSE1               (4 | (34 << 8))
+#define MAP_ISLAND1_HOUSE2               (5 | (34 << 8))
+#define MAP_ISLAND1_POKEMON_CENTER_2F    (6 | (34 << 8))
+#define MAP_ISLAND1_KINDLE_ROAD          (7 | (34 << 8))
+#define MAP_ISLAND1_KINDLE_ROAD_ENTRANCE (8 | (34 << 8))
 
-#define MAP_GROUPS_COUNT 35
+// gMapGroup_Sevii_Islands_Dungeons
+#define MAP_MT_EMBER_EXTERIOR     (0 | (35 << 8))
+#define MAP_EMBER_SPA             (1 | (35 << 8))
+#define MAP_MT_EMBER_RUBY_PATH_1F (2 | (35 << 8))
+
+#define MAP_GROUPS_COUNT 36
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

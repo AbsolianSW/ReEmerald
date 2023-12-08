@@ -3,7 +3,7 @@
   "name": "Island1TreasureBeach",
   "layout": "LAYOUT_ISLAND1TREASURE_BEACH",
   "music": "MUS_RG_SEVII_ROUTE",
-  "region_map_section": "MAPSEC_ONE_ISLAND",
+  "region_map_section": "MAPSEC_TREASURE_BEACH",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_OCEAN_ROUTE",

@@ -4393,3 +4393,33 @@ void BufferVarsForHiddenPowerIdentifier(void)
     gSpecialVar_0x8005 = (40 * powerBits) / 63 + 30;
     gSpecialVar_0x8006 = ((NUMBER_OF_MON_TYPES - 3) * typeBits) / 63 + 1;
 }
+
+void bufferStartersForNotebook(void) 
+{
+    StringCopy(gStringVar1 ,gSpeciesNames[NationalPokedexNumToSpecies(gSaveBlock2Ptr->grassStarter)]);
+    StringCopy(gStringVar2 , gSpeciesNames[NationalPokedexNumToSpecies(gSaveBlock2Ptr->waterStarter)]);
+    StringCopy(gStringVar3 , gSpeciesNames[NationalPokedexNumToSpecies(gSaveBlock2Ptr->fireStarter)]);
+}
+
+void bufferXPMultiplierForNotebook(void)
+{
+    u8 text[4];
+    u8 n = gSaveBlock2Ptr->xpMultiplier;
+    u16 i = 0;
+    DebugPrintf("Hi");
+    if (n / 10 != 0)
+    {
+        text[i++] = n / 10 + CHAR_0;
+        text[i++] = CHAR_PERIOD;
+        text[i++] = n % 10 + CHAR_0;
+    }
+    else
+    {
+        text[i++] = CHAR_0;
+        text[i++] = CHAR_PERIOD;
+        text[i++] = n % 10 + CHAR_0;
+    }
+    text[i] = EOS;
+    DebugPrintf("%S", text);
+    StringCopy(gStringVar1 , text);
+}

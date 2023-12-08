@@ -41,6 +41,8 @@
 #include "constants/item_effects.h"
 #include "constants/items.h"
 #include "constants/songs.h"
+#include "battle_setup.h"
+#include "region_map.h"
 
 static void SetUpItemUseCallback(u8);
 static void FieldCB_UseItemOnField(void);
@@ -841,6 +843,24 @@ void ItemUseOutOfBattle_Repel(u8 taskId)
         DisplayItemMessageInBattlePyramid(taskId, gText_RepelEffectsLingered, Task_CloseBattlePyramidBagMessage);
 }
 
+void ItemUseOutOfBattle_Repellant(u8 taskId) {
+    if(FlagGet(FLAG_CHALLENGES_REPELLANT_ACTIVE))
+    {
+        FlagClear(FLAG_CHALLENGES_REPELLANT_ACTIVE);
+        if (!gTasks[taskId].tUsingRegisteredKeyItem)
+            DisplayItemMessage(taskId, FONT_NORMAL,gText_RepellantOff, CloseItemMessage);
+        else
+            DisplayItemMessageOnField(taskId,gText_RepellantOff, Task_CloseCantUseKeyItemMessage);
+    } else
+    {
+        FlagSet(FLAG_CHALLENGES_REPELLANT_ACTIVE);
+        if (!gTasks[taskId].tUsingRegisteredKeyItem)
+            DisplayItemMessage(taskId, FONT_NORMAL,gText_RepellantOn, CloseItemMessage);
+        else
+            DisplayItemMessageOnField(taskId,gText_RepellantOn, Task_CloseCantUseKeyItemMessage);
+    }
+}
+
 static void Task_StartUseRepel(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
@@ -858,6 +878,7 @@ static void Task_UseRepel(u8 taskId)
     if (!IsSEPlaying())
     {
         VarSet(VAR_REPEL_STEP_COUNT, ItemId_GetHoldEffectParam(gSpecialVar_ItemId));
+        VarSet(VAR_REPEL_LAST_USED, gSpecialVar_ItemId);
         RemoveUsedItem();
         if (!InBattlePyramid())
             DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, CloseItemMessage);
@@ -941,6 +962,10 @@ void ItemUseOutOfBattle_EvolutionStone(u8 taskId)
 
 void ItemUseInBattle_PokeBall(u8 taskId)
 {
+    if (gCannotCatch == 1){
+        DisplayItemMessage(taskId, FONT_NORMAL, gText_CannotCatch, CloseItemMessage);
+        return;
+    }
     if (IsPlayerPartyAndPokemonStorageFull() == FALSE) // have room for mon?
     {
         RemoveBagItem(gSpecialVar_ItemId, 1);

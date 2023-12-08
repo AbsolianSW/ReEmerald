@@ -145,6 +145,8 @@
 #define MIN_LEVEL 1
 #define MAX_LEVEL 100
 
+#define LEVEL_CAP_AMOUNT 13
+
 #define OT_ID_PLAYER_ID       0
 #define OT_ID_PRESET          1
 #define OT_ID_RANDOM_NO_SHINY 2
@@ -165,6 +167,7 @@
 #define LEVEL_UP_END       0xFFFF
 
 #define MAX_LEVEL_UP_MOVES       20
+#define MAX_LEVEL_DIFF_PRE_EV   5
 
 #define MON_MALE       0x00
 #define MON_FEMALE     0xFE
@@ -202,7 +205,7 @@
 #define USE_RANDOM_IVS (MAX_PER_STAT_IVS + 1)
 #define MAX_PER_STAT_EVS 255
 #define MAX_TOTAL_EVS 510
-#define EV_ITEM_RAISE_LIMIT 100
+#define EV_ITEM_RAISE_LIMIT 255
 
 // Battle move flags
 #define FLAG_MAKES_CONTACT          (1 << 0)

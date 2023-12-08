@@ -352,6 +352,20 @@ u16 GetStarterPokemon(u16 chosenStarterId)
 {
     if (chosenStarterId > STARTER_MON_COUNT)
         chosenStarterId = 0;
+    switch (chosenStarterId)
+    {
+    case 0:
+        return NationalPokedexNumToSpecies(gSaveBlock2Ptr -> grassStarter);
+        break;
+    case 1:
+        return NationalPokedexNumToSpecies(gSaveBlock2Ptr -> fireStarter);
+        break;
+    case 2:
+        return NationalPokedexNumToSpecies(gSaveBlock2Ptr -> waterStarter);
+        break;
+    default:
+        break;
+    }
     return sStarterMon[chosenStarterId];
 }
 

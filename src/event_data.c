@@ -131,14 +131,8 @@ void ClearMysteryGiftFlags(void)
 
 void ClearMysteryGiftVars(void)
 {
-    VarSet(VAR_GIFT_PICHU_SLOT, 0);
-    VarSet(VAR_GIFT_UNUSED_1, 0);
-    VarSet(VAR_GIFT_UNUSED_2, 0);
-    VarSet(VAR_GIFT_UNUSED_3, 0);
-    VarSet(VAR_GIFT_UNUSED_4, 0);
-    VarSet(VAR_GIFT_UNUSED_5, 0);
-    VarSet(VAR_GIFT_UNUSED_6, 0);
-    VarSet(VAR_GIFT_UNUSED_7, 0);
+    //used to set mystery gift vars to 0, but those were never used anyways and we need them for encounter tracking.
+    return;
 }
 
 void DisableResetRTC(void)

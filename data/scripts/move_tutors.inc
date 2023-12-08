@@ -217,6 +217,28 @@ MoveTutor_EventScript_MimicTaught::
 	msgbox MoveTutor_Text_MimicTaught, MSGBOX_DEFAULT
 	release
 	end
+	
+MtEmber_EventScript_HeatWaveTutor::
+	lock
+	faceplayer
+	msgbox MoveTutor_Text_HeatWaveTeach, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MoveTutor_EventScript_HeatWaveDeclined
+	msgbox MoveTutor_Text_HeatWaveWhichMon, MSGBOX_DEFAULT
+	setvar VAR_0x8005, TUTOR_MOVE_HEAT_WAVE
+	call MoveTutor_EventScript_OpenPartyMenu
+	goto_if_eq VAR_RESULT, 0, MoveTutor_EventScript_HeatWaveDeclined
+	goto MoveTutor_EventScript_HeatWaveTaught
+	end
+
+MoveTutor_EventScript_HeatWaveDeclined::
+	msgbox MoveTutor_Text_HeatWaveDeclined, MSGBOX_DEFAULT
+	release
+	end
+
+MoveTutor_EventScript_HeatWaveTaught::
+	msgbox MoveTutor_Text_HeatWaveTaught, MSGBOX_DEFAULT
+	release
+	end
 
 MoveTutor_EventScript_OpenPartyMenu::
 	special ChooseMonForMoveTutor

@@ -858,12 +858,29 @@
 #define TRAINER_MAY_PLACEHOLDER             854
 //new trainers
 #define TRAINER_AMARA                       855
+#define TRAINER_MARIA_SEVII                 856
+#define TRAINER_ABIGAIL_SEVII               857
+#define TRAINER_FINN                        858
+#define TRAINER_GARRETT                     859
+#define TRAINER_TOMMY_SEVII                 860
+#define TRAINER_SHARON_SEVII                861
+#define TRAINER_TANYA_SEVII                 862
+#define TRAINER_SHEA                        863
+#define TRAINER_HUGH_SEVII                  864
+#define TRAINER_BRYCE                       865
+#define TRAINER_CLAIRE                      866
+#define TRAINER_MIK_AND_KIA                 867
+#define TRAINER_GRUNT_MT_EMBER_1            868
+#define TRAINER_GRUNT_MT_EMBER_2            869
+#define TRAINER_LOGAN                       870
+#define TRAINER_BETH_SEVII                  871
+#define TRAINER_JOCELYN_SEVII               872
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
-#define TRAINERS_COUNT                      856
+#define TRAINERS_COUNT                      873
 #define MAX_TRAINERS_COUNT                  1000
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

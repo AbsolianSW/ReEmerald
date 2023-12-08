@@ -7498,6 +7498,7 @@ const union {
         .REST = TRUE,
         .ATTRACT = TRUE,
         .THIEF = TRUE,
+        .FLY = TRUE,
         .FLASH = TRUE,
     } },
 

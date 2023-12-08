@@ -37,6 +37,8 @@ void HealPlayerParty(void)
     for(i = 0; i < gPlayerPartyCount; i++)
     {
         u16 maxHP = GetMonData(&gPlayerParty[i], MON_DATA_MAX_HP);
+        if(FlagGet(FLAG_CHALLENGES_PERMA_DEATH)&& GetMonData(&gPlayerParty[i], MON_DATA_IS_DEAD))
+            continue;
         arg[0] = maxHP;
         arg[1] = maxHP >> 8;
         SetMonData(&gPlayerParty[i], MON_DATA_HP, arg);
@@ -93,6 +95,38 @@ u8 ScriptGiveEgg(u16 species)
     isEgg = TRUE;
     SetMonData(&mon, MON_DATA_IS_EGG, &isEgg);
 
+    return GiveMonToPlayer(&mon);
+}
+
+//0 is LUKEs egg, 1 is IKEs egg, 2 is KEVs egg
+u8 ScriptGiveSpecialEgg()
+{
+    struct Pokemon mon;
+    u16 species;
+    u16 specialMove;
+    u8 isEgg = TRUE;
+    DebugPrintf("giving egg");
+    switch(gSpecialVar_0x8004)
+    {
+        case 0:
+            species = SPECIES_ABSOL;
+            specialMove = MOVE_SWORDS_DANCE;
+            break;
+        case 1:
+            species = SPECIES_PSYDUCK;
+            specialMove = MOVE_HYDRO_PUMP;
+            break;
+        case 2:
+            species = SPECIES_MILOTIC;
+            specialMove = MOVE_ICE_BEAM;
+            break;
+        default:
+            species = SPECIES_MUDKIP;
+            break;
+    }
+    CreateEgg(&mon, species, FALSE);
+    SetMonData(&mon, MON_DATA_IS_EGG, &isEgg);
+    SetMonData(&mon, MON_DATA_MOVE3, &specialMove);
     return GiveMonToPlayer(&mon);
 }
 

@@ -464,7 +464,7 @@
 #define FLAG_SHOWN_EON_TICKET                0x1AE
 #define FLAG_SHOWN_AURORA_TICKET             0x1AF
 #define FLAG_SHOWN_OLD_SEA_MAP               0x1B0
-// these flags were originally used for move tutors, but with our removable ones they are
+// these flags were originally used for move tutors, but with our reuseable ones they are
 // now unnecessary and used for something else
 #define FLAG_SHOWN_RAINBOW_PASS              0x1B1
 //#define FLAG_MOVE_TUTOR_TAUGHT_ROLLOUT       0x1B2
@@ -1232,15 +1232,15 @@
 #define FLAG_ITEM_TREASURE_BEACH_BIG_PEARL                          0x49A // Unused Flag
 #define FLAG_VISITED_ONE_ISLAND                                     0x49B // Unused Flag
 #define FLAG_ONE_ISLAND_HIDE_BILL                                   0x49C // Unused Flag
-#define FLAG_UNUSED_0x49D                                           0x49D // Unused Flag
-#define FLAG_UNUSED_0x49E                                           0x49E // Unused Flag
-#define FLAG_UNUSED_0x49F                                           0x49F // Unused Flag
-#define FLAG_UNUSED_0x4A0                                           0x4A0 // Unused Flag
-#define FLAG_UNUSED_0x4A1                                           0x4A1 // Unused Flag
-#define FLAG_UNUSED_0x4A2                                           0x4A2 // Unused Flag
-#define FLAG_UNUSED_0x4A3                                           0x4A3 // Unused Flag
-#define FLAG_UNUSED_0x4A4                                           0x4A4 // Unused Flag
-#define FLAG_UNUSED_0x4A5                                           0x4A5 // Unused Flag
+#define FLAG_ITEM_KINDLE_ROAD_ETHER                                 0x49D // Unused Flag
+#define FLAG_ITEM_KINDLE_ROAD_MAX_REPEL                             0x49E // Unused Flag
+#define FLAG_ITEM_KINDLE_ROAD_CARBOS                                0x49F // Unused Flag
+#define FLAG_HIDE_MT_EMBER_EXTERIOR_GRUNTS                          0x4A0 // Unused Flag
+#define FLAG_ITEM_MT_EMBER_ULTRA_BALL                               0x4A1 // Unused Flag
+#define FLAG_ITEM_MT_EMBER_FIRE_STONE                               0x4A2 // Unused Flag
+#define FLAG_ITEM_MT_EMBER_DIRE_HIT                                 0x4A3 // Unused Flag
+#define FLAG_HIDDEN_ITEM_MT_EMBER_FIRE_STONE                        0x4A4 // Unused Flag
+#define FLAG_HIDDEN_ITEM_MT_EMBER_ULTRA_BALL                        0x4A5 // Unused Flag
 #define FLAG_UNUSED_0x4A6                                           0x4A6 // Unused Flag
 #define FLAG_UNUSED_0x4A7                                           0x4A7 // Unused Flag
 #define FLAG_UNUSED_0x4A8                                           0x4A8 // Unused Flag
@@ -1506,15 +1506,15 @@
 
 #define FLAG_RECEIVED_POKEDEX_FROM_BIRCH            (SYSTEM_FLAGS + 0x84)
 
-#define FLAG_UNUSED_0x8E5                           (SYSTEM_FLAGS + 0x85) // Unused Flag
-#define FLAG_UNUSED_0x8E6                           (SYSTEM_FLAGS + 0x86) // Unused Flag
-#define FLAG_UNUSED_0x8E7                           (SYSTEM_FLAGS + 0x87) // Unused Flag
-#define FLAG_UNUSED_0x8E8                           (SYSTEM_FLAGS + 0x88) // Unused Flag
-#define FLAG_UNUSED_0x8E9                           (SYSTEM_FLAGS + 0x89) // Unused Flag
-#define FLAG_UNUSED_0x8EA                           (SYSTEM_FLAGS + 0x8A) // Unused Flag
-#define FLAG_UNUSED_0x8EB                           (SYSTEM_FLAGS + 0x8B) // Unused Flag
-#define FLAG_UNUSED_0x8EC                           (SYSTEM_FLAGS + 0x8C) // Unused Flag
-#define FLAG_UNUSED_0x8ED                           (SYSTEM_FLAGS + 0x8D) // Unused Flag
+#define FLAG_CHALLENGES_LEVEL_CAP                   (SYSTEM_FLAGS + 0x85) // Previously unused Flag
+#define FLAG_CHALLENGES_PERMA_DEATH                 (SYSTEM_FLAGS + 0x86) // Previously unused Flag
+#define FLAG_CHALLENGES_LIMITED_ENCOUNTERS          (SYSTEM_FLAGS + 0x87) // Previously unused Flag
+#define FLAG_CHALLENGES_SPECIES_CLAUSE              (SYSTEM_FLAGS + 0x88) // Previously unused Flag
+#define FLAG_CHALLENGES_NO_BATTLE_ITEMS             (SYSTEM_FLAGS + 0x89) // Previously unused Flag
+#define FLAG_CHALLENGES_FORCE_SET_MODE              (SYSTEM_FLAGS + 0x8A) // Unused Flag
+#define FLAG_CHALLENGES_INFINITE_CANDY              (SYSTEM_FLAGS + 0x8B) // Previously unused Flag
+#define FLAG_CHALLENGES_REPELLANT                   (SYSTEM_FLAGS + 0x8C) // Previously unused Flag
+#define FLAG_CHALLENGES_REPELLANT_ACTIVE            (SYSTEM_FLAGS + 0x8D) // Unused Flag
 #define FLAG_UNUSED_0x8EE                           (SYSTEM_FLAGS + 0x8E) // Unused Flag
 #define FLAG_UNUSED_0x8EF                           (SYSTEM_FLAGS + 0x8F) // Unused Flag
 #define FLAG_UNUSED_0x8F0                           (SYSTEM_FLAGS + 0x90) // Unused Flag

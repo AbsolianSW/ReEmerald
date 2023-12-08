@@ -16,10 +16,20 @@ InsideOfTruck_OnResume:
 InsideOfTruck_EventScript_SetIntroFlags::
 	lockall
 	setflag FLAG_HIDE_MAP_NAME_POPUP
+	call_if_set FLAG_CHALLENGES_INFINITE_CANDY, InsideOfTruck_EventScript_GiveInfiniteCandy
+	call_if_set FLAG_CHALLENGES_REPELLANT, InsideOfTruck_EventScript_GiveRepellant
 	checkplayergender
 	goto_if_eq VAR_RESULT, MALE, InsideOfTruck_EventScript_SetIntroFlagsMale
 	goto_if_eq VAR_RESULT, FEMALE, InsideOfTruck_EventScript_SetIntroFlagsFemale
 	end
+	
+InsideOfTruck_EventScript_GiveInfiniteCandy::
+	giveitem ITEM_INFINITE_CANDY
+	return
+	
+InsideOfTruck_EventScript_GiveRepellant::
+	giveitem ITEM_REPELLANT
+	return
 
 InsideOfTruck_EventScript_SetIntroFlagsMale::
 	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F

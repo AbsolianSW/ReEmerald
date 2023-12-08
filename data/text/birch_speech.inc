@@ -49,6 +49,9 @@ gText_Birch_YourePlayer::
 	.string "I get it now!\p"
 	.string "$"
 
+gText_Birch_WhatChallengesAwait::
+	.string "And what Challenges await?$"
+
 gText_Birch_AreYouReady::
 	.string "All right, are you ready?\p"
 	.string "Your very own adventure is about\n"

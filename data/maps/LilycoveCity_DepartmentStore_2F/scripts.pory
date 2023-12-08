@@ -35,6 +35,7 @@ LilycoveCity_DepartmentStore_2F_Pokemart1:
 	.2byte ITEM_REPEAT_BALL
 	.2byte ITEM_TIMER_BALL
 	.2byte ITEM_LUXURY_BALL
+	.2byte ITEM_MASTER_BALL
 	.2byte ITEM_NONE
 	release
 	end

@@ -8669,11 +8669,11 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_MASQUERAIN] =
     {
         .baseHP        = 70,
-        .baseAttack    = 60,
-        .baseDefense   = 62,
+        .baseAttack    = 100,
+        .baseDefense   = 60,
         .baseSpeed     = 60,
         .baseSpAttack  = 80,
-        .baseSpDefense = 82,
+        .baseSpDefense = 80,
         .types = { TYPE_BUG, TYPE_FLYING },
         .catchRate = 75,
         .expYield = 128,
@@ -8788,12 +8788,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
 
     [SPECIES_DELCATTY] =
     {
-        .baseHP        = 70,
+        .baseHP        = 80,
         .baseAttack    = 65,
         .baseDefense   = 65,
-        .baseSpeed     = 70,
-        .baseSpAttack  = 55,
-        .baseSpDefense = 55,
+        .baseSpeed     = 90,
+        .baseSpAttack  = 65,
+        .baseSpDefense = 65,
         .types = { TYPE_NORMAL, TYPE_NORMAL },
         .catchRate = 60,
         .expYield = 138,
@@ -8908,7 +8908,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
 
     [SPECIES_NOSEPASS] =
     {
-        .baseHP        = 30,
+        .baseHP        = 55,
         .baseAttack    = 45,
         .baseDefense   = 135,
         .baseSpeed     = 30,
@@ -9058,12 +9058,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
 
     [SPECIES_LUVDISC] =
     {
-        .baseHP        = 43,
-        .baseAttack    = 30,
-        .baseDefense   = 55,
-        .baseSpeed     = 97,
-        .baseSpAttack  = 40,
-        .baseSpDefense = 65,
+        .baseHP        = 70,
+        .baseAttack    = 40,
+        .baseDefense   = 65,
+        .baseSpeed     = 100,
+        .baseSpAttack  = 50,
+        .baseSpDefense = 75,
         .types = { TYPE_WATER, TYPE_WATER },
         .catchRate = 225,
         .expYield = 110,
@@ -9958,15 +9958,15 @@ const struct SpeciesInfo gSpeciesInfo[] =
 
     [SPECIES_MAWILE] =
     {
-        .baseHP        = 70,
-        .baseAttack    = 95,
-        .baseDefense   = 95,
-        .baseSpeed     = 60,
-        .baseSpAttack  = 65,
-        .baseSpDefense = 65,
-        .types = { TYPE_STEEL, TYPE_STEEL },
+        .baseHP        = 80,
+        .baseAttack    = 125,
+        .baseDefense   = 125,
+        .baseSpeed     = 80,
+        .baseSpAttack  = 85,
+        .baseSpDefense = 85,
+        .types = { TYPE_STEEL, TYPE_DARK },
         .catchRate = 45,
-        .expYield = 98,
+        .expYield = 210,
         .evYield_HP        = 0,
         .evYield_Attack    = 1,
         .evYield_Defense   = 1,

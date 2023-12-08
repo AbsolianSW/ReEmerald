@@ -1073,3 +1073,11 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/Island1_PokemonCenter_2F/scripts.inc"
 
 	.include "data/maps/Island1_KindleRoad/scripts.inc"
+
+	.include "data/maps/Island1_KindleRoad_Entrance/scripts.inc"
+
+	.include "data/maps/MtEmber_Exterior/scripts.inc"
+
+	.include "data/maps/EmberSpa/scripts.inc"
+
+	.include "data/maps/MtEmber_RubyPath_1F/scripts.inc"

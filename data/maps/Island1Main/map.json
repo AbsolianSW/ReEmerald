@@ -19,13 +19,8 @@
       "direction": "down"
     },
     {
-      "map": "MAP_ISLAND1TREASURE_BEACH",
-      "offset": 0,
-      "direction": "down"
-    },
-    {
-      "map": "MAP_ISLAND1_KINDLE_ROAD",
-      "offset": -120,
+      "map": "MAP_ISLAND1_KINDLE_ROAD_ENTRANCE",
+      "offset": -3,
       "direction": "right"
     }
   ],

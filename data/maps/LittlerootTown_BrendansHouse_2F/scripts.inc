@@ -266,8 +266,60 @@ LittlerootTown_BrendansHouse_2F_EventScript_CheckRivalsPC::
 
 PlayersHouse_2F_EventScript_Notebook::
 	msgbox PlayersHouse_2F_Text_Notebook, MSGBOX_SIGN
+	call_if_set FLAG_CHALLENGES_LEVEL_CAP, PlayersHouse_2F_EventScript_NotebookLevelCap
+	call_if_set FLAG_CHALLENGES_PERMA_DEATH, PlayersHouse_2F_EventScript_NotebookPermaDeath
+	call_if_set FLAG_CHALLENGES_LIMITED_ENCOUNTERS, PlayersHouse_2F_EventScript_NotebookLimitedEncounters
+	call_if_set FLAG_CHALLENGES_SPECIES_CLAUSE, PlayersHouse_2F_EventScript_NotebookSpeciesClause
+	call_if_set FLAG_CHALLENGES_NO_BATTLE_ITEMS, PlayersHouse_2F_EventScript_NotebookNoBattleItems
+	call_if_set FLAG_CHALLENGES_FORCE_SET_MODE, PlayersHouse_2F_EventScript_NotebookForceSetMode
+	special bufferStartersForNotebook
+	call PlayersHouse_2F_EventScript_NotebookCustomStarter
+	special bufferXPMultiplierForNotebook
+	call PlayersHouse_2F_EventScript_NotebookXPMultiplier
+	call_if_set FLAG_CHALLENGES_INFINITE_CANDY, PlayersHouse_2F_EventScript_NotebookInfiniteCandy
+	call_if_set FLAG_CHALLENGES_REPELLANT, PlayersHouse_2F_EventScript_NotebookRepellant
 	end
 
+PlayersHouse_2F_EventScript_NotebookLevelCap::
+	msgbox PlayersHouse_2F_Text_NotebookLevelCap, MSGBOX_SIGN
+	return
+
+PlayersHouse_2F_EventScript_NotebookPermaDeath::
+	msgbox PlayersHouse_2F_Text_NotebookPermaDeath, MSGBOX_SIGN
+	return
+
+PlayersHouse_2F_EventScript_NotebookLimitedEncounters::
+	msgbox PlayersHouse_2F_Text_NotebookLimitedEncounters, MSGBOX_SIGN
+	return
+
+PlayersHouse_2F_EventScript_NotebookSpeciesClause::
+	msgbox PlayersHouse_2F_Text_NotebookSpeciesClause, MSGBOX_SIGN
+	return
+
+PlayersHouse_2F_EventScript_NotebookNoBattleItems::
+	msgbox PlayersHouse_2F_Text_NotebookNoBattleItems, MSGBOX_SIGN
+	return
+
+PlayersHouse_2F_EventScript_NotebookForceSetMode::
+	msgbox PlayersHouse_2F_Text_NotebookForceSetMode, MSGBOX_SIGN
+	return
+
+PlayersHouse_2F_EventScript_NotebookCustomStarter::
+	msgbox PlayersHouse_2F_Text_NotebookCustomStarter, MSGBOX_SIGN
+	return
+	
+PlayersHouse_2F_EventScript_NotebookXPMultiplier::
+	msgbox PlayersHouse_2F_Text_NotebookXPMultiplier, MSGBOX_SIGN
+	return
+
+PlayersHouse_2F_EventScript_NotebookInfiniteCandy::
+	msgbox PlayersHouse_2F_Text_NotebookInfiniteCandy, MSGBOX_SIGN
+	return
+
+PlayersHouse_2F_EventScript_NotebookRepellant::
+	msgbox PlayersHouse_2F_Text_NotebookRepellant, MSGBOX_SIGN
+	return
+	
 PlayersHouse_2F_EventScript_GameCube::
 	msgbox PlayersHouse_2F_Text_ItsAGameCube, MSGBOX_SIGN
 	end
@@ -288,11 +340,53 @@ PlayersHouse_2F_Text_HowDoYouLikeYourRoom:
 
 PlayersHouse_2F_Text_Notebook:
 	.string "{PLAYER} flipped open the notebook.\p"
-	.string "ADVENTURE RULE NO. 1\n"
-	.string "Open the MENU with START.\p"
-	.string "ADVENTURE RULE NO. 2\n"
-	.string "Record your progress with SAVE.\p"
-	.string "The remaining pages are blank…$"
+	.string "Challenges active:$"
+	
+PlayersHouse_2F_Text_NotebookLevelCap:
+	.string "Level Cap: Caps your level to\n"
+	.string "the next Gym Leader/E4 member.$"
+	
+PlayersHouse_2F_Text_NotebookPermaDeath:
+	.string "Permanent Death: A fainted Poke-\n"
+	.string "mon can not be revived in any way.$"
+	
+PlayersHouse_2F_Text_NotebookLimitedEncounters:
+	.string "Limited Encounters: You can only\n"
+	.string "catch the first encounter in each\p"
+	.string "Location.$"
+	
+PlayersHouse_2F_Text_NotebookSpeciesClause:
+	.string "Species Clause: Duplicates do not\n"
+	.string "count against the encounter limit.$"
+	
+PlayersHouse_2F_Text_NotebookNoBattleItems:
+	.string "No Battle Items: You can not use\n"
+	.string "items in battle. Held items are\p"
+	.string "are allowed, and the AI will\n"
+	.string "still use items.$"
+	
+PlayersHouse_2F_Text_NotebookForceSetMode:
+	.string "Force Set Mode: Every battle is\n"
+	.string "in set mode.$"
+	
+PlayersHouse_2F_Text_NotebookCustomStarter:
+	.string "Starter Choices: Your starter\n"
+	.string "choices are:\p"
+	.string "{STR_VAR_1}, {STR_VAR_2} and \n"
+	.string "{STR_VAR_3}$"
+	
+PlayersHouse_2F_Text_NotebookXPMultiplier:
+	.string "XP Multiplier set to {STR_VAR_1}$"
+	
+PlayersHouse_2F_Text_NotebookInfiniteCandy:
+	.string "Infinite Candy: You started the\n"
+	.string "game with a KEY ITEM that acts\p"
+	.string "as an infinite RARE CANDY.$"
+	
+PlayersHouse_2F_Text_NotebookRepellant:
+	.string "Repellant: You started the game\n"
+	.string "with a KEY ITEM that acts as an\p"
+	.string "infinite REPEL.$"
 
 Common_Text_LookCloserAtMap:
 	.string "{PLAYER} took a closer look at the\n"
