@@ -398,8 +398,8 @@ MeteorFalls_B1F_2R_EventScript_ItemTMDragonClaw::
 	finditem ITEM_TM_DRAGON_CLAW
 	end
 
-NewMauville_Inside_EventScript_ItemUltraBall::
-	finditem ITEM_ULTRA_BALL
+NewMauville_Inside_EventScript_ItemTMThunderbolt::
+	finditem ITEM_TM_THUNDERBOLT
 	end
 
 NewMauville_Inside_EventScript_ItemEscapeRope::

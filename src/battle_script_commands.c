@@ -325,6 +325,7 @@ static void Cmd_removeattackerstatus1(void);
 static void Cmd_finishaction(void);
 static void Cmd_finishturn(void);
 static void Cmd_trainerslideout(void);
+static void Cmd_strengthdamagecalculation(void);
 
 void (* const gBattleScriptingCommandsTable[])(void) =
 {
@@ -576,7 +577,8 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     Cmd_removeattackerstatus1,                   //0xF5
     Cmd_finishaction,                            //0xF6
     Cmd_finishturn,                              //0xF7
-    Cmd_trainerslideout                          //0xF8
+    Cmd_trainerslideout,                         //0xF8
+    Cmd_strengthdamagecalculation                //0xF9
 };
 
 struct StatFractions
@@ -1267,7 +1269,6 @@ static void Cmd_critcalc(void)
 
     critChance  = 2 * ((gBattleMons[gBattlerAttacker].status2 & STATUS2_FOCUS_ENERGY) != 0)
                 + (gBattleMoves[gCurrentMove].effect == EFFECT_HIGH_CRITICAL)
-                + (gBattleMoves[gCurrentMove].effect == EFFECT_SKY_ATTACK)
                 + (gBattleMoves[gCurrentMove].effect == EFFECT_BLAZE_KICK)
                 + (gBattleMoves[gCurrentMove].effect == EFFECT_POISON_TAIL)
                 + (holdEffect == HOLD_EFFECT_SCOPE_LENS)
@@ -8136,7 +8137,6 @@ static bool8 IsTwoTurnsMove(u16 move)
 {
     if (gBattleMoves[move].effect == EFFECT_SKULL_BASH
      || gBattleMoves[move].effect == EFFECT_RAZOR_WIND
-     || gBattleMoves[move].effect == EFFECT_SKY_ATTACK
      || gBattleMoves[move].effect == EFFECT_SOLAR_BEAM
      || gBattleMoves[move].effect == EFFECT_SEMI_INVULNERABLE
      || gBattleMoves[move].effect == EFFECT_BIDE)
@@ -8166,7 +8166,6 @@ static u8 AttacksThisTurn(u8 battlerId, u16 move) // Note: returns 1 if it's a c
 
     if (gBattleMoves[move].effect == EFFECT_SKULL_BASH
      || gBattleMoves[move].effect == EFFECT_RAZOR_WIND
-     || gBattleMoves[move].effect == EFFECT_SKY_ATTACK
      || gBattleMoves[move].effect == EFFECT_SOLAR_BEAM
      || gBattleMoves[move].effect == EFFECT_SEMI_INVULNERABLE
      || gBattleMoves[move].effect == EFFECT_BIDE)
@@ -10244,4 +10243,10 @@ static void Cmd_trainerslideout(void)
     MarkBattlerForControllerExec(gActiveBattler);
 
     gBattlescriptCurrInstr += 2;
+}
+
+static void Cmd_strengthdamagecalculation(void)
+{
+    gDynamicBasePower = 50 + (gBattleMons[gBattlerAttacker].level / 2);
+    gBattlescriptCurrInstr++;
 }

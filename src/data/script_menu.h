@@ -905,7 +905,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_SLATEPORT_TENT_RULES]       = MULTICHOICE(MultichoiceList_SlateportTentRules),
     [MULTI_FALLARBOR_TENT_RULES]       = MULTICHOICE(MultichoiceList_FallarborTentRules),
     [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
-    [MULTI_BRINEY_EGG]                 = MULTICHOICE(MultichoiceList_BrineyEgg),
+    [MULTI_WATTSON_EGG]                = MULTICHOICE(MultichoiceList_BrineyEgg),
 };
 
 const u8 *const gStdStrings[] =

@@ -93,7 +93,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectSpecialDefenseDownHit  @ EFFECT_SPECIAL_DEFENSE_DOWN_HIT
 	.4byte BattleScript_EffectAccuracyDownHit        @ EFFECT_ACCURACY_DOWN_HIT
 	.4byte BattleScript_EffectHit                    @ EFFECT_EVASION_DOWN_HIT
-	.4byte BattleScript_EffectSkyAttack              @ EFFECT_SKY_ATTACK
+	.4byte BattleScript_EffectStrength               @ EFFECT_STRENGTH
 	.4byte BattleScript_EffectConfuseHit             @ EFFECT_CONFUSE_HIT
 	.4byte BattleScript_EffectTwineedle              @ EFFECT_TWINEEDLE
 	.4byte BattleScript_EffectHit                    @ EFFECT_VITAL_THROW
@@ -1061,12 +1061,9 @@ BattleScript_EffectAccuracyDownHit::
 	setmoveeffect MOVE_EFFECT_ACC_MINUS_1
 	goto BattleScript_EffectHit
 
-BattleScript_EffectSkyAttack::
-	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_TwoTurnMovesSecondTurn
-	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_NO_ATTACKSTRING, BattleScript_TwoTurnMovesSecondTurn
-	setbyte sTWOTURN_STRINGID, B_MSG_TURN1_SKY_ATTACK
-	call BattleScriptFirstChargingTurn
-	goto BattleScript_MoveEnd
+BattleScript_EffectStrength::
+	strengthdamagecalculation
+	goto BattleScript_EffectHit
 
 BattleScript_EffectConfuseHit::
 	setmoveeffect MOVE_EFFECT_CONFUSION

@@ -4617,6 +4617,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
     u8 holdEffect = 0;
     u8 holdEffectParam = 0;
     u16 moveBattler1 = 0, moveBattler2 = 0;
+    u8 partnerAbility = ABILITY_NONE;
+    u8 i = 0;
 
     if (WEATHER_HAS_EFFECT)
     {
@@ -4652,7 +4654,33 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
         holdEffect = ItemId_GetHoldEffect(gBattleMons[battler1].item);
         holdEffectParam = ItemId_GetHoldEffectParam(gBattleMons[battler1].item);
     }
-
+    //apply new Plus/Minus buffs.
+    if(gBattleTypeFlags & BATTLE_TYPE_DOUBLE) 
+    {
+        for(i; i < MAX_BATTLERS_COUNT; i++)
+        {
+            if(i!= battler1 && GetBattlerSide(i) == GetBattlerSide(battler1))
+            {
+                partnerAbility = gBattleMons[i].ability;
+            }
+        }
+        if(gBattleMons[battler1].ability == ABILITY_MINUS && partnerAbility == ABILITY_PLUS)
+            speedBattler1 = (speedBattler1 * 150) / 100;
+        if(gBattleMons[battler1].ability == ABILITY_PLUS && partnerAbility == ABILITY_MINUS)
+            speedBattler1 = (speedBattler1 * 150) / 100;
+        partnerAbility = ABILITY_NONE;
+        for(i; i < MAX_BATTLERS_COUNT; i++)
+        {
+            if(i!= battler2 && GetBattlerSide(i) == GetBattlerSide(battler2))
+            {
+                partnerAbility = gBattleMons[i].ability;
+            }
+        }
+        if(gBattleMons[battler2].ability == ABILITY_MINUS && partnerAbility == ABILITY_PLUS)
+            speedBattler2 = (speedBattler1 * 150) / 100;
+        if(gBattleMons[battler2].ability == ABILITY_PLUS && partnerAbility == ABILITY_MINUS)
+            speedBattler2 = (speedBattler1 * 150) / 100;
+    }
     // badge boost
     if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
         && FlagGet(FLAG_BADGE03_GET)

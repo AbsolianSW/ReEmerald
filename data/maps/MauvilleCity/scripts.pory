@@ -434,13 +434,53 @@ MauvilleCity_EventScript_BegunNewMauville::
 	release
 	end
 
-MauvilleCity_EventScript_CompletedNewMauville::
-	msgbox MauvilleCity_Text_WattsonThanksTakeTM, MSGBOX_DEFAULT
-	giveitem ITEM_TM_THUNDERBOLT
-	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+MauvilleCity_EventScript_CompletedNewMauville2::
 	setflag FLAG_GOT_TM_THUNDERBOLT_FROM_WATTSON
 	msgbox MauvilleCity_Text_WattsonYoungTakeCharge, MSGBOX_DEFAULT
 	release
+	end
+	
+MauvilleCity_EventScript_CompletedNewMauville:
+	message MauvilleCity_Text_ThankYouWhatEgg
+	waitmessage
+	multichoicedefault 21, 6, MULTI_WATTSON_EGG, 0, FALSE
+	switch VAR_RESULT
+	case 0, MauvilleCity_EventScript_WattsonEggLuke
+	case 1, MauvilleCity_EventScript_WattsonEggIke
+	case 2, MauvilleCity_EventScript_WattsonEggKev
+	case 3, MauvilleCity_EventScript_WattsonEggNo
+	case MULTI_B_PRESSED, MauvilleCity_EventScript_WattsonEggNo
+	return
+	end
+
+MauvilleCity_EventScript_WattsonEggLuke:
+	copyvar VAR_0x8004 VAR_RESULT
+	msgbox MauvilleCity_Text_LukesEgg, MSGBOX_YESNO
+	call_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_CompletedNewMauville
+	givespecialegg
+	goto MauvilleCity_EventScript_CompletedNewMauville2
+	end
+
+MauvilleCity_EventScript_WattsonEggIke:
+	copyvar VAR_0x8004 VAR_RESULT
+	msgbox MauvilleCity_Text_IkesEgg, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_CompletedNewMauville
+	givespecialegg
+	goto MauvilleCity_EventScript_CompletedNewMauville2
+	end
+	
+MauvilleCity_EventScript_WattsonEggKev:
+	copyvar VAR_0x8004 VAR_RESULT
+	msgbox MauvilleCity_Text_KevsEgg, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_CompletedNewMauville
+	givespecialegg
+	goto MauvilleCity_EventScript_CompletedNewMauville2
+	end
+	
+MauvilleCity_EventScript_WattsonEggNo:
+	msgbox MauvilleCity_Text_NoEgg, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_CompletedNewMauville
+	goto MauvilleCity_EventScript_CompletedNewMauville2
 	end
 
 MauvilleCity_EventScript_ReceivedThunderbolt::
@@ -666,4 +706,25 @@ MauvilleCity_Text_ExplainTV:
 
 MauvilleCity_Text_BeenCheckingOutTV:
 	.string "Hi, have you been checking out TVs?$"
+	
+MauvilleCity_Text_ThankYouWhatEgg:
+	.string "Thanks for the assist! You know what,\n"
+	.string "some of my friends gave me these eggs,\p"
+	.string "you should have one of them!$"
+	
+MauvilleCity_Text_LukesEgg:
+	.string "Luke likes powerful Pokemon, heavy\n"
+	.string "hitters. Do you want this egg?$"
+
+MauvilleCity_Text_IkesEgg:
+	.string "Ike likes quirky Pokemon, somewhat\n"
+	.string "gimmicky. Do you want this egg?$"
+
+MauvilleCity_Text_KevsEgg:
+	.string "Kev likes bulky Pokemon, quite\n"
+	.string "resilient. Do you want this egg?$"
+
+MauvilleCity_Text_NoEgg:
+	.string "You don't want an egg? Oh well,\n"
+	.string "guess I'm hatching all of them!$"
 `

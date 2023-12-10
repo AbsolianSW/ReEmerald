@@ -570,8 +570,8 @@ static const u8 sLovelyKissDescription[] = _(
     "face that induces sleep.");
 
 static const u8 sSkyAttackDescription[] = _(
-    "Searches out weak spots,\n"
-    "then strikes the next turn.");
+    "Crashes down from up high to\n"
+    "inflict massive damage.");
 
 static const u8 sTransformDescription[] = _(
     "Alters the user's cells to\n"
