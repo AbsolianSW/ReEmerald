@@ -88,7 +88,7 @@ LilycoveCity_Harbor_EventScript_GoToFarawayIsland::
 	
 LilycoveCity_Harbor_EventScript_GoToOneIsland::
 	call LilycoveCity_Harbor_EventScript_BoardFerry
-	warp MAP_ISLAND1HARBOR, 8, 6
+	warp MAP_ISLAND1_HARBOR, 8, 6
 	waitstate
 	release
 	end
@@ -324,7 +324,7 @@ LilycoveCity_Harbor_EventScript_RainbowPassFirstTime::
 LilycoveCity_Harbor_EventScript_GoToOneIslandFirstTime::
 	closemessage
 	call LilycoveCity_Harbor_EventScript_BoardFerryWithSailor
-	warp MAP_ISLAND1HARBOR, 8, 6
+	warp MAP_ISLAND1_HARBOR, 8, 6
 	waitstate
 	release
 	end

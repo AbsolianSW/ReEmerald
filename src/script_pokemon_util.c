@@ -110,15 +110,15 @@ u8 ScriptGiveSpecialEgg()
     {
         case 0:
             species = SPECIES_ABSOL;
-            specialMove = MOVE_SWORDS_DANCE;
+            specialMove = MOVE_DRAGON_DANCE;
             break;
         case 1:
             species = SPECIES_PSYDUCK;
-            specialMove = MOVE_HYDRO_PUMP;
+            specialMove = MOVE_HYDRO_CANNON;
             break;
         case 2:
             species = SPECIES_MILOTIC;
-            specialMove = MOVE_ICE_BEAM;
+            specialMove = MOVE_WATER_SPOUT;
             break;
         default:
             species = SPECIES_MUDKIP;

@@ -16,7 +16,7 @@ Island_Harbors_EventScript_GoToLilycove::
 Island_Harbors_EventScript_BoardFerry::
 	msgbox Island_Harbors_Text_PleaseBoard, MSGBOX_DEFAULT
 	closemessage
-	hideobjectat 2, MAP_ISLAND1HARBOR
+	hideobjectat 2, MAP_ISLAND1_HARBOR
 	hideobjectat OBJ_EVENT_ID_PLAYER, 0
 	switch VAR_0x8000
 	case 1, Island_Harbors_EventScript_HideSailorPort1
@@ -27,7 +27,7 @@ Island_Harbors_EventScript_BoardFerry::
 	
 Island_Harbors_EventScript_HideSailorPort1:
 	@note: 2 is always the LOCAL_ID of the sailor in every Island Harbor
-	hideobjectat 2, MAP_ISLAND1HARBOR
+	hideobjectat 2, MAP_ISLAND1_HARBOR
 	return
 	
 Island_Harbors_Text_PleaseBoard:

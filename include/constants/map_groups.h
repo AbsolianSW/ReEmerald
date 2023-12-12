@@ -591,22 +591,57 @@
 // gMapGroup_IndoorRoute124
 #define MAP_ROUTE124_DIVING_TREASURE_HUNTERS_HOUSE (0 | (33 << 8))
 
-// gMapGroup_Sevii_Islands
-#define MAP_ISLAND1TREASURE_BEACH        (0 | (34 << 8))
-#define MAP_ISLAND1MAIN                  (1 | (34 << 8))
-#define MAP_ISLAND1HARBOR                (2 | (34 << 8))
-#define MAP_ISLAND1_POKEMON_CENTER_1F    (3 | (34 << 8))
-#define MAP_ISLAND1_HOUSE1               (4 | (34 << 8))
-#define MAP_ISLAND1_HOUSE2               (5 | (34 << 8))
-#define MAP_ISLAND1_POKEMON_CENTER_2F    (6 | (34 << 8))
-#define MAP_ISLAND1_KINDLE_ROAD          (7 | (34 << 8))
-#define MAP_ISLAND1_KINDLE_ROAD_ENTRANCE (8 | (34 << 8))
+// gMapGroup_Sevii_Islands1
+#define MAP_ISLAND1_MAIN                 (0 | (34 << 8))
+#define MAP_ISLAND1_HARBOR               (1 | (34 << 8))
+#define MAP_ISLAND1_HOUSE1               (2 | (34 << 8))
+#define MAP_ISLAND1_HOUSE2               (3 | (34 << 8))
+#define MAP_ISLAND1_POKEMON_CENTER_1F    (4 | (34 << 8))
+#define MAP_ISLAND1_POKEMON_CENTER_2F    (5 | (34 << 8))
+#define MAP_ISLAND1_TREASURE_BEACH       (6 | (34 << 8))
+#define MAP_ISLAND1_KINDLE_ROAD_ENTRANCE (7 | (34 << 8))
+#define MAP_ISLAND1_KINDLE_ROAD          (8 | (34 << 8))
 
-// gMapGroup_Sevii_Islands_Dungeons
-#define MAP_MT_EMBER_EXTERIOR     (0 | (35 << 8))
-#define MAP_EMBER_SPA             (1 | (35 << 8))
-#define MAP_MT_EMBER_RUBY_PATH_1F (2 | (35 << 8))
+// gMapGroup_Sevii_Islands2
+#define MAP_ISLAND2_MAIN               (0 | (35 << 8))
+#define MAP_ISLAND2_HARBOR             (1 | (35 << 8))
+#define MAP_ISLAND2_HOUSE              (2 | (35 << 8))
+#define MAP_ISLAND2_JOYFUL_GAME_CORNER (3 | (35 << 8))
+#define MAP_ISLAND2_POKEMON_CENTER_1F  (4 | (35 << 8))
+#define MAP_ISLAND2_POKEMON_CENTER_2F  (5 | (35 << 8))
+#define MAP_ISLAND2_CAPE_BRINK         (6 | (35 << 8))
+#define MAP_ISLAND2_CAPE_BRINK_HOUSE   (7 | (35 << 8))
 
-#define MAP_GROUPS_COUNT 36
+// gMapGroup_Sevii_Islands3
+#define MAP_ISLAND3_MAIN             (0 | (36 << 8))
+#define MAP_ISLAND3_PORT             (1 | (36 << 8))
+#define MAP_ISLAND3_DUNSPARCE_TUNNEL (2 | (36 << 8))
+#define MAP_ISLAND3_BOND_BRIDGE      (3 | (36 << 8))
+
+// gMapGroup_Sevii_Islands4
+
+// gMapGroup_Sevii_Islands5
+
+// gMapGroup_Sevii_Islands6
+
+// gMapGroup_Sevii_Islands7
+
+// gMapGroup_Sevii_Islands_MtEmber
+#define MAP_MT_EMBER_EXTERIOR             (0 | (41 << 8))
+#define MAP_MT_EMBER_RUBY_PATH_1F         (1 | (41 << 8))
+#define MAP_MT_EMBER_RUBY_PATH_B1F        (2 | (41 << 8))
+#define MAP_MT_EMBER_RUBY_PATH_B1F_STAIRS (3 | (41 << 8))
+#define MAP_MT_EMBER_RUBY_PATH_B2F        (4 | (41 << 8))
+#define MAP_MT_EMBER_RUBY_PATH_B2F_STAIRS (5 | (41 << 8))
+#define MAP_MT_EMBER_RUBY_PATH_B3F        (6 | (41 << 8))
+#define MAP_MT_EMBER_RUBY_PATH_B4F        (7 | (41 << 8))
+#define MAP_MT_EMBER_RUBY_PATH_B5F        (8 | (41 << 8))
+#define MAP_MT_EMBER_SUMMIT_PATH_1F       (9 | (41 << 8))
+#define MAP_MT_EMBER_SUMMIT_PATH_2F       (10 | (41 << 8))
+#define MAP_MT_EMBER_SUMMIT_PATH_3F       (11 | (41 << 8))
+#define MAP_MT_EMBER_SUMMIT               (12 | (41 << 8))
+#define MAP_EMBER_SPA                     (13 | (41 << 8))
+
+#define MAP_GROUPS_COUNT 42
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

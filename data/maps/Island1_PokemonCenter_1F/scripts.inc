@@ -6,7 +6,7 @@ Island1_PokemonCenter_1F_MapScripts::
 	.byte 0
 	
 Island1_PokemonCenter_1F_OnTransition:
-	setrespawn HEAL_LOCATION_ISLAND1MAIN
+	setrespawn HEAL_LOCATION_ISLAND1_MAIN
 	end
 
 Island1_PokemonCenter_1F_EventScript_Nurse::

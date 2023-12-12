@@ -140,9 +140,12 @@ Route119_WeatherInstitute_2F_EventScript_ScientistMentionWeather::
 	end
 	
 Route_119_WeatherInstitute_2F_EventScript_ScientistGiveSafeguard::
+	lock
+	faceplayer
 	msgbox Route119_WeatherInstitute_2F_Text_ThanksForBeingASafeguard, MSGBOX_DEFAULT
 	giveitem ITEM_TM_SAFEGUARD
 	setflag FLAG_WEATHER_INSTITUTE_RECEIVED_TM_SAFEGUARD
+	release
 	end
 
 Route119_WeatherInstitute_2F_EventScript_TryStartAbnormalWeather::

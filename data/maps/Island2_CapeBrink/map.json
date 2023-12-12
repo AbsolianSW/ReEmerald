@@ -1,0 +1,34 @@
+{
+  "id": "MAP_ISLAND2_CAPE_BRINK",
+  "name": "Island2_CapeBrink",
+  "layout": "LAYOUT_ISLAND2_CAPE_BRINK",
+  "music": "MUS_RG_ROUTE3",
+  "region_map_section": "MAPSEC_CAPE_BRINK",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_ISLAND2_MAIN",
+      "offset": -24,
+      "direction": "down"
+    }
+  ],
+  "object_events": [
+
+  ],
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

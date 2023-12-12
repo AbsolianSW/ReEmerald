@@ -1817,6 +1817,90 @@ static const struct SpriteFrameImage sPicTable_RayquazaStill[] = {
     obj_frame_tiles(gObjectEventPic_RayquazaStill),
 };
 
+static const struct SpriteFrameImage sPicTable_Raikou[] = {
+    obj_frame_tiles(gObjectEventPic_Raikou),
+    obj_frame_tiles(gObjectEventPic_Raikou),
+    obj_frame_tiles(gObjectEventPic_Raikou),
+    obj_frame_tiles(gObjectEventPic_Raikou),
+    obj_frame_tiles(gObjectEventPic_Raikou),
+    obj_frame_tiles(gObjectEventPic_Raikou),
+    obj_frame_tiles(gObjectEventPic_Raikou),
+    obj_frame_tiles(gObjectEventPic_Raikou),
+    obj_frame_tiles(gObjectEventPic_Raikou),
+};
+
+static const struct SpriteFrameImage sPicTable_Entei[] = {
+    obj_frame_tiles(gObjectEventPic_Entei),
+    obj_frame_tiles(gObjectEventPic_Entei),
+    obj_frame_tiles(gObjectEventPic_Entei),
+    obj_frame_tiles(gObjectEventPic_Entei),
+    obj_frame_tiles(gObjectEventPic_Entei),
+    obj_frame_tiles(gObjectEventPic_Entei),
+    obj_frame_tiles(gObjectEventPic_Entei),
+    obj_frame_tiles(gObjectEventPic_Entei),
+    obj_frame_tiles(gObjectEventPic_Entei),
+};
+
+static const struct SpriteFrameImage sPicTable_Suicune[] = {
+    obj_frame_tiles(gObjectEventPic_Suicune),
+    obj_frame_tiles(gObjectEventPic_Suicune),
+    obj_frame_tiles(gObjectEventPic_Suicune),
+    obj_frame_tiles(gObjectEventPic_Suicune),
+    obj_frame_tiles(gObjectEventPic_Suicune),
+    obj_frame_tiles(gObjectEventPic_Suicune),
+    obj_frame_tiles(gObjectEventPic_Suicune),
+    obj_frame_tiles(gObjectEventPic_Suicune),
+    obj_frame_tiles(gObjectEventPic_Suicune),
+};
+
+static const struct SpriteFrameImage sPicTable_Mewtwo[] = {
+    obj_frame_tiles(gObjectEventPic_Mewtwo),
+    obj_frame_tiles(gObjectEventPic_Mewtwo),
+    obj_frame_tiles(gObjectEventPic_Mewtwo),
+    obj_frame_tiles(gObjectEventPic_Mewtwo),
+    obj_frame_tiles(gObjectEventPic_Mewtwo),
+    obj_frame_tiles(gObjectEventPic_Mewtwo),
+    obj_frame_tiles(gObjectEventPic_Mewtwo),
+    obj_frame_tiles(gObjectEventPic_Mewtwo),
+    obj_frame_tiles(gObjectEventPic_Mewtwo),
+};
+
+static const struct SpriteFrameImage sPicTable_Zapdos[] = {
+    obj_frame_tiles(gObjectEventPic_Zapdos),
+    obj_frame_tiles(gObjectEventPic_Zapdos),
+    obj_frame_tiles(gObjectEventPic_Zapdos),
+    obj_frame_tiles(gObjectEventPic_Zapdos),
+    obj_frame_tiles(gObjectEventPic_Zapdos),
+    obj_frame_tiles(gObjectEventPic_Zapdos),
+    obj_frame_tiles(gObjectEventPic_Zapdos),
+    obj_frame_tiles(gObjectEventPic_Zapdos),
+    obj_frame_tiles(gObjectEventPic_Zapdos),
+};
+
+static const struct SpriteFrameImage sPicTable_Moltres[] = {
+    obj_frame_tiles(gObjectEventPic_Moltres),
+    obj_frame_tiles(gObjectEventPic_Moltres),
+    obj_frame_tiles(gObjectEventPic_Moltres),
+    obj_frame_tiles(gObjectEventPic_Moltres),
+    obj_frame_tiles(gObjectEventPic_Moltres),
+    obj_frame_tiles(gObjectEventPic_Moltres),
+    obj_frame_tiles(gObjectEventPic_Moltres),
+    obj_frame_tiles(gObjectEventPic_Moltres),
+    obj_frame_tiles(gObjectEventPic_Moltres),
+};
+
+static const struct SpriteFrameImage sPicTable_Articuno[] = {
+    obj_frame_tiles(gObjectEventPic_Articuno),
+    obj_frame_tiles(gObjectEventPic_Articuno),
+    obj_frame_tiles(gObjectEventPic_Articuno),
+    obj_frame_tiles(gObjectEventPic_Articuno),
+    obj_frame_tiles(gObjectEventPic_Articuno),
+    obj_frame_tiles(gObjectEventPic_Articuno),
+    obj_frame_tiles(gObjectEventPic_Articuno),
+    obj_frame_tiles(gObjectEventPic_Articuno),
+    obj_frame_tiles(gObjectEventPic_Articuno),
+};
+
 static const struct SpriteFrameImage sPicTable_Zigzagoon[] = {
     overworld_frame(gObjectEventPic_Zigzagoon, 2, 2, 0),
     overworld_frame(gObjectEventPic_Zigzagoon, 2, 2, 1),

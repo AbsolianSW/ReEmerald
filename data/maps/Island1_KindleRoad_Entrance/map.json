@@ -14,7 +14,7 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ISLAND1MAIN",
+      "map": "MAP_ISLAND1_MAIN",
       "offset": 3,
       "direction": "left"
     },

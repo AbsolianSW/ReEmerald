@@ -1058,11 +1058,11 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
 
-	.include "data/maps/Island1TreasureBeach/scripts.inc"
+	.include "data/maps/Island1_TreasureBeach/scripts.inc"
 
-	.include "data/maps/Island1Main/scripts.inc"
+	.include "data/maps/Island1_Main/scripts.inc"
 
-	.include "data/maps/Island1Harbor/scripts.inc"
+	.include "data/maps/Island1_Harbor/scripts.inc"
 
 	.include "data/maps/Island1_PokemonCenter_1F/scripts.inc"
 
@@ -1081,3 +1081,49 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/EmberSpa/scripts.inc"
 
 	.include "data/maps/MtEmber_RubyPath_1F/scripts.inc"
+
+	.include "data/maps/MtEmber_RubyPath_B1F/scripts.inc"
+
+	.include "data/maps/MtEmber_RubyPath_B2F/scripts.inc"
+
+	.include "data/maps/MtEmber_RubyPath_B3F/scripts.inc"
+
+	.include "data/maps/MtEmber_RubyPath_B1F_Stairs/scripts.inc"
+
+	.include "data/maps/MtEmber_RubyPath_B2F_Stairs/scripts.inc"
+
+	.include "data/maps/MtEmber_RubyPath_B5F/scripts.inc"
+
+	.include "data/maps/MtEmber_RubyPath_B4F/scripts.inc"
+
+	.include "data/maps/MtEmber_SummitPath_1F/scripts.inc"
+
+	.include "data/maps/MtEmber_SummitPath_2F/scripts.inc"
+
+	.include "data/maps/MtEmber_SummitPath_3F/scripts.inc"
+
+	.include "data/maps/MtEmber_Summit/scripts.inc"
+
+	.include "data/maps/Island2_Main/scripts.inc"
+
+	.include "data/maps/Island2_CapeBrink/scripts.inc"
+
+	.include "data/maps/Island2_JoyfulGameCorner/scripts.inc"
+
+	.include "data/maps/Island2_House/scripts.inc"
+
+	.include "data/maps/Island2_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/Island2_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/Island2_Harbor/scripts.inc"
+
+	.include "data/maps/Island2_CapeBrink_House/scripts.inc"
+
+	.include "data/maps/Island3_Main/scripts.inc"
+
+	.include "data/maps/Island3_Port/scripts.inc"
+
+	.include "data/maps/Island3_DunsparceTunnel/scripts.inc"
+
+	.include "data/maps/Island3_BondBridge/scripts.inc"
