@@ -41,7 +41,7 @@
      MENUITEM_SPECIESCLAUSE,
      MENUITEM_NOBATTLEITEMS,
      MENUITEM_FORCESETMODE,
-     MENUITEM_CANCEL,
+     MENUITEM_CONFIRM,
      MENUITEM_COUNT,
  };
  
@@ -52,7 +52,7 @@ enum
     MENUITEM_XPMULTIPLIER,
     MENUITEM_INFINITECANDY,
     MENUITEM_REPELLANT,
-    MENUITEM_CANCEL_PG2,
+    MENUITEM_CONFIRM_PG2,
     MENUITEM_COUNT_PG2,
 };
 
@@ -107,13 +107,13 @@ static u8   InfiniteCandy_ProcessInput(u8 selection);
 static void InfiniteCandy_DrawChoices(u8 selection);
 static u8   Repellant_ProcessInput(u8 selection);
 static void Repellant_DrawChoices(u8 selection);
-static void DrawHeaderText(void);
+static void DrawHeaderText(u8 taskId);
 static void DrawChallengeMenuTexts(void);
 static void DrawBgWindowFrames(void);
 
 EWRAM_DATA static bool8 sArrowPressed = FALSE;
 EWRAM_DATA static u8 sCurrPage = 0;
-EWRAM_DATA static u8 hasSelectedStarter = 0;
+EWRAM_DATA static u8 isInDetails = 0;
 
 static const u16 sChallengeMenuText_Pal[] = INCBIN_U16("graphics/interface/option_menu_text.gbapal");
 // note: this is only used in the Japanese release
@@ -127,7 +127,7 @@ static const u8 *const sChallengeMenuItemsNames[MENUITEM_COUNT] =
     [MENUITEM_SPECIESCLAUSE]    = gText_SpeciesClause,
     [MENUITEM_NOBATTLEITEMS]    = gText_NoBattleItems,
     [MENUITEM_FORCESETMODE]     = gText_ForceSetMode,
-    [MENUITEM_CANCEL]           = gText_OptionMenuCancel,
+    [MENUITEM_CONFIRM]           = gText_Confirm2,
 };
 
 static const u8 *const sChallengeMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
@@ -136,7 +136,7 @@ static const u8 *const sChallengeMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
     [MENUITEM_XPMULTIPLIER]      = gText_XPMultiplier,
     [MENUITEM_INFINITECANDY]     = gText_InfiniteCandy,
     [MENUITEM_REPELLANT]         = gText_Repellant,
-    [MENUITEM_CANCEL_PG2]        = gText_OptionMenuCancel,
+    [MENUITEM_CONFIRM_PG2]        = gText_Confirm2,
 };
 
 
@@ -303,7 +303,7 @@ void CB2_InitChallengeMenu(void)
         break;
     case 6:
         PutWindowTilemap(WIN_HEADER);
-        DrawHeaderText();
+        DrawHeaderText(taskId);
         gMain.state++;
         break;
     case 7:
@@ -390,7 +390,7 @@ static void save(u8 taskId)
 static void Task_ChangePage(u8 taskId)
 {
     save(taskId);
-    DrawHeaderText();
+    DrawHeaderText(taskId);
     PutWindowTilemap(1);
     DrawChallengeMenuTexts();
     switch(sCurrPage)
@@ -414,7 +414,7 @@ static void Task_ChallengeMenuFadeIn(u8 taskId)
 
 static void Task_ChallengeMenuProcessInput(u8 taskId)
 {
-    if (JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON))
+    if ((JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON)) && !isInDetails)
     {
         FillWindowPixelBuffer(WIN_CHALLENGES, PIXEL_FILL(1));
         ClearStdWindowAndFrame(WIN_CHALLENGES, FALSE);
@@ -423,8 +423,18 @@ static void Task_ChallengeMenuProcessInput(u8 taskId)
     }
     else if (JOY_NEW(A_BUTTON))
     {
-        if (gTasks[taskId].tMenuSelection == MENUITEM_CANCEL)
+        if (gTasks[taskId].tMenuSelection == MENUITEM_CONFIRM)
+        {
             gTasks[taskId].func = Task_ChallengeMenuSave;
+        } else
+        {
+        if (!isInDetails)
+            isInDetails = 1;
+        else 
+            isInDetails = 0;
+        }
+        sArrowPressed = TRUE;
+        DrawHeaderText(taskId);
     }
     else if (JOY_NEW(B_BUTTON))
     {
@@ -432,19 +442,25 @@ static void Task_ChallengeMenuProcessInput(u8 taskId)
     }
     else if (JOY_NEW(DPAD_UP))
     {
-        if (gTasks[taskId].tMenuSelection > 0)
-            gTasks[taskId].tMenuSelection--;
-        else
-            gTasks[taskId].tMenuSelection = MENUITEM_CANCEL;
-        HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
+        if(!isInDetails)
+        {
+            if (gTasks[taskId].tMenuSelection > 0)
+                gTasks[taskId].tMenuSelection--;
+            else
+                gTasks[taskId].tMenuSelection = MENUITEM_CONFIRM;
+            HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
+        }
     }
     else if (JOY_NEW(DPAD_DOWN))
     {
-        if (gTasks[taskId].tMenuSelection < MENUITEM_CANCEL)
-            gTasks[taskId].tMenuSelection++;
-        else
-            gTasks[taskId].tMenuSelection = 0;
-        HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
+        if(!isInDetails)
+        {
+            if (gTasks[taskId].tMenuSelection < MENUITEM_CONFIRM)
+                gTasks[taskId].tMenuSelection++;
+            else
+                gTasks[taskId].tMenuSelection = 0;
+            HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
+        }
     }
     else
     {
@@ -515,7 +531,7 @@ static void Task_ChallengeMenuFadeIn_Pg2(u8 taskId)
 static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
 {   
     
-    if ((JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON)) && !hasSelectedStarter)
+    if ((JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON)) && !isInDetails)
     {
         FillWindowPixelBuffer(WIN_CHALLENGES, PIXEL_FILL(1));
         ClearStdWindowAndFrame(WIN_CHALLENGES, FALSE);
@@ -524,15 +540,18 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
     }
     else if (JOY_NEW(A_BUTTON))
     {
-        if (gTasks[taskId].tMenuSelection == MENUITEM_CANCEL_PG2)
-            gTasks[taskId].func = Task_ChallengeMenuSave;
-        if (gTasks[taskId].tMenuSelection == MENUITEM_CUSTOMSTARTER &&!hasSelectedStarter)
-            hasSelectedStarter = 1;
-        else 
+        if (gTasks[taskId].tMenuSelection == MENUITEM_CONFIRM_PG2)
         {
-            if(hasSelectedStarter)
-                hasSelectedStarter = 0;
+            gTasks[taskId].func = Task_ChallengeMenuSave;
+        } else
+        {
+        if (!isInDetails)
+            isInDetails = 1;
+        else 
+            isInDetails = 0;
         }
+        sArrowPressed = TRUE;
+        DrawHeaderText(taskId);
     }
     else if (JOY_NEW(B_BUTTON))
     {
@@ -540,7 +559,7 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
     }
     else if (JOY_NEW(DPAD_UP))
     {
-        if(hasSelectedStarter)
+        if(isInDetails && gTasks[taskId].tMenuSelection == MENUITEM_CUSTOMSTARTER)
         {
             switch (gTasks[taskId].tCustomStarter)
             {
@@ -576,19 +595,19 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
             }
             sArrowPressed = TRUE;
             CustomStarter_DrawChoices(gTasks[taskId].tCustomStarter);
-        } else
+        } else if(!isInDetails)
         {
 
             if (gTasks[taskId].tMenuSelection > 0)
                 gTasks[taskId].tMenuSelection--;
             else
-                gTasks[taskId].tMenuSelection = MENUITEM_CANCEL_PG2;
+                gTasks[taskId].tMenuSelection = MENUITEM_CONFIRM_PG2;
             HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
         }
     }
     else if (JOY_NEW(DPAD_DOWN))
     {
-        if(hasSelectedStarter)
+        if(isInDetails && gTasks[taskId].tMenuSelection == MENUITEM_CUSTOMSTARTER)
         {
             switch (gTasks[taskId].tCustomStarter)
             {
@@ -624,9 +643,9 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
             }
             sArrowPressed = TRUE;
             CustomStarter_DrawChoices(gTasks[taskId].tCustomStarter);
-        } else
+        } else if(!isInDetails)
         {
-            if (gTasks[taskId].tMenuSelection < MENUITEM_CANCEL_PG2)
+            if (gTasks[taskId].tMenuSelection < MENUITEM_CONFIRM_PG2)
                 gTasks[taskId].tMenuSelection++;
             else
                 gTasks[taskId].tMenuSelection = 0;
@@ -1058,27 +1077,79 @@ static void Repellant_DrawChoices(u8 selection)
     DrawChallengeMenuChoice(gText_ChallengesYes, GetStringRightAlignXOffset(FONT_NORMAL, gText_ChallengesYes, 198), YPOS_REPELLANT, styles[1]);
 }
 
-static void DrawHeaderText(void)
+static void DrawHeaderText(u8 taskId)
 {
-u32 i, widthChallenges, xMid;
-u8 pageDots[9] = _("");  // Array size should be at least (2 * PAGE_COUNT) -1
-widthChallenges = GetStringWidth(FONT_NORMAL, gText_Challenge, 0);
-
-for (i = 0; i < PAGE_COUNT; i++)
-{
-    if (i == sCurrPage)
-       StringAppend(pageDots, gText_LargeDot);
-    else
-        StringAppend(pageDots, gText_SmallDot);
-    if (i < PAGE_COUNT - 1)
-        StringAppend(pageDots, gText_Space);            
-    }
-    xMid = (8 + widthChallenges + 5);
+    u32 i, widthChallenges, xMid;
+    u8 pageDots[9] = _(""); // Array size should be at least (2 * PAGE_COUNT) -1
+    widthChallenges = GetStringWidth(FONT_NORMAL, gText_Challenge, 0);
     FillWindowPixelBuffer(WIN_HEADER, PIXEL_FILL(1));
-    AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_Challenge, 8, 1, TEXT_SKIP_DRAW, NULL);
-    AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, pageDots, xMid, 1, TEXT_SKIP_DRAW, NULL);
-    AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_PageNav, GetStringRightAlignXOffset(FONT_NORMAL, gText_PageNav, 198), 1, TEXT_SKIP_DRAW, NULL);
-    CopyWindowToVram(WIN_HEADER, COPYWIN_FULL);
+    if (!isInDetails)
+    {
+
+        for (i = 0; i < PAGE_COUNT; i++)
+        {
+            if (i == sCurrPage)
+                StringAppend(pageDots, gText_LargeDot);
+            else
+                StringAppend(pageDots, gText_SmallDot);
+            if (i < PAGE_COUNT - 1)
+                StringAppend(pageDots, gText_Space);
+        }
+        StringAppend(pageDots, gText_Space);
+        StringAppend(pageDots, gText_ChallengeDetails);
+        xMid = (8 + widthChallenges + 5);
+        AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_Challenge, 8, 1, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, pageDots, xMid, 1, TEXT_SKIP_DRAW, NULL);
+        AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_PageNav, GetStringRightAlignXOffset(FONT_NORMAL, gText_PageNav, 198), 1, TEXT_SKIP_DRAW, NULL);
+        CopyWindowToVram(WIN_HEADER, COPYWIN_FULL);
+    }
+    else
+    {
+        if (sCurrPage == 0)
+        {
+            switch (gTasks[taskId].tMenuSelection)
+            {
+            case MENUITEM_LEVELCAP:
+                AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_LevelCapDetails, 8, 1, TEXT_SKIP_DRAW, NULL);
+                break;
+            case MENUITEM_PERMADEATH:
+                AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_PermaDeathDetails, 8, 1, TEXT_SKIP_DRAW, NULL);
+                break;
+            case MENUITEM_LIMITEDENCOUNTERS:
+                AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_LimitedEncountersDetails, 8, 1, TEXT_SKIP_DRAW, NULL);
+                break;
+            case MENUITEM_SPECIESCLAUSE:
+                AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_SpeciesClauseDetails, 8, 1, TEXT_SKIP_DRAW, NULL);
+                break;
+            case MENUITEM_NOBATTLEITEMS:
+                AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_NoBattleItemsDetails, 8, 1, TEXT_SKIP_DRAW, NULL);
+                break;
+            case MENUITEM_FORCESETMODE:
+                AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_ForceSetModeDetails, 8, 1, TEXT_SKIP_DRAW, NULL);
+                break;
+            }
+        }
+        else
+        {
+            switch (gTasks[taskId].tMenuSelection)
+            {
+
+            case MENUITEM_CUSTOMSTARTER:
+                AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_CustomStarterDetails, 8, 1, TEXT_SKIP_DRAW, NULL);
+                break;
+            case MENUITEM_XPMULTIPLIER:
+                AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_XPMultiplierDetails, 8, 1, TEXT_SKIP_DRAW, NULL);
+                break;
+            case MENUITEM_INFINITECANDY:
+                AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_InfiniteCandyDetails, 8, 1, TEXT_SKIP_DRAW, NULL);
+                break;
+            case MENUITEM_REPELLANT:
+                AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_RepellantDetails, 8, 1, TEXT_SKIP_DRAW, NULL);
+                break;
+            }
+        }
+        CopyWindowToVram(WIN_HEADER, COPYWIN_FULL);
+    }
 }
 
 static void DrawChallengeMenuTexts(void)

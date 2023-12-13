@@ -598,7 +598,7 @@
 #define MAP_ISLAND1_HOUSE2               (3 | (34 << 8))
 #define MAP_ISLAND1_POKEMON_CENTER_1F    (4 | (34 << 8))
 #define MAP_ISLAND1_POKEMON_CENTER_2F    (5 | (34 << 8))
-#define MAP_ISLAND1_TREASURE_BEACH       (6 | (34 << 8))
+#define MAP_ISLAND1_TREASUREBEACH        (6 | (34 << 8))
 #define MAP_ISLAND1_KINDLE_ROAD_ENTRANCE (7 | (34 << 8))
 #define MAP_ISLAND1_KINDLE_ROAD          (8 | (34 << 8))
 
