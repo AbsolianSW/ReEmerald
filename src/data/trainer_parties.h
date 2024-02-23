@@ -377,17 +377,17 @@ static const struct TrainerMonNoItemDefaultMoves sParty_ShellySeafloorCavern[] =
     {
     .iv = 100,
     .lvl = 37,
-    .species = SPECIES_SHARPEDO,
-    },
-    {
-    .iv = 100,
-    .lvl = 37,
     .species = SPECIES_MIGHTYENA,
     },
     {
     .iv = 255,
     .lvl = 39,
     .species = SPECIES_GOREBYSS,
+    },
+    {
+    .iv = 100,
+    .lvl = 37,
+    .species = SPECIES_SHARPEDO,
     },
 };
 
@@ -3537,9 +3537,9 @@ static const struct TrainerMonItemCustomMoves sParty_Wattson1[] = {
     {
     .iv = 255,
     .lvl = 20,
-    .species = SPECIES_ELECTRIKE,
-    .heldItem = ITEM_NONE,
-    .moves = {MOVE_SHOCK_WAVE, MOVE_THUNDER_WAVE, MOVE_QUICK_ATTACK, MOVE_HOWL}
+    .species = SPECIES_PIKACHU,
+    .heldItem = ITEM_LIGHT_BALL,
+    .moves = {MOVE_SHOCK_WAVE, MOVE_THUNDER_WAVE, MOVE_QUICK_ATTACK, MOVE_AGILITY}
     },
     {
     .iv = 255,
@@ -3551,7 +3551,7 @@ static const struct TrainerMonItemCustomMoves sParty_Wattson1[] = {
     {
     .iv = 255,
     .lvl = 24,
-    .species = SPECIES_RAICHU,
+    .species = SPECIES_MANECTRIC,
     .heldItem = ITEM_MAGNET,
     .moves = {MOVE_QUICK_ATTACK, MOVE_DOUBLE_TEAM, MOVE_SHOCK_WAVE, MOVE_THUNDER}
     }

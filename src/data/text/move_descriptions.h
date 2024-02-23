@@ -50,8 +50,8 @@ static const u8 sGuillotineDescription[] = _(
     "that may cause fainting.");
 
 static const u8 sRazorWindDescription[] = _(
-    "A 2-turn move that strikes\n"
-    "the foe on the 2nd turn.");
+    "Charges up a gust that\n"
+    "often critically hits.");
 
 static const u8 sSwordsDanceDescription[] = _(
     "A fighting dance that\n"

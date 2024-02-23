@@ -17,6 +17,11 @@
       "map": "MAP_ISLAND3_MAIN",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_ISLAND3_BOND_BRIDGE_BERRY_FOREST_ENTRANCE",
+      "offset": 0,
+      "direction": "left"
     }
   ],
   "object_events": [

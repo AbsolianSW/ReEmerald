@@ -59,18 +59,14 @@ LilycoveCity_DepartmentStore_4F_Pokemart_HeldItems:
     .2byte ITEM_QUICK_CLAW 
     .2byte ITEM_SOOTHE_BELL
     .2byte ITEM_CHOICE_BAND 
-    .2byte ITEM_KINGS_ROCK 
     .2byte ITEM_AMULET_COIN 
     .2byte ITEM_CLEANSE_TAG 
-    .2byte ITEM_SOUL_DEW 
     .2byte ITEM_SMOKE_BALL 
     .2byte ITEM_EVERSTONE 
     .2byte ITEM_FOCUS_BAND 
-    .2byte ITEM_LUCKY_EGG 
     .2byte ITEM_SCOPE_LENS  
     .2byte ITEM_LEFTOVERS 
-    .2byte ITEM_SILVER_POWDER 
-    .2byte ITEM_DRAGON_SCALE 
+    .2byte ITEM_SILVER_POWDER  
     .2byte ITEM_SOFT_SAND 
     .2byte ITEM_HARD_STONE 
     .2byte ITEM_MIRACLE_SEED 
@@ -86,7 +82,6 @@ LilycoveCity_DepartmentStore_4F_Pokemart_HeldItems:
     .2byte ITEM_CHARCOAL 
     .2byte ITEM_DRAGON_FANG 
     .2byte ITEM_SILK_SCARF
-    .2byte ITEM_UP_GRADE 
     .2byte ITEM_SEA_INCENSE 
     .2byte ITEM_LAX_INCENSE 
 	.2byte ITEM_NONE

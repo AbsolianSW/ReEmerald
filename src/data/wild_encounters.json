@@ -2467,32 +2467,32 @@
               {
                 "min_level": 10,
                 "max_level": 10,
-                "species": "SPECIES_SABLEYE"
+                "species": "SPECIES_CORSOLA"
               },
               {
                 "min_level": 11,
                 "max_level": 11,
-                "species": "SPECIES_SABLEYE"
+                "species": "SPECIES_CORSOLA"
               },
               {
                 "min_level": 12,
                 "max_level": 12,
-                "species": "SPECIES_SABLEYE"
+                "species": "SPECIES_CORSOLA"
               },
               {
                 "min_level": 10,
                 "max_level": 10,
-                "species": "SPECIES_SABLEYE"
+                "species": "SPECIES_CORSOLA"
               },
               {
                 "min_level": 12,
                 "max_level": 12,
-                "species": "SPECIES_SABLEYE"
+                "species": "SPECIES_CORSOLA"
               },
               {
                 "min_level": 10,
                 "max_level": 10,
-                "species": "SPECIES_SABLEYE"
+                "species": "SPECIES_CORSOLA"
               }
             ]
           },
@@ -6862,58 +6862,58 @@
             "encounter_rate": 10,
             "mons": [
               {
-                "min_level": 24,
-                "max_level": 24,
+                "min_level": 12,
+                "max_level": 12,
                 "species": "SPECIES_VOLTORB"
               },
               {
-                "min_level": 24,
-                "max_level": 24,
+                "min_level": 12,
+                "max_level": 12,
                 "species": "SPECIES_MAGNEMITE"
               },
               {
-                "min_level": 25,
-                "max_level": 25,
+                "min_level": 12,
+                "max_level": 12,
                 "species": "SPECIES_VOLTORB"
               },
               {
-                "min_level": 25,
-                "max_level": 25,
+                "min_level": 12,
+                "max_level": 12,
                 "species": "SPECIES_MAGNEMITE"
               },
               {
-                "min_level": 23,
-                "max_level": 23,
+                "min_level": 12,
+                "max_level": 12,
                 "species": "SPECIES_VOLTORB"
               },
               {
-                "min_level": 23,
-                "max_level": 23,
+                "min_level": 12,
+                "max_level": 12,
                 "species": "SPECIES_MAGNEMITE"
               },
               {
-                "min_level": 26,
-                "max_level": 26,
+                "min_level": 12,
+                "max_level": 14,
                 "species": "SPECIES_PIKACHU"
               },
               {
-                "min_level": 26,
-                "max_level": 26,
+                "min_level": 14,
+                "max_level": 14,
                 "species": "SPECIES_PIKACHU"
               },
               {
-                "min_level": 22,
-                "max_level": 22,
+                "min_level": 13,
+                "max_level": 13,
                 "species": "SPECIES_VOLTORB"
               },
               {
-                "min_level": 22,
-                "max_level": 22,
+                "min_level": 13,
+                "max_level": 13,
                 "species": "SPECIES_MAGNEMITE"
               },
               {
-                "min_level": 22,
-                "max_level": 22,
+                "min_level": 13,
+                "max_level": 13,
                 "species": "SPECIES_VOLTORB"
               },
               {
@@ -11493,7 +11493,7 @@
           }
         },
         {
-          "map": "MAP_ISLAND1_TREASUREBEACH",
+          "map": "MAP_ISLAND1_TREASURE_BEACH",
           "base_label": "gIsland1_TreasureBeachLand",
           "land_mons": {
             "encounter_rate": 21,

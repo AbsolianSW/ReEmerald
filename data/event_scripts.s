@@ -1127,3 +1127,57 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/Island3_DunsparceTunnel/scripts.inc"
 
 	.include "data/maps/Island3_BondBridge/scripts.inc"
+
+	.include "data/maps/Island3_BondBridge_BerryForestEntrance/scripts.inc"
+
+	.include "data/maps/Island3_BerryForest/scripts.inc"
+
+	.include "data/maps/Island3_House1/scripts.inc"
+
+	.include "data/maps/Island3_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/Island3_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/Island3_Mart/scripts.inc"
+
+	.include "data/maps/Island3_House2/scripts.inc"
+
+	.include "data/maps/Island3_House3/scripts.inc"
+
+	.include "data/maps/Island3_House4/scripts.inc"
+
+	.include "data/maps/Island3_House5/scripts.inc"
+
+	.include "data/maps/Island3_Harbor/scripts.inc"
+
+	.include "data/maps/Island4_Main/scripts.inc"
+
+	.include "data/maps/Island4_PokemonDaycare/scripts.inc"
+
+	.include "data/maps/Island4_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/Island4_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/Island4_House1/scripts.inc"
+
+	.include "data/maps/Island4_LoreleisHouse/scripts.inc"
+
+	.include "data/maps/Island4_Harbor/scripts.inc"
+
+	.include "data/maps/Island4_House2/scripts.inc"
+
+	.include "data/maps/Island4_Mart/scripts.inc"
+
+	.include "data/maps/IcefallCave_Entrance/scripts.inc"
+
+	.include "data/maps/IcefallCave_1F/scripts.inc"
+
+	.include "data/maps/IcefallCave_B1F/scripts.inc"
+
+	.include "data/maps/IcefallCave_Back/scripts.inc"
+
+	.include "data/maps/Island5_Main/scripts.inc"
+
+	.include "data/maps/Island5_Meadow/scripts.inc"
+
+	.include "data/maps/Island5_MemorialPillar/scripts.inc"

@@ -41,7 +41,8 @@
     "gMapGroup_Sevii_Islands5",
     "gMapGroup_Sevii_Islands6",
     "gMapGroup_Sevii_Islands7",
-    "gMapGroup_Sevii_Islands_MtEmber"
+    "gMapGroup_Sevii_Islands_MtEmber",
+    "gMapGroup_Sevii_Islands_IcefallCave"
   ],
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",
@@ -654,13 +655,34 @@
     "Island3_Main",
     "Island3_Port",
     "Island3_DunsparceTunnel",
-    "Island3_BondBridge"
+    "Island3_BondBridge",
+    "Island3_BondBridge_BerryForestEntrance",
+    "Island3_BerryForest",
+    "Island3_House1",
+    "Island3_PokemonCenter_1F",
+    "Island3_PokemonCenter_2F",
+    "Island3_Mart",
+    "Island3_House2",
+    "Island3_House3",
+    "Island3_House4",
+    "Island3_House5",
+    "Island3_Harbor"
   ],
   "gMapGroup_Sevii_Islands4": [
-
+    "Island4_Main",
+    "Island4_PokemonDaycare",
+    "Island4_PokemonCenter_1F",
+    "Island4_PokemonCenter_2F",
+    "Island4_House1",
+    "Island4_LoreleisHouse",
+    "Island4_Harbor",
+    "Island4_House2",
+    "Island4_Mart"
   ],
   "gMapGroup_Sevii_Islands5": [
-
+    "Island5_Main",
+    "Island5_Meadow",
+    "Island5_MemorialPillar"
   ],
   "gMapGroup_Sevii_Islands6": [
 
@@ -683,5 +705,11 @@
     "MtEmber_SummitPath_3F",
     "MtEmber_Summit",
     "EmberSpa"
+  ],
+  "gMapGroup_Sevii_Islands_IcefallCave": [
+    "IcefallCave_Entrance",
+    "IcefallCave_1F",
+    "IcefallCave_B1F",
+    "IcefallCave_Back"
   ]
 }

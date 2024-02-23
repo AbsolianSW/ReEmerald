@@ -598,7 +598,7 @@
 #define MAP_ISLAND1_HOUSE2               (3 | (34 << 8))
 #define MAP_ISLAND1_POKEMON_CENTER_1F    (4 | (34 << 8))
 #define MAP_ISLAND1_POKEMON_CENTER_2F    (5 | (34 << 8))
-#define MAP_ISLAND1_TREASUREBEACH        (6 | (34 << 8))
+#define MAP_ISLAND1_TREASURE_BEACH       (6 | (34 << 8))
 #define MAP_ISLAND1_KINDLE_ROAD_ENTRANCE (7 | (34 << 8))
 #define MAP_ISLAND1_KINDLE_ROAD          (8 | (34 << 8))
 
@@ -613,14 +613,37 @@
 #define MAP_ISLAND2_CAPE_BRINK_HOUSE   (7 | (35 << 8))
 
 // gMapGroup_Sevii_Islands3
-#define MAP_ISLAND3_MAIN             (0 | (36 << 8))
-#define MAP_ISLAND3_PORT             (1 | (36 << 8))
-#define MAP_ISLAND3_DUNSPARCE_TUNNEL (2 | (36 << 8))
-#define MAP_ISLAND3_BOND_BRIDGE      (3 | (36 << 8))
+#define MAP_ISLAND3_MAIN                              (0 | (36 << 8))
+#define MAP_ISLAND3_PORT                              (1 | (36 << 8))
+#define MAP_ISLAND3_DUNSPARCE_TUNNEL                  (2 | (36 << 8))
+#define MAP_ISLAND3_BOND_BRIDGE                       (3 | (36 << 8))
+#define MAP_ISLAND3_BOND_BRIDGE_BERRY_FOREST_ENTRANCE (4 | (36 << 8))
+#define MAP_ISLAND3_BERRY_FOREST                      (5 | (36 << 8))
+#define MAP_ISLAND3_HOUSE1                            (6 | (36 << 8))
+#define MAP_ISLAND3_POKEMON_CENTER_1F                 (7 | (36 << 8))
+#define MAP_ISLAND3_POKEMON_CENTER_2F                 (8 | (36 << 8))
+#define MAP_ISLAND3_MART                              (9 | (36 << 8))
+#define MAP_ISLAND3_HOUSE2                            (10 | (36 << 8))
+#define MAP_ISLAND3_HOUSE3                            (11 | (36 << 8))
+#define MAP_ISLAND3_HOUSE4                            (12 | (36 << 8))
+#define MAP_ISLAND3_HOUSE5                            (13 | (36 << 8))
+#define MAP_ISLAND3_HARBOR                            (14 | (36 << 8))
 
 // gMapGroup_Sevii_Islands4
+#define MAP_ISLAND4_MAIN              (0 | (37 << 8))
+#define MAP_ISLAND4_POKEMON_DAYCARE   (1 | (37 << 8))
+#define MAP_ISLAND4_POKEMON_CENTER_1F (2 | (37 << 8))
+#define MAP_ISLAND4_POKEMON_CENTER_2F (3 | (37 << 8))
+#define MAP_ISLAND4_HOUSE1            (4 | (37 << 8))
+#define MAP_ISLAND4_LORELEIS_HOUSE    (5 | (37 << 8))
+#define MAP_ISLAND4_HARBOR            (6 | (37 << 8))
+#define MAP_ISLAND4_HOUSE2            (7 | (37 << 8))
+#define MAP_ISLAND4_MART              (8 | (37 << 8))
 
 // gMapGroup_Sevii_Islands5
+#define MAP_ISLAND5_MAIN            (0 | (38 << 8))
+#define MAP_ISLAND5_MEADOW          (1 | (38 << 8))
+#define MAP_ISLAND5_MEMORIAL_PILLAR (2 | (38 << 8))
 
 // gMapGroup_Sevii_Islands6
 
@@ -642,6 +665,12 @@
 #define MAP_MT_EMBER_SUMMIT               (12 | (41 << 8))
 #define MAP_EMBER_SPA                     (13 | (41 << 8))
 
-#define MAP_GROUPS_COUNT 42
+// gMapGroup_Sevii_Islands_IcefallCave
+#define MAP_ICEFALL_CAVE_ENTRANCE (0 | (42 << 8))
+#define MAP_ICEFALL_CAVE_1F       (1 | (42 << 8))
+#define MAP_ICEFALL_CAVE_B1F      (2 | (42 << 8))
+#define MAP_ICEFALL_CAVE_BACK     (3 | (42 << 8))
+
+#define MAP_GROUPS_COUNT 43
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

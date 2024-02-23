@@ -4754,12 +4754,282 @@
     {
       "id": "LAYOUT_ISLAND3_BOND_BRIDGE",
       "name": "Island3_BondBridge_Layout",
-      "width": 96,
+      "width": 39,
       "height": 20,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Slateport",
       "border_filepath": "data/layouts/Island3_BondBridge/border.bin",
       "blockdata_filepath": "data/layouts/Island3_BondBridge/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND3_BOND_BRIDGE_BERRY_FOREST_ENTRANCE",
+      "name": "Island3_BondBridge_BerryForestEntrance_Layout",
+      "width": 57,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/Island3_BondBridge_BerryForestEntrance/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_BondBridge_BerryForestEntrance/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND3_BERRY_FOREST",
+      "name": "Island3_BerryForest_Layout",
+      "width": 57,
+      "height": 47,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Fortree",
+      "border_filepath": "data/layouts/Island3_BerryForest/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_BerryForest/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND3_HOUSE1",
+      "name": "Island3_House1_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island3_House1/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND3_POKEMON_CENTER_1F",
+      "name": "Island3_PokemonCenter_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island3_PokemonCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_PokemonCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND3_POKEMON_CENTER_2F",
+      "name": "Island3_PokemonCenter_2F_Layout",
+      "width": 14,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island3_PokemonCenter_2F/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_PokemonCenter_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND3_MART",
+      "name": "Island3_Mart_Layout",
+      "width": 11,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/Island3_Mart/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_Mart/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND3_HOUSE2",
+      "name": "Island3_House2_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island3_House2/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_House2/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND3_HOUSE3",
+      "name": "Island3_House3_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island3_House3/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_House3/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND3_HOUSE4",
+      "name": "Island3_House4_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island3_House4/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_House4/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND3_HOUSE5",
+      "name": "Island3_House5_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island3_House5/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_House5/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND3_HARBOR",
+      "name": "Island3_Harbor_Layout",
+      "width": 17,
+      "height": 12,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/Island3_Harbor/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_Harbor/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND4_MAIN",
+      "name": "Island4_Main_Layout",
+      "width": 48,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island4_Main/border.bin",
+      "blockdata_filepath": "data/layouts/Island4_Main/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND4_POKEMON_DAYCARE",
+      "name": "Island4_PokemonDaycare_Layout",
+      "width": 12,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonDayCare",
+      "border_filepath": "data/layouts/Island4_PokemonDaycare/border.bin",
+      "blockdata_filepath": "data/layouts/Island4_PokemonDaycare/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND4_POKEMON_CENTER_1F",
+      "name": "Island4_PokemonCenter_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island4_PokemonCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/Island4_PokemonCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND4_POKEMON_CENTER_2F",
+      "name": "Island4_PokemonCenter_2F_Layout",
+      "width": 14,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island4_PokemonCenter_2F/border.bin",
+      "blockdata_filepath": "data/layouts/Island4_PokemonCenter_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND4_HOUSE1",
+      "name": "Island4_House1_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island4_House1/border.bin",
+      "blockdata_filepath": "data/layouts/Island4_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND4_LORELEIS_HOUSE",
+      "name": "Island4_LoreleisHouse_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island4_LoreleisHouse/border.bin",
+      "blockdata_filepath": "data/layouts/Island4_LoreleisHouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND4_HARBOR",
+      "name": "Island4_Harbor_Layout",
+      "width": 17,
+      "height": 12,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/Island4_Harbor/border.bin",
+      "blockdata_filepath": "data/layouts/Island4_Harbor/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND4_HOUSE2",
+      "name": "Island4_House2_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island4_House2/border.bin",
+      "blockdata_filepath": "data/layouts/Island4_House2/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND4_MART",
+      "name": "Island4_Mart_Layout",
+      "width": 11,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/Island4_Mart/border.bin",
+      "blockdata_filepath": "data/layouts/Island4_Mart/map.bin"
+    },
+    {
+      "id": "LAYOUT_ICEFALL_CAVE_ENTRANCE",
+      "name": "IcefallCave_Entrance_Layout",
+      "width": 30,
+      "height": 36,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/IcefallCave_Entrance/border.bin",
+      "blockdata_filepath": "data/layouts/IcefallCave_Entrance/map.bin"
+    },
+    {
+      "id": "LAYOUT_ICEFALL_CAVE_1F",
+      "name": "IcefallCave_1F_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/IcefallCave_1F/border.bin",
+      "blockdata_filepath": "data/layouts/IcefallCave_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ICEFALL_CAVE_B1F",
+      "name": "IcefallCave_B1F_Layout",
+      "width": 24,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/IcefallCave_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/IcefallCave_B1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ICEFALL_CAVE_BACK",
+      "name": "IcefallCave_Back_Layout",
+      "width": 25,
+      "height": 26,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/IcefallCave_Back/border.bin",
+      "blockdata_filepath": "data/layouts/IcefallCave_Back/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_MAIN",
+      "name": "Island5_Main_Layout",
+      "width": 24,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island5_Main/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_Main/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_MEADOW",
+      "name": "Island5_Meadow_Layout",
+      "width": 24,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island5_Meadow/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_Meadow/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_MEMORIAL_PILLAR",
+      "name": "Island5_MemorialPillar_Layout",
+      "width": 24,
+      "height": 60,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/Island5_MemorialPillar/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_MemorialPillar/map.bin"
     }
   ]
 }
