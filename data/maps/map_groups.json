@@ -42,7 +42,9 @@
     "gMapGroup_Sevii_Islands6",
     "gMapGroup_Sevii_Islands7",
     "gMapGroup_Sevii_Islands_MtEmber",
-    "gMapGroup_Sevii_Islands_IcefallCave"
+    "gMapGroup_Sevii_Islands_IcefallCave",
+    "gMapGroup_Sevii_Islands_LostCave",
+    "gMapGroup_Sevii_Islands_Six_Dungeons"
   ],
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",
@@ -682,10 +684,30 @@
   "gMapGroup_Sevii_Islands5": [
     "Island5_Main",
     "Island5_Meadow",
-    "Island5_MemorialPillar"
+    "Island5_MemorialPillar",
+    "Island5_WaterLabyrinth",
+    "Island5_ResortGorgeous",
+    "Island5_PokemonCenter_1F",
+    "Island5_PokeCenter_2F",
+    "Island5_Harbor",
+    "Island5_House1",
+    "Island5_House2",
+    "Island5_ResortGorgeous_House",
+    "Island5_Warehouse"
   ],
   "gMapGroup_Sevii_Islands6": [
-
+    "Island6_Main",
+    "Island6_WaterPath",
+    "Island6_RuinValley",
+    "Island6_GreenPath",
+    "Island6_OutcastIsland",
+    "Island6_PokemonCenter_1F",
+    "Island6_PokemonCenter_2F",
+    "Island6_Harbor",
+    "Island6_House",
+    "Island6_Mart",
+    "Island6_WaterPath_House1",
+    "Island6_WaterPath_House2"
   ],
   "gMapGroup_Sevii_Islands7": [
 
@@ -711,5 +733,31 @@
     "IcefallCave_1F",
     "IcefallCave_B1F",
     "IcefallCave_Back"
+  ],
+  "gMapGroup_Sevii_Islands_LostCave": [
+    "Island5_LostCave_Entrance",
+    "Island5_LostCave_Room1",
+    "Island5_LostCave_Room2",
+    "Island5_LostCave_Room3",
+    "Island5_LostCave_Room4",
+    "Island5_LostCave_Room5",
+    "Island5_LostCave_Room6",
+    "Island5_LostCave_Room7",
+    "Island5_LostCave_Room8",
+    "Island5_LostCave_Room9",
+    "Island5_LostCave_Room10",
+    "Island5_LostCave_Room11",
+    "Island5_LostCave_Room12",
+    "Island5_LostCave_Room13",
+    "Island5_LostCave_Room14"
+  ],
+  "gMapGroup_Sevii_Islands_Six_Dungeons": [
+    "Island6_DottedHole_1F",
+    "Island6_DottedHole_B1F",
+    "Island6_DottedHole_B2F",
+    "Island6_DottedHole_B3F",
+    "Island6_DottedHole_B4F",
+    "Island6_DottedHole_BottomRoom",
+    "Island6_PatternBush"
   ]
 }

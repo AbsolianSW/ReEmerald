@@ -17,6 +17,11 @@
       "map": "MAP_ISLAND5_MEADOW",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_ISLAND5_WATER_LABYRINTH",
+      "offset": -48,
+      "direction": "up"
     }
   ],
   "object_events": [

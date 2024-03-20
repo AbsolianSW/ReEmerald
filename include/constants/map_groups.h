@@ -641,11 +641,32 @@
 #define MAP_ISLAND4_MART              (8 | (37 << 8))
 
 // gMapGroup_Sevii_Islands5
-#define MAP_ISLAND5_MAIN            (0 | (38 << 8))
-#define MAP_ISLAND5_MEADOW          (1 | (38 << 8))
-#define MAP_ISLAND5_MEMORIAL_PILLAR (2 | (38 << 8))
+#define MAP_ISLAND5_MAIN                  (0 | (38 << 8))
+#define MAP_ISLAND5_MEADOW                (1 | (38 << 8))
+#define MAP_ISLAND5_MEMORIAL_PILLAR       (2 | (38 << 8))
+#define MAP_ISLAND5_WATER_LABYRINTH       (3 | (38 << 8))
+#define MAP_ISLAND5_RESORT_GORGEOUS       (4 | (38 << 8))
+#define MAP_ISLAND5_POKEMON_CENTER_1F     (5 | (38 << 8))
+#define MAP_ISLAND5_POKE_CENTER_2F        (6 | (38 << 8))
+#define MAP_ISLAND5_HARBOR                (7 | (38 << 8))
+#define MAP_ISLAND5_HOUSE1                (8 | (38 << 8))
+#define MAP_ISLAND5_HOUSE2                (9 | (38 << 8))
+#define MAP_ISLAND5_RESORT_GORGEOUS_HOUSE (10 | (38 << 8))
+#define MAP_ISLAND5_WAREHOUSE             (11 | (38 << 8))
 
 // gMapGroup_Sevii_Islands6
+#define MAP_ISLAND6_MAIN              (0 | (39 << 8))
+#define MAP_ISLAND6_WATER_PATH        (1 | (39 << 8))
+#define MAP_ISLAND6_RUIN_VALLEY       (2 | (39 << 8))
+#define MAP_ISLAND6_GREEN_PATH        (3 | (39 << 8))
+#define MAP_ISLAND6_OUTCAST_ISLAND    (4 | (39 << 8))
+#define MAP_ISLAND6_POKEMON_CENTER_1F (5 | (39 << 8))
+#define MAP_ISLAND6_POKEMON_CENTER_2F (6 | (39 << 8))
+#define MAP_ISLAND6_HARBOR            (7 | (39 << 8))
+#define MAP_ISLAND6_HOUSE             (8 | (39 << 8))
+#define MAP_ISLAND6_MART              (9 | (39 << 8))
+#define MAP_ISLAND6_WATER_PATH_HOUSE1 (10 | (39 << 8))
+#define MAP_ISLAND6_WATER_PATH_HOUSE2 (11 | (39 << 8))
 
 // gMapGroup_Sevii_Islands7
 
@@ -671,6 +692,32 @@
 #define MAP_ICEFALL_CAVE_B1F      (2 | (42 << 8))
 #define MAP_ICEFALL_CAVE_BACK     (3 | (42 << 8))
 
-#define MAP_GROUPS_COUNT 43
+// gMapGroup_Sevii_Islands_LostCave
+#define MAP_ISLAND5_LOST_CAVE_ENTRANCE (0 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM1    (1 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM2    (2 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM3    (3 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM4    (4 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM5    (5 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM6    (6 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM7    (7 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM8    (8 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM9    (9 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM10   (10 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM11   (11 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM12   (12 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM13   (13 | (43 << 8))
+#define MAP_ISLAND5_LOST_CAVE_ROOM14   (14 | (43 << 8))
+
+// gMapGroup_Sevii_Islands_Six_Dungeons
+#define MAP_ISLAND6_DOTTED_HOLE_1F          (0 | (44 << 8))
+#define MAP_ISLAND6_DOTTED_HOLE_B1F         (1 | (44 << 8))
+#define MAP_ISLAND6_DOTTED_HOLE_B2F         (2 | (44 << 8))
+#define MAP_ISLAND6_DOTTED_HOLE_B3F         (3 | (44 << 8))
+#define MAP_ISLAND6_DOTTED_HOLE_B4F         (4 | (44 << 8))
+#define MAP_ISLAND6_DOTTED_HOLE_BOTTOM_ROOM (5 | (44 << 8))
+#define MAP_ISLAND6_PATTERN_BUSH            (6 | (44 << 8))
+
+#define MAP_GROUPS_COUNT 45
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

@@ -5030,6 +5030,436 @@
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/Island5_MemorialPillar/border.bin",
       "blockdata_filepath": "data/layouts/Island5_MemorialPillar/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_WATER_LABYRINTH",
+      "name": "Island5_WaterLabyrinth_Layout",
+      "width": 72,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island5_WaterLabyrinth/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_WaterLabyrinth/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_RESORT_GORGEOUS",
+      "name": "Island5_ResortGorgeous_Layout",
+      "width": 72,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island5_ResortGorgeous/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_ResortGorgeous/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ENTRANCE",
+      "name": "Island5_LostCave_Entrance_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Entrance/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Entrance/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM1",
+      "name": "Island5_LostCave_Room1_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room1/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room1/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM2",
+      "name": "Island5_LostCave_Room2_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room2/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room2/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM3",
+      "name": "Island5_LostCave_Room3_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room3/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room3/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM4",
+      "name": "Island5_LostCave_Room4_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room4/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room4/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM5",
+      "name": "Island5_LostCave_Room5_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room5/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room5/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM6",
+      "name": "Island5_LostCave_Room6_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room6/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room6/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM7",
+      "name": "Island5_LostCave_Room7_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room7/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room7/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM8",
+      "name": "Island5_LostCave_Room8_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room8/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room8/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM9",
+      "name": "Island5_LostCave_Room9_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room9/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room9/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM10",
+      "name": "Island5_LostCave_Room10_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room10/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room10/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM11",
+      "name": "Island5_LostCave_Room11_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room11/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room11/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM12",
+      "name": "Island5_LostCave_Room12_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room12/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room12/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM13",
+      "name": "Island5_LostCave_Room13_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room13/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room13/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_LOST_CAVE_ROOM14",
+      "name": "Island5_LostCave_Room14_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island5_LostCave_Room14/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_LostCave_Room14/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_POKEMON_CENTER_1F",
+      "name": "Island5_PokemonCenter_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island5_PokemonCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_PokemonCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_POKE_CENTER_2F",
+      "name": "Island5_PokeCenter_2F_Layout",
+      "width": 14,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island5_PokeCenter_2F/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_PokeCenter_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_HARBOR",
+      "name": "Island5_Harbor_Layout",
+      "width": 17,
+      "height": 12,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/Island5_Harbor/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_Harbor/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_HOUSE1",
+      "name": "Island5_House1_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island5_House1/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_HOUSE2",
+      "name": "Island5_House2_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island5_House2/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_House2/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_RESORT_GORGEOUS_HOUSE",
+      "name": "Island5_ResortGorgeous_House_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island5_ResortGorgeous_House/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_ResortGorgeous_House/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND5_WAREHOUSE",
+      "name": "Island5_Warehouse_Layout",
+      "width": 29,
+      "height": 27,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/Island5_Warehouse/border.bin",
+      "blockdata_filepath": "data/layouts/Island5_Warehouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_MAIN",
+      "name": "Island6_Main_Layout",
+      "width": 24,
+      "height": 30,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island6_Main/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_Main/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_WATER_PATH",
+      "name": "Island6_WaterPath_Layout",
+      "width": 24,
+      "height": 100,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island6_WaterPath/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_WaterPath/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_RUIN_VALLEY",
+      "name": "Island6_RuinValley_Layout",
+      "width": 48,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island6_RuinValley/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_RuinValley/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_GREEN_PATH",
+      "name": "Island6_GreenPath_Layout",
+      "width": 72,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island6_GreenPath/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_GreenPath/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_OUTCAST_ISLAND",
+      "name": "Island6_OutcastIsland_Layout",
+      "width": 24,
+      "height": 80,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island6_OutcastIsland/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_OutcastIsland/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_POKEMON_CENTER_1F",
+      "name": "Island6_PokemonCenter_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island6_PokemonCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_PokemonCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_POKEMON_CENTER_2F",
+      "name": "Island6_PokemonCenter_2F_Layout",
+      "width": 14,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island6_PokemonCenter_2F/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_PokemonCenter_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_HARBOR",
+      "name": "Island6_Harbor_Layout",
+      "width": 17,
+      "height": 12,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/Island6_Harbor/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_Harbor/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_HOUSE",
+      "name": "Island6_House_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island6_House/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_House/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_MART",
+      "name": "Island6_Mart_Layout",
+      "width": 11,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/Island6_Mart/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_Mart/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_WATER_PATH_HOUSE1",
+      "name": "Island6_WaterPath_House1_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island6_WaterPath_House1/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_WaterPath_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_WATER_PATH_HOUSE2",
+      "name": "Island6_WaterPath_House2_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island6_WaterPath_House2/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_WaterPath_House2/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_DOTTED_HOLE_1F",
+      "name": "Island6_DottedHole_1F_Layout",
+      "width": 16,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island6_DottedHole_1F/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_DottedHole_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_DOTTED_HOLE_B1F",
+      "name": "Island6_DottedHole_B1F_Layout",
+      "width": 13,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island6_DottedHole_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_DottedHole_B1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_DOTTED_HOLE_B2F",
+      "name": "Island6_DottedHole_B2F_Layout",
+      "width": 13,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island6_DottedHole_B2F/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_DottedHole_B2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_DOTTED_HOLE_B3F",
+      "name": "Island6_DottedHole_B3F_Layout",
+      "width": 13,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island6_DottedHole_B3F/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_DottedHole_B3F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_DOTTED_HOLE_B4F",
+      "name": "Island6_DottedHole_B4F_Layout",
+      "width": 13,
+      "height": 11,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island6_DottedHole_B4F/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_DottedHole_B4F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_DOTTED_HOLE_BOTTOM_ROOM",
+      "name": "Island6_DottedHole_BottomRoom_Layout",
+      "width": 16,
+      "height": 15,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island6_DottedHole_BottomRoom/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_DottedHole_BottomRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_PATTERN_BUSH",
+      "name": "Island6_PatternBush_Layout",
+      "width": 60,
+      "height": 32,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Rustboro",
+      "border_filepath": "data/layouts/Island6_PatternBush/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_PatternBush/map.bin"
     }
   ]
 }

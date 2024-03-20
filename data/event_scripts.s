@@ -1181,3 +1181,89 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/Island5_Meadow/scripts.inc"
 
 	.include "data/maps/Island5_MemorialPillar/scripts.inc"
+
+	.include "data/maps/Island5_WaterLabyrinth/scripts.inc"
+
+	.include "data/maps/Island5_ResortGorgeous/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Entrance/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room1/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room2/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room3/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room4/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room5/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room6/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room7/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room8/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room9/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room10/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room11/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room12/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room13/scripts.inc"
+
+	.include "data/maps/Island5_LostCave_Room14/scripts.inc"
+
+	.include "data/maps/Island5_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/Island5_PokeCenter_2F/scripts.inc"
+
+	.include "data/maps/Island5_Harbor/scripts.inc"
+
+	.include "data/maps/Island5_House1/scripts.inc"
+
+	.include "data/maps/Island5_House2/scripts.inc"
+
+	.include "data/maps/Island5_ResortGorgeous_House/scripts.inc"
+
+	.include "data/maps/Island5_Warehouse/scripts.inc"
+
+	.include "data/maps/Island6_Main/scripts.inc"
+
+	.include "data/maps/Island6_WaterPath/scripts.inc"
+
+	.include "data/maps/Island6_RuinValley/scripts.inc"
+
+	.include "data/maps/Island6_GreenPath/scripts.inc"
+
+	.include "data/maps/Island6_OutcastIsland/scripts.inc"
+
+	.include "data/maps/Island6_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/Island6_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/Island6_Harbor/scripts.inc"
+
+	.include "data/maps/Island6_House/scripts.inc"
+
+	.include "data/maps/Island6_Mart/scripts.inc"
+
+	.include "data/maps/Island6_WaterPath_House1/scripts.inc"
+
+	.include "data/maps/Island6_WaterPath_House2/scripts.inc"
+
+	.include "data/maps/Island6_DottedHole_1F/scripts.inc"
+
+	.include "data/maps/Island6_DottedHole_B1F/scripts.inc"
+
+	.include "data/maps/Island6_DottedHole_B2F/scripts.inc"
+
+	.include "data/maps/Island6_DottedHole_B3F/scripts.inc"
+
+	.include "data/maps/Island6_DottedHole_B4F/scripts.inc"
+
+	.include "data/maps/Island6_DottedHole_BottomRoom/scripts.inc"
+
+	.include "data/maps/Island6_PatternBush/scripts.inc"

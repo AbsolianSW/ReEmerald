@@ -3431,7 +3431,7 @@ static const struct TrainerMonItemCustomMoves sParty_Drake[] = {
     .iv = 255,
     .lvl = 56,
     .species = SPECIES_ALTARIA,
-    .heldItem = ITEM_CHOICE_BAND,
+    .heldItem = ITEM_SALAC_BERRY,
     .moves = {MOVE_DRAGON_DANCE, MOVE_DRAGON_CLAW, MOVE_AERIAL_ACE, MOVE_EARTHQUAKE}
     },
     {

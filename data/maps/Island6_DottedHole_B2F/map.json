@@ -1,0 +1,28 @@
+{
+  "id": "MAP_ISLAND6_DOTTED_HOLE_B2F",
+  "name": "Island6_DottedHole_B2F",
+  "layout": "LAYOUT_ISLAND6_DOTTED_HOLE_B2F",
+  "music": "MUS_RG_SEVII_DUNGEON",
+  "region_map_section": "MAPSEC_DOTTED_HOLE",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_UNDERGROUND",
+  "allow_cycling": true,
+  "allow_escaping": true,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+
+  ],
+  "warp_events": [
+
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}
