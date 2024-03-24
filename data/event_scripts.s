@@ -1267,3 +1267,43 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/Island6_DottedHole_BottomRoom/scripts.inc"
 
 	.include "data/maps/Island6_PatternBush/scripts.inc"
+
+	.include "data/maps/Island6_AlteringCave/scripts.inc"
+
+	.include "data/maps/Island7_Main/scripts.inc"
+
+	.include "data/maps/Island7_TrainerTower/scripts.inc"
+
+	.include "data/maps/Island7_SevaultCanyon_Entrance/scripts.inc"
+
+	.include "data/maps/Island7_SevaultCanyon/scripts.inc"
+
+	.include "data/maps/Island7_TanobyRuins/scripts.inc"
+
+	.include "data/maps/Island7_House_Room1/scripts.inc"
+
+	.include "data/maps/Island7_Mart/scripts.inc"
+
+	.include "data/maps/Island7_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/Island7_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/Island7_Harbor/scripts.inc"
+
+	.include "data/maps/Island7_SevaultCanyon_House/scripts.inc"
+
+	.include "data/maps/Island7_TanobyRuins_MoneanChamber/scripts.inc"
+
+	.include "data/maps/Island7_TanobyRuins_LiptooChamber/scripts.inc"
+
+	.include "data/maps/Island7_TanobyRuins_WeepthChamber/scripts.inc"
+
+	.include "data/maps/Island7_TanobyRuins_DilfordChamber/scripts.inc"
+
+	.include "data/maps/Island7_TanobyRuins_ScufibChamber/scripts.inc"
+
+	.include "data/maps/Island7_TanobyRuins_RixyChamber/scripts.inc"
+
+	.include "data/maps/Island7_TanobyRuins_ViapoisChamber/scripts.inc"
+
+	.include "data/maps/Island7_SevaultCanyon_TanobyKey/scripts.inc"

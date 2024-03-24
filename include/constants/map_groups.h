@@ -669,6 +669,17 @@
 #define MAP_ISLAND6_WATER_PATH_HOUSE2 (11 | (39 << 8))
 
 // gMapGroup_Sevii_Islands7
+#define MAP_ISLAND7_MAIN                    (0 | (40 << 8))
+#define MAP_ISLAND7_TRAINER_TOWER           (1 | (40 << 8))
+#define MAP_ISLAND7_SEVAULT_CANYON_ENTRANCE (2 | (40 << 8))
+#define MAP_ISLAND7_SEVAULT_CANYON          (3 | (40 << 8))
+#define MAP_ISLAND7_TANOBY_RUINS            (4 | (40 << 8))
+#define MAP_ISLAND7_HOUSE_ROOM1             (5 | (40 << 8))
+#define MAP_ISLAND7_MART                    (6 | (40 << 8))
+#define MAP_ISLAND7_POKEMON_CENTER_1F       (7 | (40 << 8))
+#define MAP_ISLAND7_POKEMON_CENTER_2F       (8 | (40 << 8))
+#define MAP_ISLAND7_HARBOR                  (9 | (40 << 8))
+#define MAP_ISLAND7_SEVAULT_CANYON_HOUSE    (10 | (40 << 8))
 
 // gMapGroup_Sevii_Islands_MtEmber
 #define MAP_MT_EMBER_EXTERIOR             (0 | (41 << 8))
@@ -717,7 +728,18 @@
 #define MAP_ISLAND6_DOTTED_HOLE_B4F         (4 | (44 << 8))
 #define MAP_ISLAND6_DOTTED_HOLE_BOTTOM_ROOM (5 | (44 << 8))
 #define MAP_ISLAND6_PATTERN_BUSH            (6 | (44 << 8))
+#define MAP_ISLAND6_ALTERING_CAVE           (7 | (44 << 8))
 
-#define MAP_GROUPS_COUNT 45
+// gMapGroup_Sevii_Islands_Tanoby_Ruins
+#define MAP_ISLAND7_TANOBY_RUINS_MONEAN_CHAMBER  (0 | (45 << 8))
+#define MAP_ISLAND7_TANOBY_RUINS_LIPTOO_CHAMBER  (1 | (45 << 8))
+#define MAP_ISLAND7_TANOBY_RUINS_WEEPTH_CHAMBER  (2 | (45 << 8))
+#define MAP_ISLAND7_TANOBY_RUINS_DILFORD_CHAMBER (3 | (45 << 8))
+#define MAP_ISLAND7_TANOBY_RUINS_SCUFIB_CHAMBER  (4 | (45 << 8))
+#define MAP_ISLAND7_TANOBY_RUINS_RIXY_CHAMBER    (5 | (45 << 8))
+#define MAP_ISLAND7_TANOBY_RUINS_VIAPOIS_CHAMBER (6 | (45 << 8))
+#define MAP_ISLAND7_SEVAULT_CANYON_TANOBY_KEY    (7 | (45 << 8))
+
+#define MAP_GROUPS_COUNT 46
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

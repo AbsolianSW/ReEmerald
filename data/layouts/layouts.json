@@ -5460,6 +5460,206 @@
       "secondary_tileset": "gTileset_Rustboro",
       "border_filepath": "data/layouts/Island6_PatternBush/border.bin",
       "blockdata_filepath": "data/layouts/Island6_PatternBush/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND6_ALTERING_CAVE",
+      "name": "Island6_AlteringCave_Layout",
+      "width": 32,
+      "height": 24,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island6_AlteringCave/border.bin",
+      "blockdata_filepath": "data/layouts/Island6_AlteringCave/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_MAIN",
+      "name": "Island7_Main_Layout",
+      "width": 24,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island7_Main/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_Main/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_TRAINER_TOWER",
+      "name": "Island7_TrainerTower_Layout",
+      "width": 42,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Mauville",
+      "border_filepath": "data/layouts/Island7_TrainerTower/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_TrainerTower/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_SEVAULT_CANYON_ENTRANCE",
+      "name": "Island7_SevaultCanyon_Entrance_Layout",
+      "width": 24,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island7_SevaultCanyon_Entrance/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_SevaultCanyon_Entrance/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_SEVAULT_CANYON",
+      "name": "Island7_SevaultCanyon_Layout",
+      "width": 24,
+      "height": 80,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Slateport",
+      "border_filepath": "data/layouts/Island7_SevaultCanyon/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_SevaultCanyon/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_TANOBY_RUINS",
+      "name": "Island7_TanobyRuins_Layout",
+      "width": 144,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Mauville",
+      "border_filepath": "data/layouts/Island7_TanobyRuins/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_TanobyRuins/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_HOUSE_ROOM1",
+      "name": "Island7_House_Room1_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island7_House_Room1/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_House_Room1/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_MART",
+      "name": "Island7_Mart_Layout",
+      "width": 11,
+      "height": 8,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Shop",
+      "border_filepath": "data/layouts/Island7_Mart/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_Mart/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_POKEMON_CENTER_1F",
+      "name": "Island7_PokemonCenter_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island7_PokemonCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_PokemonCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_POKEMON_CENTER_2F",
+      "name": "Island7_PokemonCenter_2F_Layout",
+      "width": 14,
+      "height": 10,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PokemonCenter",
+      "border_filepath": "data/layouts/Island7_PokemonCenter_2F/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_PokemonCenter_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_HARBOR",
+      "name": "Island7_Harbor_Layout",
+      "width": 17,
+      "height": 12,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Facility",
+      "border_filepath": "data/layouts/Island7_Harbor/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_Harbor/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_SEVAULT_CANYON_HOUSE",
+      "name": "Island7_SevaultCanyon_House_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_GenericBuilding",
+      "border_filepath": "data/layouts/Island7_SevaultCanyon_House/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_SevaultCanyon_House/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_TANOBY_RUINS_MONEAN_CHAMBER",
+      "name": "Island7_TanobyRuins_MoneanChamber_Layout",
+      "width": 23,
+      "height": 17,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island7_TanobyRuins_MoneanChamber/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_TanobyRuins_MoneanChamber/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_TANOBY_RUINS_LIPTOO_CHAMBER",
+      "name": "Island7_TanobyRuins_LiptooChamber_Layout",
+      "width": 23,
+      "height": 17,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island7_TanobyRuins_LiptooChamber/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_TanobyRuins_LiptooChamber/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_TANOBY_RUINS_WEEPTH_CHAMBER",
+      "name": "Island7_TanobyRuins_WeepthChamber_Layout",
+      "width": 23,
+      "height": 17,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island7_TanobyRuins_WeepthChamber/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_TanobyRuins_WeepthChamber/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_TANOBY_RUINS_DILFORD_CHAMBER",
+      "name": "Island7_TanobyRuins_DilfordChamber_Layout",
+      "width": 23,
+      "height": 17,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island7_TanobyRuins_DilfordChamber/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_TanobyRuins_DilfordChamber/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_TANOBY_RUINS_SCUFIB_CHAMBER",
+      "name": "Island7_TanobyRuins_ScufibChamber_Layout",
+      "width": 23,
+      "height": 17,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island7_TanobyRuins_ScufibChamber/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_TanobyRuins_ScufibChamber/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_TANOBY_RUINS_RIXY_CHAMBER",
+      "name": "Island7_TanobyRuins_RixyChamber_Layout",
+      "width": 23,
+      "height": 17,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island7_TanobyRuins_RixyChamber/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_TanobyRuins_RixyChamber/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_TANOBY_RUINS_VIAPOIS_CHAMBER",
+      "name": "Island7_TanobyRuins_ViapoisChamber_Layout",
+      "width": 23,
+      "height": 17,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island7_TanobyRuins_ViapoisChamber/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_TanobyRuins_ViapoisChamber/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND7_SEVAULT_CANYON_TANOBY_KEY",
+      "name": "Island7_SevaultCanyon_TanobyKey_Layout",
+      "width": 15,
+      "height": 16,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/Island7_SevaultCanyon_TanobyKey/border.bin",
+      "blockdata_filepath": "data/layouts/Island7_SevaultCanyon_TanobyKey/map.bin"
     }
   ]
 }

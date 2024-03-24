@@ -44,7 +44,8 @@
     "gMapGroup_Sevii_Islands_MtEmber",
     "gMapGroup_Sevii_Islands_IcefallCave",
     "gMapGroup_Sevii_Islands_LostCave",
-    "gMapGroup_Sevii_Islands_Six_Dungeons"
+    "gMapGroup_Sevii_Islands_Six_Dungeons",
+    "gMapGroup_Sevii_Islands_Tanoby_Ruins"
   ],
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",
@@ -710,7 +711,17 @@
     "Island6_WaterPath_House2"
   ],
   "gMapGroup_Sevii_Islands7": [
-
+    "Island7_Main",
+    "Island7_TrainerTower",
+    "Island7_SevaultCanyon_Entrance",
+    "Island7_SevaultCanyon",
+    "Island7_TanobyRuins",
+    "Island7_House_Room1",
+    "Island7_Mart",
+    "Island7_PokemonCenter_1F",
+    "Island7_PokemonCenter_2F",
+    "Island7_Harbor",
+    "Island7_SevaultCanyon_House"
   ],
   "gMapGroup_Sevii_Islands_MtEmber": [
     "MtEmber_Exterior",
@@ -758,6 +769,17 @@
     "Island6_DottedHole_B3F",
     "Island6_DottedHole_B4F",
     "Island6_DottedHole_BottomRoom",
-    "Island6_PatternBush"
+    "Island6_PatternBush",
+    "Island6_AlteringCave"
+  ],
+  "gMapGroup_Sevii_Islands_Tanoby_Ruins": [
+    "Island7_TanobyRuins_MoneanChamber",
+    "Island7_TanobyRuins_LiptooChamber",
+    "Island7_TanobyRuins_WeepthChamber",
+    "Island7_TanobyRuins_DilfordChamber",
+    "Island7_TanobyRuins_ScufibChamber",
+    "Island7_TanobyRuins_RixyChamber",
+    "Island7_TanobyRuins_ViapoisChamber",
+    "Island7_SevaultCanyon_TanobyKey"
   ]
 }
