@@ -1660,7 +1660,7 @@ static void UNUSED Unused_ApplyRandomDmgMultiplier(void)
 
 static void Cmd_adjustnormaldamage(void)
 {
-    u8 holdEffect, param;
+    u8 holdEffect, param, ability;
 
     ApplyRandomDmgMultiplier();
 
@@ -1674,6 +1674,8 @@ static void Cmd_adjustnormaldamage(void)
         holdEffect = ItemId_GetHoldEffect(gBattleMons[gBattlerTarget].item);
         param = ItemId_GetHoldEffectParam(gBattleMons[gBattlerTarget].item);
     }
+
+    ability = gBattleMons[gBattlerTarget].ability;
 
     gPotentialItemEffectBattler = gBattlerTarget;
 
@@ -1697,13 +1699,22 @@ static void Cmd_adjustnormaldamage(void)
             gLastUsedItem = gBattleMons[gBattlerTarget].item;
         }
     }
+    if(ability == ABILITY_STURDY
+     && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP
+     && gBattleMons[gBattlerTarget].maxHP <= gBattleMoveDamage)
+    {
+        gLastUsedAbility = ability;
+        RecordAbilityBattle(gBattlerTarget, holdEffect);
+        gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP -1;
+        gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
+    }
     gBattlescriptCurrInstr++;
 }
 
 // The same as adjustnormaldamage except it doesn't check for false swipe move effect.
 static void Cmd_adjustnormaldamage2(void)
 {
-    u8 holdEffect, param;
+    u8 holdEffect, param, ability;
 
     ApplyRandomDmgMultiplier();
 
@@ -1739,6 +1750,15 @@ static void Cmd_adjustnormaldamage2(void)
             gMoveResultFlags |= MOVE_RESULT_FOE_HUNG_ON;
             gLastUsedItem = gBattleMons[gBattlerTarget].item;
         }
+    }
+    if(ability == ABILITY_STURDY
+     && gBattleMons[gBattlerTarget].hp == gBattleMons[gBattlerTarget].maxHP
+     && gBattleMons[gBattlerTarget].maxHP <= gBattleMoveDamage)
+    {
+        gLastUsedAbility = ability;
+        RecordAbilityBattle(gBattlerTarget, holdEffect);
+        gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP -1;
+        gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
     }
     gBattlescriptCurrInstr++;
 }

@@ -10413,7 +10413,7 @@ const struct Trainer gTrainers[] = {
         .trainerName = _("MIK & KIA"),
         .items = {},
         .doubleBattle = TRUE,
-        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
+        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY | AI_SCRIPT_RISKY,
         .party = ITEM_DEFAULT_MOVES(sParty_Mik_And_Kia),
     },
     [TRAINER_GRUNT_MT_EMBER_1] =
@@ -10424,8 +10424,8 @@ const struct Trainer gTrainers[] = {
         .trainerName = _("GRUNT"),
         .items = {},
         .doubleBattle = FALSE,
-        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_Grunt_Mt_Ember_1),
+        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY | AI_SCRIPT_RISKY,
+        .party = ITEM_CUSTOM_MOVES(sParty_Grunt_Mt_Ember_1),
     },
     [TRAINER_GRUNT_MT_EMBER_2] =
     {
@@ -10436,7 +10436,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_Grunt_Mt_Ember_2),
+        .party = ITEM_CUSTOM_MOVES(sParty_Grunt_Mt_Ember_2),
     },
     [TRAINER_LOGAN] =
     {
