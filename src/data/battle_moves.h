@@ -2980,7 +2980,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_RAPID_SPIN] =
     {
         .effect = EFFECT_RAPID_SPIN,
-        .power = 20,
+        .power = 50,
         .type = TYPE_NORMAL,
         .accuracy = 100,
         .pp = 40,

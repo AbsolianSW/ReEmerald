@@ -13099,6 +13099,16 @@ static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_1[] = {
     .species = SPECIES_CAMERUPT,
     .heldItem = ITEM_SITRUS_BERRY,
     .moves = {MOVE_ERUPTION, MOVE_EARTHQUAKE, MOVE_MAGNITUDE, MOVE_ROCK_SLIDE}
+    }
+};
+
+static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_2[] = {
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_FLAREON,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SUNNY_DAY, MOVE_OVERHEAT, MOVE_SECRET_POWER, MOVE_ROAR}
     },
     {
     .iv = 250,
@@ -13107,28 +13117,12 @@ static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_1[] = {
     .heldItem = ITEM_SITRUS_BERRY,
     .moves = {MOVE_EXPLOSION, MOVE_PSYCHIC, MOVE_EARTHQUAKE, MOVE_DOUBLE_TEAM}
     },
-};
-
-static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_2[] = {
     {
-    .iv = 0,
-    .lvl = 44,
-    .species = SPECIES_ARCANINE,
-    },
-    {
-    .iv = 0,
-    .lvl = 44,
-    .species = SPECIES_SWALOT,
-    },
-    {
-    .iv = 0,
-    .lvl = 44,
-    .species = SPECIES_CLAYDOL,
-    },
-    {
-    .iv = 0,
-    .lvl = 44,
-    .species = SPECIES_CAMERUPT,
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_DONPHAN,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_MAGNITUDE, MOVE_ANCIENT_POWER, MOVE_REST, MOVE_HYPER_BEAM}
     }
 };
 
