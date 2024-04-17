@@ -1,1 +1,32 @@
-mapscripts MtEmber_RubyPath_B5F_MapScripts {}
+mapscripts MtEmber_RubyPath_B5F_MapScripts {
+	
+}
+
+script MtEmber_RubyPath_B5F_Event_Script_Message {
+	msgbox(format("The Ruby used to link us up to the Hoenn Region was found here.\p Celio"))
+}
+
+script MtEmber_RubyPath_B5F_Event_Script_Tabitha {
+	msgbox(format("TABITHA: Hmmm...surely if they found one Ruby in this cave there must be another one somewhere..."))
+	playse(SE_PIN)
+	applymovement(1,Common_Movement_ExclamationMark)
+	waitmovement(0)
+	applymovement(1,Common_Movement_FacePlayer)
+	trainerbattle_single(TRAINER_TABITHA_ISLAND_1, Ember_RubyPath_B5F_Text_Tabitha_Intro, MtEmber_RubyPath_B5F_TabithaDefeat)
+	end
+}
+
+script MtEmber_RubyPath_B5F_TabithaDefeat{
+	msgbox(format("Ahaha! Wow, you are really strong. Oh well, this was just our side mission here anyways...the real deal is going on at the summit anyways! I'm out of here!"))
+	fadescreen(FADE_TO_BLACK)
+	removeobject(1)
+	fadescreen(FADE_FROM_BLACK)
+	SetFlag(FLAG_ISLAND1_TABITHA_DEFEATED)
+	SetVar(VAR_ONE_ISLAND_STATE, 3)
+	end
+}
+
+text Ember_RubyPath_B5F_Text_Tabitha_Intro {
+	format("What? How did you get in here? You still didn't learn your lesson, huh? Well let me show you the true power of TEAM MAGMA!")
+}
+

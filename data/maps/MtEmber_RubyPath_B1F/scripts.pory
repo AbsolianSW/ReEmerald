@@ -1,1 +1,20 @@
 mapscripts MtEmber_RubyPath_B1F_MapScripts {}
+
+script MtEmber_RubyPath_B1F_Grunt {
+	trainerbattle_single(TRAINER_GRUNT_MT_EMBER_4, MtEmber_RubyPath_B1F_Text_GruntIntro, MtEmber_RubyPath_B1F_Text_GruntDefeat)
+	msgbox(MtEmber_RubyPath_B1F_Text_GruntPostBattle, MSGBOX_AUTOCLOSE)
+	waitmessage
+	end
+}
+
+text MtEmber_RubyPath_B1F_Text_GruntIntro{
+	format("Really? First day on the job and a child gets past him? What an idiot...")
+}
+
+text MtEmber_RubyPath_B1F_Text_GruntDefeat {
+	format("...")
+}
+
+text MtEmber_RubyPath_B1F_Text_GruntPostBattle {
+	format("Wow, are you that kid from Hoenn? You're so strong!")
+}

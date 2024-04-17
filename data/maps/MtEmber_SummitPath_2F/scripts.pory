@@ -1,1 +1,58 @@
 mapscripts MtEmber_SummitPath_2F_MapScripts {}
+
+script MtEmber_SummitPath_2F_Grunt1 {
+	trainerbattle_single(TRAINER_GRUNT_MT_EMBER_9, MtEmber_SummitPath_2F_Text_Grunt1Intro, MtEmber_SummitPath_2F_Text_Grunt1Defeat)
+	msgbox(MtEmber_SummitPath_2F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE)
+	waitmessage
+	end
+}
+
+text MtEmber_SummitPath_2F_Text_Grunt1Intro{
+	format("Hey, be careful! You don't want to fall in, do you?")
+}
+
+text MtEmber_SummitPath_2F_Text_Grunt1Defeat {
+	format("Holy moly, you are really strong!")
+}
+
+text MtEmber_SummitPath_2F_Text_Grunt1PostBattle {
+	format("Again, please be careful not to fall into the hole!")
+}
+
+script MtEmber_SummitPath_2F_Grunt2 {
+	trainerbattle_single(TRAINER_GRUNT_MT_EMBER_10, MtEmber_SummitPath_2F_Text_Grunt2Intro, MtEmber_SummitPath_2F_Text_Grunt2Defeat)
+	msgbox(MtEmber_SummitPath_2F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE)
+	waitmessage
+	end
+}
+
+text MtEmber_SummitPath_2F_Text_Grunt2Intro{
+	format("I think it's getting hot in here. Do you feel that too?")
+}
+
+text MtEmber_SummitPath_2F_Text_Grunt2Defeat {
+	format("Man I got sweat in my eye...")
+}
+
+text MtEmber_SummitPath_2F_Text_Grunt2PostBattle {
+	format("Under normal conditions I would've beaten you easily!")
+}
+
+script MtEmber_SummitPath_2F_Grunt3 {
+	trainerbattle_single(TRAINER_GRUNT_MT_EMBER_11, MtEmber_SummitPath_2F_Text_Grunt3Intro, MtEmber_SummitPath_2F_Text_Grunt3Defeat)
+	msgbox(MtEmber_SummitPath_2F_Text_Grunt3PostBattle, MSGBOX_AUTOCLOSE)
+	waitmessage
+	end
+}
+
+text MtEmber_SummitPath_2F_Text_Grunt3Intro{
+	format("Courtney is conducting important business! You can't go up!")
+}
+
+text MtEmber_SummitPath_2F_Text_Grunt3Defeat {
+	format("Courtney is going to be so mad...")
+}
+
+text MtEmber_SummitPath_2F_Text_Grunt3PostBattle {
+	format("Go on at your own risk...")
+}

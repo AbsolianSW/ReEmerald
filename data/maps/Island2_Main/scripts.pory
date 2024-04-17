@@ -1,1 +1,68 @@
 mapscripts Island2_Main_MapScripts {}
+
+script Island2_Main_Merchant {
+	msgbox(format("Salutations traveler! I sell only the most exclusive of items, come have a look!"))
+	pokemart(Island2_Main_Mart)
+	end
+}
+
+mart Island2_Main_Mart {
+	ITEM_SODA_POP
+	ITEM_FRESH_WATER
+	ITEM_LEMONADE
+	ITEM_BERRY_JUICE
+	ITEM_LAVA_COOKIE
+	ITEM_LIGHT_BALL
+	ITEM_SOUL_DEW
+	ITEM_STICK
+	ITEM_THICK_CLUB
+	ITEM_LUCKY_PUNCH
+	ITEM_LUCKY_EGG
+	ITEM_MOO_MOO_MILK
+	ITEM_POKE_DOLL
+}
+
+script Island2_Main_Sailor{
+	msgbox(format("That fellow there, he moved here from CELADON CITY. He started up a shop with his younger brother. You have to wonder if he knew what he was getting into"))
+	end
+}
+
+script Island2_Main_Woman{
+	msgbox(format("The shopkeepers brother took a job at the GAME CORNER. He was originally just trying to get some money so they could expand, but he liked it so much that he stayed there! The shop is doing well these days too!"))
+	end
+}
+
+script Island2_Main_Beauty{
+	msgbox(format("Listen, listen. Did you know? A famous TRAINER came to the ISLAND a while back. He's one of the Kanto region's ELITE FOUR. His name is BRUNO. He went away disappointed when he found out that they were all sold out of Rage Candybars."))
+	end
+}
+
+script Island2_Main_SuperNerd{
+	msgbox(format("The discerning trainer knows to buy rare items here!"))
+	end
+}
+
+script Island2_Main_Boy {
+	msgbox(format("There's an old woman who lives in a cottage out on the cape. She gives the eye to POKéMON. It's a bit unnerving."))
+	end
+}
+
+script Island2_Main_LittleBoy {
+	msgbox(format("Boing! Boing!\n Have you tried the jumping game?\p The POKéMON you can enter…\n Boing!\p Some go boing!\p And some go boooooooing!\p Did you know that?\n Boing!"))
+	end
+}
+
+script Island2_Main_Sign{
+	msgbox(format("TWO ISLAND\n Boon island for two"), MSGBOX_SIGN)
+	end
+}
+
+script Island2_Main_FastCurrentSign{
+	msgbox(format("DANGER! FAST CURRENT!\n Fishing and surfing prohibited"), MSGBOX_SIGN)
+	end
+}
+
+script Island2_Main_GameCornerSign{
+	msgbox(format("Skip&Chomp!\n Joyful GAME CORNER"), MSGBOX_SIGN)
+	end
+}

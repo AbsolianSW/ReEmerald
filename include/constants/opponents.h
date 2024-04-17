@@ -875,12 +875,23 @@
 #define TRAINER_LOGAN                       870
 #define TRAINER_BETH_SEVII                  871
 #define TRAINER_JOCELYN_SEVII               872
+#define TRAINER_GRUNT_MT_EMBER_3            873
+#define TRAINER_GRUNT_MT_EMBER_4            874
+#define TRAINER_GRUNT_MT_EMBER_5            875
+#define TRAINER_GRUNT_MT_EMBER_6            876
+#define TRAINER_GRUNT_MT_EMBER_7            877
+#define TRAINER_TABITHA_ISLAND_1            878
+#define TRAINER_GRUNT_MT_EMBER_8            879
+#define TRAINER_GRUNT_MT_EMBER_9            880
+#define TRAINER_GRUNT_MT_EMBER_10           881
+#define TRAINER_GRUNT_MT_EMBER_11           882
+#define TRAINER_COURTNEY_ISLAND_1           883
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
-#define TRAINERS_COUNT                      873
+#define TRAINERS_COUNT                      884
 #define MAX_TRAINERS_COUNT                  1000
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

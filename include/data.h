@@ -66,10 +66,11 @@ struct TrainerMonItemCustomMoves
 
 struct TrainerMonEverything
 {
-    u16 iv;
     u8 lvl;
     u8 nature;
+    u8 ability;
     //hp, attack, defense, speed, special attack, special defense
+    u8 iv[6];
     u8 ev[6];
     u16 species;
     u16 heldItem;

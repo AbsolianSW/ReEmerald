@@ -1,1 +1,88 @@
-mapscripts MtEmber_Summit_MapScripts {}
+mapscripts MtEmber_Summit_MapScripts {
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_MT_EMBER_SUMMIT_STATE, 0: MtEmber_Summit_Cutscene
+	]
+}
+script MtEmber_Summit_Cutscene{
+	if(flag(FLAG_MT_EMBER_HIDE_MOLTRES)) {
+		end
+	}
+	lockall
+	special(StorePlayerCoordsInVars)
+	delay(60)
+	special(SpawnCameraObject)
+	applymovement(OBJ_EVENT_ID_CAMERA, MtEmber_Summit_CameraMovementUp)
+	waitmovement(0)
+	special(RemoveCameraObject)
+	msgbox(format("At last...I've found you, MOLTRES. Together, we shall finally conquer this world and expand the land masses, just as MAXIE foresaw!"))
+	playmoncry(SPECIES_MOLTRES, CRY_MODE_ENCOUNTER)
+	delay(30)
+	removeobject(5)
+	SetFlag(FLAG_MT_EMBER_HIDE_MOLTRES)
+	msgbox(format("I've got it! Let's move!"))
+	applymovement(6, MtEmber_Summit_TurnCourtney)
+	waitmovement(0)
+	playse(SE_PIN)
+	applymovement(6,Common_Movement_ExclamationMark)
+	waitmovement(0)
+	msgbox(format("You again? I won't let you stop me this time..."))
+	delay(30)
+	special(SpawnCameraObject)
+	applymovement(OBJ_EVENT_ID_CAMERA, MtEmber_Summit_CameraMovementDown)
+	waitmovement(0)
+	special(RemoveCameraObject)
+	SetVar(VAR_MT_EMBER_SUMMIT_STATE,1)
+	releaseall
+	end
+}
+
+movement MtEmber_Summit_CameraMovementUp{
+	walk_slow_up *7
+}
+movement MtEmber_Summit_CameraMovementDown{
+	walk_slow_down *7
+}
+movement MtEmber_Summit_TurnCourtney{
+	face_down
+}
+
+script MtEmber_Summit_Courtney {
+	trainerbattle_single(TRAINER_COURTNEY_ISLAND_1, MtEmber_Summit_Text_CourtneyIntro, MtEmber_Summit_Text_CourtneyDefeat, MtEmber_Summit_CourtneyDefeat)
+	msgbox(MtEmber_Summit_Text_CourtneyPostBattle)
+}
+script MtEmber_Summit_CourtneyDefeat{
+	SetFlag(FLAG_ISLAND1_COURTNEY_DEFEATED)
+	lockall
+	playse(SE_PIN)
+	applymovement(6,Common_Movement_ExclamationMark)
+	addobject(5)
+	playmoncry(SPECIES_MOLTRES, CRY_MODE_WEAK)
+	applymovement(5, MtEmber_Summit_MoltresFlyAway)
+	waitmovement(0)
+	msgbox(format("Wow! These legendaries are really hard to control...well it was ineffective against you anyways, but I won't give up!"))
+	closemessage
+	fadescreen(FADE_TO_BLACK)
+	removeobject(6)
+	fadescreen(FADE_FROM_BLACK)
+	releaseall
+	end
+}
+
+movement MtEmber_Summit_MoltresFlyAway {
+	face_up
+	delay_16
+	delay_16
+	fly_up
+}
+
+text MtEmber_Summit_Text_CourtneyIntro{
+	format("...")
+}
+
+text MtEmber_Summit_Text_CourtneyDefeat {
+	format("Even Moltres couldn't stop you...I guess I need to find something stronger...")
+}
+
+text MtEmber_Summit_Text_CourtneyPostBattle {
+	format("You're starting to really annoy me...but we will prevail!")
+}

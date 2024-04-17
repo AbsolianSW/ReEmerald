@@ -1,1 +1,22 @@
 mapscripts MtEmber_RubyPath_1F_MapScripts {}
+
+
+script MtEmber_RubyPath_1F_Grunt {
+	trainerbattle_single(TRAINER_GRUNT_MT_EMBER_3, MtEmber_RubyPath_1F_Text_GruntIntro, MtEmber_RubyPath_1F_Text_GruntDefeat)
+	msgbox(MtEmber_RubyPath_1F_Text_GruntPostBattle, MSGBOX_AUTOCLOSE)
+	waitmessage
+	end
+}
+
+text MtEmber_RubyPath_1F_Text_GruntIntro{
+	format("What? How did a child get in here? It's my first day on the job, I can't let this happen!")
+}
+
+text MtEmber_RubyPath_1F_Text_GruntDefeat {
+	format("I am so fired...")
+}
+
+text MtEmber_RubyPath_1F_Text_GruntPostBattle {
+	format("Beaten by a child...maybe I'm just not cut out for TEAM MAGMA?")
+}
+

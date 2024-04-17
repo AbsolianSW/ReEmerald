@@ -1222,26 +1222,26 @@
 #define FLAG_ITEM_SAFARI_ZONE_SOUTH_EAST_BIG_PEARL                  0x492
 
 //these previously unused flags will be for Sevii Islands events
-#define FLAG_ITEM_TREASURE_BEACH_STAR_DUST                          0x493 // Unused Flag
-#define FLAG_ITEM_TREASURE_BEACH_STAR_DUST_2                        0x494 // Unused Flag
-#define FLAG_ITEM_TREASURE_BEACH_ULTRA_BALL                         0x495 // Unused Flag
-#define FLAG_ITEM_TREASURE_BEACH_ULTRA_BALL_2                       0x496 // Unused Flag
-#define FLAG_ITEM_TREASURE_BEACH_PEARL                              0x497 // Unused Flag
-#define FLAG_ITEM_TREASURE_BEACH_PEARL_2                            0x498 // Unused Flag
-#define FLAG_ITEM_TREASURE_BEACH_STAR_PIECE                         0x499 // Unused Flag
-#define FLAG_ITEM_TREASURE_BEACH_BIG_PEARL                          0x49A // Unused Flag
-#define FLAG_VISITED_ONE_ISLAND                                     0x49B // Unused Flag
-#define FLAG_ONE_ISLAND_HIDE_BILL                                   0x49C // Unused Flag
-#define FLAG_ITEM_KINDLE_ROAD_ETHER                                 0x49D // Unused Flag
-#define FLAG_ITEM_KINDLE_ROAD_MAX_REPEL                             0x49E // Unused Flag
-#define FLAG_ITEM_KINDLE_ROAD_CARBOS                                0x49F // Unused Flag
-#define FLAG_HIDE_MT_EMBER_EXTERIOR_GRUNTS                          0x4A0 // Unused Flag
-#define FLAG_ITEM_MT_EMBER_ULTRA_BALL                               0x4A1 // Unused Flag
-#define FLAG_ITEM_MT_EMBER_FIRE_STONE                               0x4A2 // Unused Flag
-#define FLAG_ITEM_MT_EMBER_DIRE_HIT                                 0x4A3 // Unused Flag
-#define FLAG_HIDDEN_ITEM_MT_EMBER_FIRE_STONE                        0x4A4 // Unused Flag
-#define FLAG_HIDDEN_ITEM_MT_EMBER_ULTRA_BALL                        0x4A5 // Unused Flag
-#define FLAG_UNUSED_0x4A6                                           0x4A6 // Unused Flag
+#define FLAG_ITEM_TREASURE_BEACH_STAR_DUST                          0x493 
+#define FLAG_ITEM_TREASURE_BEACH_STAR_DUST_2                        0x494 
+#define FLAG_ITEM_TREASURE_BEACH_ULTRA_BALL                         0x495 
+#define FLAG_ITEM_TREASURE_BEACH_ULTRA_BALL_2                       0x496 
+#define FLAG_ITEM_TREASURE_BEACH_PEARL                              0x497 
+#define FLAG_ITEM_TREASURE_BEACH_PEARL_2                            0x498 
+#define FLAG_ITEM_TREASURE_BEACH_STAR_PIECE                         0x499 
+#define FLAG_ITEM_TREASURE_BEACH_BIG_PEARL                          0x49A 
+#define FLAG_VISITED_ONE_ISLAND                                     0x49B 
+#define FLAG_ONE_ISLAND_HIDE_BILL                                   0x49C 
+#define FLAG_ITEM_KINDLE_ROAD_ETHER                                 0x49D 
+#define FLAG_ITEM_KINDLE_ROAD_MAX_REPEL                             0x49E 
+#define FLAG_ITEM_KINDLE_ROAD_CARBOS                                0x49F 
+#define FLAG_HIDE_MT_EMBER_EXTERIOR_GRUNTS                          0x4A0 
+#define FLAG_ITEM_MT_EMBER_ULTRA_BALL                               0x4A1 
+#define FLAG_ITEM_MT_EMBER_FIRE_STONE                               0x4A2 
+#define FLAG_ITEM_MT_EMBER_DIRE_HIT                                 0x4A3 
+#define FLAG_HIDDEN_ITEM_MT_EMBER_FIRE_STONE                        0x4A4 
+#define FLAG_HIDDEN_ITEM_MT_EMBER_ULTRA_BALL                        0x4A5 
+#define FLAG_MT_EMBER_HIDE_MOLTRES                                  0x4A6 
 #define FLAG_UNUSED_0x4A7                                           0x4A7 // Unused Flag
 #define FLAG_UNUSED_0x4A8                                           0x4A8 // Unused Flag
 #define FLAG_UNUSED_0x4A9                                           0x4A9 // Unused Flag
@@ -1313,8 +1313,8 @@
 #define FLAG_UNUSED_0x4EB                                           0x4EB // Unused Flag
 #define FLAG_UNUSED_0x4EC                                           0x4EC // Unused Flag
 #define FLAG_UNUSED_0x4ED                                           0x4ED // Unused Flag
-#define FLAG_UNUSED_0x4EE                                           0x4EE // Unused Flag
-#define FLAG_UNUSED_0x4EF                                           0x4EF // Unused Flag
+#define FLAG_ISLAND1_COURTNEY_DEFEATED                              0x4EE
+#define FLAG_ISLAND1_TABITHA_DEFEATED                               0x4EF 
 
 #define FLAG_DEFEATED_RUSTBORO_GYM                                  0x4F0
 #define FLAG_DEFEATED_DEWFORD_GYM                                   0x4F1

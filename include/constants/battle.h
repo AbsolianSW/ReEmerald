@@ -159,9 +159,9 @@
 #define STATUS3_IMPRISONED_OTHERS       (1 << 13)
 #define STATUS3_GRUDGE                  (1 << 14)
 #define STATUS3_CANT_SCORE_A_CRIT       (1 << 15)
-#define STATUS3_MUDSPORT                (1 << 16)
-#define STATUS3_WATERSPORT              (1 << 17)
-#define STATUS3_UNDERWATER              (1 << 18)
+#define STATUS3_MUDSPORT                (1 << 16) //obsolete
+#define STATUS3_WATERSPORT              (1 << 17) //obsolete
+#define STATUS3_UNDERWATER              (1 << 18) 
 #define STATUS3_INTIMIDATE_POKES        (1 << 19)
 #define STATUS3_TRACE                   (1 << 20)
 #define STATUS3_SEMI_INVULNERABLE       (STATUS3_UNDERGROUND | STATUS3_ON_AIR | STATUS3_UNDERWATER)
@@ -203,6 +203,8 @@
 #define SIDE_STATUS_FUTUREATTACK     (1 << 6)
 #define SIDE_STATUS_MIST             (1 << 8)
 #define SIDE_STATUS_SPIKES_DAMAGED   (1 << 9)
+#define SIDE_STATUS_MUDSPORT         (1 << 10)
+#define SIDE_STATUS_WATERSPORT       (1 << 11)
 
 // Flags describing move's result
 #define MOVE_RESULT_MISSED             (1 << 0)

@@ -1,1 +1,20 @@
 mapscripts MtEmber_RubyPath_B3F_MapScripts {}
+
+script MtEmber_RubyPath_B3F_Grunt {
+	trainerbattle_single(TRAINER_GRUNT_MT_EMBER_5, MtEmber_RubyPath_B3F_Text_GruntIntro, MtEmber_RubyPath_B3F_Text_GruntDefeat)
+	msgbox(MtEmber_RubyPath_B3F_Text_GruntPostBattle, MSGBOX_AUTOCLOSE)
+	waitmessage
+	end
+}
+
+text MtEmber_RubyPath_B3F_Text_GruntIntro{
+	format("I was supposed to follow the other guys, but I can't remember which way to go...")
+}
+
+text MtEmber_RubyPath_B3F_Text_GruntDefeat {
+	format("Do you know which way Tabitha went?")
+}
+
+text MtEmber_RubyPath_B3F_Text_GruntPostBattle {
+	format("Man i hate caves, I always get lost!")
+}

@@ -1,1 +1,39 @@
 mapscripts MtEmber_RubyPath_B4F_MapScripts {}
+
+script MtEmber_RubyPath_B4F_Grunt1 {
+	trainerbattle_single(TRAINER_GRUNT_MT_EMBER_6, MtEmber_RubyPath_B4F_Text_Grunt1Intro, MtEmber_RubyPath_B4F_Text_Grunt1Defeat)
+	msgbox(MtEmber_RubyPath_B4F_Text_Grunt1PostBattle, MSGBOX_AUTOCLOSE)
+	waitmessage
+	end
+}
+
+text MtEmber_RubyPath_B4F_Text_Grunt1Intro{
+	format("You can't be here! Official TEAM MAGMA business!")
+}
+
+text MtEmber_RubyPath_B4F_Text_Grunt1Defeat {
+	format("Don't you dare go down that ladder")
+}
+
+text MtEmber_RubyPath_B4F_Text_Grunt1PostBattle {
+	format("Get lost already!")
+}
+
+script MtEmber_RubyPath_B4F_Grunt2 {
+	trainerbattle_single(TRAINER_GRUNT_MT_EMBER_7, MtEmber_RubyPath_B4F_Text_Grunt2Intro, MtEmber_RubyPath_B4F_Text_Grunt2Defeat)
+	msgbox(MtEmber_RubyPath_B4F_Text_Grunt2PostBattle, MSGBOX_AUTOCLOSE)
+	waitmessage
+	end
+}
+
+text MtEmber_RubyPath_B4F_Text_Grunt2Intro{
+	format("Official TEAM MAGMA business! Please leave the area immediately!")
+}
+
+text MtEmber_RubyPath_B4F_Text_Grunt2Defeat {
+	format("Access strictly forbidden!")
+}
+
+text MtEmber_RubyPath_B4F_Text_Grunt2PostBattle {
+	format("Please leave immediately")
+}

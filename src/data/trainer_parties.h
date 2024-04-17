@@ -18,7 +18,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntAquaHideout2[] = {
     {
     .iv = 0,
     .lvl = 31,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     },
     {
     .iv = 0,
@@ -31,7 +31,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntAquaHideout3[] = {
     {
     .iv = 0,
     .lvl = 32,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -63,7 +63,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntSeafloorCavern3[] =
     {
     .iv = 0,
     .lvl = 36,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -175,7 +175,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntWeatherInst1[] = {
     {
     .iv = 0,
     .lvl = 27,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     },
     {
     .iv = 0,
@@ -206,7 +206,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntWeatherInst3[] = {
     {
     .iv = 0,
     .lvl = 26,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     },
     {
     .iv = 0,
@@ -227,7 +227,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntMuseum2[] = {
     {
     .iv = 0,
     .lvl = 14,
-    .species = SPECIES_GULPIN,
+    .species = SPECIES_SEVIPER,
     },
     {
     .iv = 0,
@@ -248,7 +248,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntMtPyre1[] = {
     {
     .iv = 0,
     .lvl = 32,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -293,7 +293,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntAquaHideout6[] = {
     {
     .iv = 0,
     .lvl = 32,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -2391,7 +2391,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntAquaHideout7[] = {
     {
     .iv = 0,
     .lvl = 31,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -4543,54 +4543,60 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Timmy[] = {
 
 static const struct TrainerMonEverything sParty_Wallace[] = {
     {
-    .iv = 255,
     .lvl = 58,
     .nature = NATURE_ADAMANT,
+    .ability = 1,
+    .iv = {31,31,31,31,31,31},
     .ev = {252,252,0,4,0,0},
     .species = SPECIES_RHYDON,
     .heldItem = ITEM_LIECHI_BERRY,
     .moves = {MOVE_MEGAHORN, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_REVERSAL}
     },
     {
-    .iv = 255,
     .lvl = 58,
     .nature = NATURE_RELAXED,
+    .ability = 0,
+    .iv = {31,31,31,31,31,31},
     .ev = {252,0,128,0,0,128},
     .species = SPECIES_SLAKING,
     .heldItem = ITEM_LEFTOVERS,
     .moves = {MOVE_HYPER_BEAM, MOVE_REST, MOVE_SNORE, MOVE_CURSE}
     },
     {
-    .iv = 255,
     .lvl = 59,
     .nature = NATURE_MILD,
+    .ability = 0,
+    .iv = {31,31,31,31,31,31},
     .ev = {0,4,0,252,252,0},
     .species = SPECIES_BLAZIKEN,
     .heldItem = ITEM_STARF_BERRY,
     .moves = {MOVE_BLAZE_KICK, MOVE_THUNDER_PUNCH, MOVE_SKY_UPPERCUT, MOVE_SUNNY_DAY}
     },
     {
-    .iv = 255,
     .lvl = 59,
     .nature = NATURE_MODEST,
+    .ability = 0,
+    .iv = {31,0,31,31,31,31},
     .ev = {4,0,0,252,252,0},
     .species = SPECIES_SALAMENCE,
     .heldItem = ITEM_DRAGON_SCALE,
     .moves = {MOVE_FLAMETHROWER, MOVE_DRAGON_CLAW, MOVE_HYDRO_PUMP, MOVE_ROAR}
     },
     {
-    .iv = 255,
     .lvl = 59,
     .nature = NATURE_ADAMANT,
+    .ability = 1,
+    .iv = {31,31,31,31,31,31},
     .ev = {4,252,0,252,0,0},
     .species = SPECIES_METAGROSS,
     .heldItem = ITEM_CHOICE_BAND,
     .moves = {MOVE_METEOR_MASH, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_EXPLOSION}
     },
     {
-    .iv = 255,
     .lvl = 61,
     .nature = NATURE_BOLD,
+    .ability = 0,
+    .iv = {31,0,31,31,31,31},
     .ev = {252,0,252,0,0,4},
     .species = SPECIES_MILOTIC,
     .heldItem = ITEM_LEFTOVERS,
@@ -7865,7 +7871,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntSeafloorCavern5[] =
     {
     .iv = 50,
     .lvl = 35,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -7891,7 +7897,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntMtPyre4[] = {
     {
     .iv = 0,
     .lvl = 30,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -7995,7 +8001,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntMtChimney2[] = {
     {
     .iv = 0,
     .lvl = 20,
-    .species = SPECIES_GULPIN,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -8071,7 +8077,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntSpaceCenter3[] = {
     {
     .iv = 0,
     .lvl = 31,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     },
     {
     .iv = 0,
@@ -8092,7 +8098,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntSpaceCenter5[] = {
     {
     .iv = 0,
     .lvl = 32,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -8186,7 +8192,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntWeatherInst5[] = {
     {
     .iv = 0,
     .lvl = 27,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     },
     {
     .iv = 0,
@@ -10051,7 +10057,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntMagmaHideout1[] = {
     {
     .iv = 0,
     .lvl = 29,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -10080,7 +10086,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntMagmaHideout4[] = {
     {
     .iv = 0,
     .lvl = 28,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -10109,7 +10115,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntMagmaHideout7[] = {
     {
     .iv = 0,
     .lvl = 29,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -10125,7 +10131,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntMagmaHideout9[] = {
     {
     .iv = 0,
     .lvl = 29,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -10157,7 +10163,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntMagmaHideout13[] = 
     {
     .iv = 0,
     .lvl = 29,
-    .species = SPECIES_SWALOT,
+    .species = SPECIES_SEVIPER,
     }
 };
 
@@ -13089,7 +13095,7 @@ static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_1[] = {
     {
     .iv = 250,
     .lvl = 60,
-    .species = SPECIES_GULPIN,
+    .species = SPECIES_SWALOT,
     .heldItem = ITEM_SITRUS_BERRY,
     .moves = {MOVE_STOCKPILE, MOVE_SPIT_UP, MOVE_SWALLOW, MOVE_SOLAR_BEAM}
     },
@@ -13167,5 +13173,343 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Jocelyn_Sevii[] = {
     .iv = 0,
     .lvl = 57,
     .species = SPECIES_HITMONCHAN,
+    }
+};
+
+static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_3[] = {
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_HOUNDOOM,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_CRUNCH, MOVE_SUNNY_DAY, MOVE_FIRE_BLAST, MOVE_SOLAR_BEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_SWALOT,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_STOCKPILE, MOVE_SPIT_UP, MOVE_SWALLOW, MOVE_SOLAR_BEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_CLAYDOL,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_EXPLOSION, MOVE_PSYCHIC, MOVE_EARTHQUAKE, MOVE_DOUBLE_TEAM}
+    },
+};
+static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_4[] = {
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_HOUNDOOM,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_CRUNCH, MOVE_SUNNY_DAY, MOVE_FIRE_BLAST, MOVE_SOLAR_BEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_CLAYDOL,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_EXPLOSION, MOVE_PSYCHIC, MOVE_EARTHQUAKE, MOVE_DOUBLE_TEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_DONPHAN,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_MAGNITUDE, MOVE_ANCIENT_POWER, MOVE_REST, MOVE_HYPER_BEAM}
+    }
+};
+static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_5[] = {
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_FLAREON,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SUNNY_DAY, MOVE_OVERHEAT, MOVE_SECRET_POWER, MOVE_ROAR}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_DONPHAN,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_MAGNITUDE, MOVE_ANCIENT_POWER, MOVE_REST, MOVE_HYPER_BEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_CAMERUPT,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_ERUPTION, MOVE_EARTHQUAKE, MOVE_MAGNITUDE, MOVE_ROCK_SLIDE}
+    }
+};
+static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_6[] = {
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_FLAREON,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SUNNY_DAY, MOVE_OVERHEAT, MOVE_SECRET_POWER, MOVE_ROAR}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_SWALOT,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_STOCKPILE, MOVE_SPIT_UP, MOVE_SWALLOW, MOVE_SOLAR_BEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_CLAYDOL,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_EXPLOSION, MOVE_PSYCHIC, MOVE_EARTHQUAKE, MOVE_DOUBLE_TEAM}
+    }
+};
+static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_7[] = {
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_FLAREON,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SUNNY_DAY, MOVE_OVERHEAT, MOVE_SECRET_POWER, MOVE_ROAR}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_SWALOT,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_STOCKPILE, MOVE_SPIT_UP, MOVE_SWALLOW, MOVE_SOLAR_BEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_CLAYDOL,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_EXPLOSION, MOVE_PSYCHIC, MOVE_EARTHQUAKE, MOVE_DOUBLE_TEAM}
+    }
+};
+
+static const struct TrainerMonEverything sParty_Tabitha_Island1[] = {
+    {
+    .lvl = 65,
+    .nature = NATURE_CAREFUL,
+    .ability = 0,
+    .iv = {31,31,31,31,31,31},
+    .ev = {252,0,4,0,0,252},
+    .species = SPECIES_WEEZING,
+    .heldItem = ITEM_LEFTOVERS,
+    .moves = {MOVE_MEMENTO, MOVE_SLUDGE_BOMB, MOVE_TOXIC, MOVE_SMOKESCREEN}
+    },
+    {
+    .lvl = 65,
+    .nature = NATURE_HASTY,
+    .ability = 0,
+    .iv = {30,31,31,31,30,31},
+    .ev = {4,0,0,252,252,0},
+    .species = SPECIES_ARCANINE,
+    .heldItem = ITEM_WHITE_HERB,
+    .moves = {MOVE_SUNNY_DAY, MOVE_OVERHEAT, MOVE_HIDDEN_POWER, MOVE_EXTREME_SPEED}
+    },
+    {
+    .lvl = 65,
+    .nature = NATURE_RELAXED,
+    .ability = 0,
+    .iv = {31,3,30,30,30,31},
+    .ev = {252,0,252,0,0,4},
+    .species = SPECIES_CLAYDOL,
+    .heldItem = ITEM_CHESTO_BERRY,
+    .moves = {MOVE_PSYCHIC, MOVE_REST, MOVE_HIDDEN_POWER, MOVE_LIGHT_SCREEN}
+    },
+    {
+    .lvl = 65,
+    .nature = NATURE_SASSY,
+    .ability = 1,
+    .iv = {31,31,31,31,31,31},
+    .ev = {252,0,4,0,0,252},
+    .species = SPECIES_CAMERUPT,
+    .heldItem = ITEM_CHARCOAL,
+    .moves = {MOVE_FIRE_BLAST, MOVE_MAGNITUDE, MOVE_PROTECT, MOVE_ERUPTION}
+    },
+    {
+    .lvl = 65,
+    .nature = NATURE_ADAMANT,
+    .ability = 1,
+    .iv = {31,31,30,30,30,30},
+    .ev = {4,252,0,252,0,0},
+    .species = SPECIES_SANDSLASH,
+    .heldItem = ITEM_SCOPE_LENS,
+    .moves = {MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_AERIAL_ACE, MOVE_HIDDEN_POWER}
+    },
+    
+    {
+    .lvl = 68,
+    .nature = NATURE_MODEST,
+    .ability = 0,
+    .iv = {31,2,30,30,31,31},
+    .ev = {4,0,0,252,252,0},
+    .species = SPECIES_FLYGON,
+    .heldItem = ITEM_LUM_BERRY,
+    .moves = {MOVE_TAIL_GLOW, MOVE_FIRE_BLAST, MOVE_OUTRAGE, MOVE_HIDDEN_POWER}
+    }
+};
+
+static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_8[] = {
+     {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_HOUNDOOM,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_CRUNCH, MOVE_SUNNY_DAY, MOVE_FIRE_BLAST, MOVE_SOLAR_BEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_SWALOT,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_STOCKPILE, MOVE_SPIT_UP, MOVE_SWALLOW, MOVE_SOLAR_BEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_CAMERUPT,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_ERUPTION, MOVE_EARTHQUAKE, MOVE_MAGNITUDE, MOVE_ROCK_SLIDE}
+    }
+};
+
+static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_9[] = {
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_FLAREON,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SUNNY_DAY, MOVE_OVERHEAT, MOVE_SECRET_POWER, MOVE_ROAR}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_DONPHAN,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_MAGNITUDE, MOVE_ANCIENT_POWER, MOVE_REST, MOVE_HYPER_BEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_CAMERUPT,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_ERUPTION, MOVE_EARTHQUAKE, MOVE_MAGNITUDE, MOVE_ROCK_SLIDE}
+    }
+};
+static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_10[] = {
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_FLAREON,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SUNNY_DAY, MOVE_OVERHEAT, MOVE_SECRET_POWER, MOVE_ROAR}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_SWALOT,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_STOCKPILE, MOVE_SPIT_UP, MOVE_SWALLOW, MOVE_SOLAR_BEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_CLAYDOL,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_EXPLOSION, MOVE_PSYCHIC, MOVE_EARTHQUAKE, MOVE_DOUBLE_TEAM}
+    }
+};
+static const struct TrainerMonItemCustomMoves sParty_Grunt_Mt_Ember_11[] = {
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_FLAREON,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_SUNNY_DAY, MOVE_OVERHEAT, MOVE_SECRET_POWER, MOVE_ROAR}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_SWALOT,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_STOCKPILE, MOVE_SPIT_UP, MOVE_SWALLOW, MOVE_SOLAR_BEAM}
+    },
+    {
+    .iv = 250,
+    .lvl = 60,
+    .species = SPECIES_CLAYDOL,
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_EXPLOSION, MOVE_PSYCHIC, MOVE_EARTHQUAKE, MOVE_DOUBLE_TEAM}
+    }
+};
+
+static const struct TrainerMonEverything sParty_Courtney_Island1[] = {
+    {
+    .lvl = 65,
+    .nature = NATURE_HASTY,
+    .ability = 0,
+    .iv = {30,31,31,31,30,31},
+    .ev = {4,0,0,252,252,0},
+    .species = SPECIES_ARCANINE,
+    .heldItem = ITEM_CHARCOAL,
+    .moves = {MOVE_SUNNY_DAY, MOVE_OVERHEAT, MOVE_HIDDEN_POWER, MOVE_EXTREME_SPEED}
+    },
+    {
+    .lvl = 65,
+    .nature = NATURE_TIMID,
+    .ability = 0,
+    .iv = {31,2,31,31,31,31},
+    .ev = {4,0,0,252,252,0},
+    .species = SPECIES_HOUNDOOM,
+    .heldItem = ITEM_MIRACLE_SEED,
+    .moves = {MOVE_FIRE_BLAST, MOVE_SOLAR_BEAM, MOVE_HIDDEN_POWER, MOVE_SHADOW_BALL}
+    },
+    {
+    .lvl = 65,
+    .nature = NATURE_TIMID,
+    .ability = 0,
+    .iv = {31,0,31,31,31,31},
+    .ev = {4,252,0,0,0,252},
+    .species = SPECIES_GENGAR,
+    .heldItem = ITEM_PETAYA_BERRY,
+    .moves = {MOVE_HYPNOSIS, MOVE_DREAM_EATER, MOVE_FIRE_PUNCH, MOVE_SHADOW_BALL}
+    },
+    {
+    .lvl = 65,
+    .nature = NATURE_HASTY,
+    .ability = 0,
+    .iv = {31,31,31,31,31,31},
+    .ev = {4,0,252,0,0,252},
+    .species = SPECIES_TYRANITAR,
+    .heldItem = ITEM_CHOICE_BAND,
+    .moves = {MOVE_EARTHQUAKE, MOVE_CRUNCH, MOVE_BRICK_BREAK, MOVE_STRENGTH}
+    },
+    {
+    .lvl = 68,
+    .nature = NATURE_HASTY,
+    .ability = 1,
+    .iv = {31,31,30,30,30,30},
+    .ev = {4,252,0,252,0,0},
+    .species = SPECIES_RHYDON,
+    .heldItem = ITEM_SCOPE_LENS,
+    .moves = {MOVE_REST, MOVE_ROCK_BLAST, MOVE_SWORDS_DANCE, MOVE_SUBSTITUTE}
+    },
+    
+    {
+    .lvl = 70,
+    .nature = NATURE_TIMID,
+    .ability = 0,
+    .iv = {31,31,31,31,31,31},
+    .ev = {0,0,0,252,252,4},
+    .species = SPECIES_MOLTRES,
+    .heldItem = ITEM_LUM_BERRY,
+    .moves = {MOVE_FLAMETHROWER, MOVE_SAFEGUARD, MOVE_HEAT_WAVE, MOVE_SKY_ATTACK}
     }
 };
