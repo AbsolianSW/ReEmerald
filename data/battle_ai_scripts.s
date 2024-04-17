@@ -565,7 +565,7 @@ AI_CBM_Refresh:
 	end
 
 AI_CBM_MudSport:
-	if_status3 AI_USER, STATUS3_MUDSPORT, Score_Minus10
+	if_side_affecting AI_USER, SIDE_STATUS_MUDSPORT, Score_Minus8
 	end
 
 AI_CBM_Tickle:
@@ -584,7 +584,7 @@ AI_CBM_BulkUp:
 	end
 
 AI_CBM_WaterSport:
-	if_status3 AI_USER, STATUS3_WATERSPORT, Score_Minus10
+	if_side_affecting AI_USER, SIDE_STATUS_WATERSPORT, Score_Minus8
 	end
 
 AI_CBM_CalmMind:

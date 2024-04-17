@@ -4406,7 +4406,6 @@ void bufferXPMultiplierForNotebook(void)
     u8 text[4];
     u8 n = gSaveBlock2Ptr->xpMultiplier;
     u16 i = 0;
-    DebugPrintf("Hi");
     if (n / 10 != 0)
     {
         text[i++] = n / 10 + CHAR_0;
@@ -4420,6 +4419,5 @@ void bufferXPMultiplierForNotebook(void)
         text[i++] = n % 10 + CHAR_0;
     }
     text[i] = EOS;
-    DebugPrintf("%S", text);
     StringCopy(gStringVar1 , text);
 }

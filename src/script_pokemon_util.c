@@ -105,7 +105,6 @@ u8 ScriptGiveSpecialEgg()
     u16 species;
     u16 specialMove;
     u8 isEgg = TRUE;
-    DebugPrintf("giving egg");
     switch(gSpecialVar_0x8004)
     {
         case 0:

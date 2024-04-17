@@ -1393,7 +1393,7 @@ BattleScript_TripleKickLoop::
 BattleScript_DoTripleKickAttack::
 	accuracycheck BattleScript_TripleKickNoMoreHits, ACC_CURR_MOVE
 	movevaluescleanup
-	addbyte sTRIPLE_KICK_POWER, 10
+	addbyte sTRIPLE_KICK_POWER, 15
 	addbyte sMULTIHIT_STRING + 4, 1
 	copyhword gDynamicBasePower, sTRIPLE_KICK_POWER
 	critcalc
@@ -2227,8 +2227,14 @@ BattleScript_EffectMementoTrySpAtk:
 	setstatchanger STAT_SPATK, 2, TRUE
 	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_EffectMementoTryFaint
 @ Greater than B_MSG_DEFENDER_STAT_FELL is checking if the stat cannot decrease
-	jumpifbyte CMP_GREATER_THAN, cMULTISTRING_CHOOSER, B_MSG_DEFENDER_STAT_FELL, BattleScript_EffectMementoTryFaint
+	jumpifbyte CMP_GREATER_THAN, cMULTISTRING_CHOOSER, B_MSG_DEFENDER_STAT_FELL, BattleScript_EffectMementoPreventEscape
 	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_EffectMementoPreventEscape:
+	jumpifstatus2 BS_TARGET, STATUS2_ESCAPE_PREVENTION, BattleScript_EffectMementoTryFaint
+	setmoveeffect MOVE_EFFECT_PREVENT_ESCAPE
+	seteffectprimary
+	printstring STRINGID_TARGETCANTESCAPENOW
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_EffectMementoTryFaint:
 	tryfaintmon BS_ATTACKER
@@ -2305,7 +2311,8 @@ BattleScript_EffectCharge::
 	waitanimation
 	printstring STRINGID_PKMNCHARGINGPOWER
 	waitmessage B_WAIT_TIME_LONG
-	goto BattleScript_MoveEnd
+	setstatchanger STAT_SPDEF, 1, FALSE
+	goto BattleScript_EffectStatUpAfterAtkCanceler
 
 BattleScript_EffectTaunt::
 	attackcanceler
@@ -2637,7 +2644,8 @@ BattleScript_EffectWaterSport::
 	waitanimation
 	printfromtable gSportsUsedStringIds
 	waitmessage B_WAIT_TIME_LONG
-	goto BattleScript_MoveEnd
+	setstatchanger STAT_SPDEF, 1, FALSE
+	goto BattleScript_EffectStatUpAfterAtkCanceler
 
 BattleScript_EffectPoisonFang::
 	setmoveeffect MOVE_EFFECT_TOXIC

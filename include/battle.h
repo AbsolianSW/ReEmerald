@@ -150,6 +150,10 @@ struct SideTimer
     u8 mistBattlerId;
     u8 safeguardTimer;
     u8 safeguardBattlerId;
+    u8 mudsportTimer;
+    u8 mudsportBattlerId;
+    u8 watersportTimer;
+    u8 watersportBattlerId;
     u8 followmeTimer;
     u8 followmeTarget;
     u8 spikesAmount;

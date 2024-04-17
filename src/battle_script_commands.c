@@ -6864,7 +6864,14 @@ static void Cmd_stockpile(void)
     else
     {
         gDisableStructs[gBattlerAttacker].stockpileCounter++;
-
+        if(gBattleMons[gBattlerAttacker].statStages[STAT_DEF] < MAX_STAT_STAGE) 
+        {
+            gBattleMons[gBattlerAttacker].statStages[STAT_DEF] += 1;
+        }
+        if(gBattleMons[gBattlerAttacker].statStages[STAT_SPDEF] < MAX_STAT_STAGE) 
+        {
+            gBattleMons[gBattlerAttacker].statStages[STAT_SPDEF] += 1;
+        }
         PREPARE_BYTE_NUMBER_BUFFER(gBattleTextBuff1, 1, gDisableStructs[gBattlerAttacker].stockpileCounter)
 
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STOCKPILED;
@@ -6892,7 +6899,8 @@ static void Cmd_stockpiletobasedamage(void)
             if (gProtectStructs[gBattlerAttacker].helpingHand)
                 gBattleMoveDamage = gBattleMoveDamage * 15 / 10;
         }
-
+        gBattleMons[gBattlerAttacker].statStages[STAT_DEF] -= gDisableStructs[gBattlerAttacker].stockpileCounter;
+        gBattleMons[gBattlerAttacker].statStages[STAT_SPDEF] -= gDisableStructs[gBattlerAttacker].stockpileCounter;
         gDisableStructs[gBattlerAttacker].stockpileCounter = 0;
         gBattlescriptCurrInstr += 5;
     }
@@ -8289,7 +8297,7 @@ static void Cmd_tryspiteppreduce(void)
 
         if (i != MAX_MON_MOVES && gBattleMons[gBattlerTarget].pp[i] > 1)
         {
-            s32 ppToDeduct = (Random() & 3) + 2;
+            s32 ppToDeduct = (Random() & 3) + 4;
             if (gBattleMons[gBattlerTarget].pp[i] < ppToDeduct)
                 ppToDeduct = gBattleMons[gBattlerTarget].pp[i];
 
@@ -9704,18 +9712,32 @@ static void Cmd_settypebasedhalvers(void)
 
     if (gBattleMoves[gCurrentMove].effect == EFFECT_MUD_SPORT)
     {
-        if (!(gStatuses3[gBattlerAttacker] & STATUS3_MUDSPORT))
+        if (gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] & SIDE_STATUS_MUDSPORT)
         {
-            gStatuses3[gBattlerAttacker] |= STATUS3_MUDSPORT;
+            gMoveResultFlags |= MOVE_RESULT_MISSED;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SIDE_STATUS_FAILED;
+        }
+        else
+        {
+            gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] |= SIDE_STATUS_MUDSPORT;
+            gSideTimers[GET_BATTLER_SIDE(gBattlerAttacker)].mudsportTimer = 5;
+            gSideTimers[GET_BATTLER_SIDE(gBattlerAttacker)].mudsportBattlerId = gBattlerAttacker;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_ELECTRIC;
             worked = TRUE;
         }
     }
     else // Water Sport
     {
-        if (!(gStatuses3[gBattlerAttacker] & STATUS3_WATERSPORT))
+        if (gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] & SIDE_STATUS_WATERSPORT)
         {
-            gStatuses3[gBattlerAttacker] |= STATUS3_WATERSPORT;
+            gMoveResultFlags |= MOVE_RESULT_MISSED;
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SIDE_STATUS_FAILED;
+        }
+        else
+        {
+            gSideStatuses[GET_BATTLER_SIDE(gBattlerAttacker)] |= SIDE_STATUS_WATERSPORT;
+            gSideTimers[GET_BATTLER_SIDE(gBattlerAttacker)].watersportTimer = 5;
+            gSideTimers[GET_BATTLER_SIDE(gBattlerAttacker)].watersportBattlerId = gBattlerAttacker;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_WEAKEN_FIRE;
             worked = TRUE;
         }

@@ -2086,8 +2086,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                         personalityValue += natureOffset;
                 }
                 DebugPrintf("Nature is %d\n", personalityValue % NUM_NATURES);
-                fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
-                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[i], partyData[i].species, partyData[i].lvl, USE_RANDOM_IVS, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
 
@@ -2096,10 +2095,16 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
+                //ivs
+                for(j=0; j < 6;j++) {
+                    SetMonData(&party[i], MON_DATA_HP_IV + j, &partyData[i].iv[j]);
+                }
                 //evs
                 for(j=0; j < 6;j++) {
                     SetMonData(&party[i], MON_DATA_HP_EV + j, &partyData[i].ev[j]);
                 }
+                SetMonData(&party[i], MON_DATA_ABILITY_NUM, &partyData[i].ability);
+                DebugPrintf("Monster %d ability set to %d", i,partyData[i].ability);
                 break;
             }
             }
@@ -3191,15 +3196,18 @@ void SwitchInClearSetData(void)
     struct DisableStruct disableStructCopy = gDisableStructs[gActiveBattler];
     s32 i;
     u8 *ptr;
-
+    DebugPrintf("Handling Switchin, current move is %d\n", gCurrentMove);
     if (gBattleMoves[gCurrentMove].effect != EFFECT_BATON_PASS)
     {
         for (i = 0; i < NUM_BATTLE_STATS; i++)
             gBattleMons[gActiveBattler].statStages[i] = DEFAULT_STAT_STAGE;
         for (i = 0; i < gBattlersCount; i++)
         {
-            if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == gActiveBattler)
+            DebugPrintf("Has escape prevention: %d\n", gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION);
+            if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == gActiveBattler && gCurrentMove != MOVE_MEMENTO) {
+
                 gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
+            }
             if ((gStatuses3[i] & STATUS3_ALWAYS_HITS) && gDisableStructs[i].battlerWithSureHit == gActiveBattler)
             {
                 gStatuses3[i] &= ~STATUS3_ALWAYS_HITS;
@@ -3210,7 +3218,7 @@ void SwitchInClearSetData(void)
     if (gBattleMoves[gCurrentMove].effect == EFFECT_BATON_PASS)
     {
         gBattleMons[gActiveBattler].status2 &= (STATUS2_CONFUSION | STATUS2_FOCUS_ENERGY | STATUS2_SUBSTITUTE | STATUS2_ESCAPE_PREVENTION | STATUS2_CURSED);
-        gStatuses3[gActiveBattler] &= (STATUS3_LEECHSEED_BATTLER | STATUS3_LEECHSEED | STATUS3_ALWAYS_HITS | STATUS3_PERISH_SONG | STATUS3_ROOTED | STATUS3_MUDSPORT | STATUS3_WATERSPORT);
+        gStatuses3[gActiveBattler] &= (STATUS3_LEECHSEED_BATTLER | STATUS3_LEECHSEED | STATUS3_ALWAYS_HITS | STATUS3_PERISH_SONG | STATUS3_ROOTED);
 
         for (i = 0; i < gBattlersCount; i++)
         {
@@ -3311,7 +3319,7 @@ void FaintClearSetData(void)
 
     for (i = 0; i < gBattlersCount; i++)
     {
-        if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == gActiveBattler)
+        if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == gActiveBattler && gCurrentMove != MOVE_MEMENTO)
             gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;
         if (gBattleMons[i].status2 & STATUS2_INFATUATED_WITH(gActiveBattler))
             gBattleMons[i].status2 &= ~STATUS2_INFATUATED_WITH(gActiveBattler);
@@ -4639,7 +4647,6 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
         speedMultiplierBattler1 = 1;
         speedMultiplierBattler2 = 1;
     }
-
     speedBattler1 = (gBattleMons[battler1].speed * speedMultiplierBattler1)
                 * (gStatStageRatios[gBattleMons[battler1].statStages[STAT_SPEED]][0])
                 / (gStatStageRatios[gBattleMons[battler1].statStages[STAT_SPEED]][1]);

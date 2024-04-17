@@ -1046,8 +1046,8 @@ static const u8 sWillOWispDescription[] = _(
     "with intense fire.");
 
 static const u8 sMementoDescription[] = _(
-    "The user faints and lowers\n"
-    "the foe's abilities.");
+    "Faints and lowers the foe's\n"
+    "abilities, preventing escape.");
 
 static const u8 sFacadeDescription[] = _(
     "Boosts ATTACK when burned,\n"
@@ -1070,8 +1070,8 @@ static const u8 sNaturePowerDescription[] = _(
     "depending on the location.");
 
 static const u8 sChargeDescription[] = _(
-    "Charges power to boost the\n"
-    "electric move used next.");
+    "Charges power and SP. DEF to\n"
+    "boost the next electric move.");
 
 static const u8 sTauntDescription[] = _(
     "Taunts the foe into only\n"
@@ -1199,7 +1199,7 @@ static const u8 sBlazeKickDescription[] = _(
 
 static const u8 sMudSportDescription[] = _(
     "Covers the user in mud to\n"
-    "raise electrical resistance.");
+    "raise SP. DEF and weaken Elec.");
 
 static const u8 sIceBallDescription[] = _(
     "A 5-turn attack that gains\n"
@@ -1383,7 +1383,7 @@ static const u8 sMagicalLeafDescription[] = _(
 
 static const u8 sWaterSportDescription[] = _(
     "The user becomes soaked to\n"
-    "raise resistance to fire.");
+    "raise SP. DEF and weaken fire.");
 
 static const u8 sCalmMindDescription[] = _(
     "Raises SP. ATK and SP. DEF\n"
