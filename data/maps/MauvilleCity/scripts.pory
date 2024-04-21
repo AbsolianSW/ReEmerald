@@ -445,10 +445,12 @@ MauvilleCity_EventScript_CompletedNewMauville:
 	waitmessage
 	multichoicedefault 21, 6, MULTI_WATTSON_EGG, 0, FALSE
 	switch VAR_RESULT
-	case 0, MauvilleCity_EventScript_WattsonEggLuke
-	case 1, MauvilleCity_EventScript_WattsonEggIke
-	case 2, MauvilleCity_EventScript_WattsonEggKev
-	case 3, MauvilleCity_EventScript_WattsonEggNo
+	case 1, MauvilleCity_EventScript_WattsonEggLuke
+	case 2, MauvilleCity_EventScript_WattsonEggIke
+	case 4, MauvilleCity_EventScript_WattsonEggKev
+	case 4, MauvilleCity_EventScript_WattsonEggEni
+	case 5, MauvilleCity_EventScript_WattsonEggSim
+	case 0, MauvilleCity_EventScript_WattsonEggNo
 	case MULTI_B_PRESSED, MauvilleCity_EventScript_WattsonEggNo
 	return
 	end
@@ -472,6 +474,22 @@ MauvilleCity_EventScript_WattsonEggIke:
 MauvilleCity_EventScript_WattsonEggKev:
 	copyvar VAR_0x8004 VAR_RESULT
 	msgbox MauvilleCity_Text_KevsEgg, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_CompletedNewMauville
+	givespecialegg
+	goto MauvilleCity_EventScript_CompletedNewMauville2
+	end
+
+MauvilleCity_EventScript_WattsonEggEni:
+	copyvar VAR_0x8004 VAR_RESULT
+	msgbox MauvilleCity_Text_EnisEgg, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_CompletedNewMauville
+	givespecialegg
+	goto MauvilleCity_EventScript_CompletedNewMauville2
+	end
+
+MauvilleCity_EventScript_WattsonEggSim:
+	copyvar VAR_0x8004 VAR_RESULT
+	msgbox MauvilleCity_Text_SimsEgg, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_CompletedNewMauville
 	givespecialegg
 	goto MauvilleCity_EventScript_CompletedNewMauville2
@@ -723,6 +741,14 @@ MauvilleCity_Text_IkesEgg:
 MauvilleCity_Text_KevsEgg:
 	.string "Kev likes bulky Pokemon, quite\n"
 	.string "resilient. Do you want this egg?$"
+
+MauvilleCity_Text_EnisEgg:
+	.string "Eni likes fast Pokemon, quick\n"
+	.string "to outplay. Do you want this egg?$"
+
+MauvilleCity_Text_SimsEgg:
+	.string "Sim likes mighty Pokemon, only\n"
+	.string "the best. Do you want this egg?$"
 
 MauvilleCity_Text_NoEgg:
 	.string "You don't want an egg? Oh well,\n"

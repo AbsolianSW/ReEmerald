@@ -29,7 +29,6 @@ InsideOfTruck_EventScript_GiveInfiniteCandy::
 	
 InsideOfTruck_EventScript_GiveRepellant::
 	giveitem ITEM_REPELLANT
-	clearflag FLAG_CHALLENGES_REPELLANT
 	return
 
 InsideOfTruck_EventScript_SetIntroFlagsMale::
