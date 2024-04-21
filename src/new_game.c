@@ -97,7 +97,7 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SHIFT;
     gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
     gSaveBlock2Ptr->regionMapZoom = FALSE;
-    gSaveBlock2Ptr->xpMultiplier=10;
+    gSaveBlock2Ptr->challenges.xpMultiplier=10;
 }
 
 static void ClearPokedexFlags(void)
@@ -220,23 +220,23 @@ static void ResetMiniGamesRecords(void)
 
 static void HandleChallenges(void)
 {
-    if(gSaveBlock2Ptr -> levelCap)
+    if(gSaveBlock2Ptr -> challenges.levelCap)
         FlagSet(FLAG_CHALLENGES_LEVEL_CAP);
-    if(gSaveBlock2Ptr-> permaDeath)
+    if(gSaveBlock2Ptr-> challenges.permaDeath)
         FlagSet(FLAG_CHALLENGES_PERMA_DEATH);
-    if(gSaveBlock2Ptr -> limitedEncounters)
+    if(gSaveBlock2Ptr -> challenges.limitedEncounters)
         FlagSet(FLAG_CHALLENGES_LIMITED_ENCOUNTERS);
-    if(gSaveBlock2Ptr -> speciesClause)
+    if(gSaveBlock2Ptr -> challenges.speciesClause)
         FlagSet(FLAG_CHALLENGES_SPECIES_CLAUSE);
-    if(gSaveBlock2Ptr -> noBattleItems)
+    if(gSaveBlock2Ptr -> challenges.noBattleItems)
         FlagSet(FLAG_CHALLENGES_NO_BATTLE_ITEMS);
-    if(gSaveBlock2Ptr -> forceSetMode)
+    if(gSaveBlock2Ptr -> challenges.forceSetMode)
         FlagSet(FLAG_CHALLENGES_FORCE_SET_MODE);
-    if(gSaveBlock2Ptr -> infiniteCandy)
+    if(gSaveBlock2Ptr -> challenges.infiniteCandy)
         FlagSet(FLAG_CHALLENGES_INFINITE_CANDY);
-    if(gSaveBlock2Ptr -> repellant)
+    if(gSaveBlock2Ptr -> challenges.repellant)
         FlagSet(FLAG_CHALLENGES_REPELLANT);
 
     
-    VarSet(VAR_XP_MULTIPLIER, gSaveBlock2Ptr->xpMultiplier);
+    VarSet(VAR_XP_MULTIPLIER, gSaveBlock2Ptr->challenges.xpMultiplier);
 }

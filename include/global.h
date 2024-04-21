@@ -493,6 +493,20 @@ struct FollowerMapData
     /*0x1*/ u8 number;
     /*0x2*/ u8 group;
 }; /* size = 0x4 */
+
+
+
+struct RankingHall2P
+{
+    u8 id1[TRAINER_ID_LENGTH];
+    u8 id2[TRAINER_ID_LENGTH];
+    u16 winStreak;
+    u8 name1[PLAYER_NAME_LENGTH + 1];
+    u8 name2[PLAYER_NAME_LENGTH + 1];
+    u8 language;
+    //u8 padding;
+};
+
 struct Follower
 {
     /*0x00*/ u8 inProgress:1;
@@ -511,17 +525,20 @@ struct Follower
     /*0x15*/ u8 locked;
 }; /* size = 0x18 */
 
-
-
-struct RankingHall2P
+struct Challenges
 {
-    u8 id1[TRAINER_ID_LENGTH];
-    u8 id2[TRAINER_ID_LENGTH];
-    u16 winStreak;
-    u8 name1[PLAYER_NAME_LENGTH + 1];
-    u8 name2[PLAYER_NAME_LENGTH + 1];
-    u8 language;
-    //u8 padding;
+    u16 grassStarter;
+    u16 waterStarter;
+    u16 fireStarter;
+    u8 levelCap;
+    u8 infiniteCandy;
+    u8 permaDeath;
+    u8 noBattleItems;
+    u8 repellant;
+    u8 forceSetMode;
+    u8 xpMultiplier;
+    u8 limitedEncounters;
+    u8 speciesClause;
 };
 
 struct SaveBlock2
@@ -544,7 +561,6 @@ struct SaveBlock2
              //u16 padding1:4;
              //u16 padding2;
     /*0x18*/ struct Pokedex pokedex;
-    /*0x90*/ u8 filler_90[0x8];
     /*0x98*/ struct Time localTimeOffset;
     /*0xA0*/ struct Time lastBerryTreeUpdate;
     /*0xA8*/ u32 gcnLinkFlags; // Read by Pokemon Colosseum/XD
@@ -558,19 +574,9 @@ struct SaveBlock2
     /*0x57C*/ struct RankingHall2P hallRecords2P[FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
-             u16 grassStarter;
-             u16 waterStarter;
-             u16 fireStarter;
-             u8 levelCap;
-             u8 infiniteCandy;
-             u8 permaDeath;
-             u8 noBattleItems;
-             u8 repellant;
-             u8 forceSetMode;
-             u8 xpMultiplier;
-             u8 limitedEncounters;
-             u8 speciesClause;
              struct Follower follower;
+             struct Challenges challenges;
+             u8 unused[168]; // to keep track of unused saveblock space
              
 }; // sizeof=0xF2C
 
@@ -899,8 +905,6 @@ struct TrainerHillSave
 {
     /*0x3D64*/ u32 timer;
     /*0x3D68*/ u32 bestTime;
-    /*0x3D6C*/ u8 unk_3D6C;
-    /*0x3D6D*/ u8 unused;
     /*0x3D6E*/ u16 receivedPrize:1;
                u16 checkedFinalTime:1;
                u16 spokeToOwner:1;
@@ -993,27 +997,9 @@ struct ExternalEventFlags
     //u8 padding:5;
     u8 unknownFlag1;
     u8 receivedGCNJirachi; // Both the US Colosseum Bonus Disc and PAL/AUS Pokémon Channel use this field. One cannot receive a WISHMKR Jirachi and CHANNEL Jirachi with the same savefile.
-    u8 unknownFlag3;
-    u8 unknownFlag4;
-    u8 unknownFlag5;
-    u8 unknownFlag6;
-    u8 unknownFlag7;
-    u8 unknownFlag8;
-    u8 unknownFlag9;
-    u8 unknownFlag10;
-    u8 unknownFlag11;
-    u8 unknownFlag12;
-    u8 unknownFlag13;
-    u8 unknownFlag14;
-    u8 unknownFlag15;
-    u8 unknownFlag16;
-    u8 unknownFlag17;
-    u8 unknownFlag18;
-    u8 unknownFlag19;
-    u8 unknownFlag20;
-
 } __attribute__((packed));/*size = 0x15*/
 
+//Note: Due to me moving stuff around, the save block offsets are wildly inaccurate. TODO fix
 struct SaveBlock1
 {
     /*0x00*/ struct Coords16 pos;
@@ -1044,7 +1030,6 @@ struct SaveBlock1
     /*0x848*/ struct Pokeblock pokeblocks[POKEBLOCKS_COUNT];
     /*0x988*/ u8 seen1[NUM_DEX_FLAG_BYTES];
     /*0x9BC*/ u16 berryBlenderRecords[3];
-    /*0x9C2*/ u8 unused_9C2[6];
     /*0x9C8*/ u16 trainerRematchStepCounter;
     /*0x9CA*/ u8 trainerRematches[MAX_REMATCH_ENTRIES];
     /*0xA2E*/ //u8 padding3[2];
@@ -1072,10 +1057,7 @@ struct SaveBlock1
     /*0x2B92*/ u8 outbreakLocationMapNum;
     /*0x2B93*/ u8 outbreakLocationMapGroup;
     /*0x2B94*/ u8 outbreakPokemonLevel;
-    /*0x2B95*/ u8 outbreakUnused1;
-    /*0x2B96*/ u16 outbreakUnused2;
     /*0x2B98*/ u16 outbreakPokemonMoves[MAX_MON_MOVES];
-    /*0x2BA0*/ u8 outbreakUnused3;
     /*0x2BA1*/ u8 outbreakPokemonProbability;
     /*0x2BA2*/ u16 outbreakDaysLeft;
     /*0x2BA4*/ struct GabbyAndTyData gabbyAndTyData;
@@ -1092,12 +1074,9 @@ struct SaveBlock1
     /*0x3030*/ struct DayCare daycare;
     /*0x3150*/ struct LinkBattleRecords linkBattleRecords;
     /*0x31A8*/ u8 giftRibbons[GIFT_RIBBONS_COUNT];
-    /*0x31B3*/ struct ExternalEventData externalEventData;
-    /*0x31C7*/ struct ExternalEventFlags externalEventFlags;
     /*0x31DC*/ struct Roamer roamer;
     /*0x31F8*/ struct EnigmaBerry enigmaBerry;
     /*0x322C*/ struct MysteryGiftSave mysteryGift;
-    /*0x3598*/ u8 unused_3598[0x68];
     /*0x3718*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
     /*0x3728*/ struct RamScript ramScript;
     /*0x3B14*/ struct RecordMixingGift recordMixingGift;
@@ -1105,12 +1084,12 @@ struct SaveBlock1
     /*0x3B58*/ LilycoveLady lilycoveLady;
     /*0x3B98*/ struct TrainerNameRecord trainerNameRecords[20];
     /*0x3C88*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
-    /*0x3D5A*/ u8 unused_3D5A[10];
     /*0x3D64*/ struct TrainerHillSave trainerHill;
     /*0x3D70*/ struct WaldaPhrase waldaPhrase;
-    /*0x3D89*/ u8 unused_3D89[0x1B4]; //added this to keep track of save space available
+    /*0x3D89*/ u8 unused[660]; //added this to keep track of saveblock space available
     // sizeof: 3DF0
 };
+
 
 extern struct SaveBlock1* gSaveBlock1Ptr;
 

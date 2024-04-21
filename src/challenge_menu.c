@@ -190,16 +190,16 @@ static const u16 sChallengeMenuBg_Pal[] = {RGB(17, 18, 31)};
 static void ReadAllCurrentSettings(u8 taskId)
 {
     gTasks[taskId].tMenuSelection = 0;
-    gTasks[taskId].tLevelCap = gSaveBlock2Ptr->levelCap;
-    gTasks[taskId].tPermaDeath = gSaveBlock2Ptr->permaDeath;
-    gTasks[taskId].tLimitedEncounters = gSaveBlock2Ptr->limitedEncounters;
-    gTasks[taskId].tSpeciesClause = gSaveBlock2Ptr->speciesClause;
-    gTasks[taskId].tNoBattleItems = gSaveBlock2Ptr->noBattleItems;
-    gTasks[taskId].tForceSetMode = gSaveBlock2Ptr->forceSetMode;
+    gTasks[taskId].tLevelCap = gSaveBlock2Ptr->challenges.levelCap;
+    gTasks[taskId].tPermaDeath = gSaveBlock2Ptr->challenges.permaDeath;
+    gTasks[taskId].tLimitedEncounters = gSaveBlock2Ptr->challenges.limitedEncounters;
+    gTasks[taskId].tSpeciesClause = gSaveBlock2Ptr->challenges.speciesClause;
+    gTasks[taskId].tNoBattleItems = gSaveBlock2Ptr->challenges.noBattleItems;
+    gTasks[taskId].tForceSetMode = gSaveBlock2Ptr->challenges.forceSetMode;
     gTasks[taskId].tCustomStarter = 0;
-    gTasks[taskId].tXPMultiplier = gSaveBlock2Ptr-> xpMultiplier;
-    gTasks[taskId].tInfiniteCandy = gSaveBlock2Ptr->infiniteCandy;
-    gTasks[taskId].tRepellant = gSaveBlock2Ptr->repellant;
+    gTasks[taskId].tXPMultiplier = gSaveBlock2Ptr-> challenges.xpMultiplier;
+    gTasks[taskId].tInfiniteCandy = gSaveBlock2Ptr->challenges.infiniteCandy;
+    gTasks[taskId].tRepellant = gSaveBlock2Ptr->challenges.repellant;
 }
 
 static void DrawChallengesPg1(u8 taskId)
@@ -362,28 +362,28 @@ static u8 Process_ChangePage(u8 CurrentPage)
 
 static void save(u8 taskId)
 {
-    gSaveBlock2Ptr->levelCap = gTasks[taskId].tLevelCap;
-    gSaveBlock2Ptr->permaDeath = gTasks[taskId].tPermaDeath;
-    gSaveBlock2Ptr->limitedEncounters = gTasks[taskId].tLimitedEncounters;
-    gSaveBlock2Ptr->speciesClause = gTasks[taskId].tSpeciesClause;
-    gSaveBlock2Ptr->noBattleItems = gTasks[taskId].tNoBattleItems;
-    gSaveBlock2Ptr->forceSetMode = gTasks[taskId].tForceSetMode;
+    gSaveBlock2Ptr->challenges.levelCap = gTasks[taskId].tLevelCap;
+    gSaveBlock2Ptr->challenges.permaDeath = gTasks[taskId].tPermaDeath;
+    gSaveBlock2Ptr->challenges.limitedEncounters = gTasks[taskId].tLimitedEncounters;
+    gSaveBlock2Ptr->challenges.speciesClause = gTasks[taskId].tSpeciesClause;
+    gSaveBlock2Ptr->challenges.noBattleItems = gTasks[taskId].tNoBattleItems;
+    gSaveBlock2Ptr->challenges.forceSetMode = gTasks[taskId].tForceSetMode;
     //in case of page 2 never being called, we have to set starters to default here
-    if(gSaveBlock2Ptr->grassStarter == SPECIES_NONE)
+    if(gSaveBlock2Ptr->challenges.grassStarter == SPECIES_NONE)
     {
-        gSaveBlock2Ptr->grassStarter = SpeciesToNationalPokedexNum(SPECIES_TREECKO);
+        gSaveBlock2Ptr->challenges.grassStarter = SpeciesToNationalPokedexNum(SPECIES_TREECKO);
     }
-    if(gSaveBlock2Ptr->waterStarter == SPECIES_NONE)
+    if(gSaveBlock2Ptr->challenges.waterStarter == SPECIES_NONE)
     {
-        gSaveBlock2Ptr->waterStarter = SpeciesToNationalPokedexNum(SPECIES_MUDKIP);
+        gSaveBlock2Ptr->challenges.waterStarter = SpeciesToNationalPokedexNum(SPECIES_MUDKIP);
     }
-    if(gSaveBlock2Ptr->fireStarter == SPECIES_NONE)
+    if(gSaveBlock2Ptr->challenges.fireStarter == SPECIES_NONE)
     {
-        gSaveBlock2Ptr->fireStarter = SpeciesToNationalPokedexNum(SPECIES_TORCHIC);
+        gSaveBlock2Ptr->challenges.fireStarter = SpeciesToNationalPokedexNum(SPECIES_TORCHIC);
     }
-    gSaveBlock2Ptr->xpMultiplier = gTasks[taskId].tXPMultiplier;
-    gSaveBlock2Ptr->infiniteCandy = gTasks[taskId].tInfiniteCandy;
-    gSaveBlock2Ptr->repellant = gTasks[taskId].tRepellant;
+    gSaveBlock2Ptr->challenges.xpMultiplier = gTasks[taskId].tXPMultiplier;
+    gSaveBlock2Ptr->challenges.infiniteCandy = gTasks[taskId].tInfiniteCandy;
+    gSaveBlock2Ptr->challenges.repellant = gTasks[taskId].tRepellant;
     return;
 }
 
@@ -564,30 +564,30 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
             switch (gTasks[taskId].tCustomStarter)
             {
             case 0:
-                if(gSaveBlock2Ptr -> grassStarter <= NUM_SPECIES)
+                if(gSaveBlock2Ptr -> challenges.grassStarter <= NUM_SPECIES)
                 {
-                    gSaveBlock2Ptr -> grassStarter +=1;
+                    gSaveBlock2Ptr -> challenges.grassStarter +=1;
                 } else 
                 {
-                    gSaveBlock2Ptr -> grassStarter = 1;
+                    gSaveBlock2Ptr -> challenges.grassStarter = 1;
                 }
                 break;
             case 1:
-                if(gSaveBlock2Ptr -> waterStarter <= NUM_SPECIES)
+                if(gSaveBlock2Ptr -> challenges.waterStarter <= NUM_SPECIES)
                 {
-                    gSaveBlock2Ptr -> waterStarter +=1;
+                    gSaveBlock2Ptr -> challenges.waterStarter +=1;
                 } else 
                 {
-                    gSaveBlock2Ptr -> waterStarter = 1;
+                    gSaveBlock2Ptr -> challenges.waterStarter = 1;
                 }
                 break;
             case 2:
-                if(gSaveBlock2Ptr -> fireStarter <= NUM_SPECIES)
+                if(gSaveBlock2Ptr -> challenges.fireStarter <= NUM_SPECIES)
                 {
-                    gSaveBlock2Ptr -> fireStarter +=1;
+                    gSaveBlock2Ptr -> challenges.fireStarter +=1;
                 } else 
                 {
-                    gSaveBlock2Ptr -> fireStarter = 1;
+                    gSaveBlock2Ptr -> challenges.fireStarter = 1;
                 }
                 break;
             default:
@@ -612,30 +612,30 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
             switch (gTasks[taskId].tCustomStarter)
             {
             case 0:
-                if(gSaveBlock2Ptr -> grassStarter >= 1)
+                if(gSaveBlock2Ptr -> challenges.grassStarter >= 1)
                 {
-                    gSaveBlock2Ptr -> grassStarter -=1;
+                    gSaveBlock2Ptr -> challenges.grassStarter -=1;
                 } else 
                 {
-                    gSaveBlock2Ptr -> grassStarter = 386;
+                    gSaveBlock2Ptr -> challenges.grassStarter = 386;
                 }
                 break;
             case 1:
-                if(gSaveBlock2Ptr -> waterStarter >= 1)
+                if(gSaveBlock2Ptr -> challenges.waterStarter >= 1)
                 {
-                    gSaveBlock2Ptr -> waterStarter -=1;
+                    gSaveBlock2Ptr -> challenges.waterStarter -=1;
                 } else 
                 {
-                    gSaveBlock2Ptr -> waterStarter = 386;
+                    gSaveBlock2Ptr -> challenges.waterStarter = 386;
                 }
                 break;
             case 2:
-                if(gSaveBlock2Ptr -> fireStarter >= 1)
+                if(gSaveBlock2Ptr -> challenges.fireStarter >= 1)
                 {
-                    gSaveBlock2Ptr -> fireStarter -=1;
+                    gSaveBlock2Ptr -> challenges.fireStarter -=1;
                 } else 
                 {
-                    gSaveBlock2Ptr -> fireStarter = 386;
+                    gSaveBlock2Ptr -> challenges.fireStarter = 386;
                 }
                 break;
             default:
@@ -910,11 +910,11 @@ static void CustomStarter_DrawChoices(u8 selection)
     styles[2] = 0;
     styles[selection] = 1;
 
-    if(gSaveBlock2Ptr->grassStarter == SPECIES_NONE)
+    if(gSaveBlock2Ptr->challenges.grassStarter == SPECIES_NONE)
     {
-        gSaveBlock2Ptr->grassStarter = SpeciesToNationalPokedexNum(SPECIES_TREECKO);
+        gSaveBlock2Ptr->challenges.grassStarter = SpeciesToNationalPokedexNum(SPECIES_TREECKO);
     }
-    grassStarter = gSaveBlock2Ptr->grassStarter;
+    grassStarter = gSaveBlock2Ptr->challenges.grassStarter;
     for (i = 0; gText_FrameTypeNumber[i] != EOS && i <= 5; i++)
         grassStarterText[i] = gText_FrameTypeNumber[i];
     grassStarterText[i++]= CHAR_G;
@@ -932,11 +932,11 @@ static void CustomStarter_DrawChoices(u8 selection)
     grassStarterText[i] = EOS;
     i=0;
 
-    if(gSaveBlock2Ptr->waterStarter == SPECIES_NONE)
+    if(gSaveBlock2Ptr->challenges.waterStarter == SPECIES_NONE)
     {
-        gSaveBlock2Ptr->waterStarter = SpeciesToNationalPokedexNum(SPECIES_MUDKIP);
+        gSaveBlock2Ptr->challenges.waterStarter = SpeciesToNationalPokedexNum(SPECIES_MUDKIP);
     }
-    waterStarter = gSaveBlock2Ptr->waterStarter;
+    waterStarter = gSaveBlock2Ptr->challenges.waterStarter;
     for (i = 0; gText_FrameTypeNumber[i] != EOS && i <= 5; i++)
         waterStarterText[i] = gText_FrameTypeNumber[i];
     waterStarterText[i++]= CHAR_W;
@@ -954,11 +954,11 @@ static void CustomStarter_DrawChoices(u8 selection)
     waterStarterText[i] = EOS;
     i=0;
 
-    if(gSaveBlock2Ptr->fireStarter == SPECIES_NONE)
+    if(gSaveBlock2Ptr->challenges.fireStarter == SPECIES_NONE)
     {
-        gSaveBlock2Ptr->fireStarter = SpeciesToNationalPokedexNum(SPECIES_TORCHIC);
+        gSaveBlock2Ptr->challenges.fireStarter = SpeciesToNationalPokedexNum(SPECIES_TORCHIC);
     }
-    fireStarter = gSaveBlock2Ptr->fireStarter;
+    fireStarter = gSaveBlock2Ptr->challenges.fireStarter;
     for (i = 0; gText_FrameTypeNumber[i] != EOS && i <= 5; i++)
         fireStarterText[i] = gText_FrameTypeNumber[i];
     fireStarterText[i++]= CHAR_F;

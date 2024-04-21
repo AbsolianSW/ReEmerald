@@ -60,17 +60,36 @@ void HealPlayerParty(void)
     }
 }
 
-u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 unused3)
+u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 isStarter)
 {
     u16 nationalDexNum;
     int sentToPc;
     u8 heldItem[2];
+    u8 maxIV1;
+    u8 maxIV2;
+    u8 maxIV3;
+    u8 ivs[3] = {MAX_PER_STAT_IVS,MAX_PER_STAT_IVS,MAX_PER_STAT_IVS};
     struct Pokemon mon;
 
     CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
     heldItem[0] = item;
     heldItem[1] = item >> 8;
     SetMonData(&mon, MON_DATA_HELD_ITEM, heldItem);
+    if(isStarter)
+    {
+        maxIV1 = Random()%6;
+        do
+        {
+            maxIV2 = Random()%6;
+        } while (maxIV2 == maxIV1);
+        do
+        {
+            maxIV3 = Random()%6;
+        } while (maxIV3 == maxIV2 || maxIV3 == maxIV1);
+        SetMonData(&mon,MON_DATA_HP_IV+maxIV1,&ivs[0]);
+        SetMonData(&mon,MON_DATA_HP_IV+maxIV2,&ivs[0]);
+        SetMonData(&mon,MON_DATA_HP_IV+maxIV3,&ivs[0]);
+    }
     sentToPc = GiveMonToPlayer(&mon);
     nationalDexNum = SpeciesToNationalPokedexNum(species);
 
@@ -98,7 +117,7 @@ u8 ScriptGiveEgg(u16 species)
     return GiveMonToPlayer(&mon);
 }
 
-//0 is LUKEs egg, 1 is IKEs egg, 2 is KEVs egg
+//1 is LUKEs egg, 2 is IKEs egg, 3 is KEVs egg, 4 is ENIs egg, 5 is SIMs egg
 u8 ScriptGiveSpecialEgg()
 {
     struct Pokemon mon;
@@ -107,18 +126,25 @@ u8 ScriptGiveSpecialEgg()
     u8 isEgg = TRUE;
     switch(gSpecialVar_0x8004)
     {
-        case 0:
+        case 1:
             species = SPECIES_ABSOL;
             specialMove = MOVE_DRAGON_DANCE;
             break;
-        case 1:
+        case 2:
             species = SPECIES_PSYDUCK;
             specialMove = MOVE_HYDRO_CANNON;
             break;
-        case 2:
+        case 3:
             species = SPECIES_MILOTIC;
             specialMove = MOVE_WATER_SPOUT;
             break;
+        case 4:
+            species = SPECIES_TREECKO;
+            specialMove = MOVE_PETAL_DANCE;
+            break;
+        case 5:
+            species = SPECIES_MAWILE;
+            specialMove = MOVE_DOOM_DESIRE;
         default:
             species = SPECIES_MUDKIP;
             break;

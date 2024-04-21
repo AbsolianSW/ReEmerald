@@ -1341,6 +1341,8 @@ extern const u8 gText_ExpertTagMatch[];
 extern const u8 gText_LukesEgg[];
 extern const u8 gText_IkesEgg[];
 extern const u8 gText_KevsEgg[];
+extern const u8 gText_EnisEgg[];
+extern const u8 gText_SimsEgg[];
 extern const u8 gText_TimeBoard[];
 extern const u8 gText_TimeCleared[];
 extern const u8 gText_XMinYDotZSec[];

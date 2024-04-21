@@ -4411,15 +4411,15 @@ void BufferVarsForHiddenPowerIdentifier(void)
 
 void bufferStartersForNotebook(void) 
 {
-    StringCopy(gStringVar1 ,gSpeciesNames[NationalPokedexNumToSpecies(gSaveBlock2Ptr->grassStarter)]);
-    StringCopy(gStringVar2 , gSpeciesNames[NationalPokedexNumToSpecies(gSaveBlock2Ptr->waterStarter)]);
-    StringCopy(gStringVar3 , gSpeciesNames[NationalPokedexNumToSpecies(gSaveBlock2Ptr->fireStarter)]);
+    StringCopy(gStringVar1 ,gSpeciesNames[NationalPokedexNumToSpecies(gSaveBlock2Ptr->challenges.grassStarter)]);
+    StringCopy(gStringVar2 , gSpeciesNames[NationalPokedexNumToSpecies(gSaveBlock2Ptr->challenges.waterStarter)]);
+    StringCopy(gStringVar3 , gSpeciesNames[NationalPokedexNumToSpecies(gSaveBlock2Ptr->challenges.fireStarter)]);
 }
 
 void bufferXPMultiplierForNotebook(void)
 {
     u8 text[4];
-    u8 n = gSaveBlock2Ptr->xpMultiplier;
+    u8 n = gSaveBlock2Ptr->challenges.xpMultiplier;
     u16 i = 0;
     if (n / 10 != 0)
     {

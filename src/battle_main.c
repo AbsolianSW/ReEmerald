@@ -3129,7 +3129,7 @@ static void BattleStartClearSetData(void)
     else if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK)) && GetBattleSceneInRecordedBattle())
         gHitMarker |= HITMARKER_NO_ANIMATIONS;
 
-    if(gSaveBlock2Ptr->forceSetMode) 
+    if(gSaveBlock2Ptr->challenges.forceSetMode) 
         gBattleScripting.battleStyle = OPTIONS_BATTLE_STYLE_SET;
     else
         gBattleScripting.battleStyle = gSaveBlock2Ptr->optionsBattleStyle;
