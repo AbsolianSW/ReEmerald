@@ -693,6 +693,8 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SportBall;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ParkBall;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_CherishBall;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ExpandingSparkle;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BrendanVSSeeker;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_MayVSSeeker;
 
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {

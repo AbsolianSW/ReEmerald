@@ -270,6 +270,10 @@ u8 MovementAction_FollowingPokemon_Shrink_Step0(struct ObjectEvent *, struct Spr
 u8 MovementAction_FollowingPokemon_Shrink_Step1(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_FollowingPokemon_Grow_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_FollowingPokemon_Grow_Step1(struct ObjectEvent *, struct Sprite *);
+static bool8 MovementAction_RaiseHand_Step0(struct ObjectEvent *, struct Sprite *);
+static bool8 MovementAction_RaiseHandAndStop_Step1(struct ObjectEvent *, struct Sprite *);
+static bool8 MovementAction_RaiseHandAndJump_Step1(struct ObjectEvent *, struct Sprite *);
+static bool8 MovementAction_RaiseHandAndSwim_Step1(struct ObjectEvent *, struct Sprite *);
 
 u8 (*const gMovementActionFuncs_FaceDown[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_FaceUp[])(struct ObjectEvent *, struct Sprite *);
@@ -437,6 +441,11 @@ u8 (*const gMovementActionFuncs_FollowingPokemon_FaceWest[])(struct ObjectEvent 
 u8 (*const gMovementActionFuncs_FollowingPokemon_FaceEast[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_FollowingPokemon_Shrink[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_FollowingPokemon_Grow[])(struct ObjectEvent *, struct Sprite *);
+u8 (*const gMovementActionFuncs_EmoteX[])(struct ObjectEvent *, struct Sprite *);
+u8 (*const gMovementActionFuncs_EmoteDoubleExclMark[])(struct ObjectEvent *, struct Sprite *);
+static bool8 (*const sMovementActionFuncs_RaiseHandAndStop[])(struct ObjectEvent *, struct Sprite *);
+static bool8 (*const sMovementActionFuncs_RaiseHandAndJump[])(struct ObjectEvent *, struct Sprite *);
+static bool8 (*const sMovementActionFuncs_RaiseHandAndSwim[])(struct ObjectEvent *, struct Sprite *);
 
 u8 (*const *const gMovementActionFuncs[])(struct ObjectEvent *, struct Sprite *) = {
     [MOVEMENT_ACTION_FACE_DOWN] = gMovementActionFuncs_FaceDown,
@@ -604,6 +613,11 @@ u8 (*const *const gMovementActionFuncs[])(struct ObjectEvent *, struct Sprite *)
     [MOVEMENT_ACTION_FOLLOWING_POKEMON_FACEEAST] = gMovementActionFuncs_FollowingPokemon_FaceEast,
     [MOVEMENT_ACTION_FOLLOWING_POKEMON_SHRINK] = gMovementActionFuncs_FollowingPokemon_Shrink,
     [MOVEMENT_ACTION_FOLLOWING_POKEMON_GROW] = gMovementActionFuncs_FollowingPokemon_Grow,
+    [MOVEMENT_ACTION_RAISE_HAND_AND_STOP]                = sMovementActionFuncs_RaiseHandAndStop,
+    [MOVEMENT_ACTION_RAISE_HAND_AND_JUMP]                = sMovementActionFuncs_RaiseHandAndJump,
+    [MOVEMENT_ACTION_RAISE_HAND_AND_SWIM]                = sMovementActionFuncs_RaiseHandAndSwim,
+    [MOVEMENT_ACTION_EMOTE_X]                            = gMovementActionFuncs_EmoteX,
+    [MOVEMENT_ACTION_EMOTE_DOUBLE_EXCL_MARK]             = gMovementActionFuncs_EmoteDoubleExclMark,
 };
 
 u8 (*const gMovementActionFuncs_FaceDown[])(struct ObjectEvent *, struct Sprite *) = {
@@ -1545,5 +1559,30 @@ u8 (*const gMovementActionFuncs_StopLevitate[])(struct ObjectEvent *, struct Spr
 
 u8 (*const gMovementActionFuncs_StopLevitateAtTop[])(struct ObjectEvent *, struct Sprite *) = {
     MovementAction_StopLevitateAtTop_Step0,
+    MovementAction_Finish,
+};
+
+static bool8 (*const sMovementActionFuncs_RaiseHandAndStop[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementAction_RaiseHand_Step0,
+    MovementAction_RaiseHandAndStop_Step1,
+};
+
+static bool8 (*const sMovementActionFuncs_RaiseHandAndJump[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementAction_RaiseHand_Step0,
+    MovementAction_RaiseHandAndJump_Step1,
+};
+
+static bool8 (*const sMovementActionFuncs_RaiseHandAndSwim[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementAction_RaiseHand_Step0,
+    MovementAction_RaiseHandAndSwim_Step1,
+};
+
+u8 (*const gMovementActionFuncs_EmoteX[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementAction_EmoteX_Step0,
+    MovementAction_Finish,
+};
+
+u8 (*const gMovementActionFuncs_EmoteDoubleExclMark[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementAction_EmoteDoubleExclamationMark_Step0,
     MovementAction_Finish,
 };

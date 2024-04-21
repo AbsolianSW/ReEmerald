@@ -37,6 +37,8 @@
 #include "mirage_tower.h"
 #include "field_screen_effect.h"
 #include "data.h"
+#include "vs_seeker.h"
+#include "item.h"
 #include "battle_anim.h"
 #include "overworld.h"
 #include "constants/battle_frontier.h"
@@ -1560,7 +1562,7 @@ static const u8 *GetTrainerCantBattleSpeech(void)
     return ReturnEmptyStringIfNull(sTrainerCannotBattleSpeech);
 }
 
-static s32 FirstBattleTrainerIdToRematchTableId(const struct RematchTrainer *table, u16 trainerId)
+s32 FirstBattleTrainerIdToRematchTableId(const struct RematchTrainer *table, u16 trainerId)
 {
     s32 i;
 
@@ -1573,7 +1575,7 @@ static s32 FirstBattleTrainerIdToRematchTableId(const struct RematchTrainer *tab
     return -1;
 }
 
-static s32 TrainerIdToRematchTableId(const struct RematchTrainer *table, u16 trainerId)
+s32 TrainerIdToRematchTableId(const struct RematchTrainer *table, u16 trainerId)
 {
     s32 i, j;
 
@@ -1619,30 +1621,36 @@ static void SetRematchIdForTrainer(const struct RematchTrainer *table, u32 table
     gSaveBlock1Ptr->trainerRematches[tableId] = i;
 }
 
+static bool32 DoesCurrentMapMatchRematchTrainerMap(s32 i, const struct RematchTrainer *table, u16 mapGroup, u16 mapNum)
+{
+    return table[i].mapGroup == mapGroup && table[i].mapNum == mapNum;
+}
+
+bool32 TrainerIsMatchCallRegistered(s32 i)
+{
+    return FlagGet(FLAG_MATCH_CALL_REGISTERED + i);
+}
+
 static bool32 UpdateRandomTrainerRematches(const struct RematchTrainer *table, u16 mapGroup, u16 mapNum)
 {
     s32 i;
-    bool32 ret = FALSE;
-
+    if (CheckBagHasItem(ITEM_VS_SEEKER, 1))
+    return FALSE;
     for (i = 0; i <= REMATCH_SPECIAL_TRAINER_START; i++)
     {
-        if (table[i].mapGroup == mapGroup && table[i].mapNum == mapNum && !IsRematchForbidden(i))
+        if (DoesCurrentMapMatchRematchTrainerMap(i,table,mapGroup,mapNum) && !IsRematchForbidden(i))
+            continue;
+        if (gSaveBlock1Ptr->trainerRematches[i] != 0)
         {
-            if (gSaveBlock1Ptr->trainerRematches[i] != 0)
-            {
-                // Trainer already wants a rematch. Don't bother updating it.
-                ret = TRUE;
-            }
-            else if (FlagGet(FLAG_MATCH_CALL_REGISTERED + i)
-             && (Random() % 100) <= 30)  // 31% chance of getting a rematch.
-            {
-                SetRematchIdForTrainer(table, i);
-                ret = TRUE;
-            }
+            return TRUE; // Trainer already wants a rematch. Don't bother updating it.
+        }
+        else if (TrainerIsMatchCallRegistered(i) && ((Random() % 100) <= 30)) // 31% chance of getting a rematch.
+        {
+            SetRematchIdForTrainer(table, i);
+            return TRUE;
         }
     }
-
-    return ret;
+    return FALSE;
 }
 
 void UpdateRematchIfDefeated(s32 rematchTableId)
@@ -1705,7 +1713,7 @@ static bool8 IsTrainerReadyForRematch_(const struct RematchTrainer *table, u16 t
     return TRUE;
 }
 
-static u16 GetRematchTrainerIdFromTable(const struct RematchTrainer *table, u16 firstBattleTrainerId)
+u16 GetRematchTrainerIdFromTable(const struct RematchTrainer *table, u16 firstBattleTrainerId)
 {
     const struct RematchTrainer *trainerEntry;
     s32 i;
@@ -1810,7 +1818,7 @@ static bool32 HasAtLeastFiveBadges(void)
 
 void IncrementRematchStepCounter(void)
 {
-    if (HasAtLeastFiveBadges())
+    if (HasAtLeastFiveBadges()&& (!CheckBagHasItem(ITEM_VS_SEEKER, 1)))
     {
         if (gSaveBlock1Ptr->trainerRematchStepCounter >= STEP_COUNTER_MAX)
             gSaveBlock1Ptr->trainerRematchStepCounter = STEP_COUNTER_MAX;
@@ -1845,7 +1853,10 @@ bool32 IsRematchTrainerIn(u16 mapGroup, u16 mapNum)
 
 static u16 GetRematchTrainerId(u16 trainerId)
 {
-    return GetRematchTrainerIdFromTable(gRematchTable, trainerId);
+     if (FlagGet(FLAG_VS_SEEKER_CHARGING))
+        return GetRematchTrainerIdVSSeeker(trainerId);
+    else
+        return GetRematchTrainerIdFromTable(gRematchTable, trainerId);
 }
 
 u16 GetLastBeatenRematchTrainerId(u16 trainerId)
@@ -1868,6 +1879,8 @@ bool8 IsTrainerReadyForRematch(void)
 
 static void HandleRematchVarsOnBattleEnd(void)
 {
+    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+        ClearRematchMovementByTrainerId();
     ClearTrainerWantRematchState(gRematchTable, gTrainerBattleOpponent_A);
     SetBattledTrainersFlags();
 }

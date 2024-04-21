@@ -27,6 +27,7 @@
 #include "start_menu.h"
 #include "trainer_see.h"
 #include "trainer_hill.h"
+#include "vs_seeker.h"
 #include "wild_encounter.h"
 #include "follow_me.h"
 #include "constants/event_bg.h"
@@ -608,7 +609,11 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
             return TRUE;
         }
     }
-
+    if (UpdateVsSeekerStepCounter() == TRUE)
+        {
+            ScriptContext_SetupScript(EventScript_VsSeekerChargingDone);
+            return TRUE;
+        }
     if (SafariZoneTakeStep() == TRUE)
         return TRUE;
     if (CountSSTidalStep(1) == TRUE)
