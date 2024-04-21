@@ -9292,6 +9292,7 @@ const union {
         .REST = TRUE,
         .ATTRACT = TRUE,
         .THIEF = TRUE,
+        .CUT = TRUE,
         .STRENGTH = TRUE,
         .ROCK_SMASH = TRUE,
     } },

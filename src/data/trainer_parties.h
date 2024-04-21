@@ -8298,8 +8298,8 @@ static const struct TrainerMonItemCustomMoves sParty_MaxieMagmaHideout[] = {
     {
     .iv = 255,
     .lvl = 39,
-    .heldItem = ITEM_CHESTO_BERRY,
-    .moves = {MOVE_AMNESIA, MOVE_ACID_ARMOR, MOVE_REST, MOVE_ROCK_SLIDE},
+    .heldItem = ITEM_LUM_BERRY,
+    .moves = {MOVE_AMNESIA, MOVE_ACID_ARMOR, MOVE_SLACK_OFF, MOVE_ROCK_SLIDE},
     .species = SPECIES_MAGCARGO,
     },
     {
