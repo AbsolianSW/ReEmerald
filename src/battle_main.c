@@ -3203,7 +3203,6 @@ void SwitchInClearSetData(void)
             gBattleMons[gActiveBattler].statStages[i] = DEFAULT_STAT_STAGE;
         for (i = 0; i < gBattlersCount; i++)
         {
-            DebugPrintf("Has escape prevention: %d\n", gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION);
             if ((gBattleMons[i].status2 & STATUS2_ESCAPE_PREVENTION) && gDisableStructs[i].battlerPreventingEscape == gActiveBattler && gCurrentMove != MOVE_MEMENTO) {
 
                 gBattleMons[i].status2 &= ~STATUS2_ESCAPE_PREVENTION;

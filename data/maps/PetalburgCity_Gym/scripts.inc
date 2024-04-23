@@ -392,6 +392,8 @@ PetalburgCity_Gym_EventScript_NormanBattle::
 	special DrawWholeMapView
 	call PetalburgCity_Gym_EventScript_GiveFacade
 	delay 30
+	call PetalburgCity_Gym_EventScript_GiveVSSeeker
+	delay 30
 	msgbox PetalburgCity_Gym_Text_DadHappyAndSad, MSGBOX_DEFAULT
 	closemessage
 	delay 40
@@ -409,6 +411,13 @@ PetalburgCity_Gym_EventScript_GiveFacade::
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
 	setflag FLAG_RECEIVED_TM_FACADE
 	msgbox PetalburgCity_Gym_Text_ExplainFacade, MSGBOX_DEFAULT
+	return
+	
+PetalburgCity_Gym_EventScript_GiveVSSeeker::
+	giveitem ITEM_VS_SEEKER
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
+	setflag FLAG_RECEIVED_VS_SEEKER
+	msgbox PetalburgCity_Gym_Text_ExplainVsSeeker, MSGBOX_DEFAULT
 	return
 
 PetalburgCity_Gym_EventScript_WallysDadArrivesNorth::
@@ -1297,6 +1306,11 @@ PetalburgCity_Gym_Text_ExplainFacade:
 	.string "or burned.\p"
 	.string "It might be able to turn a bad\n"
 	.string "situation into an advantage.$"
+	
+PetalburgCity_Gym_Text_ExplainVsSeeker:
+	.string "DAD: This is the VS SEEKER.\p"
+	.string "It will allow you to ask trainers\n"
+	.string "around you for a rematch.$"
 
 PetalburgCity_Gym_Text_DadHappyAndSad:
 	.string "DAD: As the GYM LEADER, I can't\n"
