@@ -145,6 +145,7 @@ u8 ScriptGiveSpecialEgg()
         case 5:
             species = SPECIES_MAWILE;
             specialMove = MOVE_DOOM_DESIRE;
+            break;
         default:
             species = SPECIES_MUDKIP;
             break;

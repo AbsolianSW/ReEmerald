@@ -1202,12 +1202,14 @@ static void Cmd_get_how_powerful_move_is(void)
 
             if (gBattleMons[sBattler_AI].moves[checkedMove] != MOVE_NONE
                 && sIgnoredPowerfulMoveEffects[i] == IGNORED_MOVES_END
-                && gBattleMoves[gBattleMons[sBattler_AI].moves[checkedMove]].power > 1)
+                && (gBattleMoves[gBattleMons[sBattler_AI].moves[checkedMove]].power > 1 || gBattleMons[sBattler_AI].moves[checkedMove] == MOVE_HIDDEN_POWER))
             {
                 gCurrentMove = gBattleMons[sBattler_AI].moves[checkedMove];
                 AI_CalcDmg(sBattler_AI, gBattlerTarget);
                 TypeCalc(gCurrentMove, sBattler_AI, gBattlerTarget);
                 moveDmgs[checkedMove] = gBattleMoveDamage * AI_THINKING_STRUCT->simulatedRNG[checkedMove] / 100;
+                DebugPrintf("Move %d checked\n", gCurrentMove);
+                DebugPrintf("rolled %d damage", moveDmgs[checkedMove]);
                 if (moveDmgs[checkedMove] == 0)
                     moveDmgs[checkedMove] = 1;
             }

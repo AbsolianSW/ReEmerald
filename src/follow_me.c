@@ -1302,7 +1302,6 @@ static void TurnNPCIntoFollower(u8 localId, u16 followerFlags)
     const u8 *script;
     u16 flag;
     
-    DebugPrintf("TurnNPCIntoFollower");
     if (gSaveBlock2Ptr->follower.inProgress)
         return; //Only 1 NPC following at a time
 

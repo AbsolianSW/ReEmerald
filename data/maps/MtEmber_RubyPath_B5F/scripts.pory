@@ -3,7 +3,8 @@ mapscripts MtEmber_RubyPath_B5F_MapScripts {
 }
 
 script MtEmber_RubyPath_B5F_Event_Script_Message {
-	msgbox(format("The Ruby used to link us up to the Hoenn Region was found here.\p Celio"))
+	msgbox(format("The Ruby used to link us up to the Hoenn Region was found here.\p Celio"), MSGBOX_SIGN)
+	end
 }
 
 script MtEmber_RubyPath_B5F_Event_Script_Tabitha {
@@ -12,21 +13,18 @@ script MtEmber_RubyPath_B5F_Event_Script_Tabitha {
 	applymovement(1,Common_Movement_ExclamationMark)
 	waitmovement(0)
 	applymovement(1,Common_Movement_FacePlayer)
-	trainerbattle_single(TRAINER_TABITHA_ISLAND_1, Ember_RubyPath_B5F_Text_Tabitha_Intro, MtEmber_RubyPath_B5F_TabithaDefeat)
-	end
-}
-
-script MtEmber_RubyPath_B5F_TabithaDefeat{
-	msgbox(format("Ahaha! Wow, you are really strong. Oh well, this was just our side mission here anyways...the real deal is going on at the summit anyways! I'm out of here!"))
+	msgbox(format("What? How did you get in here? You still didn't learn your lesson, huh? Well let me show you the true power of TEAM MAGMA!"))
+	trainerbattle_no_intro(TRAINER_TABITHA_ISLAND_1, MtEmber_RubyPath_B5F_Text_Tabitha_Defeat)
+	msgbox(format("Ahaha! Wow, you are really strong. Oh well, this was just our side mission here anyways...the real deal is going on at the summit! I'm out of here!"))
 	fadescreen(FADE_TO_BLACK)
 	removeobject(1)
 	fadescreen(FADE_FROM_BLACK)
 	SetFlag(FLAG_ISLAND1_TABITHA_DEFEATED)
 	SetVar(VAR_ONE_ISLAND_STATE, 3)
+	releaseall
 	end
 }
 
-text Ember_RubyPath_B5F_Text_Tabitha_Intro {
-	format("What? How did you get in here? You still didn't learn your lesson, huh? Well let me show you the true power of TEAM MAGMA!")
+text MtEmber_RubyPath_B5F_Text_Tabitha_Defeat {
+	format("Guess I still didn't learn my lesson, huh?")
 }
-

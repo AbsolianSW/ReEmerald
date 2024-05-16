@@ -75,6 +75,8 @@ static void DrawLevelUpWindow2(void);
 static void PutMonIconOnLvlUpBanner(void);
 static void DrawLevelUpBannerText(void);
 static void SpriteCB_MonIconOnLvlUpBanner(struct Sprite *sprite);
+static u8 GetHiddenPowerType(u8 battlerId);
+static u8 GetHiddenPowerPower(u8 battlerId);
 
 static void Cmd_attackcanceler(void);
 static void Cmd_accuracycheck(void);
@@ -1310,6 +1312,10 @@ static void Cmd_damagecalc(void)
 void AI_CalcDmg(u8 attacker, u8 defender)
 {
     u16 sideStatus = gSideStatuses[GET_BATTLER_SIDE(defender)];
+    if(gCurrentMove == MOVE_HIDDEN_POWER) {
+        GetHiddenPowerPower(attacker);
+        DebugPrintf("Calculated power is %d\n", gDynamicBasePower);
+    }
     gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[attacker], &gBattleMons[defender], gCurrentMove,
                                             sideStatus, gDynamicBasePower,
                                             gBattleStruct->dynamicMoveType, attacker, defender);
@@ -1546,7 +1552,14 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
     if (move == MOVE_STRUGGLE)
         return 0;
 
-    moveType = gBattleMoves[move].type;
+    if(move == MOVE_HIDDEN_POWER)
+    {
+        moveType = GetHiddenPowerType(attacker);
+        DebugPrintf("AI calculated hidden power as type %d\n", moveType);
+    } else
+    {
+        moveType = gBattleMoves[move].type;
+    }
 
     // check stab
     if (IS_BATTLER_OF_TYPE(attacker, moveType))
@@ -6195,6 +6208,38 @@ static void SpriteCB_MonIconOnLvlUpBanner(struct Sprite *sprite)
         FreeSpriteTilesByTag(TAG_LVLUP_BANNER_MON_ICON);
         FreeSpritePaletteByTag(TAG_LVLUP_BANNER_MON_ICON);
     }
+}
+
+static u8 GetHiddenPowerType(u8 battlerId) 
+{
+    u8 type;
+    u8 typeBits  = ((gBattleMons[battlerId].hpIV & 1) << 0)
+                 | ((gBattleMons[battlerId].attackIV & 1) << 1)
+                 | ((gBattleMons[battlerId].defenseIV & 1) << 2)
+                 | ((gBattleMons[battlerId].speedIV & 1) << 3)
+                 | ((gBattleMons[battlerId].spAttackIV & 1) << 4)
+                 | ((gBattleMons[battlerId].spDefenseIV & 1) << 5);
+
+
+    // Subtract 3 instead of 1 below because 2 types are excluded (TYPE_NORMAL and TYPE_MYSTERY)
+    // The final + 1 skips past Normal, and the following conditional skips TYPE_MYSTERY
+    type = ((NUMBER_OF_MON_TYPES - 3) * typeBits) / 63 + 1;
+    if (type >= TYPE_MYSTERY)
+        type++;
+    type |= F_DYNAMIC_TYPE_1 | F_DYNAMIC_TYPE_2;
+
+    return type & DYNAMIC_TYPE_MASK;
+}
+
+static u8 GetHiddenPowerPower(u8 battlerId) 
+{
+   u8 powerBits = ((gBattleMons[battlerId].hpIV & 2) >> 1)
+                 | ((gBattleMons[battlerId].attackIV & 2) << 0)
+                 | ((gBattleMons[battlerId].defenseIV & 2) << 1)
+                 | ((gBattleMons[battlerId].speedIV & 2) << 2)
+                 | ((gBattleMons[battlerId].spAttackIV & 2) << 3)
+                 | ((gBattleMons[battlerId].spDefenseIV & 2) << 4);
+    gDynamicBasePower = (40 * powerBits) / 63 + 30;
 }
 
 #undef sDestroy

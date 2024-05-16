@@ -2085,7 +2085,6 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                     else 
                         personalityValue += natureOffset;
                 }
-                DebugPrintf("Nature is %d\n", personalityValue % NUM_NATURES);
                 CreateMon(&party[i], partyData[i].species, partyData[i].lvl, USE_RANDOM_IVS, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
@@ -2104,7 +2103,6 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                     SetMonData(&party[i], MON_DATA_HP_EV + j, &partyData[i].ev[j]);
                 }
                 SetMonData(&party[i], MON_DATA_ABILITY_NUM, &partyData[i].ability);
-                DebugPrintf("Monster %d ability set to %d", i,partyData[i].ability);
                 break;
             }
             }
@@ -3196,7 +3194,6 @@ void SwitchInClearSetData(void)
     struct DisableStruct disableStructCopy = gDisableStructs[gActiveBattler];
     s32 i;
     u8 *ptr;
-    DebugPrintf("Handling Switchin, current move is %d\n", gCurrentMove);
     if (gBattleMoves[gCurrentMove].effect != EFFECT_BATON_PASS)
     {
         for (i = 0; i < NUM_BATTLE_STATS; i++)

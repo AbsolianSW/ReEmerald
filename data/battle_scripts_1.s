@@ -2312,7 +2312,10 @@ BattleScript_EffectCharge::
 	printstring STRINGID_PKMNCHARGINGPOWER
 	waitmessage B_WAIT_TIME_LONG
 	setstatchanger STAT_SPDEF, 1, FALSE
-	goto BattleScript_EffectStatUpAfterAtkCanceler
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_StatUpEnd
+	jumpifbyte CMP_NOT_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_StatUpDoAnim
+	pause B_WAIT_TIME_SHORT
+	goto BattleScript_StatUpPrintString
 
 BattleScript_EffectTaunt::
 	attackcanceler
@@ -2645,7 +2648,10 @@ BattleScript_EffectWaterSport::
 	printfromtable gSportsUsedStringIds
 	waitmessage B_WAIT_TIME_LONG
 	setstatchanger STAT_SPDEF, 1, FALSE
-	goto BattleScript_EffectStatUpAfterAtkCanceler
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_StatUpEnd
+	jumpifbyte CMP_NOT_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_StatUpDoAnim
+	pause B_WAIT_TIME_SHORT
+	goto BattleScript_StatUpPrintString
 
 BattleScript_EffectPoisonFang::
 	setmoveeffect MOVE_EFFECT_TOXIC
