@@ -45,7 +45,7 @@ MtEmber_RubyPath_B5F_Event_Script_Tabitha_Text_2:
 	.string "Ahaha! Wow, you are really strong. Oh\n"
 	.string "well, this was just our side mission\l"
 	.string "here anyways...the real deal is going on\l"
-	.string "at the summit anyways! I'm out of here!$"
+	.string "at the summit! I'm out of here!$"
 
 MtEmber_RubyPath_B5F_Text_Tabitha_Defeat::
 	.string "Guess I still didn't learn my lesson,\n"

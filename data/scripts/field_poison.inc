@@ -1,6 +1,6 @@
 EventScript_FieldPoison::
 	lockall
-	special TryFieldPoisonWhiteOut
+	special TryFieldPoisonHeal
 	waitstate
 	goto_if_eq VAR_RESULT, FLDPSN_WHITEOUT, EventScript_FieldWhiteOut
 	goto_if_eq VAR_RESULT, FLDPSN_FRONTIER_WHITEOUT, EventScript_FrontierFieldWhiteOut

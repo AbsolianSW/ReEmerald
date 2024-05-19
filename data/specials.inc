@@ -210,7 +210,7 @@ gSpecials::
 	def_special ShowLinkBattleRecords
 	def_special IsEnoughForCostInVar0x8005
 	def_special SubtractMoneyFromVar0x8005
-	def_special TryFieldPoisonWhiteOut
+	def_special TryFieldPoisonHeal
 	def_special SetCB2WhiteOut
 	def_special RotatingGate_InitPuzzle
 	def_special RotatingGate_InitPuzzleAndGraphics

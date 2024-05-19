@@ -1208,8 +1208,6 @@ static void Cmd_get_how_powerful_move_is(void)
                 AI_CalcDmg(sBattler_AI, gBattlerTarget);
                 TypeCalc(gCurrentMove, sBattler_AI, gBattlerTarget);
                 moveDmgs[checkedMove] = gBattleMoveDamage * AI_THINKING_STRUCT->simulatedRNG[checkedMove] / 100;
-                DebugPrintf("Move %d checked\n", gCurrentMove);
-                DebugPrintf("rolled %d damage", moveDmgs[checkedMove]);
                 if (moveDmgs[checkedMove] == 0)
                     moveDmgs[checkedMove] = 1;
             }

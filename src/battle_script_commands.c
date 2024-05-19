@@ -1314,7 +1314,6 @@ void AI_CalcDmg(u8 attacker, u8 defender)
     u16 sideStatus = gSideStatuses[GET_BATTLER_SIDE(defender)];
     if(gCurrentMove == MOVE_HIDDEN_POWER) {
         GetHiddenPowerPower(attacker);
-        DebugPrintf("Calculated power is %d\n", gDynamicBasePower);
     }
     gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[attacker], &gBattleMons[defender], gCurrentMove,
                                             sideStatus, gDynamicBasePower,
@@ -1555,7 +1554,6 @@ u8 TypeCalc(u16 move, u8 attacker, u8 defender)
     if(move == MOVE_HIDDEN_POWER)
     {
         moveType = GetHiddenPowerType(attacker);
-        DebugPrintf("AI calculated hidden power as type %d\n", moveType);
     } else
     {
         moveType = gBattleMoves[move].type;
@@ -2873,7 +2871,8 @@ void SetMoveEffect(bool8 primary, u8 certain)
             case MOVE_EFFECT_KNOCK_OFF:
                 if (gBattleMons[gEffectBattler].ability == ABILITY_STICKY_HOLD)
                 {
-                    if (gBattleMons[gEffectBattler].item == ITEM_NONE)
+                    //make sure mail can't be knocked off to prevent mail corruption.
+                    if (gBattleMons[gEffectBattler].item == ITEM_NONE || (gBattleMons[gEffectBattler].item >= FIRST_MAIL_INDEX && gBattleMons[gEffectBattler].item <= FIRST_BERRY_INDEX))
                     {
                         gBattlescriptCurrInstr++;
                     }

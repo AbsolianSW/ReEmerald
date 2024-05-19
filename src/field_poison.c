@@ -39,21 +39,19 @@ static bool32 AllMonsFainted(void)
     return TRUE;
 }
 
-static void FaintFromFieldPoison(u8 partyIdx)
+static void HealFromFieldPoison(u8 partyIdx)
 {
     struct Pokemon *pokemon = &gPlayerParty[partyIdx];
     u32 status = STATUS1_NONE;
-
-    AdjustFriendship(pokemon, FRIENDSHIP_EVENT_FAINT_FIELD_PSN);
     SetMonData(pokemon, MON_DATA_STATUS, &status);
     GetMonData(pokemon, MON_DATA_NICKNAME, gStringVar1);
     StringGet_Nickname(gStringVar1);
 }
 
-static bool32 MonFaintedFromPoison(u8 partyIdx)
+static bool32 MonToBeHealedFromPoison(u8 partyIdx)
 {
     struct Pokemon *pokemon = &gPlayerParty[partyIdx];
-    if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == 0 && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
+    if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) == 1 && GetAilmentFromStatus(GetMonData(pokemon, MON_DATA_STATUS)) == AILMENT_PSN)
         return TRUE;
 
     return FALSE;
@@ -62,7 +60,7 @@ static bool32 MonFaintedFromPoison(u8 partyIdx)
 #define tState    data[0]
 #define tPartyIdx data[1]
 
-static void Task_TryFieldPoisonWhiteOut(u8 taskId)
+static void Task_TryFieldPoisonCure(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
     switch (tState)
@@ -70,10 +68,10 @@ static void Task_TryFieldPoisonWhiteOut(u8 taskId)
     case 0:
         for (; tPartyIdx < PARTY_SIZE; tPartyIdx++)
         {
-            if (MonFaintedFromPoison(tPartyIdx))
+            if (MonToBeHealedFromPoison(tPartyIdx))
             {
-                FaintFromFieldPoison(tPartyIdx);
-                ShowFieldMessage(gText_PkmnFainted_FldPsn);
+                HealFromFieldPoison(tPartyIdx);
+                ShowFieldMessage(gText_PkmnHealed_FldPsn);
                 tState++;
                 return;
             }
@@ -81,7 +79,7 @@ static void Task_TryFieldPoisonWhiteOut(u8 taskId)
         tState = 2; // Finished checking party
         break;
     case 1:
-        // Wait for "{mon} fainted" message, then return to party loop
+        // Wait for "{mon} survived" message, then return to party loop
         if (IsFieldMessageBoxHidden())
             tState--;
         break;
@@ -107,9 +105,9 @@ static void Task_TryFieldPoisonWhiteOut(u8 taskId)
 #undef tState
 #undef tPartyIdx
 
-void TryFieldPoisonWhiteOut(void)
+void TryFieldPoisonHeal(void)
 {
-    CreateTask(Task_TryFieldPoisonWhiteOut, 80);
+    CreateTask(Task_TryFieldPoisonCure, 80);
     ScriptContext_Stop();
 }
 

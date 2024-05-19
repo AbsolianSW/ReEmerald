@@ -38,12 +38,14 @@ OldaleTown_EventScript_Girl::
 	msgbox OldaleTown_Text_SavingMyProgress, MSGBOX_NPC
 	end
 
+@add DrFrugal fix for broken edge case with full bag
 OldaleTown_EventScript_MartEmployee::
 	lock
 	faceplayer
 	goto_if_set FLAG_RECEIVED_POTION_OLDALE, OldaleTown_EventScript_ExplainPotion
-	goto_if_set FLAG_TEMP_1, OldaleTown_EventScript_ExplainPotion
-	setflag FLAG_TEMP_1
+	getplayerxy VAR_0x8000, VAR_0x8000
+	compare VAR_0x8000, 0x8
+	goto_if_eq VAR_RESULT, OldaleTown_EventScript_ExplainPokemonMart
 	playbgm MUS_FOLLOW_ME, FALSE
 	msgbox OldaleTown_Text_IWorkAtPokemonMart, MSGBOX_DEFAULT
 	closemessage

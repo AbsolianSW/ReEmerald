@@ -318,6 +318,8 @@ static void HandleInputChooseAction(void)
                 else
                     return;
             }
+            //reset focus punch battle to fix focus punch initialization still playing before swapout if focus punch was selected and b was pressed after and the pokemon is then switched out.
+            gBattleStruct->focusPunchBattlerId = 0;
             PlaySE(SE_SELECT);
             BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_CANCEL_PARTNER, 0);
             PlayerBufferExecCompleted();

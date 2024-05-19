@@ -248,45 +248,16 @@ RustboroCity_EventScript_Man2::
 	release
 	end
 
-RustboroCity_EventScript_StolenGoodsTrigger0::
-	lockall
-	setobjectxyperm LOCALID_DEVON_EMPLOYEE, 14, 21
-	setobjectmovementtype LOCALID_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
-	setvar VAR_0x8004, 0
-	goto RustboroCity_EventScript_StolenGoodsScene
-	end
-
-RustboroCity_EventScript_StolenGoodsTrigger1::
-	lockall
-	setobjectxyperm LOCALID_DEVON_EMPLOYEE, 14, 21
-	setobjectmovementtype LOCALID_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
-	setvar VAR_0x8004, 1
-	goto RustboroCity_EventScript_StolenGoodsScene
-	end
-
-RustboroCity_EventScript_StolenGoodsTrigger2::
+RustboroCity_EventScript_StolenGoodsTrigger::
 	lockall
 	setobjectxyperm LOCALID_DEVON_EMPLOYEE, 14, 21
 	setobjectmovementtype LOCALID_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
 	setvar VAR_0x8004, 2
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_Movement_PlayerTowardsStealScene
+	waitmovement 0
 	goto RustboroCity_EventScript_StolenGoodsScene
 	end
 
-RustboroCity_EventScript_StolenGoodsTrigger3::
-	lockall
-	setobjectxyperm LOCALID_DEVON_EMPLOYEE, 14, 21
-	setobjectmovementtype LOCALID_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
-	setvar VAR_0x8004, 3
-	goto RustboroCity_EventScript_StolenGoodsScene
-	end
-
-RustboroCity_EventScript_StolenGoodsTrigger4::
-	lockall
-	setobjectxyperm LOCALID_DEVON_EMPLOYEE, 14, 21
-	setobjectmovementtype LOCALID_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
-	setvar VAR_0x8004, 4
-	goto RustboroCity_EventScript_StolenGoodsScene
-	end
 
 RustboroCity_EventScript_StolenGoodsScene::
 	msgbox RustboroCity_Text_OutOfTheWay, MSGBOX_DEFAULT
@@ -361,25 +332,11 @@ RustboroCity_EventScript_EmployeeApproachPlayerFar::
 	waitmovement 0
 	return
 
-@ Unused
-RustboroCity_Movement_GruntEscapeExtended:
-	walk_faster_right
-	walk_faster_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_right
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
+RustboroCity_Movement_PlayerTowardsStealScene:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
 	step_end
 
 RustboroCity_Movement_GruntEscape:
