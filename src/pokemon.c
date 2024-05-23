@@ -1396,17 +1396,22 @@ const u8 gLevelCaps[LEVEL_CAP_AMOUNT] =
 {
     [0] = 15,
     [1] = 19,
-    [2] = 24,
-    [3] = 29,
-    [4] = 31,
-    [5] = 35,
-    [6] = 43,
-    [7] = 48,
-    [8] = 52,
-    [9] = 54,
-    [10] = 56,
-    [11] = 58,
-    [12] = 61
+    [2] = 21,
+    [3] = 24,
+    [4] = 26,
+    [5] = 29,
+    [6] = 31,
+    [7] = 35,
+    [8] = 39,
+    [9] = 43,
+    [10] = 45,
+    [11] = 48,
+    [12] = 50,
+    [13] = 52,
+    [14] = 54,
+    [15] = 56,
+    [16] = 58,
+    [17] = 61
 };
 
 #include "data/pokemon/tmhm_learnsets.h"
@@ -7201,26 +7206,36 @@ u8 getLevelCap(void)
         currentCap = 1;
     if(FlagGet(FLAG_BADGE02_GET))
         currentCap = 2;
-    if(FlagGet(FLAG_BADGE03_GET))
+    if(FlagGet(FLAG_HIDE_SLATEPORT_CITY_OCEANIC_MUSEUM_AQUA_GRUNTS))
         currentCap = 3;
-    if(FlagGet(FLAG_BADGE04_GET))
+    if(FlagGet(FLAG_BADGE03_GET))
         currentCap = 4;
-    if(FlagGet(FLAG_BADGE05_GET))
+    if(FlagGet(FLAG_DEFEATED_EVIL_TEAM_MT_CHIMNEY))
         currentCap = 5;
-    if(FlagGet(FLAG_BADGE06_GET))
+    if(FlagGet(FLAG_BADGE04_GET))
         currentCap = 6;
-    if(FlagGet(FLAG_BADGE07_GET))
+    if(FlagGet(FLAG_BADGE05_GET))
         currentCap = 7;
-    if(FlagGet(FLAG_BADGE08_GET))
+    if(FlagGet(FLAG_BADGE06_GET))
         currentCap = 8;
-    if(FlagGet(FLAG_DEFEATED_ELITE_4_SIDNEY))
+    if(FlagGet(FLAG_GROUDON_AWAKENED_MAGMA_HIDEOUT))
         currentCap = 9;
-    if(FlagGet(FLAG_DEFEATED_ELITE_4_PHOEBE))
+    if(FlagGet(FLAG_BADGE07_GET))
         currentCap = 10;
-    if(FlagGet(FLAG_DEFEATED_ELITE_4_GLACIA))
+    if(FlagGet(FLAG_KYOGRE_ESCAPED_SEAFLOOR_CAVERN))
         currentCap = 11;
-    if(FlagGet(FLAG_DEFEATED_ELITE_4_DRAKE))
+    if(FlagGet(FLAG_BADGE08_GET))
         currentCap = 12;
+    if(FlagGet(FLAG_DEFEATED_WALLY_VICTORY_ROAD))
+        currentCap = 13;
+    if(FlagGet(FLAG_DEFEATED_ELITE_4_SIDNEY))
+        currentCap = 14;
+    if(FlagGet(FLAG_DEFEATED_ELITE_4_PHOEBE))
+        currentCap = 15;
+    if(FlagGet(FLAG_DEFEATED_ELITE_4_GLACIA))
+        currentCap = 16;
+    if(FlagGet(FLAG_DEFEATED_ELITE_4_DRAKE))
+        currentCap = 17;
     return gLevelCaps[currentCap];
 }
 

@@ -23,7 +23,6 @@
 static EWRAM_DATA u8 sProcessInputDelay = 0;
 
 static u8 sLilycoveSSTidalSelections[SSTIDAL_SELECTION_COUNT];
-static u8 sSeviiFerrySelections[SEVII_FERRY_SELECTION_COUNT];
 
 static void Task_HandleMultichoiceInput(u8 taskId);
 static void Task_HandleYesNoInput(u8 taskId);
@@ -584,13 +583,6 @@ static void CreateSeviiFerryMultichoice(void)
         ShowScrollableMultichoice();
 }
 
-void GetSeviiFerrySelection(void)
-{
-    if (gSpecialVar_Result != MULTI_B_PRESSED)
-    {
-        gSpecialVar_Result = sSeviiFerrySelections[gSpecialVar_Result];
-    }
-}
 
 #define tState       data[0]
 #define tMonSpecies  data[1]

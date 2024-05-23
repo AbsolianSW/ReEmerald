@@ -145,7 +145,7 @@
 #define MIN_LEVEL 1
 #define MAX_LEVEL 100
 
-#define LEVEL_CAP_AMOUNT 13
+#define LEVEL_CAP_AMOUNT 18
 
 #define OT_ID_PLAYER_ID       0
 #define OT_ID_PRESET          1

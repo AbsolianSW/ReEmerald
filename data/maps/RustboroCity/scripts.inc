@@ -32,6 +32,7 @@ RustboroCity_EventScript_HideMapNamePopup::
 	return
 
 RustboroCity_OnFrame:
+	map_script_2 VAR_RUSTBORO_CITY_STATE, 1, RustboroCity_EventScript_StolenGoodsTrigger
 	map_script_2 VAR_RUSTBORO_CITY_STATE, 6, RustboroCity_EventScript_ScientistAddMatchCall
 	.2byte 0
 

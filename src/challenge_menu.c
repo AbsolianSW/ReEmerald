@@ -390,6 +390,7 @@ static void save(u8 taskId)
 static void Task_ChangePage(u8 taskId)
 {
     save(taskId);
+    gTasks[taskId].tMenuSelection = 0;
     DrawHeaderText(taskId);
     PutWindowTilemap(1);
     DrawChallengeMenuTexts();
@@ -414,7 +415,7 @@ static void Task_ChallengeMenuFadeIn(u8 taskId)
 
 static void Task_ChallengeMenuProcessInput(u8 taskId)
 {
-    if ((JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON)) && !isInDetails)
+    if ((JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON)))
     {
         FillWindowPixelBuffer(WIN_CHALLENGES, PIXEL_FILL(1));
         ClearStdWindowAndFrame(WIN_CHALLENGES, FALSE);
@@ -438,28 +439,40 @@ static void Task_ChallengeMenuProcessInput(u8 taskId)
     }
     else if (JOY_NEW(B_BUTTON))
     {
-        gTasks[taskId].func = Task_ChallengeMenuSave;
+        if(isInDetails)
+        {
+            isInDetails = 0;
+            sArrowPressed = TRUE;
+            DrawHeaderText(taskId);
+        } else
+        {
+            gTasks[taskId].func = Task_ChallengeMenuSave;
+        }
     }
     else if (JOY_NEW(DPAD_UP))
     {
-        if(!isInDetails)
+        if (gTasks[taskId].tMenuSelection > 0)
+            gTasks[taskId].tMenuSelection--;
+        else
+            gTasks[taskId].tMenuSelection = MENUITEM_CONFIRM;
+        HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
+        if(isInDetails) 
         {
-            if (gTasks[taskId].tMenuSelection > 0)
-                gTasks[taskId].tMenuSelection--;
-            else
-                gTasks[taskId].tMenuSelection = MENUITEM_CONFIRM;
-            HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
+            sArrowPressed = TRUE;
+            DrawHeaderText(taskId);
         }
     }
     else if (JOY_NEW(DPAD_DOWN))
     {
-        if(!isInDetails)
+        if (gTasks[taskId].tMenuSelection < MENUITEM_CONFIRM)
+            gTasks[taskId].tMenuSelection++;
+        else
+            gTasks[taskId].tMenuSelection = 0;
+        HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
+        if(isInDetails) 
         {
-            if (gTasks[taskId].tMenuSelection < MENUITEM_CONFIRM)
-                gTasks[taskId].tMenuSelection++;
-            else
-                gTasks[taskId].tMenuSelection = 0;
-            HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
+            sArrowPressed = TRUE;
+            DrawHeaderText(taskId);
         }
     }
     else
@@ -531,7 +544,7 @@ static void Task_ChallengeMenuFadeIn_Pg2(u8 taskId)
 static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
 {   
     
-    if ((JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON)) && !isInDetails)
+    if ((JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON)))
     {
         FillWindowPixelBuffer(WIN_CHALLENGES, PIXEL_FILL(1));
         ClearStdWindowAndFrame(WIN_CHALLENGES, FALSE);
@@ -540,7 +553,7 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
     }
     else if (JOY_NEW(A_BUTTON))
     {
-        if (gTasks[taskId].tMenuSelection == MENUITEM_CONFIRM_PG2)
+        if (gTasks[taskId].tMenuSelection == MENUITEM_CONFIRM)
         {
             gTasks[taskId].func = Task_ChallengeMenuSave;
         } else
@@ -555,7 +568,15 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
     }
     else if (JOY_NEW(B_BUTTON))
     {
-        gTasks[taskId].func = Task_ChallengeMenuSave;
+        if(isInDetails)
+        {
+            isInDetails = 0;
+            sArrowPressed = TRUE;
+            DrawHeaderText(taskId);
+        } else
+        {
+            gTasks[taskId].func = Task_ChallengeMenuSave;
+        }
     }
     else if (JOY_NEW(DPAD_UP))
     {
@@ -595,15 +616,19 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
             }
             sArrowPressed = TRUE;
             CustomStarter_DrawChoices(gTasks[taskId].tCustomStarter);
-        } else if(!isInDetails)
+        } else 
         {
-
-            if (gTasks[taskId].tMenuSelection > 0)
-                gTasks[taskId].tMenuSelection--;
-            else
-                gTasks[taskId].tMenuSelection = MENUITEM_CONFIRM_PG2;
-            HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
+        if (gTasks[taskId].tMenuSelection > 0)
+            gTasks[taskId].tMenuSelection--;
+        else
+            gTasks[taskId].tMenuSelection = MENUITEM_CONFIRM;
+        HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
+        if(isInDetails) 
+        {
+            sArrowPressed = TRUE;
+            DrawHeaderText(taskId);
         }
+    }
     }
     else if (JOY_NEW(DPAD_DOWN))
     {
@@ -643,14 +668,19 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
             }
             sArrowPressed = TRUE;
             CustomStarter_DrawChoices(gTasks[taskId].tCustomStarter);
-        } else if(!isInDetails)
+        } else
         {
-            if (gTasks[taskId].tMenuSelection < MENUITEM_CONFIRM_PG2)
-                gTasks[taskId].tMenuSelection++;
-            else
-                gTasks[taskId].tMenuSelection = 0;
-            HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
-        }   
+        if (gTasks[taskId].tMenuSelection < MENUITEM_CONFIRM)
+            gTasks[taskId].tMenuSelection++;
+        else
+            gTasks[taskId].tMenuSelection = 0;
+        HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
+        if(isInDetails) 
+        {
+            sArrowPressed = TRUE;
+            DrawHeaderText(taskId);
+        }
+    } 
     }
     else
     {

@@ -35,7 +35,7 @@
 #define TRAINER_ZANDER                       31
 #define TRAINER_SHELLY_WEATHER_INSTITUTE     32
 #define TRAINER_SHELLY_SEAFLOOR_CAVERN       33
-#define TRAINER_ARCHIE                       34
+#define TRAINER_ARCHIE_SEAFLOOR_CAVERN       34
 #define TRAINER_LEAH                         35
 #define TRAINER_DAISY                        36
 #define TRAINER_ROSE_1                       37
@@ -886,12 +886,13 @@
 #define TRAINER_GRUNT_MT_EMBER_10           881
 #define TRAINER_GRUNT_MT_EMBER_11           882
 #define TRAINER_COURTNEY_ISLAND_1           883
+#define TRAINER_ARCHIE_MUSEUM               884
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
-#define TRAINERS_COUNT                      884
+#define TRAINERS_COUNT                      885
 #define MAX_TRAINERS_COUNT                  1000
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

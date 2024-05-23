@@ -328,15 +328,6 @@
   "coord_events": [
     {
       "type": "trigger",
-      "x": 27,
-      "y": 20,
-      "elevation": 3,
-      "var": "VAR_RUSTBORO_CITY_STATE",
-      "var_value": "1",
-      "script": "RustboroCity_EventScript_StolenGoodsTrigger"
-    },
-    {
-      "type": "trigger",
       "x": 30,
       "y": 9,
       "elevation": 3,

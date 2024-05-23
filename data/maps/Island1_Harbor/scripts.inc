@@ -28,8 +28,13 @@ Island1_Harbor_EventScript_Sailor::
 	setvar VAR_0x8004, 1
 	special ScriptMenu_CreateSeviiFerryMultichoice
 	waitstate
-	special GetSeviiFerrySelection
-	setvar VAR_0x8000, 1
+	setvar VAR_0x8001, 1
 	switch VAR_RESULT
 	case 0, Island_Harbors_EventScript_GoToLilycove
+	case 1, Island_Harbors_EventScript_GoToIsland2
+	case 2, Island_Harbors_EventScript_GoToIsland3
+	case 3, Island_Harbors_EventScript_GoToIsland4
+	case 4, Island_Harbors_EventScript_GoToIsland5
+	case 5, Island_Harbors_EventScript_GoToIsland6
+	case 6, Island_Harbors_EventScript_GoToIsland7
 	end

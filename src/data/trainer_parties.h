@@ -228,11 +228,6 @@ static const struct TrainerMonNoItemDefaultMoves sParty_GruntMuseum2[] = {
     .iv = 0,
     .lvl = 14,
     .species = SPECIES_SEVIPER,
-    },
-    {
-    .iv = 0,
-    .lvl = 14,
-    .species = SPECIES_CARVANHA,
     }
 };
 
@@ -391,41 +386,41 @@ static const struct TrainerMonNoItemDefaultMoves sParty_ShellySeafloorCavern[] =
     },
 };
 
-static const struct TrainerMonItemCustomMoves sParty_Archie[] = {
+static const struct TrainerMonItemCustomMoves sParty_ArchieSeafloorCavern[] = {
     {
     .iv = 250,
-    .lvl = 41,
+    .lvl = 43,
     .heldItem = ITEM_SITRUS_BERRY,
     .moves = {MOVE_SWAGGER, MOVE_SCARY_FACE, MOVE_CRUNCH, MOVE_RAIN_DANCE},
     .species = SPECIES_MIGHTYENA,
     },
     {
     .iv = 250,
-    .lvl = 41,
+    .lvl = 43,
     .heldItem = ITEM_SALAC_BERRY,
     .moves = {MOVE_FLY, MOVE_CURSE, MOVE_AIR_CUTTER, MOVE_SLUDGE_BOMB},
     .species = SPECIES_CROBAT,
     },
     {
     .iv = 250,
-    .lvl = 41,
-    .heldItem = ITEM_KINGS_ROCK,
-    .moves = {MOVE_RAIN_DANCE, MOVE_CRUNCH ,MOVE_HYDRO_PUMP, MOVE_SKULL_BASH},
-    .species = SPECIES_SHARPEDO,
-    },
-    {
-    .iv = 250,
-    .lvl = 43,
+    .lvl = 44,
     .heldItem = ITEM_SHELL_BELL,
     .moves = {MOVE_RECOVER, MOVE_HYDRO_PUMP, MOVE_PSYCHIC, MOVE_THUNDERBOLT},
     .species = SPECIES_STARMIE,
     },
     {
     .iv = 250,
-    .lvl = 43,
+    .lvl = 44,
     .heldItem = ITEM_SHELL_BELL,
     .moves = {MOVE_EARTHQUAKE, MOVE_SURF, MOVE_ICE_BEAM, MOVE_PROTECT},
     .species = SPECIES_SWAMPERT,
+    },
+    {
+    .iv = 250,
+    .lvl = 45,
+    .heldItem = ITEM_KINGS_ROCK,
+    .moves = {MOVE_RAIN_DANCE, MOVE_CRUNCH ,MOVE_HYDRO_PUMP, MOVE_SKULL_BASH},
+    .species = SPECIES_SHARPEDO,
     }
 };
 
@@ -8298,23 +8293,23 @@ static const struct TrainerMonItemCustomMoves sParty_MaxieMagmaHideout[] = {
     {
     .iv = 255,
     .lvl = 38,
-    .heldItem = ITEM_QUICK_CLAW,
-    .moves = {MOVE_ERUPTION, MOVE_EARTHQUAKE, MOVE_REST, MOVE_SLEEP_TALK},
-    .species = SPECIES_CAMERUPT,
-    },
-    {
-    .iv = 255,
-    .lvl = 39,
     .heldItem = ITEM_LUM_BERRY,
     .moves = {MOVE_AMNESIA, MOVE_ACID_ARMOR, MOVE_SLACK_OFF, MOVE_ROCK_SLIDE},
     .species = SPECIES_MAGCARGO,
     },
     {
     .iv = 255,
-    .lvl = 40,
+    .lvl = 38,
     .heldItem = ITEM_SCOPE_LENS,
     .moves = {MOVE_BLAZE_KICK, MOVE_FOCUS_ENERGY, MOVE_SLASH, MOVE_SWORDS_DANCE},
     .species = SPECIES_BLAZIKEN,
+    },
+    {
+    .iv = 255,
+    .lvl = 39,
+    .heldItem = ITEM_QUICK_CLAW,
+    .moves = {MOVE_ERUPTION, MOVE_EARTHQUAKE, MOVE_REST, MOVE_SLEEP_TALK},
+    .species = SPECIES_CAMERUPT,
     }
 };
 
@@ -8332,12 +8327,12 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MaxieMtChimney[] = {
     {
     .iv = 222,
     .lvl = 25,
-    .species = SPECIES_NUMEL,
+    .species = SPECIES_COMBUSKEN,
     },
     {
     .iv = 222,
-    .lvl = 25,
-    .species = SPECIES_COMBUSKEN,
+    .lvl = 26,
+    .species = SPECIES_NUMEL,
     }
 };
 
@@ -13483,7 +13478,7 @@ static const struct TrainerMonEverything sParty_Courtney_Island1[] = {
     .nature = NATURE_TIMID,
     .ability = 0,
     .iv = {31,0,31,31,31,31},
-    .ev = {4,252,0,0,0,252},
+    .ev = {4,0,0,252,252,0},
     .species = SPECIES_GENGAR,
     .heldItem = ITEM_PETAYA_BERRY,
     .moves = {MOVE_HYPNOSIS, MOVE_DREAM_EATER, MOVE_FIRE_PUNCH, MOVE_SHADOW_BALL}
@@ -13518,5 +13513,23 @@ static const struct TrainerMonEverything sParty_Courtney_Island1[] = {
     .species = SPECIES_MOLTRES,
     .heldItem = ITEM_LUM_BERRY,
     .moves = {MOVE_FLAMETHROWER, MOVE_SAFEGUARD, MOVE_HEAT_WAVE, MOVE_SKY_ATTACK}
+    }
+};
+
+static const struct TrainerMonNoItemDefaultMoves sParty_ArchieMuseum[] = {
+    {
+    .iv = 150,
+    .lvl = 18,
+    .species = SPECIES_POOCHYENA,
+    },
+    {
+    .iv = 150,
+    .lvl = 18,
+    .species = SPECIES_ZUBAT,
+    },
+    {
+    .iv = 150,
+    .lvl = 21,
+    .species = SPECIES_CARVANHA,
     }
 };

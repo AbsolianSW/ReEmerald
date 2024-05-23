@@ -58,7 +58,7 @@ SlateportCity_OceanicMuseum_2F_EventScript_CaptStern::
 	applymovement LOCALID_ARCHIE, SlateportCity_OceanicMuseum_2F_Movement_ArchieApproachPlayer
 	waitmovement 0
 	msgbox SlateportCity_OceanicMuseum_2F_Text_ArchieWarning, MSGBOX_DEFAULT
-	closemessage
+	trainerbattle_no_intro TRAINER_ARCHIE_MUSEUM, SlateportCity_OceanicMuseum_2F_Text_ArchieDefeat
 	savebgm MUS_DUMMY
 	fadedefaultbgm
 	fadescreen FADE_TO_BLACK
@@ -345,7 +345,7 @@ SlateportCity_OceanicMuseum_2F_Text_ArchieWarning:
 	.string "interfering with our plans again.\p"
 	.string "The consequences will cost you\n"
 	.string "dearly!\p"
-	.string "And don't you forget it!$"
+	.string "You can have a little taste of it!$"
 
 SlateportCity_OceanicMuseum_2F_Text_SternThankYouForSavingUs:
 	.string "CAPT. STERN: You're…\n"
@@ -437,3 +437,6 @@ SlateportCity_OceanicMuseum_2F_Text_SSAnneReplica:
 	.string "“S.S. ANNE\p"
 	.string "“A replica of the luxury liner that\n"
 	.string "circles the globe.”$"
+
+SlateportCity_OceanicMuseum_2F_Text_ArchieDefeat:
+	.string "Grrr...I won't forget this!$"
