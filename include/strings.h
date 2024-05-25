@@ -3076,4 +3076,8 @@ extern const u8 gText_BoxName[];
 extern const u8 gText_PkmnsNickname[];
 extern const u8 gText_TellHimTheWords[];
 
+extern const u8 gText_Grass[];
+extern const u8 gText_Fire[];
+extern const u8 gText_Water[];
+
 #endif // GUARD_STRINGS_H

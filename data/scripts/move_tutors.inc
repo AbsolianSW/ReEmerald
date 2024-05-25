@@ -246,3 +246,6 @@ MoveTutor_EventScript_OpenPartyMenu::
 	lock
 	faceplayer
 	return
+	
+test::
+	.string "test$"

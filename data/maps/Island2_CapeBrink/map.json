@@ -23,12 +23,33 @@
 
   ],
   "warp_events": [
-
+    {
+      "x": 13,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_ISLAND2_CAPE_BRINK_HOUSE",
+      "dest_warp_id": "0"
+    }
   ],
   "coord_events": [
 
   ],
   "bg_events": [
-
+    {
+      "type": "hidden_item",
+      "x": 15,
+      "y": 13,
+      "elevation": 0,
+      "item": "ITEM_RARE_CANDY",
+      "flag": "FLAG_ITEM_CAPE_BRINK_RARE_CANDY"
+    },
+    {
+      "type": "hidden_item",
+      "x": 16,
+      "y": 28,
+      "elevation": 0,
+      "item": "ITEM_PP_MAX",
+      "flag": "FLAG_ITEM_CAPE_BRINK_PP_MAX"
+    }
   ]
 }

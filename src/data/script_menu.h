@@ -780,6 +780,15 @@ static const struct MenuAction MultichoiceList_WattsonEgg[] =
     {gText_SimsEgg},
 };
 
+static const struct MenuAction MultichoiceList_CapeBrinkTutor[] =
+{
+    {gText_Grass},
+    {gText_Fire},
+    {gText_Water},
+    {gText_Exit},
+};
+
+
 static const struct MenuAction MultichoiceList_Exit[] =
 {
     {gText_Exit},
@@ -908,6 +917,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_FALLARBOR_TENT_RULES]       = MULTICHOICE(MultichoiceList_FallarborTentRules),
     [MULTI_TAG_MATCH_TYPE]             = MULTICHOICE(MultichoiceList_TagMatchType),
     [MULTI_WATTSON_EGG]                = MULTICHOICE(MultichoiceList_WattsonEgg),
+    [MULTI_CAPE_BRINK_TUTOR]           = MULTICHOICE(MultichoiceList_CapeBrinkTutor),
 };
 
 const u8 *const gStdStrings[] =

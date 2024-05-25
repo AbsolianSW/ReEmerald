@@ -1242,8 +1242,8 @@
 #define FLAG_HIDDEN_ITEM_MT_EMBER_FIRE_STONE                        0x4A4 
 #define FLAG_HIDDEN_ITEM_MT_EMBER_ULTRA_BALL                        0x4A5 
 #define FLAG_MT_EMBER_HIDE_MOLTRES                                  0x4A6 
-#define FLAG_UNUSED_0x4A7                                           0x4A7 // Unused Flag
-#define FLAG_UNUSED_0x4A8                                           0x4A8 // Unused Flag
+#define FLAG_ITEM_CAPE_BRINK_RARE_CANDY                             0x4A7
+#define FLAG_ITEM_CAPE_BRINK_PP_MAX                                 0x4A8 
 #define FLAG_UNUSED_0x4A9                                           0x4A9 // Unused Flag
 #define FLAG_UNUSED_0x4AA                                           0x4AA // Unused Flag
 #define FLAG_UNUSED_0x4AB                                           0x4AB // Unused Flag

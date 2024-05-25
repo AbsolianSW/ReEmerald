@@ -3,8 +3,11 @@ Island2_Main_MapScripts::
 
 
 Island2_Main_Merchant::
+	lockall
+	faceplayer
 	msgbox Island2_Main_Merchant_Text_0
 	pokemart Island2_Main_Mart
+	releaseall
 	end
 
 
@@ -26,32 +29,50 @@ Island2_Main_Mart:
 	.2byte ITEM_NONE
 
 Island2_Main_Sailor::
+	lockall
+	faceplayer
 	msgbox Island2_Main_Sailor_Text_0
+	releaseall
 	end
 
 
 Island2_Main_Woman::
+	lockall
+	faceplayer
 	msgbox Island2_Main_Woman_Text_0
+	releaseall
 	end
 
 
 Island2_Main_Beauty::
+	lockall
+	faceplayer
 	msgbox Island2_Main_Beauty_Text_0
+	releaseall
 	end
 
 
 Island2_Main_SuperNerd::
+	lockall
+	faceplayer
 	msgbox Island2_Main_SuperNerd_Text_0
+	releaseall
 	end
 
 
 Island2_Main_Boy::
+	lockall
+	faceplayer
 	msgbox Island2_Main_Boy_Text_0
+	releaseall
 	end
 
 
 Island2_Main_LittleBoy::
+	lockall
+	faceplayer
 	msgbox Island2_Main_LittleBoy_Text_0
+	releaseall
 	end
 
 
@@ -80,7 +101,7 @@ Island2_Main_Sailor_Text_0:
 	.string "CELADON CITY. He started up a shop\l"
 	.string "with his younger brother. You have to\l"
 	.string "wonder if he knew what he was getting\l"
-	.string "into$"
+	.string "into...$"
 
 Island2_Main_Woman_Text_0:
 	.string "The shopkeepers brother took a job at\n"
