@@ -40,6 +40,7 @@
 #define EGG_GROUP_DITTO         13
 #define EGG_GROUP_DRAGON        14
 #define EGG_GROUP_UNDISCOVERED  15
+#define NUM_EGG_GROUPS          16
 
 #define EGG_GROUPS_PER_MON      2
 

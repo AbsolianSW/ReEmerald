@@ -462,7 +462,7 @@ static void Task_ChallengeMenuProcessInput(u8 taskId)
             DrawHeaderText(taskId);
         }
     }
-    else if (JOY_NEW(DPAD_DOWN))
+    else if (JOY_REPEAT(DPAD_DOWN))
     {
         if (gTasks[taskId].tMenuSelection < MENUITEM_CONFIRM)
             gTasks[taskId].tMenuSelection++;
@@ -630,7 +630,7 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
         }
     }
     }
-    else if (JOY_NEW(DPAD_DOWN))
+    else if (JOY_REPEAT(DPAD_DOWN))
     {
         if(isInDetails && gTasks[taskId].tMenuSelection == MENUITEM_CUSTOMSTARTER)
         {

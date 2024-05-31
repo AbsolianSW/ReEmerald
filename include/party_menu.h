@@ -30,6 +30,7 @@ extern u8 gBattlePartyCurrentOrder[PARTY_SIZE / 2];
 extern void (*gItemUseCB)(u8, TaskFunc);
 
 extern const u16 gTutorMoves[];
+static const u64 sTutorLearnsets[];
 
 void AnimatePartySlot(u8 slot, u8 animNum);
 bool8 IsMultiBattle(void);
@@ -89,5 +90,6 @@ void MoveDeleterForgetMove(void);
 void BufferMoveDeleterNicknameAndMove(void);
 void GetNumMovesSelectedMonHas(void);
 void MoveDeleterChooseMoveToForget(void);
+bool8 CanLearnTutorMove(u16, u8);
 
 #endif // GUARD_PARTY_MENU_H

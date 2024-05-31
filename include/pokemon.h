@@ -394,6 +394,7 @@ extern const struct SpriteTemplate gBattlerSpriteTemplates[];
 extern const s8 gNatureStatTable[][5];
 extern const u8 gLevelCaps[LEVEL_CAP_AMOUNT];
 
+
 void ZeroBoxMonData(struct BoxPokemon *boxMon);
 void ZeroMonData(struct Pokemon *mon);
 void ZeroPlayerPartyMons(void);
@@ -548,5 +549,6 @@ void DestroyMonSpritesGfxManager(u8 managerId);
 u8 *MonSpritesGfxManager_GetSpritePtr(u8 managerId, u8 spriteNum);
 u8 getLevelCap(void);
 u8 hasPlayerCaughtThisEvolutionLine(u16 species);
+u16 GetPreEvolution(u16 species);
 
 #endif // GUARD_POKEMON_H

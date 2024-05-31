@@ -3080,4 +3080,36 @@ extern const u8 gText_Grass[];
 extern const u8 gText_Fire[];
 extern const u8 gText_Water[];
 
+//pokedex
+extern const u8 gText_StatTotal[];
+extern const u8 gText_CatchRate[]; 
+extern const u8 gText_Yields[];
+extern const u8 gText_EffortValues[];
+extern const u8 gText_Abilities[];
+extern const u8 gText_EvoFriendship[];
+extern const u8 gText_EvoFriendshipDay[];
+extern const u8 gText_EvoFriendshipNight[];
+extern const u8 gText_EvoLevel[];
+extern const u8 gText_EvoItem[];
+extern const u8 gText_EvoAtkGTDef[];
+extern const u8 gText_EvoAtkEQDef[];
+extern const u8 gText_EvoAtkLTDef[];
+extern const u8 gText_EvoLevelSilcoon[];
+extern const u8 gText_EvoLevelCascoon[];
+extern const u8 gText_EvoLevelNinjask[];
+extern const u8 gText_EvoLevelShedinja[];
+extern const u8 gText_EvoLevelBeauty[];
+extern const u8 gText_EvoNone[];
+extern const u8 gText_Breed[];
+extern const u8 gText_BreedAzurill[];
+extern const u8 gText_BreedWynaut[];
+extern const u8 gText_MoveHeader[];
+extern const u8 gText_LevelVar1[];
+extern const u8 gText_TMVar1[];
+extern const u8 gText_HMVar1[];
+extern const u8 gText_Tutor[];
+extern const u8 gText_PreEvo[];
+extern const u8 gText_2EggGroups[];
+extern const u8 gText_1EggGroup[];
+
 #endif // GUARD_STRINGS_H
