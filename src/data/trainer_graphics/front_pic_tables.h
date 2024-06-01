@@ -70,8 +70,6 @@ const struct MonCoords gTrainerFrontPicCoords[] =
     [TRAINER_PIC_TWINS] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_SAILOR] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_MAGMA_ADMIN] = {.size = 8, .y_offset = 1},
-    [TRAINER_PIC_MAGMA_ADMIN_M] = {.size = 8, .y_offset = 1},
-    [TRAINER_PIC_MAGMA_ADMIN_F] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_WALLY] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_BRENDAN] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_MAY] = {.size = 8, .y_offset = 1},
@@ -95,6 +93,9 @@ const struct MonCoords gTrainerFrontPicCoords[] =
     [TRAINER_PIC_LEAF] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_RS_BRENDAN] = {.size = 8, .y_offset = 1},
     [TRAINER_PIC_RS_MAY] = {.size = 8, .y_offset = 1},
+    [TRAINER_PIC_MAGMA_ADMIN_M] = {.size = 8, .y_offset = 1},
+    [TRAINER_PIC_MAGMA_ADMIN_F] = {.size = 8, .y_offset = 1},
+    [TRAINER_PIC_CRUSH_KIN] = {.size = 8, .y_offset = 1}
 };
 
 #define TRAINER_SPRITE(trainerPic, sprite, size) [TRAINER_PIC_##trainerPic] = {sprite, size, TRAINER_PIC_##trainerPic}
@@ -196,6 +197,7 @@ const struct CompressedSpriteSheet gTrainerFrontPicTable[] =
     TRAINER_SPRITE(RS_MAY, gTrainerFrontPic_RubySapphireMay, TRAINER_PIC_SIZE),
     TRAINER_SPRITE(MAGMA_ADMIN_M, gTrainerFrontPic_MagmaAdminM, TRAINER_PIC_SIZE),
     TRAINER_SPRITE(MAGMA_ADMIN_F, gTrainerFrontPic_MagmaAdminF, TRAINER_PIC_SIZE),
+    TRAINER_SPRITE(CRUSH_KIN, gTrainerFrontPic_CrushKin, TRAINER_PIC_SIZE),
 };
 
 #define TRAINER_PAL(trainerPic, pal) [TRAINER_PIC_##trainerPic] = {pal, TRAINER_PIC_##trainerPic}
@@ -296,5 +298,6 @@ const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[] =
     TRAINER_PAL(RS_BRENDAN, gTrainerPalette_RubySapphireBrendan),
     TRAINER_PAL(RS_MAY, gTrainerPalette_RubySapphireMay),
     TRAINER_PAL(MAGMA_ADMIN_M, gTrainerPalette_MagmaAdminM),
-    TRAINER_PAL(MAGMA_ADMIN_F, gTrainerPalette_MagmaAdminF)
+    TRAINER_PAL(MAGMA_ADMIN_F, gTrainerPalette_MagmaAdminF),
+    TRAINER_PAL(CRUSH_KIN, gTrainerPalette_CrushKin)
 };
