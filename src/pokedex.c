@@ -313,7 +313,7 @@ static void PrintMonWeight(u16 weight, u8 left, u8 top);
 static void ResetOtherVideoRegisters(u16);
 static u8 PrintCryScreenSpeciesName(u8, u16, u8, u8);
 static void PrintEvoData(u8, u16, u8, u8);
-static void PrintStats(u16);
+static void PrintStats(u16,u8);
 static void PrintEvos(u16, u8);
 static void PrintMoves(u16, u8, u8);
 static void PrintInfoSubMenuText(u8, const u8 *str , u8, u8);
@@ -3807,14 +3807,14 @@ static void Task_LoadStatScreen(u8 taskId)
         break;
     case 4:
         PrintCryScreenSpeciesName(0, sPokedexListItem->dexNum, 6, 23);
-        PrintStats(sPokedexListItem->dexNum);
+        PrintStats(sPokedexListItem->dexNum, taskId);
         gMain.state++;
         break;
     case 5:
         //left window
         FreeMonIconPalettes();
         LoadMonIconPalette(NationalPokedexNumToSpecies(sPokedexListItem->dexNum)); 
-        gTasks[taskId].tMonSpriteId = CreateMonIcon(NationalPokedexNumToSpecies(sPokedexListItem->dexNum), SpriteCB_MonIcon, 80, 35, 4, 0, TRUE);
+        gTasks[taskId].tMonSpriteId = CreateMonIcon(NationalPokedexNumToSpecies(sPokedexListItem->dexNum), SpriteCB_MonIcon, 80, 33, 4, 0, TRUE);
         gSprites[gTasks[taskId].tMonSpriteId].oam.priority = 0;
         gDexCryScreenState = 0;
         gMain.state++;
@@ -5342,14 +5342,15 @@ static void PrintEvoData(u8 windowId, u16 species, u8 left, u8 top)
     PrintInfoSubMenuTextSmall(windowId,gStringVar4, left, top);
 }
 
-static void PrintStats(u16 dexNum)
+static void PrintStats(u16 dexNum, u8 taskId)
 {
-    u32 hp, atk, def, spe, spa, spd, cr, xp, ev, evStat, a1, a2;
+    u32 hp, atk, def, spe, spa, spd, cr, xp, ev, evStat, a1, a2, t1, t2;
     u16 species = NationalPokedexNumToSpecies(dexNum);
     u8 evstr[6];
     u32 total;
     u8 i = 0;
     u8 maxBarLength = 50;
+    struct Sprite *sprite;
     hp = gSpeciesInfo[species].baseHP;
     atk = gSpeciesInfo[species].baseAttack;
     def = gSpeciesInfo[species].baseDefense;
@@ -5360,8 +5361,12 @@ static void PrintStats(u16 dexNum)
     xp = gSpeciesInfo[species].expYield;
     a1 = gSpeciesInfo[species].abilities[0];
     a2 = gSpeciesInfo[species].abilities[1];
+    t1 = gSpeciesInfo[species].types[0];
+    t2 = gSpeciesInfo[species].types[1];
     if(a1 == a2)
         a2 = 0;
+    if(t1 == t2)
+        t2 = TYPE_NONE;
     if(gSpeciesInfo[species].evYield_HP)
     {
         ev = gSpeciesInfo[species].evYield_HP;
@@ -5397,25 +5402,25 @@ static void PrintStats(u16 dexNum)
     ConvertUIntToDecimalStringN(gStringVar1, total,STR_CONV_MODE_LEFT_ALIGN,3);
     StringExpandPlaceholders(gStringVar4, gText_StatTotal);
     PrintInfoSubMenuText(0,gStringVar4, 6, 34);
-    PrintInfoSubMenuText(0,gText_HP3, 6, 60);
-    PrintInfoSubMenuText(0,gText_Attack3, 6, 71);
-    PrintInfoSubMenuText(0,gText_Defense3, 6, 82);
-    PrintInfoSubMenuText(0,gText_Speed2, 6, 93);
-    PrintInfoSubMenuText(0,gText_SpAtk3, 6, 104);
-    PrintInfoSubMenuText(0,gText_SpDef3, 6, 115);
+    PrintInfoSubMenuText(0,gText_HP3, 6, 65);
+    PrintInfoSubMenuText(0,gText_Attack3, 6, 76);
+    PrintInfoSubMenuText(0,gText_Defense3, 6, 87);
+    PrintInfoSubMenuText(0,gText_SpAtk3, 6, 98);
+    PrintInfoSubMenuText(0,gText_SpDef3, 6, 109);
+    PrintInfoSubMenuText(0,gText_Speed2, 6, 120);
     PrintInfoSubMenuText(0,gText_CatchRate, 6, 137);
     ConvertUIntToDecimalStringN(gStringVar1, hp, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    PrintInfoSubMenuText(0,gStringVar1, 76, 60);
+    PrintInfoSubMenuText(0,gStringVar1, 76, 65);
     ConvertUIntToDecimalStringN(gStringVar1, atk, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    PrintInfoSubMenuText(0,gStringVar1, 76, 71);
+    PrintInfoSubMenuText(0,gStringVar1, 76, 76);
     ConvertUIntToDecimalStringN(gStringVar1, def, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    PrintInfoSubMenuText(0,gStringVar1, 76, 82);
-    ConvertUIntToDecimalStringN(gStringVar1, spe, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    PrintInfoSubMenuText(0,gStringVar1, 76, 93);
+    PrintInfoSubMenuText(0,gStringVar1, 76, 87);
     ConvertUIntToDecimalStringN(gStringVar1, spa, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    PrintInfoSubMenuText(0,gStringVar1, 76, 104);
+    PrintInfoSubMenuText(0,gStringVar1, 76, 98);
     ConvertUIntToDecimalStringN(gStringVar1, spd, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    PrintInfoSubMenuText(0,gStringVar1, 76, 115);
+    PrintInfoSubMenuText(0,gStringVar1, 76, 109);
+    ConvertUIntToDecimalStringN(gStringVar1, spe, STR_CONV_MODE_RIGHT_ALIGN, 3);
+    PrintInfoSubMenuText(0,gStringVar1, 76, 120);
     ConvertUIntToDecimalStringN(gStringVar1, cr, STR_CONV_MODE_RIGHT_ALIGN, 3);
     PrintInfoSubMenuText(0,gStringVar1, 76, 137);
     //Yield Window
@@ -5424,6 +5429,19 @@ static void PrintStats(u16 dexNum)
     PrintInfoSubMenuText(0,gText_EffortValues, 110, 56);
     ConvertUIntToDecimalStringN(gStringVar1, xp, STR_CONV_MODE_RIGHT_ALIGN, 3);
     PrintInfoSubMenuText(0,gStringVar1, 216, 45);
+    LoadCompressedSpriteSheet(&sSpriteSheet_MoveTypes);
+    LoadCompressedPalette(gMoveTypes_Pal, 0x1D0, 0x60);
+    gTasks[taskId].data[4] = CreateSprite(&sSpriteTemplate_MoveTypes, 22, 55, 2);
+    sprite = &gSprites[gTasks[taskId].data[4]];
+    StartSpriteAnim(sprite, t1);
+    sprite->oam.paletteNum = sMoveTypeToOamPaletteNum[t1];
+    if(t2 != TYPE_NONE)
+    {
+        gTasks[taskId].data[5] = CreateSprite(&sSpriteTemplate_MoveTypes, 57, 55, 2);
+        sprite = &gSprites[gTasks[taskId].data[5]];
+        StartSpriteAnim(sprite, t2);
+        sprite->oam.paletteNum = sMoveTypeToOamPaletteNum[t2];
+    }
     switch (ev)
     {
     case 1:
