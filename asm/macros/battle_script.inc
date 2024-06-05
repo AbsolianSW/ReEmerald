@@ -1227,9 +1227,8 @@
 	.byte 0xf2
 	.endm
 
-	.macro trygivecaughtmonnick ptr:req
+	.macro trygivecaughtmonnick
 	.byte 0xf3
-	.4byte \ptr
 	.endm
 
 	.macro subattackerhpbydmg
@@ -1255,6 +1254,11 @@
 
 	.macro strengthdamagecalculation
 	.byte 0xf9
+	.endm
+
+	.macro trychoosemontosendtopc ptr:req
+	.byte 0xfa
+	.4byte \ptr
 	.endm
 
 @ various command changed to more readable macros

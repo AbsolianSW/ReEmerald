@@ -39,6 +39,7 @@
 #include "pokenav.h"
 #include "menu_specialized.h"
 #include "data.h"
+#include "trainer_pokemon_sprites.h"
 #include "constants/abilities.h"
 #include "constants/battle_anim.h"
 #include "constants/battle_move_effects.h"
@@ -328,6 +329,7 @@ static void Cmd_finishaction(void);
 static void Cmd_finishturn(void);
 static void Cmd_trainerslideout(void);
 static void Cmd_strengthdamagecalculation(void);
+static void Cmd_trychoosemontosendtopc(void);
 
 void (* const gBattleScriptingCommandsTable[])(void) =
 {
@@ -580,7 +582,8 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     Cmd_finishaction,                            //0xF6
     Cmd_finishturn,                              //0xF7
     Cmd_trainerslideout,                         //0xF8
-    Cmd_strengthdamagecalculation                //0xF9
+    Cmd_strengthdamagecalculation,               //0xF9
+    Cmd_trychoosemontosendtopc                   //0xFA
 };
 
 struct StatFractions
@@ -10227,11 +10230,152 @@ void BattleDestroyYesNoCursorAt(u8 cursorPosition)
 
 static void Cmd_trygivecaughtmonnick(void)
 {
+    u8 i = 0;
+    u8 spriteId = 0;
     switch (gBattleCommunication[MULTIUSE_STATE])
     {
     case 0:
         HandleBattleWindow(YESNOBOX_X_Y, 0);
         BattlePutTextOnWindow(gText_BattleYesNoChoice, B_WIN_YESNO);
+        gBattleCommunication[MULTIUSE_STATE]++;
+        gBattleCommunication[CURSOR_POSITION] = 0;
+        BattleCreateYesNoCursorAt(0);
+        break;
+    case 1:
+        if (JOY_NEW(DPAD_UP) && gBattleCommunication[CURSOR_POSITION] != 0)
+        {
+            PlaySE(SE_SELECT);
+            BattleDestroyYesNoCursorAt(gBattleCommunication[CURSOR_POSITION]);
+            gBattleCommunication[CURSOR_POSITION] = 0;
+            BattleCreateYesNoCursorAt(0);
+        }
+        if (JOY_NEW(DPAD_DOWN) && gBattleCommunication[CURSOR_POSITION] == 0)
+        {
+            PlaySE(SE_SELECT);
+            BattleDestroyYesNoCursorAt(gBattleCommunication[CURSOR_POSITION]);
+            gBattleCommunication[CURSOR_POSITION] = 1;
+            BattleCreateYesNoCursorAt(1);
+        }
+        if (JOY_NEW(A_BUTTON))
+        {
+            PlaySE(SE_SELECT);
+            if (gBattleCommunication[CURSOR_POSITION] == 0)
+            {
+                gBattleCommunication[MULTIUSE_STATE]++;
+                BeginFastPaletteFade(3);
+            }
+            else
+            {
+                gBattleCommunication[MULTIUSE_STATE] = 6;
+            }
+        }
+        else if (JOY_NEW(B_BUTTON))
+        {
+            PlaySE(SE_SELECT);
+            gBattleCommunication[MULTIUSE_STATE] = 6;
+        }
+        break;
+    case 2:
+        if (!gPaletteFade.active)
+        {
+            GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
+            FreeAllWindowBuffers();
+
+            DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_SPECIES),
+                           GetMonGender(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]]),
+                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_PERSONALITY, NULL),
+                           BattleMainCB2);
+
+            gBattleCommunication[MULTIUSE_STATE]++;
+        }
+        break;
+    case 3:
+        if (!gPaletteFade.active
+            && gMain.callback2 == BattleMainCB2)
+        {
+            SetVBlankCallback(VBlankCB_Battle);
+            gBattleCommunication[0]++;
+        }
+        break;
+    case 4:
+        InitBattleBgsVideo();
+        SetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
+        LoadBattleTextboxAndBackground();
+        gBattle_BG3_X = 256;
+        for (i = 0; i < MAX_SPRITES; i++)
+            DestroySprite(&gSprites[i]);
+        spriteId = CreateMonPicSprite_HandleDeoxys(GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_SPECIES), SHINY_ODDS, GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_PERSONALITY), TRUE, 120, 80, 11, TAG_NONE);
+        gSprites[spriteId].oam.priority = 0;
+        gBattleCommunication[0]++;
+        break;
+    case 5:
+        if (!IsDma3ManagerBusyWithBgCopy())
+        {
+            BeginNormalPaletteFade(PALETTES_BG, 0, 16, 0, RGB_BLACK);
+            ShowBg(0);
+            ShowBg(3);
+            gBattleCommunication[0]++;
+        }
+        break;
+    case 6:
+        if (!gPaletteFade.active)
+            gBattlescriptCurrInstr++;
+        break;
+    }
+}
+
+static void Cmd_subattackerhpbydmg(void)
+{
+    gBattleMons[gBattlerAttacker].hp -= gBattleMoveDamage;
+    gBattlescriptCurrInstr++;
+}
+
+static void Cmd_removeattackerstatus1(void)
+{
+    gBattleMons[gBattlerAttacker].status1 = 0;
+    gBattlescriptCurrInstr++;
+}
+
+static void Cmd_finishaction(void)
+{
+    gCurrentActionFuncId = B_ACTION_FINISHED;
+}
+
+static void Cmd_finishturn(void)
+{
+    gCurrentActionFuncId = B_ACTION_FINISHED;
+    gCurrentTurnActionNumber = gBattlersCount;
+}
+
+static void Cmd_trainerslideout(void)
+{
+    gActiveBattler = GetBattlerAtPosition(gBattlescriptCurrInstr[1]);
+    BtlController_EmitTrainerSlideBack(BUFFER_A);
+    MarkBattlerForControllerExec(gActiveBattler);
+
+    gBattlescriptCurrInstr += 2;
+}
+
+static void Cmd_strengthdamagecalculation(void)
+{
+    gDynamicBasePower = 50 + (gBattleMons[gBattlerAttacker].level / 2);
+    gBattlescriptCurrInstr++;
+}
+
+static void Cmd_trychoosemontosendtopc(void)
+{
+    switch (gBattleCommunication[MULTIUSE_STATE])
+    {
+    case 0:
+        if(CalculatePlayerPartyCount()!= PARTY_SIZE)
+        {
+            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+            return;
+        }
+        HandleBattleWindow(YESNOBOX_X_Y, 0);
+        BattlePutTextOnWindow(gText_BattleYesNoChoice, B_WIN_YESNO);
+        BattlePutTextOnWindow(gText_PkmnSendToPC, B_WIN_MSG);
         gBattleCommunication[MULTIUSE_STATE]++;
         gBattleCommunication[CURSOR_POSITION] = 0;
         BattleCreateYesNoCursorAt(0);
@@ -10273,14 +10417,9 @@ static void Cmd_trygivecaughtmonnick(void)
     case 2:
         if (!gPaletteFade.active)
         {
-            GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
             FreeAllWindowBuffers();
 
-            DoNamingScreen(NAMING_SCREEN_CAUGHT_MON, gBattleStruct->caughtMonNick,
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_SPECIES),
-                           GetMonGender(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]]),
-                           GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_PERSONALITY, NULL),
-                           BattleMainCB2);
+            OpenPartyMenuChooseMonToSendToPC();
 
             gBattleCommunication[MULTIUSE_STATE]++;
         }
@@ -10288,53 +10427,16 @@ static void Cmd_trygivecaughtmonnick(void)
     case 3:
         if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
         {
-            SetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_NICKNAME, gBattleStruct->caughtMonNick);
+
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
         }
         break;
     case 4:
+        gSpecialVar_0x8004 = PARTY_NOTHING_CHOSEN;
         if (CalculatePlayerPartyCount() == PARTY_SIZE)
             gBattlescriptCurrInstr += 5;
         else
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
         break;
     }
-}
-
-static void Cmd_subattackerhpbydmg(void)
-{
-    gBattleMons[gBattlerAttacker].hp -= gBattleMoveDamage;
-    gBattlescriptCurrInstr++;
-}
-
-static void Cmd_removeattackerstatus1(void)
-{
-    gBattleMons[gBattlerAttacker].status1 = 0;
-    gBattlescriptCurrInstr++;
-}
-
-static void Cmd_finishaction(void)
-{
-    gCurrentActionFuncId = B_ACTION_FINISHED;
-}
-
-static void Cmd_finishturn(void)
-{
-    gCurrentActionFuncId = B_ACTION_FINISHED;
-    gCurrentTurnActionNumber = gBattlersCount;
-}
-
-static void Cmd_trainerslideout(void)
-{
-    gActiveBattler = GetBattlerAtPosition(gBattlescriptCurrInstr[1]);
-    BtlController_EmitTrainerSlideBack(BUFFER_A);
-    MarkBattlerForControllerExec(gActiveBattler);
-
-    gBattlescriptCurrInstr += 2;
-}
-
-static void Cmd_strengthdamagecalculation(void)
-{
-    gDynamicBasePower = 50 + (gBattleMons[gBattlerAttacker].level / 2);
-    gBattlescriptCurrInstr++;
 }

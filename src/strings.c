@@ -1900,3 +1900,4 @@ const u8 gText_PreEvo[] = _("PRE-EVO");
 const u8 gText_1EggGroup[] = _("EGG GROUP:{STR_VAR_1}");
 const u8 gText_2EggGroups[] = _("EGG GROUPS:{STR_VAR_1}/{STR_VAR_2}");
 
+

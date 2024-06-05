@@ -4424,11 +4424,9 @@ void CopyMon(void *dest, void *src, size_t size)
 u8 GiveMonToPlayer(struct Pokemon *mon)
 {
     s32 i;
-
     SetMonData(mon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
     SetMonData(mon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
     SetMonData(mon, MON_DATA_OT_ID, gSaveBlock2Ptr->playerTrainerId);
-
     for (i = 0; i < PARTY_SIZE; i++)
     {
         if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL) == SPECIES_NONE)
@@ -4436,8 +4434,15 @@ u8 GiveMonToPlayer(struct Pokemon *mon)
     }
 
     if (i >= PARTY_SIZE)
+    {
+        if(gSpecialVar_0x8004 < 6)
+        {
+            CopyMon(&gEnemyParty[2], &gPlayerParty[gSpecialVar_0x8004], sizeof(*mon));
+            CopyMon(&gPlayerParty[gSpecialVar_0x8004], mon, sizeof(*mon));
+            CopyMon(mon, &gEnemyParty[2], sizeof(*mon));
+        }
         return SendMonToPC(mon);
-
+    }
     CopyMon(&gPlayerParty[i], mon, sizeof(*mon));
     gPlayerPartyCount = i + 1;
     return MON_GIVEN_TO_PARTY;

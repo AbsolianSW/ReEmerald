@@ -75,7 +75,11 @@ BattleScript_TryNicknameCaughtMon::
 	printstring STRINGID_GIVENICKNAMECAPTURED
 	waitstate
 	setbyte gBattleCommunication, 0
-	trygivecaughtmonnick BattleScript_GiveCaughtMonEnd
+	trygivecaughtmonnick
+	setbyte gBattleCommunication, 0
+	@printstring STRINGID_SENDWHICHMONTOPC
+	@waitstate
+	trychoosemontosendtopc BattleScript_GiveCaughtMonEnd
 	givecaughtmon
 	printfromtable gCaughtMonStringIds
 	waitmessage B_WAIT_TIME_LONG
