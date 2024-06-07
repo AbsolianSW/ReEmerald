@@ -195,6 +195,7 @@ EWRAM_DATA u16 gLockedMoves[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gLastHitBy[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gChosenMoveByBattler[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gMoveResultFlags = 0;
+EWRAM_DATA u8 gMoveResultFlags2 = 0;
 EWRAM_DATA u32 gHitMarker = 0;
 EWRAM_DATA static u8 sUnusedBattlersArray[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gTakenDmgByBattler[MAX_BATTLERS_COUNT] = {0};
@@ -1999,7 +2000,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
             for (j = 0; gTrainers[trainerNum].trainerName[j] != EOS; j++) {
                 nameHash += gTrainers[trainerNum].trainerName[j];
             }
-
+            if(gTrainers[trainerNum].trainerName[i%(sizeof(gTrainers[trainerNum].trainerName))]%2) 
+                personalityValue+=1;
             switch (gTrainers[trainerNum].partyFlags)
             {
             case 0:
