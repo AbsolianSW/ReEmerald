@@ -1,5 +1,6 @@
 raw `
 .set LOCALID_OWNER, 1
+.set LOCALID_BERRYGIRL, 4
 
 Route104_PrettyPetalFlowerShop_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, Route104_PrettyPetalFlowerShop_OnTransition
@@ -14,6 +15,175 @@ Route104_PrettyPetalFlowerShop_OnTransition:
 
 Route104_PrettyPetalFlowerShop_EventScript_MoveShopOwner::
 	setobjectxyperm LOCALID_OWNER, 4, 6
+	removeobject LOCALID_BERRYGIRL
+	end
+	
+Route104_PrettyPetalFlowerShop_EventScript_BerryGirl::
+	lock
+	msgbox Route104_PrettyPetalFlowerShop_Text_WelcomeToBerryShop, MSGBOX_DEFAULT
+	waitmessage
+	goto_if_unset FLAG_BADGE06_GET, Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier1
+	goto_if_unset FLAG_SYS_GAME_CLEAR, Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier2
+	goto_if_unset FLAG_ALL_BERRIES_RECEIVED, Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier3
+	goto Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier4
+	end
+	
+Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier1::
+	pokemart Route104_PrettyPetalFlowerShop_Mart_BerryGirlTier1
+	msgbox Route104_PrettyPetalFlowerShop_Text_PleaseComeBack, MSGBOX_DEFAULT
+	release
+	end
+	
+	.align 2
+Route104_PrettyPetalFlowerShop_Mart_BerryGirlTier1:
+	.2byte ITEM_CHERI_BERRY
+	.2byte ITEM_CHESTO_BERRY
+	.2byte ITEM_PECHA_BERRY
+	.2byte ITEM_RAWST_BERRY
+	.2byte ITEM_ASPEAR_BERRY
+	.2byte ITEM_LEPPA_BERRY
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_PERSIM_BERRY
+	.2byte ITEM_NONE
+	release
+	end
+	
+Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier2::
+	pokemart Route104_PrettyPetalFlowerShop_Mart_BerryGirlTier2
+	msgbox Route104_PrettyPetalFlowerShop_Text_PleaseComeBack, MSGBOX_DEFAULT
+	release
+	end
+	
+	.align 2
+Route104_PrettyPetalFlowerShop_Mart_BerryGirlTier2:
+	.2byte ITEM_CHERI_BERRY
+	.2byte ITEM_CHESTO_BERRY
+	.2byte ITEM_PECHA_BERRY
+	.2byte ITEM_RAWST_BERRY
+	.2byte ITEM_ASPEAR_BERRY
+	.2byte ITEM_LEPPA_BERRY
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_PERSIM_BERRY
+	.2byte ITEM_SITRUS_BERRY
+	.2byte ITEM_FIGY_BERRY
+	.2byte ITEM_WIKI_BERRY
+	.2byte ITEM_MAGO_BERRY
+	.2byte ITEM_AGUAV_BERRY
+	.2byte ITEM_IAPAPA_BERRY
+	.2byte ITEM_RAZZ_BERRY
+	.2byte ITEM_BLUK_BERRY
+	.2byte ITEM_NANAB_BERRY
+	.2byte ITEM_WEPEAR_BERRY
+	.2byte ITEM_PINAP_BERRY
+	.2byte ITEM_CORNN_BERRY
+	.2byte ITEM_MAGOST_BERRY
+	.2byte ITEM_RABUTA_BERRY
+	.2byte ITEM_NOMEL_BERRY
+	.2byte ITEM_NONE
+	release
+	end
+	
+Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier3::
+	pokemart Route104_PrettyPetalFlowerShop_Mart_BerryGirlTier3
+	msgbox Route104_PrettyPetalFlowerShop_Text_PleaseComeBack, MSGBOX_DEFAULT
+	release
+	end
+	
+	.align 2
+Route104_PrettyPetalFlowerShop_Mart_BerryGirlTier3:
+	.2byte ITEM_CHERI_BERRY
+	.2byte ITEM_CHESTO_BERRY
+	.2byte ITEM_PECHA_BERRY
+	.2byte ITEM_RAWST_BERRY
+	.2byte ITEM_ASPEAR_BERRY
+	.2byte ITEM_LEPPA_BERRY
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_PERSIM_BERRY
+	.2byte ITEM_SITRUS_BERRY
+	.2byte ITEM_FIGY_BERRY
+	.2byte ITEM_WIKI_BERRY
+	.2byte ITEM_MAGO_BERRY
+	.2byte ITEM_AGUAV_BERRY
+	.2byte ITEM_IAPAPA_BERRY
+	.2byte ITEM_RAZZ_BERRY
+	.2byte ITEM_BLUK_BERRY
+	.2byte ITEM_NANAB_BERRY
+	.2byte ITEM_WEPEAR_BERRY
+	.2byte ITEM_PINAP_BERRY
+	.2byte ITEM_CORNN_BERRY
+	.2byte ITEM_MAGOST_BERRY
+	.2byte ITEM_RABUTA_BERRY
+	.2byte ITEM_NOMEL_BERRY
+	.2byte ITEM_LUM_BERRY
+	.2byte ITEM_POMEG_BERRY
+	.2byte ITEM_KELPSY_BERRY
+	.2byte ITEM_QUALOT_BERRY
+	.2byte ITEM_HONDEW_BERRY
+	.2byte ITEM_GREPA_BERRY
+	.2byte ITEM_TAMATO_BERRY
+	.2byte ITEM_LIECHI_BERRY
+	.2byte ITEM_GANLON_BERRY
+	.2byte ITEM_SALAC_BERRY
+	.2byte ITEM_PETAYA_BERRY
+	.2byte ITEM_APICOT_BERRY
+	.2byte ITEM_LANSAT_BERRY
+	.2byte ITEM_STARF_BERRY
+	.2byte ITEM_NONE
+	release
+	end
+	
+Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier4::
+	pokemart Route104_PrettyPetalFlowerShop_Mart_BerryGirlTier4
+	msgbox Route104_PrettyPetalFlowerShop_Text_PleaseComeBack, MSGBOX_DEFAULT
+	release
+	end
+	
+	.align 2
+Route104_PrettyPetalFlowerShop_Mart_BerryGirlTier4:
+	.2byte ITEM_CHERI_BERRY
+	.2byte ITEM_CHESTO_BERRY
+	.2byte ITEM_PECHA_BERRY
+	.2byte ITEM_RAWST_BERRY
+	.2byte ITEM_ASPEAR_BERRY
+	.2byte ITEM_LEPPA_BERRY
+	.2byte ITEM_ORAN_BERRY
+	.2byte ITEM_PERSIM_BERRY
+	.2byte ITEM_SITRUS_BERRY
+	.2byte ITEM_FIGY_BERRY
+	.2byte ITEM_WIKI_BERRY
+	.2byte ITEM_MAGO_BERRY
+	.2byte ITEM_AGUAV_BERRY
+	.2byte ITEM_IAPAPA_BERRY
+	.2byte ITEM_RAZZ_BERRY
+	.2byte ITEM_BLUK_BERRY
+	.2byte ITEM_NANAB_BERRY
+	.2byte ITEM_WEPEAR_BERRY
+	.2byte ITEM_PINAP_BERRY
+	.2byte ITEM_CORNN_BERRY
+	.2byte ITEM_MAGOST_BERRY
+	.2byte ITEM_RABUTA_BERRY
+	.2byte ITEM_NOMEL_BERRY
+	.2byte ITEM_LUM_BERRY
+	.2byte ITEM_POMEG_BERRY
+	.2byte ITEM_KELPSY_BERRY
+	.2byte ITEM_QUALOT_BERRY
+	.2byte ITEM_HONDEW_BERRY
+	.2byte ITEM_GREPA_BERRY
+	.2byte ITEM_TAMATO_BERRY
+	.2byte ITEM_LIECHI_BERRY
+	.2byte ITEM_GANLON_BERRY
+	.2byte ITEM_SALAC_BERRY
+	.2byte ITEM_PETAYA_BERRY
+	.2byte ITEM_APICOT_BERRY
+	.2byte ITEM_LANSAT_BERRY
+	.2byte ITEM_STARF_BERRY
+	.2byte ITEM_SPELON_BERRY
+	.2byte ITEM_PAMTRE_BERRY
+	.2byte ITEM_WATMEL_BERRY
+	.2byte ITEM_DURIN_BERRY
+	.2byte ITEM_BELUE_BERRY
+	.2byte ITEM_NONE
+	release
 	end
 
 Route104_PrettyPetalFlowerShop_EventScript_ShopOwner::
@@ -99,4 +269,13 @@ Route104_PrettyPetalFlowerShop_EventScript_AlreadyReceivedBerry::
 	msgbox Route104_PrettyPetalFlowerShop_Text_MachineMixesBerries, MSGBOX_DEFAULT
 	release
 	end
+	
+Route104_PrettyPetalFlowerShop_Text_WelcomeToBerryShop:
+	.string "Hi there! Welcome to the Pretty Petal\n"
+	.string "Flower Shop!$"
+
+Route104_PrettyPetalFlowerShop_Text_PleaseComeBack:
+	.string "Thank you for visiting us! Be sure to\n"
+	.string "check back regularly as we keep\l"
+	.string "expanding our assortment of berries!$"
 `

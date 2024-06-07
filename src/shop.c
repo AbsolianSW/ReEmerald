@@ -37,6 +37,7 @@
 #include "constants/decorations.h"
 #include "constants/items.h"
 #include "constants/metatile_behaviors.h"
+#include "constants/region_map_sections.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
 
@@ -627,7 +628,7 @@ static u8 CreateShopMenu(u8 martType)
     LockPlayerFieldControls();
     sMartInfo.martType = martType;
 
-    if (martType == MART_TYPE_NORMAL)
+    if (martType == MART_TYPE_NORMAL && gMapHeader.regionMapSectionId != MAPSEC_MT_CHIMNEY)
     {
         struct WindowTemplate winTemplate = sShopMenuWindowTemplates[WIN_BUY_SELL_QUIT];
         winTemplate.width = GetMaxWidthInMenuTable(sShopMenuActions_BuySellQuit, ARRAY_COUNT(sShopMenuActions_BuySellQuit));
