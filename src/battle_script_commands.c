@@ -1719,9 +1719,9 @@ static void Cmd_adjustnormaldamage(void)
      && gBattleMons[gBattlerTarget].maxHP <= gBattleMoveDamage)
     {
         gLastUsedAbility = ability;
-        RecordAbilityBattle(gBattlerTarget, holdEffect);
+        RecordAbilityBattle(gBattlerTarget, ability);
         gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP -1;
-        gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
+        gMoveResultFlags2 |= MOVE_RESULT_STURDY;
     }
     gBattlescriptCurrInstr++;
 }
@@ -1773,7 +1773,7 @@ static void Cmd_adjustnormaldamage2(void)
         gLastUsedAbility = ability;
         RecordAbilityBattle(gBattlerTarget, holdEffect);
         gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP -1;
-        gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
+        //gMoveResultFlags |= MOVE_RESULT_FOE_ENDURED;
     }
     gBattlescriptCurrInstr++;
 }
@@ -2065,14 +2065,18 @@ static void Cmd_resultmessage(void)
     u32 stringId = 0;
 
     if (gBattleControllerExecFlags)
-        return;
+        return; 
 
     if (gMoveResultFlags & MOVE_RESULT_MISSED && (!(gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE) || gBattleCommunication[MISS_TYPE] > B_MSG_AVOIDED_ATK))
     {
         stringId = gMissStringIds[gBattleCommunication[MISS_TYPE]];
         gBattleCommunication[MSG_DISPLAY] = 1;
     }
-    else
+    else if(gMoveResultFlags2 & MOVE_RESULT_STURDY)   
+    {
+        stringId = STRINGID_PKMNENDUREDHIT;
+        gBattleCommunication[MSG_DISPLAY] = 1;
+    } else
     {
         gBattleCommunication[MSG_DISPLAY] = 1;
         switch (gMoveResultFlags & (u8)(~MOVE_RESULT_MISSED))
