@@ -1549,7 +1549,6 @@ bool8 ScrCmd_bufferspeciesname(struct ScriptContext *ctx)
 {
     u8 stringVarIndex = ScriptReadByte(ctx);
     u16 species = VarGet(ScriptReadHalfword(ctx));
-
     StringCopy(sScriptStringVars[stringVarIndex], gSpeciesNames[species]);
     return FALSE;
 }
@@ -2399,6 +2398,71 @@ bool8 ScrCmd_buffernicknameofboxmon(struct ScriptContext *ctx)
     boxMon = GetBoxedMonPtr(gSpecialVar_MonBoxId, gSpecialVar_MonBoxPos);
     GetBoxMonData3(boxMon, MON_DATA_NICKNAME, nickname);
     StringCopy(sScriptStringVars[stringVarIndex], nickname);
-    DebugPrintf("Found species %s", gStringVar2);
+    return FALSE;
+}
+
+bool8 ScrCmd_checkfossil()
+{
+    if(CheckBagHasItem(ITEM_ROOT_FOSSIL, 1))
+    {
+        gSpecialVar_Result = 1;
+        StringCopy(gStringVar1, gItems[ITEM_ROOT_FOSSIL].name);
+        return FALSE;
+    }
+    if(CheckBagHasItem(ITEM_CLAW_FOSSIL, 1))
+    {
+        gSpecialVar_Result = 2;
+        StringCopy(gStringVar1, gItems[ITEM_CLAW_FOSSIL].name);
+        return FALSE;
+    }
+    if(CheckBagHasItem(ITEM_HELIX_FOSSIL, 1))
+    {
+        gSpecialVar_Result = 3;
+        StringCopy(gStringVar1, gItems[ITEM_HELIX_FOSSIL].name);
+        return FALSE;
+    }
+    if(CheckBagHasItem(ITEM_DOME_FOSSIL, 1))
+    {
+        gSpecialVar_Result = 4;
+        StringCopy(gStringVar1, gItems[ITEM_DOME_FOSSIL].name);
+        return FALSE;
+    }
+    if(CheckBagHasItem(ITEM_OLD_AMBER, 1))
+    {
+        gSpecialVar_Result = 5;
+        StringCopy(gStringVar1, gItems[ITEM_OLD_AMBER].name);
+        return FALSE;
+    }
+    gSpecialVar_Result = 0;
+    return FALSE;
+}
+
+bool8 ScrCmd_removefossil()
+{
+    if(CheckBagHasItem(ITEM_ROOT_FOSSIL, 1))
+    {
+        RemoveBagItem(ITEM_ROOT_FOSSIL,1);
+        return FALSE;
+    }
+    if(CheckBagHasItem(ITEM_CLAW_FOSSIL, 1))
+    {
+        RemoveBagItem(ITEM_CLAW_FOSSIL,1);
+        return FALSE;
+    }
+    if(CheckBagHasItem(ITEM_HELIX_FOSSIL, 1))
+    {
+        RemoveBagItem(ITEM_HELIX_FOSSIL,1);
+        return FALSE;
+    }
+    if(CheckBagHasItem(ITEM_DOME_FOSSIL, 1))
+    {
+        RemoveBagItem(ITEM_DOME_FOSSIL,1);
+        return FALSE;
+    }
+    if(CheckBagHasItem(ITEM_OLD_AMBER, 1))
+    {
+        RemoveBagItem(ITEM_OLD_AMBER,1);
+        return FALSE;
+    }
     return FALSE;
 }

@@ -436,7 +436,6 @@ static void Task_ExitNonDoor(u8 taskId)
         if (WaitForWeatherFadeIn())
         {
             UnfreezeObjectEvents();
-            DebugPrintf("Hi");
             // Account for follower exiting pokeball after scripted warp
             if (gSaveBlock2Ptr->follower.createSurfBlob != 2)
                 gSaveBlock2Ptr->follower.comeOutDoorStairs = 2;
@@ -450,7 +449,6 @@ static void Task_ExitNonDoor(u8 taskId)
 static void Task_ExitMossdeepGymWarp(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
-    DebugPrintf("state %d", gTasks[taskId].tState);
     switch (gTasks[taskId].tState)
     {
     case 0:

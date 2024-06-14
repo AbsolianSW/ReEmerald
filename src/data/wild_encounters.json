@@ -3388,12 +3388,12 @@
               {
                 "min_level": 26,
                 "max_level": 26,
-                "species": "SPECIES_ELECTRODE"
+                "species": "SPECIES_VOLTORB"
               },
               {
                 "min_level": 26,
                 "max_level": 26,
-                "species": "SPECIES_MAGNETON"
+                "species": "SPECIES_MAGNEMITE"
               }
             ]
           }
@@ -6917,8 +6917,8 @@
                 "species": "SPECIES_VOLTORB"
               },
               {
-                "min_level": 22,
-                "max_level": 22,
+                "min_level": 13,
+                "max_level": 13,
                 "species": "SPECIES_MAGNEMITE"
               }
             ]

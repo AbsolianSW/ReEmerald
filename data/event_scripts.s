@@ -863,7 +863,7 @@ gText_SelectWithoutRegisteredItem::
 
 gText_SendAnotherMonToPC::
 	.string "Choose a Monster to send to the PC to\n"
-	.string "make room for {B_OPPONENT_MON1_NAME}?$"
+	.string "make room for {STR_VAR_1}?$"
 
 gText_PokemonTrainerSchoolEmail::
 	.string "There's an e-mail from POKéMON TRAINER\n"
@@ -1025,6 +1025,7 @@ Common_Event_Script_ChooseMonToSendToPC::
 	end
 
 Common_Event_Script_ChooseMonToSendToPCReturn:
+	setvar VAR_0x8004, 99
 	return
 	end
 

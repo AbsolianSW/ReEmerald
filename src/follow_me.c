@@ -332,7 +332,6 @@ void FollowMe(struct ObjectEvent* npc, u8 state, bool8 ignoreScriptActive)
     switch (newState) 
     {
     case MOVEMENT_ACTION_JUMP_2_DOWN ... MOVEMENT_ACTION_JUMP_2_RIGHT:
-        DebugPrintf("follower is invisible %d", follower->invisible);
 		if(follower->invisible == FALSE)
 		{
 			CreateTask(Task_ReallowPlayerMovement, 1); //Synchronize movements on stairs and ledges

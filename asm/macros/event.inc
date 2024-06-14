@@ -1767,6 +1767,15 @@
 	stringvar \stringVarId
 	.endm
 
+	.macro checkfossil
+	.byte 0xea
+	.endm
+
+	.macro removefossil
+	.byte 0xeb
+	.endm
+
+
 
 @ Supplementary
 
