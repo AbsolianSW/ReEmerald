@@ -10244,6 +10244,7 @@ static void Cmd_trygivecaughtmonnick(void)
         gBattleCommunication[MULTIUSE_STATE]++;
         gBattleCommunication[CURSOR_POSITION] = 0;
         BattleCreateYesNoCursorAt(0);
+        GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_NICKNAME, gStringVar1);
         break;
     case 1:
         if (JOY_NEW(DPAD_UP) && gBattleCommunication[CURSOR_POSITION] != 0)
@@ -10369,6 +10370,7 @@ static void Cmd_strengthdamagecalculation(void)
 
 static void Cmd_trychoosemontosendtopc(void)
 {
+    u8* str;
     switch (gBattleCommunication[MULTIUSE_STATE])
     {
     case 0:
@@ -10379,7 +10381,8 @@ static void Cmd_trychoosemontosendtopc(void)
         }
         HandleBattleWindow(YESNOBOX_X_Y, 0);
         BattlePutTextOnWindow(gText_BattleYesNoChoice, B_WIN_YESNO);
-        BattlePutTextOnWindow(gText_PkmnSendToPC, B_WIN_MSG);
+        StringExpandPlaceholders(str, gText_PkmnSendToPC);
+        BattlePutTextOnWindow(str, B_WIN_MSG);
         gBattleCommunication[MULTIUSE_STATE]++;
         gBattleCommunication[CURSOR_POSITION] = 0;
         BattleCreateYesNoCursorAt(0);

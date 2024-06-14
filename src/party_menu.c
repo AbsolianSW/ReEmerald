@@ -303,6 +303,7 @@ static void HandleChooseMonSelection(u8, s8 *);
 static u16 PartyMenuButtonHandler(s8 *);
 static s8 *GetCurrentPartySlotPtr(void);
 static bool8 IsSelectedMonNotEgg(u8 *);
+static bool8 IsOnlySurfMon(u8 *);
 static void PartyMenuRemoveWindow(u8 *);
 static void CB2_SetUpExitToBattleScreen(void);
 static void Task_ClosePartyMenuAfterText(u8);
@@ -1347,7 +1348,13 @@ static void HandleChooseMonSelection(u8 taskId, s8 *slotPtr)
             break;
         case PARTY_ACTION_CHOOSE_AND_CLOSE:
             PlaySE(SE_SELECT);
-            Task_ClosePartyMenu(taskId);
+            if(gPartyMenu.exitCallback == BufferMonSelectionAfterCatch && IsOnlySurfMon((u8 *)slotPtr)) 
+            {
+                DisplayPartyMenuStdMessage(PARTY_MSG_YOU_MIGHT_NEED_THAT);
+            } else
+            {
+                Task_ClosePartyMenu(taskId);
+            }
             break;
         case PARTY_ACTION_MINIGAME:
             if (IsSelectedMonNotEgg((u8 *)slotPtr))
@@ -1363,6 +1370,29 @@ static void HandleChooseMonSelection(u8 taskId, s8 *slotPtr)
             break;
         }
     }
+}
+
+static bool8 IsOnlySurfMon(u8 * slotPtr)
+{
+   u8 numSurfMons = 0;
+   u32 i = 0;
+   for(i; i <PARTY_SIZE;i++)
+   {
+        if(GetMonData(&gPlayerParty[i], MON_DATA_MOVE1) == MOVE_SURF ||
+           GetMonData(&gPlayerParty[i], MON_DATA_MOVE2) == MOVE_SURF ||
+           GetMonData(&gPlayerParty[i], MON_DATA_MOVE3) == MOVE_SURF ||
+           GetMonData(&gPlayerParty[i], MON_DATA_MOVE4) == MOVE_SURF)
+           numSurfMons++;
+   }
+   if(numSurfMons == 1)
+   {
+      if(GetMonData(&gPlayerParty[*slotPtr], MON_DATA_MOVE1) == MOVE_SURF ||
+           GetMonData(&gPlayerParty[*slotPtr], MON_DATA_MOVE2) == MOVE_SURF ||
+           GetMonData(&gPlayerParty[*slotPtr], MON_DATA_MOVE3) == MOVE_SURF ||
+           GetMonData(&gPlayerParty[*slotPtr], MON_DATA_MOVE4) == MOVE_SURF)  
+           return TRUE;
+   }
+   return FALSE;
 }
 
 static bool8 IsSelectedMonNotEgg(u8 *slotPtr)
@@ -2471,6 +2501,7 @@ void DisplayPartyMenuStdMessage(u32 stringId)
             *windowPtr = AddWindow(&sDoWhatWithMonMsgWindowTemplate);
             break;
         case PARTY_MSG_DO_WHAT_WITH_ITEM:
+        case PARTY_MSG_YOU_MIGHT_NEED_THAT:
             *windowPtr = AddWindow(&sDoWhatWithItemMsgWindowTemplate);
             break;
         case PARTY_MSG_DO_WHAT_WITH_MAIL:

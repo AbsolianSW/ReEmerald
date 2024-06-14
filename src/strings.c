@@ -454,6 +454,7 @@ const u8 gText_ChoosePokemonConfirm[] = _("Choose POKéMON and confirm.");
 const u8 gText_EnjoyCycling[] = _("Let's enjoy cycling!");
 const u8 gText_InUseAlready_PM[] = _("This is in use already.");
 const u8 gText_AlreadyHoldingOne[] = _("{STR_VAR_1} is already holding\none {STR_VAR_2}.");
+const u8 gText_YouMightNeedThat[] = _("But you might need that one!");
 const u8 gText_NoUse[] = _("No use.");
 const u8 gText_Able[] = _("ABLE");
 const u8 gText_First_PM[] = _("FIRST");
