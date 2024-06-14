@@ -449,7 +449,7 @@ static void Task_ChallengeMenuProcessInput(u8 taskId)
             gTasks[taskId].func = Task_ChallengeMenuSave;
         }
     }
-    else if (JOY_NEW(DPAD_UP))
+    else if (JOY_REPEAT(DPAD_UP))
     {
         if (gTasks[taskId].tMenuSelection > 0)
             gTasks[taskId].tMenuSelection--;
@@ -553,7 +553,7 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
     }
     else if (JOY_NEW(A_BUTTON))
     {
-        if (gTasks[taskId].tMenuSelection == MENUITEM_CONFIRM)
+        if (gTasks[taskId].tMenuSelection == MENUITEM_CONFIRM_PG2)
         {
             gTasks[taskId].func = Task_ChallengeMenuSave;
         } else
@@ -578,7 +578,7 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
             gTasks[taskId].func = Task_ChallengeMenuSave;
         }
     }
-    else if (JOY_NEW(DPAD_UP))
+    else if (JOY_REPEAT(DPAD_UP))
     {
         if(isInDetails && gTasks[taskId].tMenuSelection == MENUITEM_CUSTOMSTARTER)
         {
@@ -621,7 +621,7 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
         if (gTasks[taskId].tMenuSelection > 0)
             gTasks[taskId].tMenuSelection--;
         else
-            gTasks[taskId].tMenuSelection = MENUITEM_CONFIRM;
+            gTasks[taskId].tMenuSelection = MENUITEM_CONFIRM_PG2;
         HighlightChallengeMenuItem(gTasks[taskId].tMenuSelection);
         if(isInDetails) 
         {
@@ -670,7 +670,7 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
             CustomStarter_DrawChoices(gTasks[taskId].tCustomStarter);
         } else
         {
-        if (gTasks[taskId].tMenuSelection < MENUITEM_CONFIRM)
+        if (gTasks[taskId].tMenuSelection < MENUITEM_CONFIRM_PG2)
             gTasks[taskId].tMenuSelection++;
         else
             gTasks[taskId].tMenuSelection = 0;
