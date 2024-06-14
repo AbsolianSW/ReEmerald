@@ -178,8 +178,8 @@ EverGrandeCity_ChampionsRoom_Movement_RivalApproachPlayer:
 	walk_up
 	walk_up
 	walk_up
-	walk_up
 	walk_left
+	walk_up
 	walk_up
 	walk_in_place_faster_right
 	step_end
@@ -196,8 +196,9 @@ EverGrandeCity_ChampionsRoom_Movement_RivalLookBackAndForth:
 	step_end
 
 EverGrandeCity_ChampionsRoom_Movement_RivalFollows:
+	delay_16
 	walk_right
-	walk_up
+	face_up
 	step_end
 
 EverGrandeCity_ChampionsRoom_Movement_WallaceExitStart:
@@ -217,8 +218,8 @@ EverGrandeCity_ChampionsRoom_Movement_BirchArrives:
 	walk_up
 	walk_up
 	walk_up
-	walk_up
 	walk_right
+	walk_up
 	walk_up
 	walk_in_place_faster_left
 	step_end

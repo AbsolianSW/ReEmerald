@@ -590,17 +590,33 @@ PlayersHouse_1F_EventScript_MomNoticesLatiBroadcastFemale::
 
 PlayersHouse_1F_EventScript_MomApproachPlayerAfterTVMale::
 	applymovement VAR_0x800A, PlayersHouse_1F_Movement_MomApproachPlayerAfterTVMale
+	applymovement OBJ_EVENT_ID_FOLLOWER, PlayersHouse_1F_Movement_FollowerOutOfTheWayMale
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	return
+	
+PlayersHouse_1F_Movement_FollowerOutOfTheWayMale:
+	walk_left
+	walk_left
+	follower_face_right
+	step_end
+	
 
 PlayersHouse_1F_EventScript_MomApproachPlayerAfterTVFemale::
 	applymovement VAR_0x800A, PlayersHouse_1F_Movement_MomApproachPlayerAfterTVFemale
+	applymovement OBJ_EVENT_ID_FOLLOWER, PlayersHouse_1F_Movement_FollowerOutOfTheWayFemale
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	return
+	
+PlayersHouse_1F_Movement_FollowerOutOfTheWayFemale:
+	walk_right
+	walk_right
+	follower_face_left
+	step_end
+	
 
 PlayersHouse_1F_Movement_DadApproachPlayerMale:
 	walk_right

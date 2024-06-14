@@ -1,4 +1,5 @@
 .set LOCALID_RIVAL, 2
+.set LOCALID_RIVAL_FOLLOWER, 21
 
 Route103_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, Route103_OnTransition
@@ -7,6 +8,8 @@ Route103_MapScripts::
 
 Route103_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
+	setvar VAR_0x8004, 0
+	call Common_EventScript_SetupRivalFollowerId
 	call ProfBirch_EventScript_UpdateLocation
 	end
 
@@ -112,9 +115,11 @@ Route103_EventScript_RivalExit::
 Route103_EventScript_RivalExitFacingNorth::
 	applymovement OBJ_EVENT_ID_PLAYER, Route103_Movement_WatchRivalExitFacingNorth
 	applymovement LOCALID_RIVAL, Route103_Movement_RivalExitFacingNorth1
+	applymovement LOCALID_RIVAL_FOLLOWER, Route103_Movement_RivalFollowerExitFacingNorth1
 	waitmovement 0
 	playse SE_LEDGE
 	applymovement LOCALID_RIVAL, Route103_Movement_RivalExitFacingNorth2
+	applymovement LOCALID_RIVAL_FOLLOWER, Route103_Movement_RivalFollowerExitFacingNorth2
 	waitmovement 0
 	goto Route103_EventScript_RivalEnd
 	end
@@ -122,24 +127,29 @@ Route103_EventScript_RivalExitFacingNorth::
 Route103_EventScript_RivalExitFacingEastOrWest::
 	applymovement OBJ_EVENT_ID_PLAYER, Route103_Movement_WatchRivalExitFacingEastOrWest
 	applymovement LOCALID_RIVAL, Route103_Movement_RivalExit1
+	applymovement LOCALID_RIVAL_FOLLOWER, Route103_Movement_RivalFollowerExit1
 	waitmovement 0
 	playse SE_LEDGE
 	applymovement LOCALID_RIVAL, Route103_Movement_RivalExit2
+	applymovement LOCALID_RIVAL_FOLLOWER, Route103_Movement_RivalFollowerExit2
 	waitmovement 0
 	goto Route103_EventScript_RivalEnd
 	end
 
 Route103_EventScript_RivalExitFacingSouth::
 	applymovement LOCALID_RIVAL, Route103_Movement_RivalExit1
+	applymovement LOCALID_RIVAL_FOLLOWER, Route103_Movement_RivalFollowerExit1
 	waitmovement 0
 	playse SE_LEDGE
 	applymovement LOCALID_RIVAL, Route103_Movement_RivalExit2
+	applymovement LOCALID_RIVAL_FOLLOWER, Route103_Movement_RivalFollowerExit2
 	waitmovement 0
 	goto Route103_EventScript_RivalEnd
 	end
 
 Route103_EventScript_RivalEnd::
 	removeobject LOCALID_RIVAL
+	removeobject LOCALID_RIVAL_FOLLOWER
 	setvar VAR_BIRCH_LAB_STATE, 4
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
 	setflag FLAG_DEFEATED_RIVAL_ROUTE103
@@ -152,12 +162,31 @@ Route103_EventScript_RivalEnd::
 
 Route103_Movement_RivalExitFacingNorth1:
 	walk_left
+	walk_left
 	walk_down
 	step_end
 
 Route103_Movement_RivalExitFacingNorth2:
 	jump_2_down
 	delay_16
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+	
+Route103_Movement_RivalFollowerExitFacingNorth1:
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+Route103_Movement_RivalFollowerExitFacingNorth2:
+	walk_down
+	delay_8
+	jump_2_down
+	delay_16
+	walk_down
 	walk_down
 	walk_down
 	walk_down
@@ -179,6 +208,21 @@ Route103_Movement_RivalExit1:
 Route103_Movement_RivalExit2:
 	jump_2_down
 	delay_16
+	walk_down
+	walk_down
+	walk_down
+	step_end
+	
+Route103_Movement_RivalFollowerExit1:
+	walk_left
+	step_end
+
+Route103_Movement_RivalFollowerExit2:
+	walk_down
+	delay_8
+	jump_2_down
+	delay_16
+	walk_down
 	walk_down
 	walk_down
 	walk_down

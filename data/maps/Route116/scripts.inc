@@ -76,9 +76,21 @@ Route116_EventScript_DevonEmployeeExit::
 	return
 
 Route116_EventScript_DevonEmployeeExitEast::
+	getfollowercardinaldirection
+	call_if_eq VAR_UNUSED_0x8014, 2, Route116_EventScript_MoveFollowerOutOfTheWay
 	applymovement VAR_LAST_TALKED, Route116_Movement_DevonEmployeeExitEast
 	waitmovement 0
 	return
+	
+Route116_EventScript_MoveFollowerOutOfTheWay::
+	applymovement OBJ_EVENT_ID_FOLLOWER, Route116_Movement_MoveFollowerOutOfTheWay
+	return
+
+Route116_Movement_MoveFollowerOutOfTheWay:
+	walk_left
+	walk_up
+	follower_face_down
+	step_end
 
 Route116_EventScript_TryGiveRepeatBallAgain::
 	msgbox Route116_Text_TokenOfAppreciation, MSGBOX_DEFAULT
@@ -200,9 +212,21 @@ Route116_EventScript_GlassesManExitNormal::
 	return
 
 Route116_EventScript_GlassesManExitEast::
+	getfollowercardinaldirection
+	call_if_eq VAR_UNUSED_0x8014, 0, Route116_EventScript_FollowerMoveOutOfTheWay
 	applymovement VAR_LAST_TALKED, Route116_Movement_GlassesManExitEast
 	waitmovement 0
 	return
+	
+Route116_EventScript_FollowerMoveOutOfTheWay::
+	applymovement OBJ_EVENT_ID_FOLLOWER, Route116_Movement_FollowerMoveOutOfTheWay
+	return
+	
+Route116_Movement_FollowerMoveOutOfTheWay:
+	walk_left
+	walk_down
+	follower_face_up
+	step_end
 
 Route116_Movement_GlassesManExit:
 	walk_left

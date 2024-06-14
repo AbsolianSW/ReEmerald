@@ -2274,6 +2274,7 @@ void SpriteCB_AshPuff(struct Sprite *sprite)
 void StartEscapeRopeFieldEffect(void)
 {
     LockPlayerFieldControls();
+    FollowerIntoPokeball();
     FreezeObjectEvents();
     CreateTask(Task_EscapeRopeWarpOut, 80);
 }

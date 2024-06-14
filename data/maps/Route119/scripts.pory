@@ -2,6 +2,7 @@ raw `
 .set LOCALID_RIVAL, 16
 .set LOCALID_RIVAL_ON_BIKE, 25
 .set LOCALID_SCOTT, 43
+.set LOCALID_RIVAL_FOLLOWER, 45
 
 Route119_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, Route119_OnResume
@@ -23,6 +24,8 @@ Route119_EventScript_TryRemoveKecleon::
 Route119_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call Common_EventScript_SetupRivalOnBikeGfxId
+	setvar VAR_0x8004, 1
+	call Common_EventScript_SetupRivalFollowerId
 	call_if_eq VAR_WEATHER_INSTITUTE_STATE, 1, Route119_EventScript_MoveInstituteWorkersDownstairs
 	special SetRoute119Weather
 	call Route119_EventScript_CountTrainersDefeated
@@ -65,12 +68,18 @@ Route119_EventScript_RivalEncounter::
 	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_SetRivalPos2
 	removeobject LOCALID_RIVAL_ON_BIKE
 	addobject LOCALID_RIVAL
+	addobject LOCALID_RIVAL_FOLLOWER
+	applymovement LOCALID_RIVAL_FOLLOWER, Route119_Movement_RivalFollowerInitial
 	delay 30
 	checkplayergender
 	goto_if_eq VAR_RESULT, MALE, Route119_EventScript_BattleMay
 	goto_if_eq VAR_RESULT, FEMALE, Route119_EventScript_BattleBrendan
 	releaseall
 	end
+	
+Route119_Movement_RivalFollowerInitial:
+	follower_face_up
+	step_end
 
 Route119_EventScript_PlayMayMusic::
 	playbgm MUS_ENCOUNTER_MAY, TRUE
@@ -150,6 +159,7 @@ Route119_EventScript_RivalExitScottArrive::
 	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_SetRivalPos1
 	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_SetRivalPos2
 	removeobject LOCALID_RIVAL
+	removeobject LOCALID_RIVAL_FOLLOWER
 	addobject LOCALID_RIVAL_ON_BIKE
 	delay 30
 	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_RivalExit1
@@ -175,11 +185,26 @@ Route119_EventScript_RivalExitScottArrive::
 
 Route119_EventScript_SetScottPos1::
 	setobjectxyperm LOCALID_SCOTT, 27, 25
+	applymovement OBJ_EVENT_ID_FOLLOWER, Route119_Movement_FollowerMoveAwayForScott1
 	return
 
 Route119_EventScript_SetScottPos2::
 	setobjectxyperm LOCALID_SCOTT, 28, 25
+	applymovement OBJ_EVENT_ID_FOLLOWER, Route119_Movement_FollowerMoveAwayForScott2
 	return
+	
+Route119_Movement_FollowerMoveAwayForScott1:
+	walk_right
+	walk_down
+	follower_face_up
+	step_end
+
+Route119_Movement_FollowerMoveAwayForScott2:
+	walk_left
+	walk_down
+	follower_face_up
+	step_end
+
 
 Route119_EventScript_ScottExit1::
 	applymovement LOCALID_SCOTT, Route119_Movement_ScottExit1
@@ -193,13 +218,31 @@ Route119_EventScript_ScottExit2::
 
 Route119_EventScript_RivalEnter1::
 	applymovement LOCALID_RIVAL_ON_BIKE, Route119_Movement_RivalEnter1
+	applymovement OBJ_EVENT_ID_FOLLOWER, Route119_Movement_RivalEnter1Follower
 	waitmovement 0
 	return
 
 Route119_EventScript_RivalEnter2::
 	applymovement LOCALID_RIVAL_ON_BIKE, Route119_Movement_RivalEnter2
+	applymovement OBJ_EVENT_ID_FOLLOWER, Route119_Movement_RivalEnter2Follower
 	waitmovement 0
 	return
+	
+Route119_Movement_RivalEnter1Follower:
+	walk_right
+	walk_up
+	walk_up
+	walk_left
+	follower_face_down
+	step_end
+
+Route119_Movement_RivalEnter2Follower:
+	walk_left
+	walk_up
+	walk_up
+	walk_right
+	follower_face_down
+	step_end
 
 Route119_EventScript_RivalExit1::
 	applymovement OBJ_EVENT_ID_PLAYER, Route119_Movement_PlayerWatchRivalExit1
@@ -212,15 +255,31 @@ Route119_EventScript_RivalExit2::
 	applymovement LOCALID_RIVAL_ON_BIKE, Route119_Movement_RivalExit2
 	waitmovement 0
 	return
+	
+Route119_Movement_RivalExit1Follower:
+	walk_fast_up
+	walk_fast_left
+	follower_face_down
+	step_end
+
+Route119_Movement_RivalExit2Follower:
+	walk_fast_up
+	walk_fast_right
+	follower_face_down
+	step_end
+
+
 
 Route119_EventScript_SetRivalPos1::
 	setobjectxyperm LOCALID_RIVAL, 25, 32
 	setobjectxyperm LOCALID_RIVAL_ON_BIKE, 25, 32
+	setobjectxyperm LOCALID_RIVAL_FOLLOWER, 25, 33
 	return
 
 Route119_EventScript_SetRivalPos2::
 	setobjectxyperm LOCALID_RIVAL, 26, 32
 	setobjectxyperm LOCALID_RIVAL_ON_BIKE, 26, 32
+	setobjectxyperm LOCALID_RIVAL_FOLLOWER, 26, 33
 	return
 
 Route119_Movement_PlayerWatchRivalExit1:

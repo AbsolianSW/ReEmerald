@@ -5751,12 +5751,10 @@ static void PrintMoves(u16 dexNum, u8 offset, u8 taskId)
         while(gLevelUpLearnsets[species][i] != LEVEL_UP_END)
         {
             moveToCheck = gLevelUpLearnsets[species][i++] & LEVEL_UP_MOVE_ID;
-            DebugPrintf("checking move %d", moveToCheck);
             while(moves[j])
             {
                 if(moves[j++] == moveToCheck)
                 {
-                    DebugPrintf("Already in learnset, skip");
                     skip = TRUE;
                     break;
                 }

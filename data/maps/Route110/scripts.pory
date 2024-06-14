@@ -3,6 +3,7 @@ raw `
 .set LOCALID_RIVAL, 28
 .set LOCALID_RIVAL_ON_BIKE, 29
 .set LOCALID_BIRCH, 36
+.set LOCALID_RIVAL_FOLLOWER, 37
 
 Route110_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, Route110_OnResume
@@ -17,6 +18,8 @@ Route110_OnResume:
 Route110_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call Common_EventScript_SetupRivalOnBikeGfxId
+	setvar VAR_0x8004, 1
+	call Common_EventScript_SetupRivalFollowerId
 	call_if_eq VAR_CYCLING_CHALLENGE_STATE, 1, Route110_EventScript_SaveCyclingMusic
 	end
 
@@ -475,6 +478,7 @@ Route110_EventScript_RivalExit::
 	setobjectmovementtype LOCALID_RIVAL, MOVEMENT_TYPE_FACE_RIGHT
 	setobjectmovementtype LOCALID_RIVAL_ON_BIKE, MOVEMENT_TYPE_FACE_RIGHT
 	removeobject LOCALID_RIVAL
+	removeobject LOCALID_RIVAL_FOLLOWER
 	addobject LOCALID_RIVAL_ON_BIKE
 	delay 45
 	call_if_eq VAR_0x8008, 1, Route110_EventScript_RivalExit1
@@ -489,16 +493,19 @@ Route110_EventScript_RivalExit::
 
 Route110_EventScript_RivalApproachPlayer1::
 	applymovement LOCALID_RIVAL, Route110_Movement_RivalApproachPlayer1
+	applymovement LOCALID_RIVAL_FOLLOWER, Route110_Movement_RivalFollowerApproachPlayer1
 	waitmovement 0
 	return
 
 Route110_EventScript_RivalApproachPlayer2::
 	applymovement LOCALID_RIVAL, Route110_Movement_RivalApproachPlayer2
+	applymovement LOCALID_RIVAL_FOLLOWER, Route110_Movement_RivalFollowerApproachPlayer2
 	waitmovement 0
 	return
 
 Route110_EventScript_RivalApproachPlayer3::
 	applymovement LOCALID_RIVAL, Route110_Movement_RivalApproachPlayer3
+	applymovement LOCALID_RIVAL_FOLLOWER, Route110_Movement_RivalFollowerApproachPlayer3
 	waitmovement 0
 	return
 
@@ -534,8 +541,17 @@ Route110_Movement_RivalApproachPlayer1:
 	walk_left
 	walk_in_place_faster_down
 	step_end
+	
+Route110_Movement_RivalFollowerApproachPlayer1:
+	walk_down
+	walk_down
+	step_end
 
 Route110_Movement_RivalApproachPlayer2:
+	walk_down
+	step_end
+	
+Route110_Movement_RivalFollowerApproachPlayer2:
 	walk_down
 	step_end
 
@@ -543,6 +559,11 @@ Route110_Movement_RivalApproachPlayer3:
 	walk_down
 	walk_right
 	walk_in_place_faster_down
+	step_end
+	
+Route110_Movement_RivalFollowerApproachPlayer3:
+	walk_down
+	walk_down
 	step_end
 
 Route110_Movement_RivalExit1:

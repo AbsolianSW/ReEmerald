@@ -1762,6 +1762,11 @@
 	.byte 0xe8
 	.endm
 
+	.macro buffernicknameofboxmon stringVarId:req
+	.byte 0xe9
+	stringvar \stringVarId
+	.endm
+
 
 @ Supplementary
 
@@ -2000,3 +2005,15 @@
     setvar VAR_RESULT, \pos
     callnative SetFollowerWarpPosition
     .endm
+
+	@0=north, 1=east, 2=south, 3=west
+	.macro getfollowercardinaldirection
+	callnative GetFollowerCardinalDirection
+	.endm
+
+	.macro bufferfollowerspecies
+	callnative BufferFollowerSpecies
+	.endm
+
+
+

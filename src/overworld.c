@@ -53,6 +53,7 @@
 #include "sound.h"
 #include "sprite.h"
 #include "start_menu.h"
+#include "string_util.h"
 #include "task.h"
 #include "tileset_anims.h"
 #include "time_events.h"
@@ -1145,7 +1146,6 @@ static void SetFollowerCoordsFromWarp(void)
 {
     struct ObjectEvent* player = &gObjectEvents[gPlayerAvatar.objectEventId];
     struct ObjectEvent* follower = &gObjectEvents[gSaveBlock2Ptr->follower.objId];
-
     gSaveBlock2Ptr->follower.warpEnd = 0;        
 
     // Based on value passed in via setfollowerwarppos macro, place the follower relative to the player.
@@ -3813,6 +3813,8 @@ void UpdateFollowerPokemonGraphic(void)
     // If so, the following Pokemon needs to change.
     u16 leadMonGraphicId = GetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_SPECIES, NULL) + OBJ_EVENT_GFX_BULBASAUR - 1;
     struct ObjectEvent *follower = &gObjectEvents[gSaveBlock2Ptr->follower.objId];
+    // for dev purposes since the script will shift after each rom rebuild
+    gSaveBlock2Ptr->follower.script =  Common_EventScript_TalkToFollower;
     // If the lead Pokemon is Unown, use the correct sprite
     if (leadMonGraphicId == OBJ_EVENT_GFX_UNOWN_A)
     {
@@ -4375,4 +4377,77 @@ void FollowerIntoPokeball(void)
         ObjectEventForceSetHeldMovement(&gObjectEvents[gSaveBlock2Ptr->follower.objId], MOVEMENT_ACTION_FOLLOWING_POKEMON_SHRINK);
         gSpecialVar_Unused_0x8014 = 1;
     }
+}
+
+void GetFollowerCardinalDirection(void)
+{
+    u8 playerX, playerY, followerX, followerY;
+    struct ObjectEvent* player = &gObjectEvents[gPlayerAvatar.objectEventId];
+    struct ObjectEvent* follower = &gObjectEvents[GetFollowerMapObjId()];
+    playerX = player->currentCoords.x;
+    playerY = player->currentCoords.y;
+    followerX = follower->currentCoords.x;
+    followerY = follower->currentCoords.y;
+    if(followerX == playerX)
+    {
+        if(followerY > playerY)
+            gSpecialVar_Unused_0x8014 = 2;
+        else
+            gSpecialVar_Unused_0x8014 = 0;
+    }
+    if(followerY == playerY)
+    {
+        if(followerX > playerX)
+            gSpecialVar_Unused_0x8014 = 1;
+        else
+            gSpecialVar_Unused_0x8014 = 3;
+    }
+    return;
+}
+
+static const u8 sFollowerText1[] = _(" is a little bored.");
+static const u8 sFollowerText2[] = _(" is going about its day.");
+static const u8 sFollowerText3[] = _(" is getting tired.");
+static const u8 sFollowerText4[] = _(" seems happy to talk to you.");
+static const u8 sFollowerText5[] = _(" is super excited!");
+
+
+void BufferFollowerSpecies(void)
+{
+    u16 species, random;
+    u8 friendship;
+    struct ObjectEvent* follower = &gObjectEvents[GetFollowerMapObjId()];
+    species = follower->graphicsId - OBJ_EVENT_GFX_BULBASAUR +1;
+    GetSpeciesName(gStringVar1, species);
+    random = Random()%100;
+    if (random < 95)
+    {
+        switch (random % 3)
+        {
+        default:
+        case 0:
+            StringAppend(gStringVar1, sFollowerText1);
+            break;
+        case 1:
+            StringAppend(gStringVar1, sFollowerText2);
+            break;
+        case 2:
+            StringAppend(gStringVar1, sFollowerText3);
+            break;
+        }
+        return;
+    }
+    if(random < 99)
+    {
+        StringAppend(gStringVar1, sFollowerText4);
+        friendship = GetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_FRIENDSHIP, NULL);
+        friendship++;
+        SetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_FRIENDSHIP, &friendship);
+        return;
+    }
+    StringAppend(gStringVar1, sFollowerText5);
+    friendship = GetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_FRIENDSHIP, NULL);
+    friendship += 5;
+    SetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_FRIENDSHIP, &friendship);
+    return;
 }

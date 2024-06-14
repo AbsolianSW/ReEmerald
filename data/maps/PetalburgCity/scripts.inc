@@ -56,6 +56,7 @@ PetalburgCity_EventScript_WallyTutorial::
 	clearflag FLAG_DONT_TRANSITION_MUSIC
 	special LoadPlayerParty
 	setvar VAR_PETALBURG_GYM_STATE, 1
+	clearflag FLAG_PETALBURG_GYM_HIDE_RALTS
 	warp MAP_PETALBURG_CITY_GYM, 4, 108
 	waitstate
 	releaseall
@@ -74,8 +75,10 @@ PetalburgCity_EventScript_WalkToWallyHouse::
 	applymovement LOCALID_WALLYS_DAD, PetalburgCity_Movement_WalkInsideHouseWallysDad
 	applymovement OBJ_EVENT_ID_PLAYER, PetalburgCity_Movement_WalkInsideHousePlayer
 	waitmovement 0
+	applymovement OBJ_EVENT_ID_FOLLOWER, PetalburgCity_Movement_WalkInsideHousePlayer
 	setflag FLAG_HIDE_PETALBURG_CITY_WALLYS_DAD
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_PETALBURG_CITY
+	hideobjectat OBJ_EVENT_ID_FOLLOWER, MAP_PETALBURG_CITY
 	closedoor VAR_0x8004, VAR_0x8005
 	waitdooranim
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
@@ -103,6 +106,8 @@ PetalburgCity_EventScript_WallysMom::
 PetalburgCity_Movement_WalkToWallyHousePlayer:
 	delay_8
 	walk_down
+	delay_16
+	delay_16
 	walk_down
 	walk_down
 	walk_left
@@ -128,6 +133,8 @@ PetalburgCity_Movement_WalkInsideHousePlayer:
 PetalburgCity_Movement_WalkToWallyHouseWallysDad:
 	delay_8
 	walk_down
+	delay_16
+	delay_16
 	walk_down
 	walk_left
 	walk_left
@@ -153,6 +160,8 @@ PetalburgCity_Movement_WalkInsideHouseWallysDad:
 PetalburgCity_Movement_WallyTutorialPlayer:
 	delay_8
 	walk_down
+	delay_16
+	delay_16
 	walk_down
 	walk_down
 	walk_down
@@ -188,6 +197,8 @@ PetalburgCity_Movement_WallyTutorialPlayer:
 PetalburgCity_Movement_WallyTutorialWally:
 	delay_8
 	walk_down
+	delay_16
+	delay_16
 	walk_down
 	walk_down
 	walk_down
@@ -437,6 +448,7 @@ PetalburgCity_Movement_BoyWalkToGym3:
 
 PetalburgCity_Movement_BoyWalkAway:
 	walk_down
+	walk_down
 	walk_left
 	walk_left
 	walk_left
@@ -448,6 +460,7 @@ PetalburgCity_Movement_BoyWalkAway:
 	walk_left
 	walk_left
 	walk_left
+	walk_up
 	step_end
 
 PetalburgCity_Movement_PlayerWalkToGym0:
@@ -535,6 +548,8 @@ PetalburgCity_EventScript_Scott3::
 	end
 
 PetalburgCity_EventScript_Scott::
+	getfollowercardinaldirection
+	call_if_eq VAR_UNUSED_0x8014, 1, PetalburgCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_SCOTT, PetalburgCity_Movement_ScottStartWalkLeft
 	waitmovement 0
 	playse SE_PIN
@@ -567,6 +582,17 @@ PetalburgCity_EventScript_Scott::
 	removeobject LOCALID_SCOTT
 	releaseall
 	end
+	
+PetalburgCity_EventScript_MoveFollowerOutOfTheWay::
+	applymovement OBJ_EVENT_ID_FOLLOWER, PetalburgCity_Movement_MoveFollowerOutOfTheWay
+	return
+
+PetalburgCity_Movement_MoveFollowerOutOfTheWay::
+	walk_up
+	walk_left
+	follower_face_right
+	step_end
+	
 
 PetalburgCity_EventScript_ScottExit0::
 	applymovement OBJ_EVENT_ID_PLAYER, PetalburgCity_Movement_PlayerWatchScottExit0

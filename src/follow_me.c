@@ -16,6 +16,7 @@
 #include "overworld.h"
 #include "script.h"
 #include "event_data.h"
+#include "event_scripts.h"
 #include "sound.h"
 #include "trig.h"
 #include "metatile_behavior.h"
@@ -52,7 +53,6 @@ struct FollowerSpriteGraphics
 //EWRAM_DATA struct Follower gSaveBlock2Ptr->follower = {0};
 
 // Function Declarations
-static u8 GetFollowerMapObjId(void);
 static u16 GetFollowerSprite(void);
 static void TryUpdateFollowerSpriteUnderwater(void);
 static void Task_ReallowPlayerMovement(u8 taskId);
@@ -164,7 +164,7 @@ void FollowMe_TryRemoveFollowerOnWhiteOut(void)
     }
 }
 
-static u8 GetFollowerMapObjId(void)
+u8 GetFollowerMapObjId(void)
 {
     return gSaveBlock2Ptr->follower.objId;
 }
@@ -228,14 +228,13 @@ void FollowMe(struct ObjectEvent* npc, u8 state, bool8 ignoreScriptActive)
     u8 dir;
     u8 newState;
     u8 taskId;
-
+    
     if (player != npc) //Only when the player moves
         return;
     else if (!gSaveBlock2Ptr->follower.inProgress)
         return;
-    else if (ArePlayerFieldControlsLocked() && !ignoreScriptActive)
-        return; //Don't follow during a script
-    
+    else if (ArePlayerFieldControlsLocked() && MetatileBehavior_IsDoor(MapGridGetMetatileBehaviorAt(player->currentCoords.x, player->currentCoords.y)))
+        return; // Don't follow in certain situations since it causes weird behaviour
     // Indicator that we may be dealing with the bike-bump glitch
     if(state >= 0x19 && state <= 0x1C && follower->invisible)
         gSaveBlock2Ptr->follower.flags |= 0x200;       
@@ -333,6 +332,7 @@ void FollowMe(struct ObjectEvent* npc, u8 state, bool8 ignoreScriptActive)
     switch (newState) 
     {
     case MOVEMENT_ACTION_JUMP_2_DOWN ... MOVEMENT_ACTION_JUMP_2_RIGHT:
+        DebugPrintf("follower is invisible %d", follower->invisible);
 		if(follower->invisible == FALSE)
 		{
 			CreateTask(Task_ReallowPlayerMovement, 1); //Synchronize movements on stairs and ledges
@@ -518,7 +518,7 @@ static u8 DetermineFollowerState(struct ObjectEvent* follower, u8 state, u8 dire
 
         RETURN_STATE(MOVEMENT_ACTION_WALK_FAST_DOWN, direction);
     case MOVEMENT_ACTION_JUMP_SPECIAL_DOWN ... MOVEMENT_ACTION_JUMP_SPECIAL_RIGHT:
-        gSaveBlock2Ptr->follower.delayedState = MOVEMENT_ACTION_JUMP_SPECIAL_DOWN;
+        //gSaveBlock2Ptr->follower.delayedState = MOVEMENT_ACTION_JUMP_SPECIAL_DOWN;
         RETURN_STATE(MOVEMENT_ACTION_WALK_NORMAL_DOWN, direction);
     case MOVEMENT_ACTION_JUMP_DOWN ... MOVEMENT_ACTION_JUMP_RIGHT:
 		if(!TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_BIKE))
@@ -918,7 +918,7 @@ static void Task_FollowerOutOfDoor(u8 taskId)
         //SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_ON_FOOT); //Temporarily stop running
 
 #if FAST_FOLLOWERS == FALSE
-    if (ObjectEventClearHeldMovementIfFinished(player))
+    if (ObjectEventClearHeldMovementIfFinished(player) && !ArePlayerFieldControlsLocked()) //don't do the below on forced movement
         ObjectEventTurn(player, GetPlayerFaceToDoorDirection(player, follower)); //The player should face towards the follow as the exit the door
 #endif
 
@@ -1316,11 +1316,12 @@ static void TurnNPCIntoFollower(u8 localId, u16 followerFlags)
             follower->movementType = MOVEMENT_TYPE_NONE; //Doesn't get to move on its own anymore
             gSprites[follower->spriteId].callback = MovementType_None; //MovementType_None
             SetObjEventTemplateMovementType(localId, 0);
-            if (followerFlags & FOLLOWER_FLAG_CUSTOM_FOLLOW_SCRIPT)
-                script = (const u8 *)ReadWord(0);
-            else
-                script = GetObjectEventScriptPointerByObjectEventId(eventObjId);
-            
+            //if (followerFlags & FOLLOWER_FLAG_CUSTOM_FOLLOW_SCRIPT)
+            //    script = (const u8 *)ReadWord(0);
+            //else
+            //    script = GetObjectEventScriptPointerByObjectEventId(eventObjId);
+            //ignore the above, follower always gets the same script 
+            script = Common_EventScript_TalkToFollower;
             flag = GetObjectEventTemplateByLocalIdAndMap(follower->localId, follower->mapNum, follower->mapGroup)->flagId;
             gSaveBlock2Ptr->follower.inProgress = TRUE;
             gSaveBlock2Ptr->follower.objId = eventObjId;

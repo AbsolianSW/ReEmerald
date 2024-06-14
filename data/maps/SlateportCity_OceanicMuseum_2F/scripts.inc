@@ -28,10 +28,11 @@ SlateportCity_OceanicMuseum_2F_EventScript_CaptStern::
 	msgbox SlateportCity_OceanicMuseum_2F_Text_SternWhoAreYou, MSGBOX_DEFAULT
 	msgbox SlateportCity_OceanicMuseum_2F_Text_WereTeamAqua, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_GRUNT_2, SlateportCity_OceanicMuseum_2F_Movement_GruntApproachToBattle
-	waitmovement 0
 	call_if_eq VAR_FACING, DIR_SOUTH, SlateportCity_OceanicMuseum_2F_EventScript_PlayerApproachGruntSouth
 	call_if_eq VAR_FACING, DIR_WEST, SlateportCity_OceanicMuseum_2F_EventScript_PlayerApproachGruntWest
+	call_if_eq VAR_FACING, DIR_EAST, SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay
+	applymovement LOCALID_GRUNT_2, SlateportCity_OceanicMuseum_2F_Movement_GruntApproachToBattle
+	waitmovement 0
 	trainerbattle_no_intro TRAINER_GRUNT_MUSEUM_1, SlateportCity_OceanicMuseum_2F_Text_Grunt1Defeat
 	msgbox SlateportCity_OceanicMuseum_2F_Text_BossGoingToBeFurious, MSGBOX_DEFAULT
 	closemessage
@@ -89,6 +90,22 @@ SlateportCity_OceanicMuseum_2F_EventScript_CaptStern::
 	fadescreen FADE_FROM_BLACK
 	release
 	end
+	
+SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay::
+	getfollowercardinaldirection
+	call_if_eq VAR_UNUSED_0x8014, 3, SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay2
+	return
+	
+SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay2::
+	applymovement OBJ_EVENT_ID_FOLLOWER, SlateportCity_OceanicMuseum_2F_Movement_FollowerOutOfTheWay
+	waitmovement 0
+	return
+	
+SlateportCity_OceanicMuseum_2F_Movement_FollowerOutOfTheWay:
+	walk_up
+	walk_right
+	follower_face_left
+	step_end
 
 SlateportCity_OceanicMuseum_2F_EventScript_ReadyRegisterBirch::
 	setvar VAR_REGISTER_BIRCH_STATE, 1

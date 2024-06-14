@@ -72,8 +72,10 @@ GraniteCave_StevensRoom_Movement_PlayerTurnTowardExit:
 
 GraniteCave_StevensRoom_Movement_StevenExitSouth:
 	walk_left
+	walk_left
 	walk_up
 	walk_up
+	walk_right
 	walk_up
 	walk_right
 	walk_up

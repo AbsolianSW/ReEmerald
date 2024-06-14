@@ -24,18 +24,33 @@ VictoryRoad_1F_EventScript_WallyBattleTrigger1::
 	setvar VAR_0x8008, 1
 	addobject LOCALID_WALLY_ENTRANCE
 	applymovement LOCALID_WALLY_ENTRANCE, VictoryRoad_1F_Movement_WallyApproachPlayer1
+	applymovement OBJ_EVENT_ID_FOLLOWER, VictoryRoad_1F_Movement_FollowerWallyApproach1
 	waitmovement 0
 	goto VictoryRoad_1F_EventScript_WallyEntranceBattle
 	end
+	
+VictoryRoad_1F_Movement_FollowerWallyApproach1:
+	walk_right
+	walk_up
+	follower_face_down
+	step_end
+
 
 VictoryRoad_1F_EventScript_WallyBattleTrigger2::
 	lockall
 	setvar VAR_0x8008, 2
 	addobject LOCALID_WALLY_ENTRANCE
 	applymovement LOCALID_WALLY_ENTRANCE, VictoryRoad_1F_Movement_WallyApproachPlayer2
+	applymovement OBJ_EVENT_ID_FOLLOWER, VictoryRoad_1F_Movement_FollowerWallyApproach2
 	waitmovement 0
 	goto VictoryRoad_1F_EventScript_WallyEntranceBattle
 	end
+	
+VictoryRoad_1F_Movement_FollowerWallyApproach2:
+	walk_left
+	walk_up
+	follower_face_down
+	step_end
 
 VictoryRoad_1F_EventScript_WallyEntranceBattle::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown

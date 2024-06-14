@@ -23,6 +23,7 @@ PetalburgWoods_EventScript_DevonResearcherLeft::
 	msgbox PetalburgWoods_Text_HandOverThosePapers, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherFleeToPlayerLeft
+	applymovement OBJ_EVENT_ID_FOLLOWER, PetalburgWoods_Movement_DevonResearcherFleeToPlayerLeftFollower
 	waitmovement 0
 	msgbox PetalburgWoods_Text_YouHaveToHelpMe, MSGBOX_DEFAULT
 	closemessage
@@ -34,6 +35,7 @@ PetalburgWoods_EventScript_DevonResearcherLeft::
 	waitmovement 0
 	call PetalburgWoods_EventScript_DevonResearcherPostBattle
 	applymovement OBJ_EVENT_ID_PLAYER, PetalburgWoods_Movement_WatchResearcherLeave
+	applymovement OBJ_EVENT_ID_FOLLOWER, PetalburgWoods_Movement_DevonResearcherExitLeftFollower
 	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherExitLeft
 	waitmovement 0
 	goto PetalburgWoods_EventScript_RemoveDevonResearcher
@@ -60,6 +62,7 @@ PetalburgWoods_EventScript_DevonResearcherRight::
 	msgbox PetalburgWoods_Text_HandOverThosePapers, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherFleeToPlayerRight
+	applymovement OBJ_EVENT_ID_FOLLOWER, PetalburgWoods_Movement_DevonResearcherFleeToPlayerRightFollower
 	waitmovement 0
 	msgbox PetalburgWoods_Text_YouHaveToHelpMe, MSGBOX_DEFAULT
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
@@ -70,6 +73,7 @@ PetalburgWoods_EventScript_DevonResearcherRight::
 	waitmovement 0
 	call PetalburgWoods_EventScript_DevonResearcherPostBattle
 	applymovement OBJ_EVENT_ID_PLAYER, PetalburgWoods_Movement_WatchResearcherLeave
+	applymovement OBJ_EVENT_ID_FOLLOWER, PetalburgWoods_Movement_DevonResearcherExitRightFollower
 	applymovement LOCALID_DEVON_EMPLOYEE, PetalburgWoods_Movement_DevonResearcherExitRight
 	waitmovement 0
 	goto PetalburgWoods_EventScript_RemoveDevonResearcher
@@ -144,6 +148,12 @@ PetalburgWoods_Movement_DevonResearcherExitLeft:
 	walk_fast_up
 	walk_fast_up
 	step_end
+	
+PetalburgWoods_Movement_DevonResearcherExitLeftFollower:
+	walk_fast_up
+	walk_fast_left
+	follower_face_right
+	step_end
 
 PetalburgWoods_Movement_DevonResearcherApproachPlayerLeft:
 	delay_16
@@ -171,6 +181,12 @@ PetalburgWoods_Movement_DevonResearcherExitRight:
 	walk_fast_up
 	walk_fast_up
 	step_end
+	
+PetalburgWoods_Movement_DevonResearcherExitRightFollower:
+	walk_fast_up
+	walk_fast_right
+	follower_face_left
+	step_end
 
 PetalburgWoods_Movement_WatchResearcherLeave:
 	delay_16
@@ -190,6 +206,16 @@ PetalburgWoods_Movement_DevonResearcherFleeToPlayerRight:
 	walk_fast_down
 	walk_fast_right
 	walk_in_place_faster_up
+	step_end
+	
+PetalburgWoods_Movement_DevonResearcherFleeToPlayerLeftFollower:
+	walk_fast_right
+	walk_fast_up
+	step_end
+
+PetalburgWoods_Movement_DevonResearcherFleeToPlayerRightFollower:
+	walk_fast_left
+	walk_fast_up
 	step_end
 
 PetalburgWoods_Movement_DevonResearcherStartExit:

@@ -1,5 +1,6 @@
 .set LOCALID_WOMAN_1, 19
 .set LOCALID_MAN_1, 20
+.set LOCALID_RIVAL_FOLLOWER, 23
 
 LilycoveCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_OnTransition
@@ -12,6 +13,8 @@ LilycoveCity_OnTransition:
 	setflag FLAG_HIDE_LILYCOVE_CONTEST_HALL_REPORTER
 	call_if_set FLAG_SYS_WEATHER_CTRL, Common_EventScript_SetAbnormalWeather
 	call Common_EventScript_SetupRivalGfxId
+	setvar VAR_0x8004, 2
+	call Common_EventScript_SetupRivalFollowerId
 	end
 
 LilycoveCity_OnLoad:
@@ -392,6 +395,7 @@ LilycoveCity_EventScript_RivalFlyAway::
 	dofieldeffect FLDEFF_NPCFLY_OUT
 	delay 15
 	removeobject VAR_LAST_TALKED
+	removeobject LOCALID_RIVAL_FOLLOWER
 	waitfieldeffect FLDEFF_NPCFLY_OUT
 	savebgm MUS_DUMMY
 	fadedefaultbgm

@@ -2000,7 +2000,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
             for (j = 0; gTrainers[trainerNum].trainerName[j] != EOS; j++) {
                 nameHash += gTrainers[trainerNum].trainerName[j];
             }
-            if(gTrainers[trainerNum].trainerName[i%(sizeof(gTrainers[trainerNum].trainerName))]%2) 
+            //NEW: Scramble least significant bit of pv so that trainer Pokemon can have both abilities of species
+            if(gTrainers[trainerNum].trainerName[i%(ARRAY_COUNT(gTrainers[trainerNum].trainerName))]%2) 
                 personalityValue+=1;
             switch (gTrainers[trainerNum].partyFlags)
             {

@@ -993,7 +993,6 @@ bool8 ScrCmd_applymovement(struct ScriptContext *ctx)
 {
     u16 localId = VarGet(ScriptReadHalfword(ctx));
     const void *movementScript = (const void *)ScriptReadWord(ctx);
-
     ScriptMovement_StartObjectMovementScript(localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, movementScript);
     sMovingNpcId = localId;
     return FALSE;
@@ -2389,5 +2388,17 @@ bool8 ScrCmd_checkfollower(struct ScriptContext *ctx)
 bool8 ScrCmd_isfollowervisible(struct ScriptContext *ctx)
 {
     gSpecialVar_Result = gSaveBlock2Ptr->follower.inProgress && !gObjectEvents[gSaveBlock2Ptr->follower.objId].invisible;
+    return FALSE;
+}
+
+bool8 ScrCmd_buffernicknameofboxmon(struct ScriptContext *ctx)
+{
+    u8 stringVarIndex = ScriptReadByte(ctx);
+    u8 nickname[POKEMON_NAME_BUFFER_SIZE];
+    struct BoxPokemon *boxMon;
+    boxMon = GetBoxedMonPtr(gSpecialVar_MonBoxId, gSpecialVar_MonBoxPos);
+    GetBoxMonData3(boxMon, MON_DATA_NICKNAME, nickname);
+    StringCopy(sScriptStringVars[stringVarIndex], nickname);
+    DebugPrintf("Found species %s", gStringVar2);
     return FALSE;
 }

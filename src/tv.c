@@ -3299,7 +3299,7 @@ void ChangePokemonNickname_CB(void)
 void ChangeBoxPokemonNickname(void)
 {
     struct BoxPokemon *boxMon;
-
+    
     boxMon = GetBoxedMonPtr(gSpecialVar_MonBoxId, gSpecialVar_MonBoxPos);
     GetBoxMonData(boxMon, MON_DATA_NICKNAME, gStringVar3);
     GetBoxMonData(boxMon, MON_DATA_NICKNAME, gStringVar2);

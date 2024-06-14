@@ -1,6 +1,7 @@
 .set LOCALID_WALLY, 6
 .set LOCALID_WALLYS_UNCLE, 7
 .set LOCALID_SCOTT, 11
+.set LOCALID_KIRLIA, 12
 
 MauvilleCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, MauvilleCity_OnTransition
@@ -118,12 +119,15 @@ MauvilleCity_EventScript_BattleWallyPrompt::
 MauvilleCity_EventScript_WallyAndUncleExitNorth::
 	applymovement OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerWatchWallyExitNorth1
 	applymovement LOCALID_WALLY, MauvilleCity_Movement_WallyExitNorth1
+	applymovement LOCALID_KIRLIA, MauvilleCity_Movement_KirliaExitNorth1
 	applymovement LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleExitNorth1
 	waitmovement 0
 	applymovement LOCALID_WALLY, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	delay 30
 	applymovement OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerFaceUncleNorth
+	getfollowercardinaldirection
+	call_if_eq VAR_UNUSED_0x8014, 2, MauvilleCity_EventScript_FollowerMoveOutOfTheWay
 	applymovement LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleApproachPlayerNorth
 	waitmovement 0
 	msgbox MauvilleCity_Text_UncleVisitUsSometime, MSGBOX_DEFAULT
@@ -131,9 +135,21 @@ MauvilleCity_EventScript_WallyAndUncleExitNorth::
 	applymovement OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerWatchWallyExitNorth2
 	applymovement LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleExitNorth2
 	applymovement LOCALID_WALLY, MauvilleCity_Movement_WallyExitNorth2
+	applymovement LOCALID_KIRLIA, MauvilleCity_Movement_KirliaExitNorth2
 	waitmovement 0
 	goto MauvilleCity_EventScript_DefeatedWally
 	end
+	
+MauvilleCity_EventScript_FollowerMoveOutOfTheWay:
+	applymovement OBJ_EVENT_ID_FOLLOWER, MauvilleCity_Movement_FollowerMoveOutOfTheWay
+	return
+	
+MauvilleCity_Movement_FollowerMoveOutOfTheWay:
+	walk_right
+	walk_up
+	follower_face_left
+	step_end
+	
 
 MauvilleCity_EventScript_WallyAndUncleExitEast::
 	applymovement OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerWatchWallyExitEast1
@@ -233,6 +249,17 @@ MauvilleCity_Movement_WallyExitNorth1:
 	walk_down
 	walk_down
 	walk_left
+	walk_left
+	step_end
+
+MauvilleCity_Movement_KirliaExitNorth1:
+	walk_right
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_left
+	follower_face_right
 	step_end
 
 MauvilleCity_Movement_WallyExitEast1:
@@ -244,6 +271,21 @@ MauvilleCity_Movement_WallyExitEast1:
 	step_end
 
 MauvilleCity_Movement_WallyExitNorth2:
+	delay_16
+	delay_16
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	delay_8
+	step_end
+	
+MauvilleCity_Movement_KirliaExitNorth2:
+	delay_16
 	delay_16
 	delay_16
 	walk_left
@@ -306,6 +348,7 @@ MauvilleCity_Movement_PlayerWatchWallyExitNorth1:
 	step_end
 
 MauvilleCity_Movement_WallysUncleExitNorth1:
+	delay_16
 	walk_left
 	walk_left
 	walk_left
@@ -340,6 +383,7 @@ MauvilleCity_Movement_WallysUncleApproachPlayerEast:
 	step_end
 
 MauvilleCity_Movement_WallysUncleExitNorth2:
+	delay_16
 	walk_left
 	walk_left
 	walk_left

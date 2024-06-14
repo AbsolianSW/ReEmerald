@@ -82,6 +82,7 @@ MtChimney_CableCarStation_Movement_ExitCableCar:
 	walk_down
 	walk_down
 	walk_down
+	walk_down
 	delay_16
 	step_end
 

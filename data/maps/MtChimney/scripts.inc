@@ -84,13 +84,35 @@ MtChimney_EventScript_Maxie::
 
 MtChimney_EventScript_ArchieApproachPlayerEast::
 	applymovement LOCALID_ARCHIE, MtChimney_Movement_ArchieApproachPlayerEast
+	getfollowercardinaldirection
+	call_if_eq VAR_UNUSED_0x8014, 3, MtChimney_EventScript_MoveFollowerOutOfTheWayEast
 	waitmovement 0
 	return
+	
+MtChimney_EventScript_MoveFollowerOutOfTheWayEast::
+	applymovement OBJ_EVENT_ID_FOLLOWER, MtChimney_Movement_MoveFollowerOutOfTheWayEast
+	return
+	
+MtChimney_Movement_MoveFollowerOutOfTheWayEast:
+	walk_down
+	follower_face_up
+	step_end
 
 MtChimney_EventScript_ArchieApproachPlayerNorth::
 	applymovement LOCALID_ARCHIE, MtChimney_Movement_ArchieApproachPlayerNorth
+	getfollowercardinaldirection
+	call_if_eq VAR_UNUSED_0x8014, 3, MtChimney_EventScript_MoveFollowerOutOfTheWayNorth
 	waitmovement 0
 	return
+	
+MtChimney_EventScript_MoveFollowerOutOfTheWayNorth::
+	applymovement OBJ_EVENT_ID_FOLLOWER, MtChimney_Movement_MoveFollowerOutOfTheWayNorth
+	return
+	
+MtChimney_Movement_MoveFollowerOutOfTheWayNorth:
+	walk_up
+	follower_face_down
+	step_end
 
 MtChimney_EventScript_ArchieExitEast::
 	applymovement LOCALID_ARCHIE, MtChimney_Movement_ArchieExitEast
@@ -103,6 +125,23 @@ MtChimney_EventScript_ArchieExitNorth::
 	return
 
 MtChimney_EventScript_LavaCookieLady::
+	lock
+	faceplayer
+	msgbox MtChimney_Text_LavaCookiesJust200, MSGBOX_DEFAULT
+	pokemart MtChimney_Mart_LavaCookieLady
+	msgbox MtChimney_Text_ThankYouDear, MSGBOX_DEFAULT
+	release
+	end
+	
+	.align 2
+MtChimney_Mart_LavaCookieLady:
+	.2byte ITEM_LAVA_COOKIE
+	.2byte ITEM_NONE
+	release
+	end
+	
+
+MtChimney_EventScript_LavaCookieLadyOld::
 	lock
 	faceplayer
 	showmoneybox 0, 0
@@ -711,7 +750,7 @@ MtChimney_Text_LavaCookiesJust200:
 	.string "Try one. It's just ¥200.$"
 
 MtChimney_Text_ThankYouDear:
-	.string "Thank you, dear!$"
+	.string "Come back soon, dear!$"
 
 MtChimney_Text_YouveNotGotTheMoney:
 	.string "Oh, dear. You can't buy a thing if\n"

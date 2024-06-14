@@ -1,6 +1,7 @@
 @ NOTE: Route 104's sail to Dewford script references local IDs from Dewford's map.
 @  These are labeled in DewfordTown/scripts.inc
 .set LOCALID_RIVAL, 34
+.set LOCALID_RIVAL_FOLLOWER, 35
 
 Route104_MapScripts::
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route104_OnFrame
@@ -18,6 +19,8 @@ Route104_EventScript_StartSailToDewford::
 
 Route104_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
+	setvar VAR_0x8004, 0
+	call Common_EventScript_SetupRivalFollowerId
 	call Route104_EventScript_TrySetRivalPos
 	call Route104_EventScript_ShowOrHideWhiteHerbFlorist
 	end
@@ -37,6 +40,7 @@ Route104_EventScript_TrySetRivalPos::
 	goto_if_set FLAG_MET_RIVAL_RUSTBORO, Route104_EventScript_DontSetRivalPos
 	goto_if_unset FLAG_REGISTER_RIVAL_POKENAV, Route104_EventScript_DontSetRivalPos
 	setobjectxyperm LOCALID_RIVAL, 17, 52
+	setobjectxyperm LOCALID_RIVAL_FOLLOWER, 18, 52
 	return
 
 Route104_EventScript_DontSetRivalPos::
@@ -61,8 +65,11 @@ Route104_EventScript_RivalTrigger::
 	clearflag FLAG_HIDE_ROUTE_104_RIVAL
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerBackUp
 	waitmovement 0
+	applymovement OBJ_EVENT_ID_FOLLOWER, Route104_Movement_MoveFollowerOutOfTheWay
+	waitmovement 0
 	applymovement LOCALID_RIVAL, Route104_Movement_RivalExitBrineysCottage
 	waitmovement 0
+	addobject LOCALID_RIVAL_FOLLOWER
 	delay 20
 	setvar VAR_0x8008, 0
 	call RustboroCity_EventScript_PlayRivalMusic
@@ -72,6 +79,12 @@ Route104_EventScript_RivalTrigger::
 	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
 	goto Route104_EventScript_RivalEncounter
+
+Route104_Movement_MoveFollowerOutOfTheWay:
+	walk_right
+	walk_down
+	follower_face_left
+	step_end
 
 @ Unused, shares script with Rustboro encounter instead
 Route104_EventScript_PlayRivalMusic::
@@ -109,15 +122,16 @@ Route104_EventScript_MayEncounter::
 	setflag FLAG_ENABLE_RIVAL_MATCH_CALL
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerFaceRival
 	applymovement LOCALID_RIVAL, Route104_Movement_RivalWalkSlowLeft
+	applymovement LOCALID_RIVAL_FOLLOWER, Route104_Movement_RivalFollowerWalkSlowDown
 	msgbox Route104_Text_MayHowsYourPokedex, MSGBOX_DEFAULT
 	closemessage
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Route104_Movement_RivalApproachPlayer
+	applymovement LOCALID_RIVAL_FOLLOWER, Route104_Movement_RivalFollowerApproachPlayer
 	waitmovement 0
 	copyobjectxytoperm LOCALID_RIVAL
-	msgbox Route104_Text_MayMinesDecentLetsBattle, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, Route104_EventScript_BattleMay
-	msgbox Route104_Text_MayHaventRaisedPokemon, MSGBOX_DEFAULT
+	msgbox Route104_Text_MayMinesDecentLetsBattle, MSGBOX_DEFAULT
+	goto Route104_EventScript_BattleMay
 	call Route104_EventScript_RestoreMusic
 	releaseall
 	end
@@ -125,10 +139,19 @@ Route104_EventScript_MayEncounter::
 Route104_Movement_RivalWalkSlowLeft:
 	walk_slow_left
 	step_end
+	
+Route104_Movement_RivalFollowerWalkSlowDown:
+	walk_slow_down
+	step_end
 
 Route104_Movement_RivalApproachPlayer:
 	walk_down
 	face_right
+	step_end
+	
+Route104_Movement_RivalFollowerApproachPlayer:
+	walk_left
+	follower_face_right
 	step_end
 
 Route104_Movement_PlayerFaceRival:
@@ -137,9 +160,8 @@ Route104_Movement_PlayerFaceRival:
 	step_end
 
 Route104_EventScript_MayAskToBattle::
-	msgbox Route104_Text_MayLetsBattle, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, Route104_EventScript_BattleMay
-	msgbox Route104_Text_MayHaventRaisedPokemon, MSGBOX_DEFAULT
+	msgbox Route104_Text_MayLetsBattle, MSGBOX_DEFAULT
+	goto Route104_EventScript_BattleMay
 	releaseall
 	end
 
@@ -195,23 +217,23 @@ Route104_EventScript_BrendanEncounter::
 	setflag FLAG_ENABLE_RIVAL_MATCH_CALL
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerFaceRival
 	applymovement LOCALID_RIVAL, Route104_Movement_RivalWalkSlowLeft
+	applymovement LOCALID_RIVAL_FOLLOWER, Route104_Movement_RivalFollowerWalkSlowDown
 	msgbox Route104_Text_BrendanHowsYourPokedex, MSGBOX_DEFAULT
 	closemessage
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Route104_Movement_RivalApproachPlayer
+	applymovement LOCALID_RIVAL_FOLLOWER, Route104_Movement_RivalFollowerApproachPlayer
 	waitmovement 0
 	copyobjectxytoperm LOCALID_RIVAL
-	msgbox Route104_Text_BrendanDoingGreatLetsBattle, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, Route104_EventScript_BattleBrendan
-	msgbox Route104_Text_BrendanNoConfidence, MSGBOX_DEFAULT
+	msgbox Route104_Text_BrendanDoingGreatLetsBattle, MSGBOX_DEFAULT
+	goto Route104_EventScript_BattleBrendan
 	call Route104_EventScript_RestoreMusic
 	releaseall
 	end
 
 Route104_EventScript_BrendanAskToBattle::
-	msgbox Route104_Text_BrendanLetsBattle, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, Route104_EventScript_BattleBrendan
-	msgbox Route104_Text_BrendanNoConfidence, MSGBOX_DEFAULT
+	msgbox Route104_Text_BrendanLetsBattle, MSGBOX_DEFAULT
+	goto Route104_EventScript_BattleBrendan
 	releaseall
 	end
 
@@ -354,6 +376,7 @@ Route104_EventScript_SailToDewford::
 	removeobject LOCALID_BRINEY_R104
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerBoardBoat
 	waitmovement 0
+	hidefollower
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_ROUTE104
 	call Common_EventScript_PlayBrineysBoatMusic
 	goto_if_set FLAG_ENABLE_NORMAN_MATCH_CALL, Route104_EventScript_SailToDewfordNoCall

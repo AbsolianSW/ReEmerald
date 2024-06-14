@@ -61,6 +61,8 @@ MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene::
 	msgbox MeteorFalls_1F_1R_Text_BeSeeingYouTeamAqua, MSGBOX_DEFAULT
 	closemessage
 	applymovement OBJ_EVENT_ID_PLAYER, MeteorFalls_1F_1R_Movement_PushPlayerOutOfWay
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_FOLLOWER, MeteorFalls_1F_1R_Movement_PushFollowerOutOfWay
 	applymovement LOCALID_MAGMA_GRUNT_1, MeteorFalls_1F_1R_Movement_MagmaGrunt1Exit
 	applymovement LOCALID_MAGMA_GRUNT_2, MeteorFalls_1F_1R_Movement_MagmaGrunt2Exit
 	waitmovement 0
@@ -214,13 +216,13 @@ MeteorFalls_1F_1R_Movement_AquaGrunt2ApproachArchie:
 	step_end
 
 MeteorFalls_1F_1R_Movement_PushPlayerOutOfWay:
-	walk_in_place_faster_down
-	delay_4
-	walk_in_place_faster_right
-	lock_facing_direction
 	walk_left
-	unlock_facing_direction
 	face_right
+	step_end
+	
+MeteorFalls_1F_1R_Movement_PushFollowerOutOfWay:
+	walk_up
+	follower_face_down
 	step_end
 
 MeteorFalls_1F_1R_EventScript_ProfCozmo::

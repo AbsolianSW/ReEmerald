@@ -687,6 +687,7 @@ EventScript_BackupMrBrineyLocation::
 
 	.include "data/scripts/surf.inc"
 	.include "data/scripts/rival_graphics.inc"
+	.include "data/scripts/follower.inc"
 	.include "data/scripts/set_gym_trainers.inc"
 
 Common_EventScript_ShowBagIsFull::
@@ -721,6 +722,7 @@ Common_EventScript_OutOfCenterPartyHeal::
 	playfanfare MUS_HEAL
 	waitfanfare
 	special HealPlayerParty
+	updatefollowerpokemongraphic
 	fadescreen FADE_FROM_BLACK
 	return
 
@@ -858,6 +860,10 @@ gText_SandstormIsVicious::
 gText_SelectWithoutRegisteredItem::
 	.string "An item in the BAG can be\n"
 	.string "registered to SELECT for easy use.$"
+
+gText_SendAnotherMonToPC::
+	.string "Choose a Monster to send to the PC to\n"
+	.string "make room for {STR_VAR_1}?$"
 
 gText_PokemonTrainerSchoolEmail::
 	.string "There's an e-mail from POKéMON TRAINER\n"
@@ -1007,6 +1013,19 @@ EventScript_VsSeekerChargingDone::
 	waitstate
 	special VsSeekerResetObjectMovementAfterChargeComplete
 	releaseall
+	end
+
+Common_Event_Script_ChooseMonToSendToPC::
+	msgbox gText_SendAnotherMonToPC, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Common_Event_Script_ChooseMonToSendToPCReturn
+	setflag FLAG_TEMP_1F
+	special ChoosePartyMon
+	waitstate
+	return
+	end
+
+Common_Event_Script_ChooseMonToSendToPCReturn:
+	return
 	end
 
 	.include "data/scripts/pc_transfer.inc"

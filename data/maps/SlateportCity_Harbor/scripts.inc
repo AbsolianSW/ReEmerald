@@ -91,6 +91,7 @@ SlateportCity_Harbor_EventScript_SternApproachPlayer0::
 	return
 
 SlateportCity_Harbor_EventScript_SternApproachPlayer1::
+	applymovement OBJ_EVENT_ID_FOLLOWER, SlateportCity_Harbor_Movement_FollowerOutOfTheWay
 	applymovement LOCALID_CAPT_STERN, SlateportCity_Harbor_Movement_SternApproachPlayer1
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
@@ -98,11 +99,18 @@ SlateportCity_Harbor_EventScript_SternApproachPlayer1::
 	return
 
 SlateportCity_Harbor_EventScript_SternApproachPlayer::
+	applymovement OBJ_EVENT_ID_FOLLOWER, SlateportCity_Harbor_Movement_FollowerOutOfTheWay
 	applymovement LOCALID_CAPT_STERN, SlateportCity_Harbor_Movement_SternApproachPlayer
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	return
+
+SlateportCity_Harbor_Movement_FollowerOutOfTheWay:
+	walk_up
+	walk_left
+	follower_face_right
+	step_end
 
 SlateportCity_Harbor_Movement_AquaBoardSub:
 	delay_16

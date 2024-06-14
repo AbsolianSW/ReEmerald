@@ -80,6 +80,7 @@ RusturfTunnel_EventScript_ClearTunnelScene::
 
 RusturfTunnel_EventScript_BoyfriendApproachWanda1::
 	applymovement OBJ_EVENT_ID_PLAYER, RusturfTunnel_Movement_PlayerWatchBoyfriend1
+	applymovement OBJ_EVENT_ID_FOLLOWER, RusturfTunnel_Movement_FollowerWatchBoyfriend1
 	applymovement LOCALID_WANDAS_BF, RusturfTunnel_Movement_BoyfriendApproachWanda1
 	waitmovement 0
 	return
@@ -94,6 +95,7 @@ RusturfTunnel_EventScript_BoyfriendApproachWanda2::
 
 RusturfTunnel_EventScript_BoyfriendApproachWanda3::
 	applymovement OBJ_EVENT_ID_PLAYER, RusturfTunnel_Movement_PlayerWatchBoyfriend
+	applymovement OBJ_EVENT_ID_FOLLOWER, RusturfTunnel_Movement_FollowerWatchBoyfriend
 	applymovement LOCALID_WANDAS_BF, RusturfTunnel_Movement_BoyfriendApproachWanda
 	waitmovement 0
 	applymovement LOCALID_WANDA, Common_Movement_WalkInPlaceFasterDown
@@ -201,10 +203,22 @@ RusturfTunnel_Movement_PlayerWatchBoyfriend1:
 	walk_left
 	walk_in_place_faster_right
 	step_end
+	
+RusturfTunnel_Movement_FollowerWatchBoyfriend1:
+	walk_left
+	walk_left
+	follower_face_right
+	step_end
 
 RusturfTunnel_Movement_PlayerWatchBoyfriend:
 	walk_right
 	walk_in_place_faster_left
+	step_end
+	
+RusturfTunnel_Movement_FollowerWatchBoyfriend:
+	walk_right
+	walk_right
+	follower_face_left
 	step_end
 
 RusturfTunnel_Movement_BoyfriendFaceRight:
@@ -311,6 +325,8 @@ RusturfTunnel_EventScript_Grunt::
 	giveitem ITEM_DEVON_GOODS
 	closemessage
 	applymovement OBJ_EVENT_ID_PLAYER, RusturfTunnel_Movement_PushPlayerAsideForGrunt
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_FOLLOWER, RusturfTunnel_Movement_PushPlayerFollowerAsideForGrunt
 	applymovement LOCALID_GRUNT, RusturfTunnel_Movement_GruntEscape
 	waitmovement 0
 	removeobject LOCALID_GRUNT
@@ -319,6 +335,8 @@ RusturfTunnel_EventScript_Grunt::
 	applymovement LOCALID_BRINEY, RusturfTunnel_Movement_BrineyApproachPeeko1
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, RusturfTunnel_Movement_PlayerMoveAsideForBriney
+	applymovement OBJ_EVENT_ID_FOLLOWER, RusturfTunnel_Movement_PlayerFollowerMoveAsideForBriney
+	waitmovement 0
 	applymovement LOCALID_BRINEY, RusturfTunnel_Movement_BrineyApproachPeeko2
 	waitmovement 0
 	msgbox RusturfTunnel_Text_PeekoGladToSeeYouSafe, MSGBOX_DEFAULT
@@ -354,9 +372,21 @@ RusturfTunnel_Movement_PushPlayerAsideForGrunt:
 	walk_in_place_faster_left
 	step_end
 
+RusturfTunnel_Movement_PushPlayerFollowerAsideForGrunt:
+	walk_fast_left
+	walk_fast_up
+	follower_face_down
+	step_end
+
 RusturfTunnel_Movement_PlayerMoveAsideForBriney:
 	walk_down
 	walk_in_place_faster_up
+	step_end
+	
+RusturfTunnel_Movement_PlayerFollowerMoveAsideForBriney:
+	walk_left
+	walk_down
+	follower_face_up
 	step_end
 
 RusturfTunnel_Movement_GruntEscape:
@@ -372,8 +402,6 @@ RusturfTunnel_Movement_GruntEscape:
 	step_end
 
 RusturfTunnel_Movement_BrineyApproachPeeko1:
-	walk_right
-	walk_right
 	walk_right
 	walk_right
 	walk_right
@@ -403,6 +431,8 @@ RusturfTunnel_Movement_PlayerWatchBrineyExit:
 	step_end
 
 RusturfTunnel_Movement_BrineyApproachPeeko2:
+	walk_right
+	walk_right
 	delay_16
 	walk_right
 	step_end

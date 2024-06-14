@@ -1,3 +1,18 @@
 Island2_JoyfulGameCorner_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Island2_JoyfulGameCorner_OnFrame
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, Island2_JoyfulGameCorner_OnWarp
+	map_script MAP_SCRIPT_ON_LOAD, CableClub_OnLoad
 	.byte 0
 
+Island2_JoyfulGameCorner_OnWarp:
+	map_script_2 VAR_CABLE_CLUB_STATE, USING_MINIGAME, CableClub_EventScript_CheckTurnAttendant
+	.2byte 0
+
+Island2_JoyfulGameCorner_OnFrame:
+	map_script_2 VAR_CABLE_CLUB_STATE, USING_MINIGAME, CableClub_EventScript_ExitMinigameRoom
+	.2byte 0
+
+Island2_JoyfulGameCorner_EventScript_InfoMan::
+	goto MossdeepCity_GameCorner_1F_EventScript_InfoMan2
+	release
+	end

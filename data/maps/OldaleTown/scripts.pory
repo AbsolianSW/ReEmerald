@@ -2,6 +2,7 @@ raw `
 .set LOCALID_MART_EMPLOYEE, 2
 .set LOCALID_FOOTPRINTS_MAN, 3
 .set LOCALID_RIVAL, 4
+.set LOCALID_RIVAL_FOLLOWER, 5
 
 OldaleTown_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, OldaleTown_OnTransition
@@ -9,6 +10,8 @@ OldaleTown_MapScripts::
 
 OldaleTown_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
+	setvar VAR_0x8004, 0
+	call Common_EventScript_SetupRivalFollowerId
 	setflag FLAG_VISITED_OLDALE_TOWN
 	call_if_unset FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_BlockWestEntrance
 	call_if_unset FLAG_RECEIVED_POTION_OLDALE, OldaleTown_EventScript_MoveMartEmployee
@@ -110,10 +113,12 @@ OldaleTown_Movement_EmployeeEast:
 
 OldaleTown_Movement_EmployeeSouth:
 	walk_left
+	walk_left
+	walk_up
 	walk_up
 	walk_up
 	walk_right
-	walk_up
+	walk_right
 	walk_up
 	walk_up
 	walk_up
@@ -159,6 +164,8 @@ OldaleTown_Movement_PlayerEast:
 	step_end
 
 OldaleTown_Movement_PlayerSouth:
+	delay_16
+	delay_16
 	delay_16
 	delay_16
 	delay_16
@@ -233,6 +240,7 @@ OldaleTown_EventScript_Rival::
 OldaleTown_EventScript_RivalTrigger1::
 	lockall
 	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer1
+	applymovement LOCALID_RIVAL_FOLLOWER, OldaleTown_Movement_RivalApproachPlayer1
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
@@ -243,6 +251,7 @@ OldaleTown_EventScript_RivalTrigger1::
 OldaleTown_EventScript_RivalTrigger2::
 	lockall
 	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer2
+	applymovement LOCALID_RIVAL_FOLLOWER, OldaleTown_Movement_RivalApproachPlayer2
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
@@ -253,6 +262,7 @@ OldaleTown_EventScript_RivalTrigger2::
 OldaleTown_EventScript_RivalTrigger3::
 	lockall
 	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer3
+	applymovement LOCALID_RIVAL_FOLLOWER, OldaleTown_Movement_RivalApproachPlayer3
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
@@ -283,6 +293,7 @@ OldaleTown_EventScript_RivalFinish::
 	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalExit
 	waitmovement 0
 	removeobject LOCALID_RIVAL
+	removeobject LOCALID_RIVAL_FOLLOWER
 	setvar VAR_OLDALE_RIVAL_STATE, 2
 	setflag FLAG_HIDE_OLDALE_TOWN_RIVAL
 	releaseall
@@ -291,12 +302,14 @@ OldaleTown_EventScript_RivalFinish::
 OldaleTown_EventScript_DoExitMovement1::
 	goto_if_ne VAR_FACING, DIR_SOUTH, OldaleTown_EventScript_DoExitMovement2
 	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalExit
+	applymovement LOCALID_RIVAL_FOLLOWER, OldaleTown_Movement_RivalFollowerExit
 	waitmovement 0
 	return
 
 OldaleTown_EventScript_DoExitMovement2::
 	applymovement OBJ_EVENT_ID_PLAYER, OldaleTown_Movement_WatchRivalExit
 	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalExit
+	applymovement LOCALID_RIVAL_FOLLOWER, OldaleTown_Movement_RivalFollowerExit
 	waitmovement 0
 	return
 
@@ -314,6 +327,16 @@ OldaleTown_Movement_RivalApproachPlayer3:
 	step_end
 
 OldaleTown_Movement_RivalExit:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+	
+OldaleTown_Movement_RivalFollowerExit:
+	walk_left
 	walk_down
 	walk_down
 	walk_down

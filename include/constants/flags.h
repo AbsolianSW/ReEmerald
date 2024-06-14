@@ -45,7 +45,7 @@
 #define FLAG_FOLLOWER_ACTIVE    0x20 
 #define FLAG_FOLLOWER_IN_BUILDING    0x21 
 #define FLAG_VS_SEEKER_CHARGING    0x22
-#define FLAG_UNUSED_0x023    0x23 // Unused Flag
+#define FLAG_PETALBURG_GYM_HIDE_RALTS    0x23
 #define FLAG_UNUSED_0x024    0x24 // Unused Flag
 #define FLAG_UNUSED_0x025    0x25 // Unused Flag
 #define FLAG_UNUSED_0x026    0x26 // Unused Flag
@@ -97,7 +97,7 @@
 #define FLAG_RESCUED_BIRCH                       0x52
 #define FLAG_LEGENDARIES_IN_SOOTOPOLIS           0x53
 
-#define FLAG_UNUSED_0x054                    0x54  // Unused Flag
+#define FLAG_ALL_BERRIES_RECEIVED            0x54 
 #define FLAG_UNUSED_0x055                    0x55  // Unused Flag
 
 #define FLAG_HIDE_CONTEST_POKE_BALL          0x56  // Always set after new game, object it hides is added directly
@@ -1506,14 +1506,14 @@
 
 #define FLAG_RECEIVED_POKEDEX_FROM_BIRCH            (SYSTEM_FLAGS + 0x84)
 
-#define FLAG_CHALLENGES_LEVEL_CAP                   (SYSTEM_FLAGS + 0x85) // Previously unused Flag
-#define FLAG_CHALLENGES_PERMA_DEATH                 (SYSTEM_FLAGS + 0x86) // Previously unused Flag
-#define FLAG_CHALLENGES_LIMITED_ENCOUNTERS          (SYSTEM_FLAGS + 0x87) // Previously unused Flag
-#define FLAG_CHALLENGES_SPECIES_CLAUSE              (SYSTEM_FLAGS + 0x88) // Previously unused Flag
-#define FLAG_CHALLENGES_NO_BATTLE_ITEMS             (SYSTEM_FLAGS + 0x89) // Previously unused Flag
-#define FLAG_CHALLENGES_FORCE_SET_MODE              (SYSTEM_FLAGS + 0x8A) // Unused Flag
-#define FLAG_CHALLENGES_INFINITE_CANDY              (SYSTEM_FLAGS + 0x8B) // Previously unused Flag
-#define FLAG_CHALLENGES_REPELLANT                   (SYSTEM_FLAGS + 0x8C) // Previously unused Flag
+#define FLAG_CHALLENGES_LEVEL_CAP                   (SYSTEM_FLAGS + 0x85) 
+#define FLAG_CHALLENGES_PERMA_DEATH                 (SYSTEM_FLAGS + 0x86) 
+#define FLAG_CHALLENGES_LIMITED_ENCOUNTERS          (SYSTEM_FLAGS + 0x87) 
+#define FLAG_CHALLENGES_SPECIES_CLAUSE              (SYSTEM_FLAGS + 0x88) 
+#define FLAG_CHALLENGES_NO_BATTLE_ITEMS             (SYSTEM_FLAGS + 0x89) 
+#define FLAG_CHALLENGES_FORCE_SET_MODE              (SYSTEM_FLAGS + 0x8A) 
+#define FLAG_CHALLENGES_INFINITE_CANDY              (SYSTEM_FLAGS + 0x8B)
+#define FLAG_CHALLENGES_REPELLANT                   (SYSTEM_FLAGS + 0x8C) 
 #define FLAG_CHALLENGES_REPELLANT_ACTIVE            (SYSTEM_FLAGS + 0x8D) // Unused Flag
 #define FLAG_UNUSED_0x8EE                           (SYSTEM_FLAGS + 0x8E) // Unused Flag
 #define FLAG_UNUSED_0x8EF                           (SYSTEM_FLAGS + 0x8F) // Unused Flag

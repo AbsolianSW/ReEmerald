@@ -157,6 +157,8 @@ void ClearLinkPlayerObjectEvents(void);
 void UpdateFollowerPokemonGraphic(void);
 void FollowerPokeballSparkle(void);
 void FollowerIntoPokeball(void);
+void GetFollowerCardinalDirection(void);
+void BufferFollowerSpecies(void);
 bool8 IsBigSprite(u16);
 
 #endif // GUARD_OVERWORLD_H

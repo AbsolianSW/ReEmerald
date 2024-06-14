@@ -1,5 +1,6 @@
 .set LOCALID_RIVAL_ON_BIKE, 7
 .set LOCALID_RIVAL, 8
+.set LOCALID_RIVAL_FOLLOWER, 10
 
 LavaridgeTown_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, LavaridgeTown_OnTransition
@@ -12,6 +13,8 @@ LavaridgeTown_OnTransition:
 	call_if_set FLAG_DEFEATED_EVIL_TEAM_MT_CHIMNEY, LavaridgeTown_EventScript_ShowMtChimneyTrainers
 	call Common_EventScript_SetupRivalGfxId
 	call Common_EventScript_SetupRivalOnBikeGfxId
+	setvar VAR_0x8004, 1
+	call Common_EventScript_SetupRivalFollowerId
 	call_if_eq VAR_LAVARIDGE_TOWN_STATE, 1, LavaridgeTown_EventScript_CheckSetRivalPos
 	call_if_eq VAR_LAVARIDGE_TOWN_STATE, 1, LavaridgeTown_EventScript_HideMapNamePopup
 	end
@@ -27,6 +30,7 @@ LavaridgeTown_EventScript_CheckSetRivalPos::
 
 LavaridgeTown_EventScript_SetRivalPos::
 	setobjectxyperm LOCALID_RIVAL, 11, 9
+	setobjectxyperm LOCALID_RIVAL, 10, 9
 	setobjectxyperm LOCALID_RIVAL_ON_BIKE, 9, 8
 	setobjectmovementtype LOCALID_RIVAL_ON_BIKE, MOVEMENT_TYPE_FACE_UP
 	clearflag FLAG_HIDE_LAVARIDGE_TOWN_RIVAL
@@ -80,6 +84,7 @@ LavaridgeTown_EventScript_RivalExit::
 	closemessage
 	removeobject LOCALID_RIVAL
 	addobject LOCALID_RIVAL_ON_BIKE
+	removeobject LOCALID_RIVAL_FOLLOWER
 	delay 30
 	call_if_eq VAR_0x8008, 9, LavaridgeTown_EventScript_RivalExit1
 	call_if_ne VAR_0x8008, 9, LavaridgeTown_EventScript_RivalExit2
@@ -134,8 +139,13 @@ LavaridgeTown_EventScript_RivalApproachPlayer1::
 	return
 
 LavaridgeTown_EventScript_RivalApproachPlayer2::
-	applymovement LOCALID_RIVAL, LavaridgeTown_Movement_RivalApproachPlayer2
+	applymovement LOCALID_RIVAL, LavaridgeTown_Movement_RivalApproachPlayer2Part1
 	waitmovement 0
+	addobject LOCALID_RIVAL_FOLLOWER
+	applymovement LOCALID_RIVAL_FOLLOWER, LavaridgeTown_Movement_RivalFollowerApproachPlayer2Part1 
+	waitmovement 0
+	applymovement LOCALID_RIVAL, LavaridgeTown_Movement_RivalApproachPlayer2Part2
+	applymovement LOCALID_RIVAL_FOLLOWER, LavaridgeTown_Movement_RivalFollowerApproachPlayer2Part2
 	return
 
 LavaridgeTown_EventScript_RivalExit1::
@@ -180,13 +190,29 @@ LavaridgeTown_Movement_RivalExit1:
 	walk_fast_right
 	step_end
 
-LavaridgeTown_Movement_RivalApproachPlayer2:
+LavaridgeTown_Movement_RivalApproachPlayer2Part1:
+	walk_left
+	step_end
+	
+LavaridgeTown_Movement_RivalFollowerApproachPlayer2Part1:
+	follower_face_left
+	step_end
+	
+LavaridgeTown_Movement_RivalApproachPlayer2Part2:
 	walk_left
 	walk_left
 	walk_left
 	walk_left
 	walk_left
+	step_end
+
+LavaridgeTown_Movement_RivalFollowerApproachPlayer2Part2:
 	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	follower_face_left
 	step_end
 
 LavaridgeTown_Movement_RivalApproachPlayer1:

@@ -233,6 +233,7 @@ gScriptCmdTable::
 	.4byte ScrCmd_facefollower				        @ 0xe6
 	.4byte ScrCmd_checkfollower				        @ 0xe7
 	.4byte ScrCmd_isfollowervisible                 @ 0xe8
+	.4byte ScrCmd_buffernicknameofboxmon            @ 0xe9
 
 gScriptCmdTableEnd::
 	.4byte ScrCmd_nop

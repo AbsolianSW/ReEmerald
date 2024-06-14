@@ -22,6 +22,8 @@ SeafloorCavern_Room9_EventScript_ArchieAwakenKyogre::
 	msgbox SeafloorCavern_Room9_Text_ArchieHoldItRightThere, MSGBOX_DEFAULT
 	closemessage
 	addobject VAR_0x8004
+	getfollowercardinaldirection
+	call_if_eq VAR_UNUSED_0x8014, 3, SeafloorCavern_Room9_EventScript_MoveFollowerOutOfTheWay
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	applymovement VAR_0x8004, SeafloorCavern_Room9_Movement_ArchieApproachPlayer
@@ -149,6 +151,16 @@ SeafloorCavern_Room9_EventScript_ArchieAwakenKyogre::
 	waitstate
 	releaseall
 	end
+	
+SeafloorCavern_Room9_EventScript_MoveFollowerOutOfTheWay::
+	applymovement OBJ_EVENT_ID_FOLLOWER, SeafloorCavern_Room9_Movement_MoveFollowerOutOfTheWay
+	return
+	
+SeafloorCavern_Room9_Movement_MoveFollowerOutOfTheWay:
+	walk_down
+	walk_right
+	follower_face_left
+	step_end
 
 SeafloorCavern_Room9_Movement_ArchieApproachPlayer:
 	walk_right

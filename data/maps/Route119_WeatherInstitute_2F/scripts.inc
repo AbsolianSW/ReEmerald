@@ -56,6 +56,7 @@ Route119_WeatherInstitute_2F_EventScript_ShellyDefeated::
 	addobject LOCALID_GRUNT_3
 	applymovement LOCALID_GRUNT_3, Route119_WeatherInstitute_2F_Movement_GruntApproachShelly
 	applymovement OBJ_EVENT_ID_PLAYER, Route119_WeatherInstitute_2F_Movement_ShovePlayerOutOfWay
+	applymovement OBJ_EVENT_ID_FOLLOWER, Route119_WeatherInstitute_2F_Movement_ShoveFollowerOutOfWay
 	waitmovement 0
 	msgbox Route119_WeatherInstitute_2F_Text_TeamMagmaJustPassedBy, MSGBOX_DEFAULT
 	closemessage
@@ -78,6 +79,7 @@ Route119_WeatherInstitute_2F_EventScript_ShellyDefeated::
 	removeobject LOCALID_GRUNT_4
 	removeobject LOCALID_GRUNT_3
 	applymovement OBJ_EVENT_ID_PLAYER, Route119_WeatherInstitute_2F_Movement_PlayerReturnToPosition
+	applymovement OBJ_EVENT_ID_FOLLOWER, Route119_WeatherInstitute_2F_Movement_FollowerReturnToPosition
 	waitmovement 0
 	fadescreen FADE_FROM_BLACK
 	applymovement LOCALID_SCIENTIST, Route119_WeatherInstitute_2F_Movement_ScientistApproachPlayer
@@ -89,6 +91,9 @@ Route119_WeatherInstitute_2F_EventScript_ShellyDefeated::
 Route119_WeatherInstitute_2F_EventScript_ReceiveCastform::
 	msgbox Route119_WeatherInstitute_2F_Text_ThanksPleaseTakePokemon, MSGBOX_DEFAULT
 	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_CASTFORM
+	bufferspeciesname STR_VAR_1, SPECIES_CASTFORM
+	specialvar VAR_0x8009, CalculatePlayerPartyCount
+	call_if_eq VAR_0x8009, 6, Common_Event_Script_ChooseMonToSendToPC
 	givemon SPECIES_CASTFORM, 25, ITEM_MYSTIC_WATER
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, Route119_WeatherInstitute_2F_EventScript_ReceiveCastformParty
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, Route119_WeatherInstitute_2F_EventScript_ReceiveCastformPC
@@ -108,7 +113,8 @@ Route119_WeatherInstitute_2F_EventScript_ReceiveCastformPC::
 	call Route119_WeatherInstitute_2F_EventScript_ReceivedCastformFanfare
 	msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Route119_WeatherInstitute_2F_EventScript_SendCastformToPC
-	call Common_EventScript_NameReceivedBoxMon
+	call_if_ge VAR_0x8004, 6, Common_EventScript_NameReceivedBoxMon
+	call_if_lt VAR_0x8004, 6, Common_EventScript_NameReceivedPartyMon
 	goto Route119_WeatherInstitute_2F_EventScript_SendCastformToPC
 	end
 
@@ -201,10 +207,25 @@ Route119_WeatherInstitute_2F_Movement_ShovePlayerOutOfWay:
 	ride_water_current_up
 	walk_in_place_faster_down
 	step_end
+	
+Route119_WeatherInstitute_2F_Movement_ShoveFollowerOutOfWay:
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	ride_water_current_down
+	follower_face_up
+	step_end
 
 Route119_WeatherInstitute_2F_Movement_PlayerReturnToPosition:
 	slide_down
 	walk_in_place_faster_left
+	step_end
+	
+Route119_WeatherInstitute_2F_Movement_FollowerReturnToPosition:
+	slide_down
+	follower_face_up
 	step_end
 
 Route119_WeatherInstitute_2F_Movement_ScientistApproachPlayer:

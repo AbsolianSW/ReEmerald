@@ -38,6 +38,7 @@
 
 static void Task_ExitNonAnimDoor(u8);
 static void Task_ExitNonDoor(u8);
+static void Task_ExitMossdeepGymWarp(u8);
 static void Task_DoContestHallWarp(u8);
 static void FillPalBufferWhite(void);
 static void Task_ExitDoor(u8);
@@ -309,7 +310,7 @@ static void FieldCB_MossdeepGymWarpExit(void)
     Overworld_PlaySpecialMapMusic();
     WarpFadeInScreen();
     PlaySE(SE_WARP_OUT);
-    CreateTask(Task_ExitNonDoor, 10);
+    CreateTask(Task_ExitMossdeepGymWarp, 10);
     LockPlayerFieldControls();
     SetObjectEventLoadFlag((~SKIP_OBJECT_EVENT_LOAD) & 0xF);
 }
@@ -435,14 +436,49 @@ static void Task_ExitNonDoor(u8 taskId)
         if (WaitForWeatherFadeIn())
         {
             UnfreezeObjectEvents();
-            
+            DebugPrintf("Hi");
             // Account for follower exiting pokeball after scripted warp
             if (gSaveBlock2Ptr->follower.createSurfBlob != 2)
                 gSaveBlock2Ptr->follower.comeOutDoorStairs = 2;
-
             UnlockPlayerFieldControls();
             DestroyTask(taskId);
         }
+        break;
+    }
+}
+
+static void Task_ExitMossdeepGymWarp(u8 taskId)
+{
+    struct Task *task = &gTasks[taskId];
+    DebugPrintf("state %d", gTasks[taskId].tState);
+    switch (gTasks[taskId].tState)
+    {
+    case 0:
+        FreezeObjectEvents();
+        LockPlayerFieldControls();
+        gTasks[taskId].tState++;
+        break;
+    case 1:
+        if (WaitForWeatherFadeIn())
+        {
+            // Account for follower exiting pokeball after scripted warp
+            if (gSaveBlock2Ptr->follower.createSurfBlob != 2)
+                gSaveBlock2Ptr->follower.comeOutDoorStairs = 2;
+            task->tState = 2;
+        }
+        break;
+    case 2:
+        if (IsPlayerStandingStill())
+        {
+            //FollowMe_SetIndicatorToComeOutDoor();
+            FollowMe_WarpSetEnd();
+            UnfreezeObjectEvents();
+            task->tState = 3;
+        }
+        break;
+    case 3:
+        UnlockPlayerFieldControls();
+        DestroyTask(taskId);
         break;
     }
 }

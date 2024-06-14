@@ -33,35 +33,33 @@ FallarborTown_PokemonCenter_1F_EventScript_Lanette::
 	faceplayer
 	msgbox FallarborTown_PokemonCenter_1F_Text_LanetteGreeting, MSGBOX_DEFAULT
 	closemessage
-	switch VAR_FACING
-	case DIR_NORTH, FallarborTown_PokemonCenter_1F_EventScript_LanetteExitNorth
-	case DIR_WEST, FallarborTown_PokemonCenter_1F_EventScript_LanetteExitWest
-	end
-
-FallarborTown_PokemonCenter_1F_EventScript_LanetteExitNorth::
-	applymovement LOCALID_LANETTE, FallarborTown_PokemonCenter_1F_Movement_LanetteExitNorth
+	applymovement OBJ_EVENT_ID_PLAYER, FallarborTown_PokemonCenter_1F_Movement_PlayerOutOfTheWay
 	waitmovement 0
-	goto FallarborTown_PokemonCenter_1F_EventScript_LanetteExited
-	end
-
-FallarborTown_PokemonCenter_1F_EventScript_LanetteExitWest::
-	applymovement LOCALID_LANETTE, FallarborTown_PokemonCenter_1F_Movement_LanetteExitWest
+	applymovement OBJ_EVENT_ID_FOLLOWER, FallarborTown_PokemonCenter_1F_Movement_FollowerOutOfTheWay
 	waitmovement 0
-	goto FallarborTown_PokemonCenter_1F_EventScript_LanetteExited
-	end
-
-FallarborTown_PokemonCenter_1F_EventScript_LanetteExited::
+	applymovement LOCALID_LANETTE, FallarborTown_PokemonCenter_1F_Movement_LanetteExit
+	waitmovement 0
 	playse SE_SLIDING_DOOR
 	removeobject LOCALID_LANETTE
 	clearflag FLAG_HIDE_LANETTES_HOUSE_LANETTE
 	release
 	end
-
-FallarborTown_PokemonCenter_1F_Movement_LanetteExitNorth:
+	
+FallarborTown_PokemonCenter_1F_Movement_PlayerOutOfTheWay:
+	walk_down
 	walk_right
+	face_left
+	step_end
+
+FallarborTown_PokemonCenter_1F_Movement_FollowerOutOfTheWay:
+	walk_down
+	walk_right
+	follower_face_left
+	step_end
+
+FallarborTown_PokemonCenter_1F_Movement_LanetteExit:
 	walk_down
 	walk_down
-	walk_left
 	walk_left
 	walk_left
 	walk_left
@@ -72,18 +70,6 @@ FallarborTown_PokemonCenter_1F_Movement_LanetteExitNorth:
 	delay_8
 	step_end
 
-FallarborTown_PokemonCenter_1F_Movement_LanetteExitWest:
-	walk_down
-	walk_down
-	walk_left
-	walk_left
-	walk_left
-	walk_down
-	walk_down
-	walk_down
-	walk_down
-	delay_8
-	step_end
 
 FallarborTown_PokemonCenter_1F_Text_LanetteGreeting:
 	.string "Oh, hello.\n"
