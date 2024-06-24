@@ -239,7 +239,7 @@ OldaleTown_EventScript_Rival::
 OldaleTown_EventScript_RivalTrigger1::
 	lockall
 	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer1
-	applymovement LOCALID_RIVAL_FOLLOWER, OldaleTown_Movement_RivalApproachPlayer1
+	applymovement LOCALID_RIVAL_FOLLOWER, OldaleTown_Movement_RivalFollowerApproachPlayer1
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
@@ -250,7 +250,7 @@ OldaleTown_EventScript_RivalTrigger1::
 OldaleTown_EventScript_RivalTrigger2::
 	lockall
 	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer2
-	applymovement LOCALID_RIVAL_FOLLOWER, OldaleTown_Movement_RivalApproachPlayer2
+	applymovement LOCALID_RIVAL_FOLLOWER, OldaleTown_Movement_RivalFollowerApproachPlayer2
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
@@ -261,7 +261,7 @@ OldaleTown_EventScript_RivalTrigger2::
 OldaleTown_EventScript_RivalTrigger3::
 	lockall
 	applymovement LOCALID_RIVAL, OldaleTown_Movement_RivalApproachPlayer3
-	applymovement LOCALID_RIVAL_FOLLOWER, OldaleTown_Movement_RivalApproachPlayer3
+	applymovement LOCALID_RIVAL_FOLLOWER, OldaleTown_Movement_RivalFollowerApproachPlayer3
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
@@ -325,6 +325,22 @@ OldaleTown_Movement_RivalApproachPlayer3:
 	face_left
 	step_end
 
+OldaleTown_Movement_RivalFollowerApproachPlayer1:
+	delay_8
+	walk_left
+	walk_left
+	follower_face_left
+	step_end
+
+OldaleTown_Movement_RivalFollowerApproachPlayer2:
+	walk_left
+	follower_face_left
+	step_end
+
+OldaleTown_Movement_RivalFollowerApproachPlayer3:
+	follower_face_left
+	step_end
+
 OldaleTown_Movement_RivalExit:
 	walk_down
 	walk_down
@@ -336,6 +352,7 @@ OldaleTown_Movement_RivalExit:
 	
 OldaleTown_Movement_RivalFollowerExit:
 	walk_left
+	follower_face_down
 	walk_down
 	walk_down
 	walk_down

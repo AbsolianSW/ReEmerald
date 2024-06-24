@@ -80,7 +80,7 @@
 #define TRAINER_VINCENT                      76
 #define TRAINER_LEROY                        77
 #define TRAINER_WILTON_1                     78
-#define TRAINER_EDGAR                        79
+#define TRAINER_LUKAS                        79
 #define TRAINER_ALBERT                       80
 #define TRAINER_SAMUEL                       81
 #define TRAINER_VITO                         82

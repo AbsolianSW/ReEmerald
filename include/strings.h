@@ -1227,7 +1227,7 @@ extern const u8 gText_Satisfied[];
 extern const u8 gText_Dissatisfied[];
 extern const u8 gText_DeepSeaTooth[];
 extern const u8 gText_DeepSeaScale[];
-extern const u8 gText_LuckyEgg[];
+extern const u8 gText_OldSeaMap[];
 extern const u8 gText_BlueFlute2[];
 extern const u8 gText_YellowFlute2[];
 extern const u8 gText_RedFlute2[];

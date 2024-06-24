@@ -350,15 +350,15 @@ SlateportCity_Harbor_EventScript_AskToTradeScanner::
 SlateportCity_Harbor_EventScript_ChooseScannerTrade::
 	multichoice 0, 0, MULTI_STERN_DEEPSEA, FALSE
 	switch VAR_RESULT
-	case 0, SlateportCity_Harbor_EventScript_LuckyEgg
+	case 0, SlateportCity_Harbor_EventScript_OldSeamap
 	case 1, SlateportCity_Harbor_EventScript_DeclineTrade
 	case MULTI_B_PRESSED, SlateportCity_Harbor_EventScript_DeclineTrade
 	end
 
-SlateportCity_Harbor_EventScript_LuckyEgg::
-	msgbox SlateportCity_Harbor_Text_TradeForLuckyEgg, MSGBOX_YESNO
+SlateportCity_Harbor_EventScript_OldSeamap::
+	msgbox SlateportCity_Harbor_Text_TradeForOldSeaMap, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, SlateportCity_Harbor_EventScript_DeclineTrade
-	giveitem ITEM_LUCKY_EGG
+	giveitem ITEM_OLD_SEA_MAP
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	removeitem ITEM_SCANNER
 	msgbox SlateportCity_Harbor_Text_HandedScannerToStern, MSGBOX_DEFAULT
@@ -508,7 +508,7 @@ SlateportCity_Harbor_Text_WouldYouTradeScanner:
 	.string "help us on our explorations.\p"
 	.string "{PLAYER}{KUN}, would you trade your\n"
 	.string "SCANNER for something?\p"
-	.string "Like, say, a LUCKY EGG that I have?$"
+	.string "Like, say, an OLD SEA MAP that I have?$"
 
 SlateportCity_Harbor_Text_IfYouWantToTradeLetMeKnow:
 	.string "CAPT. STERN: Are you certain?\n"
@@ -516,9 +516,9 @@ SlateportCity_Harbor_Text_IfYouWantToTradeLetMeKnow:
 	.string "Well, okay, then. If you want to trade\n"
 	.string "your SCANNER, let me know.$"
 
-SlateportCity_Harbor_Text_TradeForLuckyEgg:
+SlateportCity_Harbor_Text_TradeForOldSeaMap:
 	.string "CAPT. STERN: So you'll trade it for\n"
-	.string "my LUCKY EGGG?$"
+	.string "my Old Sea Map?$"
 
 SlateportCity_Harbor_Text_WhichOneDoYouWant:
 	.string "CAPT. STERN: Do you want to trade?$"

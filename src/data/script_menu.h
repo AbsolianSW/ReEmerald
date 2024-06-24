@@ -240,7 +240,7 @@ static const struct MenuAction MultichoiceList_Satisfaction[] =
 
 static const struct MenuAction MultichoiceList_SternDeepSea[] =
 {
-    {gText_LuckyEgg},
+    {gText_OldSeaMap},
     {gText_Exit},
 };
 

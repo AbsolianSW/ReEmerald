@@ -585,7 +585,7 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
             switch (gTasks[taskId].tCustomStarter)
             {
             case 0:
-                if(gSaveBlock2Ptr -> challenges.grassStarter <= NUM_SPECIES)
+                if(gSaveBlock2Ptr -> challenges.grassStarter < 386)
                 {
                     gSaveBlock2Ptr -> challenges.grassStarter +=1;
                 } else 
@@ -594,7 +594,7 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
                 }
                 break;
             case 1:
-                if(gSaveBlock2Ptr -> challenges.waterStarter <= NUM_SPECIES)
+                if(gSaveBlock2Ptr -> challenges.waterStarter < 386)
                 {
                     gSaveBlock2Ptr -> challenges.waterStarter +=1;
                 } else 
@@ -603,7 +603,7 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
                 }
                 break;
             case 2:
-                if(gSaveBlock2Ptr -> challenges.fireStarter <= NUM_SPECIES)
+                if(gSaveBlock2Ptr -> challenges.fireStarter < 386)
                 {
                     gSaveBlock2Ptr -> challenges.fireStarter +=1;
                 } else 
@@ -637,7 +637,7 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
             switch (gTasks[taskId].tCustomStarter)
             {
             case 0:
-                if(gSaveBlock2Ptr -> challenges.grassStarter >= 1)
+                if(gSaveBlock2Ptr -> challenges.grassStarter > 1)
                 {
                     gSaveBlock2Ptr -> challenges.grassStarter -=1;
                 } else 
@@ -646,16 +646,17 @@ static void Task_ChallengeMenuProcessInput_Pg2(u8 taskId)
                 }
                 break;
             case 1:
-                if(gSaveBlock2Ptr -> challenges.waterStarter >= 1)
+                if(gSaveBlock2Ptr -> challenges.waterStarter > 1)
                 {
                     gSaveBlock2Ptr -> challenges.waterStarter -=1;
                 } else 
                 {
                     gSaveBlock2Ptr -> challenges.waterStarter = 386;
+                    DebugPrintf("set water starter to %d", gSaveBlock2Ptr -> challenges.waterStarter);
                 }
                 break;
             case 2:
-                if(gSaveBlock2Ptr -> challenges.fireStarter >= 1)
+                if(gSaveBlock2Ptr -> challenges.fireStarter > 1)
                 {
                     gSaveBlock2Ptr -> challenges.fireStarter -=1;
                 } else 
@@ -952,10 +953,16 @@ static void CustomStarter_DrawChoices(u8 selection)
     if(grassStarter / 100)
     {
         grassStarterText[i++] = grassStarter / 100 + CHAR_0;
+    } else
+    {
+       grassStarterText[i++] = CHAR_0; 
     }
     if(grassStarter / 10)
     {
         grassStarterText[i++] = (grassStarter / 10)%10 + CHAR_0;
+    }else
+    {
+       grassStarterText[i++] = CHAR_0; 
     }
     grassStarterText[i++] = grassStarter % 10 + CHAR_0;
     grassStarterText[i++] = CHAR_SPACER;
@@ -967,6 +974,7 @@ static void CustomStarter_DrawChoices(u8 selection)
         gSaveBlock2Ptr->challenges.waterStarter = SpeciesToNationalPokedexNum(SPECIES_MUDKIP);
     }
     waterStarter = gSaveBlock2Ptr->challenges.waterStarter;
+    DebugPrintf("drawing water starter number %d", waterStarter);
     for (i = 0; gText_FrameTypeNumber[i] != EOS && i <= 5; i++)
         waterStarterText[i] = gText_FrameTypeNumber[i];
     waterStarterText[i++]= CHAR_W;
@@ -974,10 +982,16 @@ static void CustomStarter_DrawChoices(u8 selection)
     if(waterStarter / 100)
     {
         waterStarterText[i++] = waterStarter / 100 + CHAR_0;
+    }else
+    {
+       waterStarterText[i++] = CHAR_0; 
     }
     if(waterStarter / 10)
     {
         waterStarterText[i++] = (waterStarter / 10)%10 + CHAR_0;
+    }else
+    {
+       waterStarterText[i++] = CHAR_0; 
     }
     waterStarterText[i++] = waterStarter % 10 + CHAR_0;
     waterStarterText[i++] = CHAR_SPACER;
@@ -996,10 +1010,16 @@ static void CustomStarter_DrawChoices(u8 selection)
     if(fireStarter / 100)
     {
         fireStarterText[i++] = fireStarter / 100 + CHAR_0;
+    }else
+    {
+       fireStarterText[i++] = CHAR_0; 
     }
     if(fireStarter / 10)
     {
         fireStarterText[i++] = (fireStarter / 10)%10 + CHAR_0;
+    }else
+    {
+       fireStarterText[i++] = CHAR_0; 
     }
     fireStarterText[i++] = fireStarter % 10 + CHAR_0;
     fireStarterText[i++] = CHAR_SPACER;
