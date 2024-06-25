@@ -330,6 +330,7 @@ static void Cmd_finishturn(void);
 static void Cmd_trainerslideout(void);
 static void Cmd_strengthdamagecalculation(void);
 static void Cmd_trychoosemontosendtopc(void);
+static void Cmd_trygetsandveiluser(void);
 
 void (* const gBattleScriptingCommandsTable[])(void) =
 {
@@ -583,7 +584,8 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     Cmd_finishturn,                              //0xF7
     Cmd_trainerslideout,                         //0xF8
     Cmd_strengthdamagecalculation,               //0xF9
-    Cmd_trychoosemontosendtopc                   //0xFA
+    Cmd_trychoosemontosendtopc,                  //0xFA
+    Cmd_trygetsandveiluser                       //0xFB
 };
 
 struct StatFractions
@@ -992,6 +994,7 @@ static void Cmd_attackcanceler(void)
     {
         gSpecialStatuses[gBattlerTarget].lightningRodRedirected = FALSE;
         gLastUsedAbility = ABILITY_LIGHTNING_ROD;
+        CreateAbilityPopUp(gBattlerTarget, gBattleMons[gBattlerTarget].ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
         BattleScriptPushCursor();
         gBattlescriptCurrInstr = BattleScript_TookAttack;
         RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
@@ -1213,7 +1216,6 @@ static void Cmd_attackstring(void)
 static void Cmd_ppreduce(void)
 {
     s32 ppToDeduct = 1;
-
     if (gBattleControllerExecFlags)
         return;
 
@@ -1230,7 +1232,10 @@ static void Cmd_ppreduce(void)
             break;
         default:
             if (gBattlerAttacker != gBattlerTarget && gBattleMons[gBattlerTarget].ability == ABILITY_PRESSURE)
+            {
                 ppToDeduct++;
+                CreateAbilityPopUp(gBattlerTarget, gBattleMons[gBattlerTarget].ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+            }
             break;
         }
     }
@@ -1301,7 +1306,7 @@ static void Cmd_damagecalc(void)
     u16 sideStatus = gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)];
     gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[gBattlerAttacker], &gBattleMons[gBattlerTarget], gCurrentMove,
                                             sideStatus, gDynamicBasePower,
-                                            gBattleStruct->dynamicMoveType, gBattlerAttacker, gBattlerTarget);
+                                            gBattleStruct->dynamicMoveType, gBattlerAttacker, gBattlerTarget, TRUE);
     gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier * gBattleScripting.dmgMultiplier;
 
     if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
@@ -1320,7 +1325,7 @@ void AI_CalcDmg(u8 attacker, u8 defender)
     }
     gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[attacker], &gBattleMons[defender], gCurrentMove,
                                             sideStatus, gDynamicBasePower,
-                                            gBattleStruct->dynamicMoveType, attacker, defender);
+                                            gBattleStruct->dynamicMoveType, attacker, defender, FALSE);
     gDynamicBasePower = 0;
     gBattleMoveDamage = gBattleMoveDamage * gCritMultiplier * gBattleScripting.dmgMultiplier;
 
@@ -1721,7 +1726,7 @@ static void Cmd_adjustnormaldamage(void)
         gLastUsedAbility = ability;
         RecordAbilityBattle(gBattlerTarget, ability);
         gBattleMoveDamage = gBattleMons[gBattlerTarget].maxHP -1;
-        gMoveResultFlags2 |= MOVE_RESULT_STURDY;
+        gMoveResultFlags |= MOVE_RESULT_STURDY;
     }
     gBattlescriptCurrInstr++;
 }
@@ -2069,12 +2074,15 @@ static void Cmd_resultmessage(void)
 
     if (gMoveResultFlags & MOVE_RESULT_MISSED && (!(gMoveResultFlags & MOVE_RESULT_DOESNT_AFFECT_FOE) || gBattleCommunication[MISS_TYPE] > B_MSG_AVOIDED_ATK))
     {
+        if (gBattleCommunication[MISS_TYPE] > B_MSG_AVOIDED_ATK) // Wonder Guard or Levitate - show the ability pop-up
+            CreateAbilityPopUp(gBattlerTarget, gBattleMons[gBattlerTarget].ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
         stringId = gMissStringIds[gBattleCommunication[MISS_TYPE]];
         gBattleCommunication[MSG_DISPLAY] = 1;
     }
-    else if(gMoveResultFlags2 & MOVE_RESULT_STURDY)   
+    else if(gMoveResultFlags & MOVE_RESULT_STURDY)   
     {
         stringId = STRINGID_PKMNENDUREDHIT;
+        CreateAbilityPopUp(gBattlerTarget, gBattleMons[gBattlerTarget].ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
         gBattleCommunication[MSG_DISPLAY] = 1;
     } else
     {
@@ -6553,7 +6561,23 @@ static void Cmd_various(void)
         BtlController_EmitPlayFanfareOrBGM(BUFFER_A, MUS_VICTORY_TRAINER, TRUE);
         MarkBattlerForControllerExec(gActiveBattler);
         break;
+    case VARIOUS_ABILITY_POPUP:
+    {
+        CreateAbilityPopUp(gActiveBattler, gBattleMons[gActiveBattler].ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+        break;
     }
+    case VARIOUS_UPDATE_ABILITY_POPUP:
+    {
+        UpdateAbilityPopup(gActiveBattler);
+        break;
+    }
+    case VARIOUS_DESTROY_ABILITY_POPUP:
+    {
+        DestroyAbilityPopUp(gActiveBattler);
+        break;
+    }
+    }
+    
 
     gBattlescriptCurrInstr += 3;
 }
@@ -6899,6 +6923,7 @@ static void Cmd_jumpifcantmakeasleep(void)
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STAYED_AWAKE_USING;
         gBattlescriptCurrInstr = jumpPtr;
         RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
+        CreateAbilityPopUp(gBattlerTarget, gBattleMons[gBattlerTarget].ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
     }
     else
     {
@@ -6944,7 +6969,7 @@ static void Cmd_stockpiletobasedamage(void)
         {
             gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[gBattlerAttacker], &gBattleMons[gBattlerTarget], gCurrentMove,
                                                     gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)], 0,
-                                                    0, gBattlerAttacker, gBattlerTarget)
+                                                    0, gBattlerAttacker, gBattlerTarget, TRUE)
                                 * gDisableStructs[gBattlerAttacker].stockpileCounter;
             gBattleScripting.animTurn = gDisableStructs[gBattlerAttacker].stockpileCounter;
 
@@ -7606,6 +7631,7 @@ static void Cmd_damagetohalftargethp(void)
 
 static void Cmd_setsandstorm(void)
 {
+    s32 i;
     if (gBattleWeather & B_WEATHER_SANDSTORM)
     {
         gMoveResultFlags |= MOVE_RESULT_MISSED;
@@ -8948,7 +8974,7 @@ static void Cmd_trysetfutureattack(void)
         gWishFutureKnock.futureSightCounter[gBattlerTarget] = 3;
         gWishFutureKnock.futureSightDmg[gBattlerTarget] = CalculateBaseDamage(&gBattleMons[gBattlerAttacker], &gBattleMons[gBattlerTarget], gCurrentMove,
                                                     gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)], 0,
-                                                    0, gBattlerAttacker, gBattlerTarget);
+                                                    0, gBattlerAttacker, gBattlerTarget, TRUE);
 
         if (gProtectStructs[gBattlerAttacker].helpingHand)
             gWishFutureKnock.futureSightDmg[gBattlerTarget] = gWishFutureKnock.futureSightDmg[gBattlerTarget] * 15 / 10;
@@ -9752,6 +9778,7 @@ static void Cmd_trycastformdatachange(void)
     form = CastformDataTypeChange(gBattleScripting.battler);
     if (form)
     {
+        gBattlerAbility = gBattleScripting.battler;
         BattleScriptPushCursorAndCallback(BattleScript_CastformChange);
         *(&gBattleStruct->formToChangeInto) = form - 1;
     }
@@ -10445,5 +10472,18 @@ static void Cmd_trychoosemontosendtopc(void)
         else
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
         break;
+    }
+}
+
+
+static void Cmd_trygetsandveiluser(void)
+{
+
+    if (gBattleMons[gBattlerTarget].ability != ABILITY_SAND_VEIL)
+        gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
+    else
+    {
+        PREPARE_ABILITY_BUFFER(gBattleTextBuff1, ABILITY_SAND_VEIL)
+        gBattlescriptCurrInstr += 5;
     }
 }

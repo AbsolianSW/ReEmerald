@@ -1463,7 +1463,7 @@ static void TrySetBattleSeminarShow(void)
             u16 sideStatus = gSideStatuses[GET_BATTLER_SIDE(gBattlerTarget)];
             gBattleMoveDamage = CalculateBaseDamage(&gBattleMons[gBattlerAttacker], &gBattleMons[gBattlerTarget], gCurrentMove,
                                                     sideStatus, powerOverride,
-                                                    0, gBattlerAttacker, gBattlerTarget);
+                                                    0, gBattlerAttacker, gBattlerTarget, FALSE);
 
             if (gStatuses3[gBattlerAttacker] & STATUS3_CHARGED_UP && gBattleMoves[gCurrentMove].type == TYPE_ELECTRIC)
                 gBattleMoveDamage *= 2;

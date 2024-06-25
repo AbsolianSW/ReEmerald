@@ -4,6 +4,7 @@
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_controllers.h"
+#include "battle_interface.h"
 #include "battle_message.h"
 #include "battle_pike.h"
 #include "battle_pyramid.h"
@@ -3125,7 +3126,7 @@ void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 move)
     (var) /= (gStatStageRatios)[(mon)->statStages[(statIndex)]][1];                 \
 }
 
-s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u16 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef)
+s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u16 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef, bool8 doAbilityPopup)
 {
     u32 i;
     s32 damage = 0;
@@ -3222,29 +3223,69 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
     // Apply abilities / field sports
     if (defender->ability == ABILITY_THICK_FAT && (type == TYPE_FIRE || type == TYPE_ICE))
+    {
         spAttack /= 2;
+        if(doAbilityPopup)
+            CreateAbilityPopUp(battlerIdDef, defender->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+    }
     if (attacker->ability == ABILITY_HUSTLE)
+    {
         attack = (150 * attack) / 100;
+        if(doAbilityPopup)
+            CreateAbilityPopUp(battlerIdAtk, attacker->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+    }    
     if (attacker->ability == ABILITY_PLUS && ABILITY_ON_FIELD2(ABILITY_MINUS))
+    {
         spAttack = (150 * spAttack) / 100;
+        if(doAbilityPopup)
+            CreateAbilityPopUp(battlerIdAtk, attacker->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+    }
     if (attacker->ability == ABILITY_MINUS && ABILITY_ON_FIELD2(ABILITY_PLUS))
+    {
         spAttack = (150 * spAttack) / 100;
+        if(doAbilityPopup)
+            CreateAbilityPopUp(battlerIdAtk, attacker->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);   
+    }    
     if (attacker->ability == ABILITY_GUTS && attacker->status1)
+    {
         attack = (150 * attack) / 100;
+        if(doAbilityPopup)
+            CreateAbilityPopUp(battlerIdAtk, attacker->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+    }
     if (defender->ability == ABILITY_MARVEL_SCALE && defender->status1)
+    {
         defense = (150 * defense) / 100;
+        if(doAbilityPopup)
+            CreateAbilityPopUp(battlerIdDef, defender->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+    }
     if (type == TYPE_ELECTRIC && AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, 0, ABILITYEFFECT_MUD_SPORT, 0))
         gBattleMovePower /= 2;
     if (type == TYPE_FIRE && AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, 0, ABILITYEFFECT_WATER_SPORT, 0))
         gBattleMovePower /= 2;
     if (type == TYPE_GRASS && attacker->ability == ABILITY_OVERGROW && attacker->hp <= (attacker->maxHP / 3))
+    {
         gBattleMovePower = (150 * gBattleMovePower) / 100;
+        if(doAbilityPopup)
+            CreateAbilityPopUp(battlerIdAtk, attacker->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+    }
     if (type == TYPE_FIRE && attacker->ability == ABILITY_BLAZE && attacker->hp <= (attacker->maxHP / 3))
+    {
         gBattleMovePower = (150 * gBattleMovePower) / 100;
+        if(doAbilityPopup)
+            CreateAbilityPopUp(battlerIdAtk, attacker->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+    }
     if (type == TYPE_WATER && attacker->ability == ABILITY_TORRENT && attacker->hp <= (attacker->maxHP / 3))
+    {
         gBattleMovePower = (150 * gBattleMovePower) / 100;
+        if(doAbilityPopup)
+            CreateAbilityPopUp(battlerIdAtk, attacker->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+    }
     if (type == TYPE_BUG && attacker->ability == ABILITY_SWARM && attacker->hp <= (attacker->maxHP / 3))
+    {
         gBattleMovePower = (150 * gBattleMovePower) / 100;
+        if(doAbilityPopup)
+            CreateAbilityPopUp(battlerIdAtk, attacker->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+    }
 
     // Self-destruct / Explosion cut defense in half
     if (gBattleMoves[gCurrentMove].effect == EFFECT_EXPLOSION)
@@ -3386,7 +3427,11 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
 
         // Flash fire triggered
         if ((gBattleResources->flags->flags[battlerIdAtk] & RESOURCE_FLAG_FLASH_FIRE) && type == TYPE_FIRE)
+        {
             damage = (15 * damage) / 10;
+            if(doAbilityPopup)
+                CreateAbilityPopUp(battlerIdAtk, attacker->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
+        }
     }
 
     return damage + 2;
