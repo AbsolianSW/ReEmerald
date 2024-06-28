@@ -64,6 +64,7 @@ RustboroCity_DevonCorp_2F_EventScript_FossilScientist::
 	goto_if_eq VAR_FOSSIL_RESURRECTION_STATE, 1, RustboroCity_DevonCorp_2F_EventScript_StillRegenerating
 	msgbox RustboroCity_DevonCorp_2F_Text_DevelopDeviceToResurrectFossils, MSGBOX_DEFAULT
 	checkfossil
+	goto_if_eq VAR_RESULT, 0, RustboroCity_DevonCorp_2F_EventScript_FossilScientistEnd
 	copyvar VAR_WHICH_FOSSIL_REVIVED, VAR_RESULT
 	closemessage
 	playse SE_PIN
@@ -76,6 +77,9 @@ RustboroCity_DevonCorp_2F_EventScript_FossilScientist::
 	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
 	removefossil
 	setvar VAR_FOSSIL_RESURRECTION_STATE, 1
+	goto RustboroCity_DevonCorp_2F_EventScript_FossilScientistEnd
+	
+RustboroCity_DevonCorp_2F_EventScript_FossilScientistEnd::
 	release
 	end
 

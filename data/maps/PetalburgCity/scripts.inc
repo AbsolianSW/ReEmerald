@@ -614,9 +614,19 @@ PetalburgCity_EventScript_ScottExit2::
 
 PetalburgCity_EventScript_ScottExit3::
 	applymovement OBJ_EVENT_ID_PLAYER, PetalburgCity_Movement_PlayerWatchScottExit3
+	applymovement OBJ_EVENT_ID_FOLLOWER, PetalburgCity_Movement_FollowerOutOfTheWayScott3
 	applymovement LOCALID_SCOTT, PetalburgCity_Movement_ScottExit3
 	waitmovement 0
 	return
+
+PetalburgCity_Movement_FollowerOutOfTheWayScott3:
+	walk_left
+	walk_down
+	follower_face_up
+	delay_16
+	delay_16
+	follower_face_left
+	step_end
 
 PetalburgCity_Movement_ScottStartWalkLeft:
 	walk_left

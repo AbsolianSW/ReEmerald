@@ -14,19 +14,24 @@ Route104_PrettyPetalFlowerShop_OnTransition:
 
 Route104_PrettyPetalFlowerShop_EventScript_MoveShopOwner::
 	setobjectxyperm LOCALID_OWNER, 4, 6
-	removeobject LOCALID_BERRYGIRL
 	end
 	
 Route104_PrettyPetalFlowerShop_EventScript_BerryGirl::
 	lock
 	msgbox Route104_PrettyPetalFlowerShop_Text_WelcomeToBerryShop, MSGBOX_DEFAULT
 	waitmessage
+	goto_if_unset FLAG_BADGE03_GET, Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier0
 	goto_if_unset FLAG_BADGE06_GET, Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier1
 	goto_if_unset FLAG_SYS_GAME_CLEAR, Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier2
 	goto_if_unset FLAG_ALL_BERRIES_RECEIVED, Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier3
 	goto Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier4
 	end
 	
+	Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier0::
+	msgbox Route104_PrettyPetalFlowerShop_Text_OpeningSoon, MSGBOX_DEFAULT
+	release
+	end
+
 Route104_PrettyPetalFlowerShop_EventScript_BerryGirlTier1::
 	pokemart Route104_PrettyPetalFlowerShop_Mart_BerryGirlTier1
 	msgbox Route104_PrettyPetalFlowerShop_Text_PleaseComeBack, MSGBOX_DEFAULT
@@ -277,3 +282,7 @@ Route104_PrettyPetalFlowerShop_Text_PleaseComeBack:
 	.string "Thank you for visiting us! Be sure to\n"
 	.string "check back regularly as we keep\l"
 	.string "expanding our assortment of berries!$"
+
+Route104_PrettyPetalFlowerShop_Text_OpeningSoon:
+	.string "We will be opening our berry shop\n"
+	.string "soon. Be sure to check back regularly!$"
