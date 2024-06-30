@@ -100,17 +100,10 @@ JaggedPass_EventScript_Eric::
 	end
 
 JaggedPass_EventScript_Diana::
-	trainerbattle_single TRAINER_DIANA_1, JaggedPass_Text_DianaIntro, JaggedPass_Text_DianaDefeat, JaggedPass_EventScript_RegisterDiana
+	trainerbattle_single TRAINER_DIANA_1, JaggedPass_Text_DianaIntro, JaggedPass_Text_DianaDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, JaggedPass_EventScript_DianaRematch
 	msgbox JaggedPass_Text_DianaPostBattle, MSGBOX_DEFAULT
-	release
-	end
-
-JaggedPass_EventScript_RegisterDiana::
-	special PlayerFaceTrainerAfterBattle
-	msgbox JaggedPass_Text_DianaRegister, MSGBOX_DEFAULT
-	register_matchcall TRAINER_DIANA_1
 	release
 	end
 
@@ -120,17 +113,10 @@ JaggedPass_EventScript_DianaRematch::
 	end
 
 JaggedPass_EventScript_Ethan::
-	trainerbattle_single TRAINER_ETHAN_1, JaggedPass_Text_EthanIntro, JaggedPass_Text_EthanDefeat, JaggedPass_EventScript_RegisterEthan
+	trainerbattle_single TRAINER_ETHAN_1, JaggedPass_Text_EthanIntro, JaggedPass_Text_EthanDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, JaggedPass_EventScript_EthanRematch
 	msgbox JaggedPass_Text_EthanPostBattle, MSGBOX_DEFAULT
-	release
-	end
-
-JaggedPass_EventScript_RegisterEthan::
-	special PlayerFaceTrainerAfterBattle
-	msgbox JaggedPass_Text_EthanRegister, MSGBOX_DEFAULT
-	register_matchcall TRAINER_ETHAN_1
 	release
 	end
 
