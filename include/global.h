@@ -1020,7 +1020,7 @@ struct SaveBlock1
     /*0x238*/ struct Pokemon playerParty[PARTY_SIZE];
     /*0x490*/ u32 money;
     /*0x494*/ u16 coins;
-    /*0x496*/ u16 registeredItem; // registered for use with SELECT button
+    /*0x496*/ u16 registeredItem; // registered for use with SELECT button, keep this here for now as to not mess up savefiles
     /*0x498*/ struct ItemSlot pcItems[PC_ITEMS_COUNT];
     /*0x560*/ struct ItemSlot bagPocket_Items[BAG_ITEMS_COUNT];
     /*0x5D8*/ struct ItemSlot bagPocket_KeyItems[BAG_KEYITEMS_COUNT];
@@ -1086,7 +1086,8 @@ struct SaveBlock1
     /*0x3C88*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
     /*0x3D64*/ struct TrainerHillSave trainerHill;
     /*0x3D70*/ struct WaldaPhrase waldaPhrase;
-    /*0x3D89*/ u8 unused[660]; //added this to keep track of saveblock space available
+               u16 registeredItems[MAX_REGISTERED_ITEMS];
+    /*0x3D89*/ u8 unused[652]; //added this to keep track of saveblock space available
     // sizeof: 3DF0
 };
 
