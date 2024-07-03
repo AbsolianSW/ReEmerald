@@ -26,6 +26,10 @@ Route116_TunnelersRestHouse_EventScript_TunnelOpened::
 	msgbox Route116_TunnelersRestHouse_Text_TunnelHasGoneThrough, MSGBOX_DEFAULT
 	release
 	end
+	
+Route116_TunnelersRestHouse_EventScript_Scientist::
+	msgbox Route116_TunnelersRestHouse_Text_MagneticPokemonInTheTunnel, MSGBOX_NPC
+	end
 
 Route116_TunnelersRestHouse_Text_WeHadToStopBoring:
 	.string "That RUSTURF TUNNEL there…\p"
@@ -59,3 +63,9 @@ Route116_TunnelersRestHouse_Text_TunnelHasGoneThrough:
 	.string "has gone through!\p"
 	.string "Sometimes, if you hope strongly enough,\n"
 	.string "dreams do come true.$"
+	
+Route116_TunnelersRestHouse_Text_MagneticPokemonInTheTunnel:
+	.string "Have you heard? apparently there are\n"
+	.string "some magnetic Pokemon in the tunnel!\p"
+	.string "If only I had some MAGNET PULL, maybe\n"
+	.string "I could find them...$"
