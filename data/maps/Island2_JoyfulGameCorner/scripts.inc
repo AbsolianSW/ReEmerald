@@ -23,6 +23,7 @@ Island2_JoyfulGameCorner_EventScript_InfoMan::
 	
 Island2_JoyfulGameCorner_EventScriptLostelleAbductionScene::
 	lock
+	goto_if_ge VAR_TWO_ISLAND_STATE, 1, Island2_JoyfulGameCorner_EventScriptWhyDoesThisKeepHappening
 	applymovement LOCALID_DAD, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	msgbox Island2_JoyfulGameCorner_Text_SoGlad, MSGBOX_DEFAULT
@@ -62,9 +63,12 @@ Island2_JoyfulGameCorner_EventScriptLostelleAbductionScene::
 	removeobject LOCALID_GRUNT, MAP_ISLAND2_JOYFUL_GAME_CORNER
 	applymovement LOCALID_LOSTELLE Island2_JoyfulGameCorner_Movement_LostelleDraggedOut
 	waitmovement 0
+	setflag FLAG_TWO_ISLAND_HIDE_LOSTELLE
 	removeobject LOCALID_LOSTELLE, MAP_ISLAND2_JOYFUL_GAME_CORNER
 	playse SE_DOOR
+	setvar VAR_TWO_ISLAND_STATE, 1
 	release
+	end
 	
 Island2_JoyfulGameCorner_Movement_OutOfTheWay:
 	walk_faster_left
@@ -107,6 +111,12 @@ Island2_JoyfulGameCorner_Movement_Wait:
 	delay_16
 	delay_16
 	step_end
+
+Island2_JoyfulGameCorner_EventScriptWhyDoesThisKeepHappening::
+	msgbox Island2_JoyfulGameCorner_TextWhyDoesThisKeepHappening
+	waitmessage
+	release
+	end
 	
 Island2_JoyfulGameCorner_Text_SoGlad::
 	.string "Oh Lostelle! I'm so glad you've stopped\n"
@@ -134,3 +144,8 @@ Island2_JoyfulGameCorner_Text_YoureComingWithMe::
 	
 Island2_JoyfulGameCorner_Text_DontTakeMe::
 	.string "No, please don't take me! Daddy, help!$"
+
+Island2_JoyfulGameCorner_TextWhyDoesThisKeepHappening::
+	.string "Why does this keep happening to my\n"
+	.string "family? I just want to live my life in\p"
+	.string "peace... What am I to do now?$"

@@ -1,5 +1,11 @@
 Island2_Main_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Island2_Main_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
+
+Island2_Main_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+	map_script_2 VAR_TWO_ISLAND_STATE, 1, Island2_Main_CutsceneFromGameCorner
+	map_script_2 VAR_TWO_ISLAND_STATE, 2, Island2_Main_CutsceneFromGameCorner
+	.2byte 0
 
 
 Island2_Main_Merchant::
@@ -63,7 +69,6 @@ Island2_Main_SuperNerd::
 Island2_Main_Boy::
 	lockall
 	faceplayer
-	setflag FLAG_TWO_ISLAND_GAMECORNER_HIDE_AQUA_GRUNT
 	msgbox Island2_Main_Boy_Text_0
 	releaseall
 	end
@@ -90,6 +95,10 @@ Island2_Main_FastCurrentSign::
 Island2_Main_GameCornerSign::
 	msgbox Island2_Main_GameCornerSign_Text_0, MSGBOX_SIGN
 	end
+
+
+Island2_Main_CutsceneFromGameCorner::
+	return
 
 
 Island2_Main_Merchant_Text_0:
