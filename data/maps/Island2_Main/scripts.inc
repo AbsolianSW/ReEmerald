@@ -63,6 +63,7 @@ Island2_Main_SuperNerd::
 Island2_Main_Boy::
 	lockall
 	faceplayer
+	setflag FLAG_TWO_ISLAND_GAMECORNER_HIDE_AQUA_GRUNT
 	msgbox Island2_Main_Boy_Text_0
 	releaseall
 	end

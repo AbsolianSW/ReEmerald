@@ -1244,8 +1244,8 @@
 #define FLAG_MT_EMBER_HIDE_MOLTRES                                  0x4A6 
 #define FLAG_ITEM_CAPE_BRINK_RARE_CANDY                             0x4A7
 #define FLAG_ITEM_CAPE_BRINK_PP_MAX                                 0x4A8 
-#define FLAG_UNUSED_0x4A9                                           0x4A9 // Unused Flag
-#define FLAG_UNUSED_0x4AA                                           0x4AA // Unused Flag
+#define FLAG_TWO_ISLAND_GAMECORNER_HIDE_AQUA_GRUNT                  0x4A9 
+#define FLAG_TWO_ISLAND_HIDE_LOSTELLE                               0x4AA
 #define FLAG_UNUSED_0x4AB                                           0x4AB // Unused Flag
 #define FLAG_UNUSED_0x4AC                                           0x4AC // Unused Flag
 #define FLAG_UNUSED_0x4AD                                           0x4AD // Unused Flag

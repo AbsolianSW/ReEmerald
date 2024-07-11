@@ -1,3 +1,7 @@
+.set LOCALID_DAD, 4
+.set LOCALID_LOSTELLE, 3
+.set LOCALID_GRUNT, 2
+
 Island2_JoyfulGameCorner_MapScripts::
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, Island2_JoyfulGameCorner_OnFrame
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, Island2_JoyfulGameCorner_OnWarp
@@ -16,3 +20,117 @@ Island2_JoyfulGameCorner_EventScript_InfoMan::
 	goto MossdeepCity_GameCorner_1F_EventScript_InfoMan2
 	release
 	end
+	
+Island2_JoyfulGameCorner_EventScriptLostelleAbductionScene::
+	lock
+	applymovement LOCALID_DAD, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	msgbox Island2_JoyfulGameCorner_Text_SoGlad, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_LOSTELLE, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	msgbox Island2_JoyfulGameCorner_Text_IPromise, MSGBOX_DEFAULT
+	closemessage
+	playse SE_DOOR
+	addobject LOCALID_GRUNT
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	applymovement LOCALID_DAD, Common_Movement_WalkInPlaceFasterDown
+	applymovement LOCALID_LOSTELLE, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	applymovement LOCALID_DAD, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_DAD, Island2_JoyfulGameCorner_Movement_Wait
+	waitmovement 0
+	msgbox Island2_JoyfulGameCorner_Text_NotAgain, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_GRUNT, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	msgbox Island2_JoyfulGameCorner_Text_OutOfMyWay, MSGBOX_DEFAULT
+	closemessage
+	applymovement OBJ_EVENT_ID_FOLLOWER, Island2_JoyfulGameCorner_Movement_OutOfTheWayFollower
+	applymovement OBJ_EVENT_ID_PLAYER, Island2_JoyfulGameCorner_Movement_OutOfTheWay
+	applymovement LOCALID_GRUNT, Island2_JoyfulGameCorner_Movement_GruntApproachLostelle
+	waitmovement 0
+	msgbox Island2_JoyfulGameCorner_Text_YoureComingWithMe, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_GRUNT, Island2_JoyfulGameCorner_Movement_GruntLeave
+	applymovement LOCALID_LOSTELLE, Island2_JoyfulGameCorner_Movement_LostelleLeave
+	waitmovement 0
+	msgbox Island2_JoyfulGameCorner_Text_DontTakeMe, MSGBOX_DEFAULT
+	closemessage
+	playse SE_DOOR
+	removeobject LOCALID_GRUNT, MAP_ISLAND2_JOYFUL_GAME_CORNER
+	applymovement LOCALID_LOSTELLE Island2_JoyfulGameCorner_Movement_LostelleDraggedOut
+	waitmovement 0
+	removeobject LOCALID_LOSTELLE, MAP_ISLAND2_JOYFUL_GAME_CORNER
+	playse SE_DOOR
+	release
+	
+Island2_JoyfulGameCorner_Movement_OutOfTheWay:
+	walk_faster_left
+	walk_faster_left
+	face_right
+	step_end
+	
+Island2_JoyfulGameCorner_Movement_OutOfTheWayFollower:
+	walk_faster_left
+	walk_faster_left
+	follower_face_right
+	step_end
+	
+Island2_JoyfulGameCorner_Movement_GruntApproachLostelle:
+	walk_faster_up
+	walk_faster_up
+	walk_faster_right
+	walk_faster_up
+	step_end
+	
+Island2_JoyfulGameCorner_Movement_GruntLeave:
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+Island2_JoyfulGameCorner_Movement_LostelleLeave:
+	walk_down
+	walk_down
+	walk_down
+	step_end
+	
+Island2_JoyfulGameCorner_Movement_LostelleDraggedOut:
+	walk_faster_down
+	step_end
+
+Island2_JoyfulGameCorner_Movement_Wait:
+	delay_16
+	delay_16
+	delay_16
+	delay_16
+	step_end
+	
+Island2_JoyfulGameCorner_Text_SoGlad::
+	.string "Oh Lostelle! I'm so glad you've stopped\n"
+	.string "always running away on your own! That\p"
+	.string "time you got lost in the forest was\n"
+	.string "really scary. Please promise me to never\p"
+	.string "run away again?$"
+	
+Island2_JoyfulGameCorner_Text_IPromise::
+	.string "Yes Daddy, I promi...$"
+
+Island2_JoyfulGameCorner_Text_NotAgain::
+	.string "What is this? Why do dirty thugs keep\n"
+	.string "coming into my GAME CORNER? Out, I say,\p"
+	.string "GET OUT!!$"
+	
+Island2_JoyfulGameCorner_Text_OutOfMyWay::
+	.string "Out of the way, child!$"
+	
+Island2_JoyfulGameCorner_Text_YoureComingWithMe::
+	.string "Shut up old man! You, little girl! You're\n"
+	.string "coming with me. And don't anyone dare\p"
+	.string "follow me out! Official TEAM AQUA\n"
+	.string "business!$"
+	
+Island2_JoyfulGameCorner_Text_DontTakeMe::
+	.string "No, please don't take me! Daddy, help!$"

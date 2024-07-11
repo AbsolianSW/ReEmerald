@@ -269,7 +269,7 @@
 //previously unused, now used for sevii islands
 #define VAR_ONE_ISLAND_STATE                             0x40F7 
 #define VAR_MT_EMBER_SUMMIT_STATE                        0x40F8
-#define VAR_UNUSED_0x40F9                                0x40F9 // Unused Var
+#define VAR_TWO_ISLAND_STATE                             0x40F9 
 #define VAR_UNUSED_0x40FA                                0x40FA // Unused Var
 #define VAR_UNUSED_0x40FB                                0x40FB // Unused Var
 #define VAR_UNUSED_0x40FC                                0x40FC // Unused Var

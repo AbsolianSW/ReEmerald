@@ -1,4 +1,9 @@
-mapscripts Island2_Main_MapScripts {}
+mapscripts Island2_Main_MapScripts {
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_TWO_ISLAND_STATE, 1: Island2_Main_CutsceneFromGameCorner
+		VAR_TWO_ISLAND_STATE, 2: Island2_Main_CutsceneFromGameCorner
+	]
+}
 
 script Island2_Main_Merchant {
 	lockall
@@ -86,4 +91,8 @@ script Island2_Main_FastCurrentSign{
 script Island2_Main_GameCornerSign{
 	msgbox(format("Skip&Chomp!\n Joyful GAME CORNER"), MSGBOX_SIGN)
 	end
+}
+
+script Island2_Main_CutsceneFromGameCorner{
+	
 }
