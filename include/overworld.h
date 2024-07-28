@@ -161,4 +161,12 @@ void GetFollowerCardinalDirection(void);
 void BufferFollowerSpecies(void);
 bool8 IsBigSprite(u16);
 
+enum {
+    REGION_HOENN,
+    REGION_KANTO,
+    REGION_SEVII123,
+    REGION_SEVII45,
+    REGION_SEVII67
+};
+
 #endif // GUARD_OVERWORLD_H
