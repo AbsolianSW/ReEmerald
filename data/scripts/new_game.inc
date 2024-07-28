@@ -273,7 +273,8 @@ EventScript_ResetAllMapFlags::
 	setflag FLAG_HIDE_SKY_PILLAR_WALLACE
 	setflag FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA_STILL
 	setflag FLAG_ROUTE_119_HIDE_MIMIC_TUTOR
-	setflag FLAG_TWO_ISLAND_GAMECORNER_HIDE_AQUA_GRUNT
+	setflag FLAG_TWO_ISLAND_HIDE_AQUA
+	setflag FLAG_TWO_ISLAND_HIDE_SHELLY
 	@Hiding these items on new games because they will only be available after certain story events
 	setflag FLAG_ITEM_MT_CHIMNEY_TM_REFLECT 
 	setflag FLAG_ITEM_MT_CHIMNEY_TM_LIGHT_SCREEN 

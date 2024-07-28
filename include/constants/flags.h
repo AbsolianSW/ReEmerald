@@ -114,7 +114,7 @@
 #define FLAG_MET_TEAM_AQUA_HARBOR            0x61
 #define FLAG_TV_EXPLAINED                    0x62
 #define FLAG_MAUVILLE_GYM_BARRIERS_STATE     0x63
-#define FLAG_MOSSDEEP_RECEIVED_TM_PROTECT    0x64 // previously leftover from RS, now actually used
+#define FLAG_MOSSDEEP_RECEIVED_TM_PROTECT    0x64 
 #define FLAG_WEATHER_INSTITUTE_RECEIVED_TM_SAFEGUARD           0x65 //
 #define FLAG_MOSSDEEP_GYM_SWITCH_3           0x66 //
 #define FLAG_MOSSDEEP_GYM_SWITCH_4           0x67 //
@@ -1230,7 +1230,7 @@
 #define FLAG_ITEM_TREASURE_BEACH_PEARL_2                            0x498 
 #define FLAG_ITEM_TREASURE_BEACH_STAR_PIECE                         0x499 
 #define FLAG_ITEM_TREASURE_BEACH_BIG_PEARL                          0x49A 
-#define FLAG_VISITED_ONE_ISLAND                                     0x49B 
+#define FLAG_VISITED_ONE_ISLAND_OLD                                 0x49B //reuse this maybe, SET IN SAVE ALREADY
 #define FLAG_ONE_ISLAND_HIDE_BILL                                   0x49C 
 #define FLAG_ITEM_KINDLE_ROAD_ETHER                                 0x49D 
 #define FLAG_ITEM_KINDLE_ROAD_MAX_REPEL                             0x49E 
@@ -1244,10 +1244,10 @@
 #define FLAG_MT_EMBER_HIDE_MOLTRES                                  0x4A6 
 #define FLAG_ITEM_CAPE_BRINK_RARE_CANDY                             0x4A7
 #define FLAG_ITEM_CAPE_BRINK_PP_MAX                                 0x4A8 
-#define FLAG_TWO_ISLAND_GAMECORNER_HIDE_AQUA_GRUNT                  0x4A9 
+#define FLAG_TWO_ISLAND_HIDE_AQUA                                   0x4A9 
 #define FLAG_TWO_ISLAND_HIDE_LOSTELLE                               0x4AA
-#define FLAG_UNUSED_0x4AB                                           0x4AB // Unused Flag
-#define FLAG_UNUSED_0x4AC                                           0x4AC // Unused Flag
+#define FLAG_TWO_ISLAND_HIDE_SHELLY                                 0x4AB
+#define FLAG_CAPE_BRINK_HIDE_AQUA                                   0x4AC 
 #define FLAG_UNUSED_0x4AD                                           0x4AD // Unused Flag
 #define FLAG_UNUSED_0x4AE                                           0x4AE // Unused Flag
 #define FLAG_UNUSED_0x4AF                                           0x4AF // Unused Flag
@@ -1387,13 +1387,13 @@
 #define FLAG_IS_CHAMPION                            (SYSTEM_FLAGS + 0x1F) // Seems to be related to linking.
 #define FLAG_NURSE_UNION_ROOM_REMINDER              (SYSTEM_FLAGS + 0x20)
 
-#define FLAG_UNUSED_0x881                           (SYSTEM_FLAGS + 0x21) // Unused Flag
-#define FLAG_UNUSED_0x882                           (SYSTEM_FLAGS + 0x22) // Unused Flag
-#define FLAG_UNUSED_0x883                           (SYSTEM_FLAGS + 0x23) // Unused Flag
-#define FLAG_UNUSED_0x884                           (SYSTEM_FLAGS + 0x24) // Unused Flag
-#define FLAG_UNUSED_0x885                           (SYSTEM_FLAGS + 0x25) // Unused Flag
-#define FLAG_UNUSED_0x886                           (SYSTEM_FLAGS + 0x26) // Unused Flag
-#define FLAG_UNUSED_0x887                           (SYSTEM_FLAGS + 0x27) // Unused Flag
+#define FLAG_VISITED_ONE_ISLAND                     (SYSTEM_FLAGS + 0x21) 
+#define FLAG_VISITED_TWO_ISLAND                     (SYSTEM_FLAGS + 0x22) 
+#define FLAG_VISITED_THREE_ISLAND                   (SYSTEM_FLAGS + 0x23) 
+#define FLAG_VISITED_FOUR_ISLAND                    (SYSTEM_FLAGS + 0x24) 
+#define FLAG_VISITED_FIVE_ISLAND                    (SYSTEM_FLAGS + 0x25) 
+#define FLAG_VISITED_SEVEN_ISLAND                   (SYSTEM_FLAGS + 0x26) 
+#define FLAG_VISITED_SIX_ISLAND                     (SYSTEM_FLAGS + 0x27)//the mapsecs are in this order for some reason and the fly map just iterates
 
 #define FLAG_SYS_USE_FLASH                          (SYSTEM_FLAGS + 0x28)
 #define FLAG_SYS_USE_STRENGTH                       (SYSTEM_FLAGS + 0x29)

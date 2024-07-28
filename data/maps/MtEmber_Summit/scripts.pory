@@ -8,7 +8,6 @@ script MtEmber_Summit_Cutscene{
 		end
 	}
 	lockall
-	special(StorePlayerCoordsInVars)
 	delay(60)
 	special(SpawnCameraObject)
 	applymovement(OBJ_EVENT_ID_CAMERA, MtEmber_Summit_CameraMovementUp)

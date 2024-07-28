@@ -24,6 +24,7 @@ Island2_JoyfulGameCorner_EventScript_InfoMan::
 	
 Island2_JoyfulGameCorner_EventScriptLostelleAbductionScene::
 	lock
+	specialvar VAR_RESULT, GetPlayerFacingDirection
 	goto_if_ge VAR_TWO_ISLAND_STATE, 1, Island2_JoyfulGameCorner_EventScriptWhyDoesThisKeepHappening
 	applymovement LOCALID_DAD, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
@@ -47,10 +48,7 @@ Island2_JoyfulGameCorner_EventScriptLostelleAbductionScene::
 	closemessage
 	applymovement LOCALID_GRUNT, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	msgbox Island2_JoyfulGameCorner_Text_OutOfMyWay, MSGBOX_DEFAULT
-	closemessage
-	applymovement OBJ_EVENT_ID_FOLLOWER, Island2_JoyfulGameCorner_Movement_OutOfTheWayFollower
-	applymovement OBJ_EVENT_ID_PLAYER, Island2_JoyfulGameCorner_Movement_OutOfTheWay
+	call_if_eq VAR_RESULT, DIR_NORTH, Island2_JoyfulGameCorner_EventScriptPlayerOutOfTheWay
 	applymovement LOCALID_GRUNT, Island2_JoyfulGameCorner_Movement_GruntApproachLostelle
 	waitmovement 0
 	msgbox Island2_JoyfulGameCorner_Text_YoureComingWithMe, MSGBOX_DEFAULT
@@ -70,9 +68,15 @@ Island2_JoyfulGameCorner_EventScriptLostelleAbductionScene::
 	setvar VAR_TWO_ISLAND_STATE, 1
 	release
 	end
+
+Island2_JoyfulGameCorner_EventScriptPlayerOutOfTheWay::
+	msgbox Island2_JoyfulGameCorner_Text_OutOfMyWay, MSGBOX_DEFAULT
+	closemessage
+	applymovement OBJ_EVENT_ID_FOLLOWER, Island2_JoyfulGameCorner_Movement_OutOfTheWayFollower
+	applymovement OBJ_EVENT_ID_PLAYER, Island2_JoyfulGameCorner_Movement_OutOfTheWay
+	return
 	
 Island2_JoyfulGameCorner_Movement_OutOfTheWay:
-	walk_faster_left
 	walk_faster_left
 	face_right
 	step_end

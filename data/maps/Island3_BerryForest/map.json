@@ -17,7 +17,13 @@
 
   ],
   "warp_events": [
-
+    {
+      "x": 43,
+      "y": 46,
+      "elevation": 0,
+      "dest_map": "MAP_ISLAND3_BOND_BRIDGE",
+      "dest_warp_id": "0"
+    }
   ],
   "coord_events": [
 

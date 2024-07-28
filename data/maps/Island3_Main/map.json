@@ -17,18 +17,61 @@
       "map": "MAP_ISLAND3_PORT",
       "offset": 0,
       "direction": "down"
-    },
-    {
-      "map": "MAP_ISLAND3_BOND_BRIDGE",
-      "offset": 0,
-      "direction": "left"
     }
   ],
   "object_events": [
 
   ],
   "warp_events": [
-
+    {
+      "x": 13,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_ISLAND3_MAIN",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 17,
+      "y": 12,
+      "elevation": 0,
+      "dest_map": "MAP_ISLAND3_MART",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 13,
+      "y": 12,
+      "elevation": 0,
+      "dest_map": "MAP_ISLAND3_MAIN",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 14,
+      "y": 19,
+      "elevation": 0,
+      "dest_map": "MAP_ISLAND3_MAIN",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 14,
+      "y": 26,
+      "elevation": 0,
+      "dest_map": "MAP_ISLAND3_POKEMON_CENTER_1F",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 4,
+      "y": 31,
+      "elevation": 0,
+      "dest_map": "MAP_ISLAND3_MAIN",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 5,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_ISLAND3_MAIN",
+      "dest_warp_id": "0"
+    }
   ],
   "coord_events": [
 

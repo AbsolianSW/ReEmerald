@@ -14,9 +14,9 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ISLAND1_KINDLE_ROAD_ENTRANCE",
-      "offset": 0,
-      "direction": "down"
+      "map": "MAP_ISLAND1_MAIN",
+      "offset": 120,
+      "direction": "left"
     }
   ],
   "object_events": [
@@ -383,6 +383,19 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Island1_KindleRoad_EventScript_ItemCarbos",
       "flag": "FLAG_ITEM_KINDLE_ROAD_CARBOS"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_GIRL_1",
+      "x": 17,
+      "y": 132,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "2",
+      "script": "Island1_KindleRoad_EventScript_Abigail",
+      "flag": "0"
     }
   ],
   "warp_events": [

@@ -4417,7 +4417,7 @@
       "width": 24,
       "height": 42,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Slateport",
+      "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/Island1_TreasureBeach/border.bin",
       "blockdata_filepath": "data/layouts/Island1_TreasureBeach/map.bin"
     },
@@ -4427,7 +4427,7 @@
       "width": 24,
       "height": 20,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Slateport",
+      "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/Island1_Main/border.bin",
       "blockdata_filepath": "data/layouts/Island1_Main/map.bin"
     },
@@ -4437,7 +4437,7 @@
       "width": 17,
       "height": 13,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Facility",
+      "secondary_tileset": "gTileset_IslandHarbor",
       "border_filepath": "data/layouts/Island1_Harbor/border.bin",
       "blockdata_filepath": "data/layouts/Island1_Harbor/map.bin"
     },
@@ -4485,21 +4485,11 @@
       "id": "LAYOUT_ISLAND1_KINDLE_ROAD",
       "name": "Island1_KindleRoad_Layout",
       "width": 24,
-      "height": 117,
+      "height": 140,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Fallarbor",
       "border_filepath": "data/layouts/Island1_KindleRoad/border.bin",
       "blockdata_filepath": "data/layouts/Island1_KindleRoad/map.bin"
-    },
-    {
-      "id": "LAYOUT_ISLAND1_KINDLE_ROAD_ENTRANCE",
-      "name": "Island1_KindleRoad_Entrance_Layout",
-      "width": 24,
-      "height": 23,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Slateport",
-      "border_filepath": "data/layouts/Island1_KindleRoad_Entrance/border.bin",
-      "blockdata_filepath": "data/layouts/Island1_KindleRoad_Entrance/map.bin"
     },
     {
       "id": "LAYOUT_MT_EMBER_EXTERIOR",
@@ -4647,7 +4637,7 @@
       "width": 48,
       "height": 20,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Slateport",
+      "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/Island2_Main/border.bin",
       "blockdata_filepath": "data/layouts/Island2_Main/map.bin"
     },
@@ -4657,7 +4647,7 @@
       "width": 24,
       "height": 40,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Slateport",
+      "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/Island2_CapeBrink/border.bin",
       "blockdata_filepath": "data/layouts/Island2_CapeBrink/map.bin"
     },
@@ -4707,7 +4697,7 @@
       "width": 17,
       "height": 12,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Facility",
+      "secondary_tileset": "gTileset_IslandHarbor",
       "border_filepath": "data/layouts/Island2_Harbor/border.bin",
       "blockdata_filepath": "data/layouts/Island2_Harbor/map.bin"
     },
@@ -4727,7 +4717,7 @@
       "width": 24,
       "height": 40,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Slateport",
+      "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/Island3_Main/border.bin",
       "blockdata_filepath": "data/layouts/Island3_Main/map.bin"
     },
@@ -4737,7 +4727,7 @@
       "width": 48,
       "height": 20,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Slateport",
+      "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/Island3_Port/border.bin",
       "blockdata_filepath": "data/layouts/Island3_Port/map.bin"
     },
@@ -4754,22 +4744,12 @@
     {
       "id": "LAYOUT_ISLAND3_BOND_BRIDGE",
       "name": "Island3_BondBridge_Layout",
-      "width": 39,
-      "height": 20,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Slateport",
-      "border_filepath": "data/layouts/Island3_BondBridge/border.bin",
-      "blockdata_filepath": "data/layouts/Island3_BondBridge/map.bin"
-    },
-    {
-      "id": "LAYOUT_ISLAND3_BOND_BRIDGE_BERRY_FOREST_ENTRANCE",
-      "name": "Island3_BondBridge_BerryForestEntrance_Layout",
-      "width": 57,
+      "width": 96,
       "height": 20,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Rustboro",
-      "border_filepath": "data/layouts/Island3_BondBridge_BerryForestEntrance/border.bin",
-      "blockdata_filepath": "data/layouts/Island3_BondBridge_BerryForestEntrance/map.bin"
+      "border_filepath": "data/layouts/Island3_BondBridge/border.bin",
+      "blockdata_filepath": "data/layouts/Island3_BondBridge/map.bin"
     },
     {
       "id": "LAYOUT_ISLAND3_BERRY_FOREST",
@@ -4867,7 +4847,7 @@
       "width": 17,
       "height": 12,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Facility",
+      "secondary_tileset": "gTileset_IslandHarbor",
       "border_filepath": "data/layouts/Island3_Harbor/border.bin",
       "blockdata_filepath": "data/layouts/Island3_Harbor/map.bin"
     },
@@ -4937,7 +4917,7 @@
       "width": 17,
       "height": 12,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Facility",
+      "secondary_tileset": "gTileset_IslandHarbor",
       "border_filepath": "data/layouts/Island4_Harbor/border.bin",
       "blockdata_filepath": "data/layouts/Island4_Harbor/map.bin"
     },
@@ -5227,7 +5207,7 @@
       "width": 17,
       "height": 12,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Facility",
+      "secondary_tileset": "gTileset_IslandHarbor",
       "border_filepath": "data/layouts/Island5_Harbor/border.bin",
       "blockdata_filepath": "data/layouts/Island5_Harbor/map.bin"
     },
@@ -5347,7 +5327,7 @@
       "width": 17,
       "height": 12,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Facility",
+      "secondary_tileset": "gTileset_IslandHarbor",
       "border_filepath": "data/layouts/Island6_Harbor/border.bin",
       "blockdata_filepath": "data/layouts/Island6_Harbor/map.bin"
     },
@@ -5567,7 +5547,7 @@
       "width": 17,
       "height": 12,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Facility",
+      "secondary_tileset": "gTileset_IslandHarbor",
       "border_filepath": "data/layouts/Island7_Harbor/border.bin",
       "blockdata_filepath": "data/layouts/Island7_Harbor/map.bin"
     },

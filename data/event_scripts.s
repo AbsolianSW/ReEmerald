@@ -1102,8 +1102,6 @@ Common_Event_Script_ChooseMonToSendToPCReturn:
 
 	.include "data/maps/Island1_KindleRoad/scripts.inc"
 
-	.include "data/maps/Island1_KindleRoad_Entrance/scripts.inc"
-
 	.include "data/maps/MtEmber_Exterior/scripts.inc"
 
 	.include "data/maps/EmberSpa/scripts.inc"
@@ -1155,8 +1153,6 @@ Common_Event_Script_ChooseMonToSendToPCReturn:
 	.include "data/maps/Island3_DunsparceTunnel/scripts.inc"
 
 	.include "data/maps/Island3_BondBridge/scripts.inc"
-
-	.include "data/maps/Island3_BondBridge_BerryForestEntrance/scripts.inc"
 
 	.include "data/maps/Island3_BerryForest/scripts.inc"
 

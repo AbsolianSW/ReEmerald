@@ -14,14 +14,14 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ISLAND1_KINDLE_ROAD_ENTRANCE",
-      "offset": -3,
-      "direction": "right"
-    },
-    {
       "map": "MAP_ISLAND1_TREASURE_BEACH",
       "offset": 0,
       "direction": "down"
+    },
+    {
+      "map": "MAP_ISLAND1_KINDLE_ROAD",
+      "offset": -120,
+      "direction": "right"
     }
   ],
   "object_events": [

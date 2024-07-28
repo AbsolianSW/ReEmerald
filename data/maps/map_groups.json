@@ -641,7 +641,6 @@
     "Island1_PokemonCenter_1F",
     "Island1_PokemonCenter_2F",
     "Island1_TreasureBeach",
-    "Island1_KindleRoad_Entrance",
     "Island1_KindleRoad"
   ],
   "gMapGroup_Sevii_Islands2": [
@@ -659,7 +658,6 @@
     "Island3_Port",
     "Island3_DunsparceTunnel",
     "Island3_BondBridge",
-    "Island3_BondBridge_BerryForestEntrance",
     "Island3_BerryForest",
     "Island3_House1",
     "Island3_PokemonCenter_1F",

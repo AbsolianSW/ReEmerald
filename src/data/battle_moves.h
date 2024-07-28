@@ -3227,7 +3227,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_FUTURE_SIGHT] =
     {
         .effect = EFFECT_FUTURE_SIGHT,
-        .power = 100,
+        .power = 120,
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
         .pp = 15,
@@ -3266,7 +3266,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
     [MOVE_BEAT_UP] =
     {
         .effect = EFFECT_BEAT_UP,
-        .power = 10,
+        .power = 20,
         .type = TYPE_DARK,
         .accuracy = 100,
         .pp = 10,
@@ -4594,7 +4594,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
         .effect = EFFECT_FUTURE_SIGHT,
         .power = 120,
         .type = TYPE_STEEL,
-        .accuracy = 85,
+        .accuracy = 100,
         .pp = 5,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,

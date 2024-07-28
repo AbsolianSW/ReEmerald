@@ -10,7 +10,6 @@ MtEmber_Summit_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 MtEmber_Summit_Cutscene::
 	goto_if_set FLAG_MT_EMBER_HIDE_MOLTRES, MtEmber_Summit_Cutscene_2
 	lockall
-	special StorePlayerCoordsInVars
 	delay 60
 	special SpawnCameraObject
 	applymovement OBJ_EVENT_ID_CAMERA, MtEmber_Summit_CameraMovementUp

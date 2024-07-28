@@ -1,1 +1,130 @@
-mapscripts Island2_CapeBrink_MapScripts {}
+mapscripts Island2_CapeBrink_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TWO_ISLAND_STATE, 0: Island2_CapeBrink_SuicuneCatchingScene
+    ]
+}
+
+script Island2_CapeBrink_SuicuneCatchingScene{
+    lockall
+    getplayerxy(VAR_TEMP_2, VAR_TEMP_3)
+    special(SpawnCameraObject)
+    switch(var(VAR_TEMP_2)) {
+        case 12:
+            applymovement(OBJ_EVENT_ID_CAMERA,Island2_CapeBrink_Camera12)
+        case 13:
+            applymovement(OBJ_EVENT_ID_CAMERA,Island2_CapeBrink_Camera13)
+        case 14:
+            applymovement(OBJ_EVENT_ID_CAMERA,Island2_CapeBrink_Camera14)
+        case 15:
+            applymovement(OBJ_EVENT_ID_CAMERA,Island2_CapeBrink_Camera15)
+        case 16:
+            applymovement(OBJ_EVENT_ID_CAMERA,Island2_CapeBrink_Camera16)
+    }
+    waitmovement(0)
+    special(RemoveCameraObject)
+    applymovement(3,Common_Movement_WalkInPlaceFasterUp)
+    waitmovement(0)
+    msgbox(format("Holy moly boss, you've actually found it! It looks so majestic!"))
+    closemessage
+    applymovement(1,Common_Movement_WalkInPlaceFasterUp)
+    waitmovement(0)
+    msgbox(format("It sure does...and with it by our side, surely we're unstoppable! Let's just hope these MASTER BALLs are as good as advertised."))
+    closemessage
+    playmoncry(SPECIES_SUICUNE, CRY_MODE_ENCOUNTER)
+    delay(30)
+    removeobject(2)
+    msgbox(format("HAHAHA! Yes! It worked! Quick, let's get out of here and meet up with MATT and the others on THREE ISLAND!"))
+    closemessage
+    fadescreen(FADE_TO_BLACK)
+    removeobject(3)
+    removeobject(1)
+    setflag(FLAG_CAPE_BRINK_HIDE_AQUA)
+    setvar(VAR_TWO_ISLAND_STATE,2)
+    fadescreen(FADE_FROM_BLACK)
+    special(SpawnCameraObject)
+    switch(var(VAR_TEMP_2)) {
+        case 12:
+            applymovement(OBJ_EVENT_ID_CAMERA,Island2_CapeBrink_CameraBack12)
+        case 13:
+            applymovement(OBJ_EVENT_ID_CAMERA,Island2_CapeBrink_CameraBack13)
+        case 14:
+            applymovement(OBJ_EVENT_ID_CAMERA,Island2_CapeBrink_CameraBack14)
+        case 15:
+            applymovement(OBJ_EVENT_ID_CAMERA,Island2_CapeBrink_CameraBack15)
+        case 16:
+            applymovement(OBJ_EVENT_ID_CAMERA,Island2_CapeBrink_CameraBack16)
+    }
+    waitmovement(0)
+    special(RemoveCameraObject)
+    releaseall
+    end
+}
+
+movement Island2_CapeBrink_GruntWalkAwayRight{
+    delay_16 *2
+    walk_down *11
+}
+
+movement Island2_CapeBrink_ShellyWalkAwayRight{
+    walk_down
+    walk_right
+    walk_down *10
+}
+
+movement Island2_CapeBrink_GruntWalkAwayLeft{
+    walk_left
+    walk_down *11
+}
+
+movement Island2_CapeBrink_ShellyWalkAwayLeft{
+    walk_down *11
+}
+
+movement Island2_CapeBrink_Camera12{
+    walk_up*4
+}
+
+movement Island2_CapeBrink_Camera13{
+    walk_left
+    walk_up*4
+}
+
+movement Island2_CapeBrink_Camera14{
+    walk_left*2
+    walk_up*4
+}
+
+movement Island2_CapeBrink_Camera15{
+    walk_left*3
+    walk_up*4
+}
+
+movement Island2_CapeBrink_Camera16{
+    walk_left*4
+    walk_up*4
+}
+
+movement Island2_CapeBrink_CameraBack12{
+    walk_down*4
+}
+
+movement Island2_CapeBrink_CameraBack13{
+    walk_down*4
+    walk_right
+}
+
+movement Island2_CapeBrink_CameraBack14{
+    walk_down*4
+    walk_right*2
+}
+
+movement Island2_CapeBrink_CameraBack15{
+    walk_down*4
+    walk_right*3
+}
+
+movement Island2_CapeBrink_CameraBack16{
+    walk_down*4
+    walk_right*4
+}
+
