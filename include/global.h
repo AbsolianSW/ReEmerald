@@ -539,6 +539,10 @@ struct Challenges
     u8 xpMultiplier;
     u8 limitedEncounters;
     u8 speciesClause;
+    u8 escapeRope;
+    u8 fieldMoves;
+    u8 starterAffectsRival;
+    u8 gauntletMode;
 };
 
 struct SaveBlock2
@@ -576,7 +580,7 @@ struct SaveBlock2
     /*0x64C*/ struct BattleFrontier frontier;
              struct Follower follower;
              struct Challenges challenges;
-             u8 unused[168]; // to keep track of unused saveblock space
+             u8 unused[164]; // to keep track of unused saveblock space
              
 }; // sizeof=0xF2C
 
