@@ -2843,6 +2843,13 @@ static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon)
     SetMonData(mon, field, &n);                                 \
 }
 
+#define CALC_STAT_CASTFORM(base, iv, ev, statIndex, field,dest) \
+{                                                               \
+    u8 nature = GetNature(mon);                                 \
+    dest = (((2 * base + iv + ev / 4) * level) / 100) + 5;      \
+    dest = ModifyStatByNature(nature, dest, statIndex);         \
+}
+
 void CalculateMonStats(struct Pokemon *mon)
 {
     s32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP, NULL);
@@ -2911,6 +2918,42 @@ void CalculateMonStats(struct Pokemon *mon)
     }
 
     SetMonData(mon, MON_DATA_HP, &currentHP);
+}
+
+static const u16 sCastformBaseStats[NUM_CASTFORM_FORMS][NUM_STATS-1] =//do not modify HP here as that will cause lots of issues
+{
+    {70,70,70,70,70},
+    {70,70,60,120,140},
+    {80,140,80,80,80},
+    {70,65,130,130,65},
+};
+
+void CalculateCastformStatsAfterFormChange(u8 battlerId, u8 form)
+{
+    struct Pokemon *mon = &gPlayerParty[gBattlerPartyIndexes[battlerId]];
+    s32 attackIV = GetMonData(mon, MON_DATA_ATK_IV, NULL);
+    s32 attackEV = GetMonData(mon, MON_DATA_ATK_EV, NULL);
+    s32 defenseIV = GetMonData(mon, MON_DATA_DEF_IV, NULL);
+    s32 defenseEV = GetMonData(mon, MON_DATA_DEF_EV, NULL);
+    s32 speedIV = GetMonData(mon, MON_DATA_SPEED_IV, NULL);
+    s32 speedEV = GetMonData(mon, MON_DATA_SPEED_EV, NULL);
+    s32 spAttackIV = GetMonData(mon, MON_DATA_SPATK_IV, NULL);
+    s32 spAttackEV = GetMonData(mon, MON_DATA_SPATK_EV, NULL);
+    s32 spDefenseIV = GetMonData(mon, MON_DATA_SPDEF_IV, NULL);
+    s32 spDefenseEV = GetMonData(mon, MON_DATA_SPDEF_EV, NULL);
+    s32 level = GetLevelFromMonExp(mon);
+    s32 n;
+    DebugPrintf("calcing stats for form %d", form);
+    CALC_STAT_CASTFORM(sCastformBaseStats[form][0], attackIV, attackEV, STAT_ATK, MON_DATA_ATK,n)
+    gBattleMons[battlerId].attack = n;
+    CALC_STAT_CASTFORM(sCastformBaseStats[form][1], defenseIV, defenseEV, STAT_ATK, MON_DATA_ATK, n)
+    gBattleMons[battlerId].defense = n;
+    CALC_STAT_CASTFORM(sCastformBaseStats[form][2], speedIV, speedEV, STAT_ATK, MON_DATA_ATK, n)
+    gBattleMons[battlerId].speed = n;
+    CALC_STAT_CASTFORM(sCastformBaseStats[form][3], spAttackIV, spAttackEV, STAT_ATK, MON_DATA_ATK, n)
+    gBattleMons[battlerId].spAttack = n;
+    CALC_STAT_CASTFORM(sCastformBaseStats[form][4], spDefenseIV, spDefenseEV, STAT_ATK, MON_DATA_ATK, n)
+    gBattleMons[battlerId].spDefense = n;
 }
 
 void BoxMonToMon(const struct BoxPokemon *src, struct Pokemon *dest)
@@ -3138,7 +3181,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     u8 defenderHoldEffectParam;
     u8 attackerHoldEffect;
     u8 attackerHoldEffectParam;
-
     if (!powerOverride)
         gBattleMovePower = gBattleMoves[move].power;
     else
@@ -3153,6 +3195,8 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     spAttack = attacker->spAttack;
     spDefense = defender->spDefense;
 
+    if(doAbilityPopup)
+        DebugPrintf("atk is %d", attack);
     // Get attacker hold item info
     if (attacker->item == ITEM_ENIGMA_BERRY)
     {

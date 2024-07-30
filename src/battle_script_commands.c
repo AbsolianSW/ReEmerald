@@ -1098,6 +1098,7 @@ static bool8 AccuracyCalcHelper(u16 move)
 
     if ((WEATHER_HAS_EFFECT && (gBattleWeather & B_WEATHER_RAIN) && gBattleMoves[move].effect == EFFECT_THUNDER)
      || (WEATHER_HAS_EFFECT && (gBattleWeather & B_WEATHER_HAIL) && gBattleMoves[move].effect == EFFECT_BLIZZARD)
+     || (WEATHER_HAS_EFFECT && (gBattleWeather & B_WEATHER_SANDSTORM) && gBattleMoves[move].effect == EFFECT_WEATHER_BALL)
      || (gBattleMoves[move].effect == EFFECT_ALWAYS_HIT || gBattleMoves[move].effect == EFFECT_VITAL_THROW))
     {
         JumpIfMoveFailed(7, move);
@@ -3457,7 +3458,7 @@ static void Cmd_getexp(void)
         if (gBattleControllerExecFlags == 0)
         {
             gBattleBufferB[gBattleStruct->expGetterBattlerId][0] = 0;
-            if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP) && GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) != getLevelCap())
+            if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP) && GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) <= getLevelCap())
             {
                 gBattleResources->beforeLvlUp->stats[STAT_HP]    = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_MAX_HP);
                 gBattleResources->beforeLvlUp->stats[STAT_ATK]   = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_ATK);
@@ -3492,6 +3493,7 @@ static void Cmd_getexp(void)
                 AdjustFriendship(&gPlayerParty[gBattleStruct->expGetterMonId], FRIENDSHIP_EVENT_GROW_LEVEL);
 
                 // update battle mon structure after level up
+                // recalculate castform stats afterwards
                 if (gBattlerPartyIndexes[0] == gBattleStruct->expGetterMonId && gBattleMons[0].hp)
                 {
                     gBattleMons[0].level = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL);
@@ -3504,6 +3506,23 @@ static void Cmd_getexp(void)
                     gBattleMons[0].speed = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED);
                     gBattleMons[0].spAttack = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK);
                     gBattleMons[0].spDefense = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPDEF);
+                    if (gBattleMons[0].species == SPECIES_CASTFORM)
+                    {
+                        switch (gBattleMons[0].type1)
+                        {
+                        case TYPE_FIRE:
+                            CalculateCastformStatsAfterFormChange(0, CASTFORM_FIRE);
+                            break;
+                        case TYPE_WATER:
+                            CalculateCastformStatsAfterFormChange(0, CASTFORM_WATER);
+                            break;
+                        case TYPE_ICE:
+                            CalculateCastformStatsAfterFormChange(0, CASTFORM_ICE);
+                            break;
+                        default:
+                            break;
+                        }
+                    }
                 }
 
                 if (gBattlerPartyIndexes[2] == gBattleStruct->expGetterMonId && gBattleMons[2].hp && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
@@ -3521,6 +3540,23 @@ static void Cmd_getexp(void)
                     gBattleMons[2].speed = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPEED);
 #endif
                     gBattleMons[2].spAttack = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_SPATK);
+                    if (gBattleMons[2].species == SPECIES_CASTFORM)
+                    {
+                        switch (gBattleMons[2].type1)
+                        {
+                        case TYPE_FIRE:
+                            CalculateCastformStatsAfterFormChange(2, CASTFORM_FIRE);
+                            break;
+                        case TYPE_WATER:
+                            CalculateCastformStatsAfterFormChange(2, CASTFORM_WATER);
+                            break;
+                        case TYPE_ICE:
+                            CalculateCastformStatsAfterFormChange(2, CASTFORM_ICE);
+                            break;
+                        default:
+                            break;
+                        }
+                    }
                 }
                 gBattleScripting.getexpState = 5;
             }
@@ -9832,16 +9868,26 @@ static void Cmd_setweatherballtype(void)
 {
     if (WEATHER_HAS_EFFECT)
     {
-        if (gBattleWeather & B_WEATHER_ANY)
-            gBattleScripting.dmgMultiplier = 2;
         if (gBattleWeather & B_WEATHER_RAIN)
+        {
+            gBattleScripting.dmgMultiplier = 3;
             *(&gBattleStruct->dynamicMoveType) = TYPE_WATER | F_DYNAMIC_TYPE_2;
+        }
         else if (gBattleWeather & B_WEATHER_SANDSTORM)
+        {
+            gBattleScripting.dmgMultiplier = 4;
             *(&gBattleStruct->dynamicMoveType) = TYPE_ROCK | F_DYNAMIC_TYPE_2;
+        }
         else if (gBattleWeather & B_WEATHER_SUN)
+        {
+            gBattleScripting.dmgMultiplier = 2;
             *(&gBattleStruct->dynamicMoveType) = TYPE_FIRE | F_DYNAMIC_TYPE_2;
+        }
         else if (gBattleWeather & B_WEATHER_HAIL)
+        {
+            gBattleScripting.dmgMultiplier = 5;
             *(&gBattleStruct->dynamicMoveType) = TYPE_ICE | F_DYNAMIC_TYPE_2;
+        }
         else
             *(&gBattleStruct->dynamicMoveType) = TYPE_NORMAL | F_DYNAMIC_TYPE_2;
     }

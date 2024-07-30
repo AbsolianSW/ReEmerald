@@ -2447,6 +2447,7 @@ u8 CastformDataTypeChange(u8 battler)
     if (!WEATHER_HAS_EFFECT && !IS_BATTLER_OF_TYPE(battler, TYPE_NORMAL))
     {
         SET_BATTLER_TYPE(battler, TYPE_NORMAL);
+        CalculateCastformStatsAfterFormChange(battler,CASTFORM_NORMAL);
         return CASTFORM_NORMAL + 1;
     }
     if (!WEATHER_HAS_EFFECT)
@@ -2454,21 +2455,25 @@ u8 CastformDataTypeChange(u8 battler)
     if (!(gBattleWeather & (B_WEATHER_RAIN | B_WEATHER_SUN | B_WEATHER_HAIL)) && !IS_BATTLER_OF_TYPE(battler, TYPE_NORMAL))
     {
         SET_BATTLER_TYPE(battler, TYPE_NORMAL);
+        CalculateCastformStatsAfterFormChange(battler,CASTFORM_NORMAL);
         formChange = CASTFORM_NORMAL + 1;
     }
     if (gBattleWeather & B_WEATHER_SUN && !IS_BATTLER_OF_TYPE(battler, TYPE_FIRE))
     {
         SET_BATTLER_TYPE(battler, TYPE_FIRE);
+        CalculateCastformStatsAfterFormChange(battler,CASTFORM_FIRE);
         formChange = CASTFORM_FIRE + 1;
     }
     if (gBattleWeather & B_WEATHER_RAIN && !IS_BATTLER_OF_TYPE(battler, TYPE_WATER))
     {
         SET_BATTLER_TYPE(battler, TYPE_WATER);
+        CalculateCastformStatsAfterFormChange(battler,CASTFORM_WATER);
         formChange = CASTFORM_WATER + 1;
     }
     if (gBattleWeather & B_WEATHER_HAIL && !IS_BATTLER_OF_TYPE(battler, TYPE_ICE))
     {
         SET_BATTLER_TYPE(battler, TYPE_ICE);
+        CalculateCastformStatsAfterFormChange(battler,CASTFORM_ICE);
         formChange = CASTFORM_ICE + 1;
     }
     return formChange;

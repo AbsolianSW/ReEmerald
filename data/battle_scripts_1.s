@@ -2677,6 +2677,10 @@ BattleScript_EffectPoisonFang::
 
 BattleScript_EffectWeatherBall::
 	setweatherballtype
+	jumpifabilitypresent ABILITY_CLOUD_NINE, BattleScript_EffectHit
+	jumpifabilitypresent ABILITY_AIR_LOCK, BattleScript_EffectHit
+	jumpifhalfword CMP_COMMON_BITS, gBattleWeather, B_WEATHER_RAIN, BattleScript_EffectSpeedDownHit
+	jumpifhalfword CMP_COMMON_BITS, gBattleWeather, B_WEATHER_SUN, BattleScript_EffectAbsorb
 	goto BattleScript_EffectHit
 
 BattleScript_EffectOverheat::
