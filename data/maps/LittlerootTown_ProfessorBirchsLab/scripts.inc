@@ -32,7 +32,6 @@ LittlerootTown_ProfessorBirchsLab_OnTransition:
 	setvar VAR_0x8004, 5
 	call Common_EventScript_SetupRivalFollowerId
 	call ProfBirch_EventScript_UpdateLocation
-	setflag FLAG_FOLLOWER_ACTIVE
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_SetAfterJohtoStarterLayout
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_SetJohtoStarterLayout
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_CheckReadyForJohtoStarter
@@ -143,9 +142,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_AgreeToSeeRival::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_GetRivalToTeachYou, MSGBOX_DEFAULT
 	clearflag FLAG_HIDE_ROUTE_101_BOY
 	setvar VAR_BIRCH_LAB_STATE, 3
-	addobject 7
-	setfollower 7, 0x7E
-	updatefollowerpokemongraphic
 	releaseall
 	end
 

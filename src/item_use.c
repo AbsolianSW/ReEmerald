@@ -226,12 +226,7 @@ static void ItemUseOnFieldCB_Bike(u8 taskId)
     else // ACRO_BIKE
         GetOnOffBike(PLAYER_AVATAR_FLAG_ACRO_BIKE);
     ScriptUnfreezeObjectEvents();
-    if(!gSaveBlock2Ptr->follower.inProgress ||
-    gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_ON_FOOT ||
-    (gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE) && gObjectEvents[gSaveBlock2Ptr->follower.objId].invisible == TRUE))
-    {
-        UnlockPlayerFieldControls();
-    }
+    UnlockPlayerFieldControls();
     DestroyTask(taskId);
 }
 

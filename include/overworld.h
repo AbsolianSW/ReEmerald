@@ -154,12 +154,6 @@ bool32 Overworld_RecvKeysFromLinkIsRunning(void);
 bool32 Overworld_SendKeysToLinkIsRunning(void);
 bool32 IsSendingKeysOverCable(void);
 void ClearLinkPlayerObjectEvents(void);
-void UpdateFollowerPokemonGraphic(void);
-void FollowerPokeballSparkle(void);
-void FollowerIntoPokeball(void);
-void GetFollowerCardinalDirection(void);
-void BufferFollowerSpecies(void);
-bool8 IsBigSprite(u16);
 
 enum {
     REGION_HOENN,

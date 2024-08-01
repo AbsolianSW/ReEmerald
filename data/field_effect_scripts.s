@@ -135,18 +135,6 @@ gFieldEffectScript_SandFootprints::
 	field_eff_loadfadedpal_callnative gSpritePalette_GeneralFieldEffect0, FldEff_SandFootprints
 	field_eff_end
 
-gFieldEffectScript_TracksBug:: @ 82DBB42
-	field_eff_loadfadedpal_callnative gSpritePalette_GeneralFieldEffect0, FldEff_TracksBug
-	field_eff_end
-
-gFieldEffectScript_TracksSpot:: @ 82DBB42
-	field_eff_loadfadedpal_callnative gSpritePalette_GeneralFieldEffect0, FldEff_TracksSpot
-	field_eff_end
-
-gFieldEffectScript_TracksSlither:: @ 82DBBFF
-	field_eff_loadfadedpal_callnative gSpritePalette_GeneralFieldEffect0, FldEff_TracksSlither
-	field_eff_end
-
 gFieldEffectScript_JumpBigSplash::
 	field_eff_loadfadedpal_callnative gSpritePalette_GeneralFieldEffect0, FldEff_JumpBigSplash
 	field_eff_end

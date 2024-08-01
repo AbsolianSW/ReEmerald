@@ -11,7 +11,6 @@
 #include "event_scripts.h"
 #include "field_camera.h"
 #include "field_control_avatar.h"
-#include "field_door.h"
 #include "field_effect.h"
 #include "field_message_box.h"
 #include "field_player_avatar.h"
@@ -40,7 +39,6 @@
 #include "new_game.h"
 #include "palette.h"
 #include "play_time.h"
-#include "pokemon.h"
 #include "random.h"
 #include "roamer.h"
 #include "rotating_gate.h"
@@ -51,7 +49,6 @@
 #include "script_pokemon_util.h"
 #include "secret_base.h"
 #include "sound.h"
-#include "sprite.h"
 #include "start_menu.h"
 #include "string_util.h"
 #include "task.h"
@@ -64,7 +61,6 @@
 #include "vs_seeker.h"
 #include "wild_encounter.h"
 #include "frontier_util.h"
-#include "follow_me.h"
 #include "constants/abilities.h"
 #include "constants/layouts.h"
 #include "constants/map_types.h"
@@ -72,9 +68,6 @@
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
 #include "constants/weather.h"
-#include "constants/event_object_movement.h"
-#include "constants/event_objects.h"
-#include "constants/items.h"
 
 struct CableClubPlayer
 {
@@ -1096,7 +1089,6 @@ void DoWhiteOut(void)
     HealPlayerParty();
     Overworld_ResetStateAfterWhiteOut();
     SetWarpDestinationToLastHealLocation();
-    UpdateFollowerPokemonGraphic();
     WarpIntoMap();
 }
 
@@ -1357,43 +1349,6 @@ static void SetPlayerCoordsFromWarp(void)
         // Invalid warpId and coords given. Put player in center of map.
         gSaveBlock1Ptr->pos.x = gMapHeader.mapLayout->width / 2;
         gSaveBlock1Ptr->pos.y = gMapHeader.mapLayout->height / 2;
-    }
-}
-
-static void SetFollowerCoordsFromWarp(void)
-{
-    struct ObjectEvent* player = &gObjectEvents[gPlayerAvatar.objectEventId];
-    struct ObjectEvent* follower = &gObjectEvents[gSaveBlock2Ptr->follower.objId];
-    gSaveBlock2Ptr->follower.warpEnd = 0;        
-
-    // Based on value passed in via setfollowerwarppos macro, place the follower relative to the player.
-    // If DIR_NONE, then setup for follower popping out of pokeball
-    switch(gSpecialVar_Result)
-    {
-        case DIR_NONE:
-            MoveObjectEventToMapCoords(follower, player->currentCoords.x, player->currentCoords.y);
-            gSaveBlock2Ptr->follower.createSurfBlob = 2;
-            break;
-        case DIR_SOUTH:
-            MoveObjectEventToMapCoords(follower, player->currentCoords.x, player->currentCoords.y + 1);
-            follower->invisible = FALSE;
-            gSaveBlock2Ptr->follower.createSurfBlob = 0;
-            break;
-        case DIR_NORTH:
-            MoveObjectEventToMapCoords(follower, player->currentCoords.x, player->currentCoords.y - 1);
-            follower->invisible = FALSE;
-            gSaveBlock2Ptr->follower.createSurfBlob = 0;
-            break;
-        case DIR_WEST:
-            MoveObjectEventToMapCoords(follower, player->currentCoords.x - 1, player->currentCoords.y);
-            follower->invisible = FALSE;
-            gSaveBlock2Ptr->follower.createSurfBlob = 0;
-            break;
-        case DIR_EAST:
-            MoveObjectEventToMapCoords(follower, player->currentCoords.x + 1, player->currentCoords.y);
-            follower->invisible = FALSE;
-            gSaveBlock2Ptr->follower.createSurfBlob = 0;
-            break;
     }
 }
 
@@ -2230,9 +2185,6 @@ static void DoCB1_Overworld(u16 newKeys, u16 heldKeys)
             PlayerStep(inputStruct.dpadDirection, newKeys, heldKeys);
         }
     }
-     // if stop running but keep holding B -> fix follower frame
-    if (PlayerHasFollower() && IsPlayerOnFoot() && IsPlayerStandingStill())
-        ObjectEventSetHeldMovement(&gObjectEvents[GetFollowerObjectId()], GetFaceDirectionAnimNum(gObjectEvents[GetFollowerObjectId()].facingDirection));
 }
 
 void CB1_Overworld(void)
@@ -2268,19 +2220,6 @@ void CB2_Overworld(void)
     OverworldBasic();
     if (fading)
         SetFieldVBlankCallback();
-    // Make sure follower's sprite is properly positioned when map reloads.
-    if (gSaveBlock2Ptr->follower.inProgress)
-    {
-        switch(gObjectEvents[gSaveBlock2Ptr->follower.objId].facingDirection)
-        {
-            case DIR_EAST:
-                gSprites[gObjectEvents[gSaveBlock2Ptr->follower.objId].spriteId].x2 = -8;
-                break;
-            case DIR_WEST:
-                gSprites[gObjectEvents[gSaveBlock2Ptr->follower.objId].spriteId].x2 = 8;
-                break;
-        }
-    }
 }
 
 void SetMainCallback1(MainCallback cb)
@@ -2377,10 +2316,6 @@ static void CB2_LoadMap2(void)
     SetFieldVBlankCallback();
     SetMainCallback1(CB1_Overworld);
     SetMainCallback2(CB2_Overworld);
-
-    // Handle placing follower after warp as determined via setfollowerwarppos macro
-    if (gSaveBlock2Ptr->follower.inProgress && gSaveBlock2Ptr->follower.createSurfBlob == 1)
-        SetFollowerCoordsFromWarp();
 }
 
 void CB2_ReturnToFieldContestHall(void)
@@ -2467,7 +2402,6 @@ void CB2_ReturnToFieldWithOpenMenu(void)
 {
     FieldClearVBlankHBlankCallbacks();
     gFieldCallback2 = FieldCB_ReturnToFieldOpenStartMenu;
-    UpdateFollowerPokemonGraphic();
     CB2_ReturnToField();
 }
 
@@ -2769,11 +2703,6 @@ static bool32 ReturnToFieldLocal(u8 *state)
         break;
     case 1:
         InitViewGraphics();
-        
-    #if FAST_FOLLOWERS == TRUE
-        if (FlagGet(FLAG_FOLLOWER_IN_BUILDING))
-            FieldSetDoorOpened(gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y - 1);
-    #endif
         TryLoadTrainerHillEReaderPalette();
         (*state)++;
         break;
@@ -2939,7 +2868,10 @@ static void ResumeMap(bool32 a1)
     ResetAllPicSprites();
     ResetCameraUpdateInfo();
     InstallCameraPanAheadCallback();
-    FreeAllSpritePalettes();
+    if (!a1)
+        InitObjectEventPalettes(0);
+    else
+        InitObjectEventPalettes(1);
 
     FieldEffectActiveListClear();
     StartWeather();
@@ -2974,7 +2906,6 @@ static void InitObjectEventsLocal(void)
     ResetInitialPlayerAvatarState();
     TrySpawnObjectEvents(0, 0);
     TryRunOnWarpIntoMapScript();
-    FollowMe_HandleSprite();
 }
 
 static void InitObjectEventsReturnToField(void)
@@ -4023,649 +3954,4 @@ static void SpriteCB_LinkPlayer(struct Sprite *sprite)
         sprite->invisible = ((sprite->data[7] & 4) >> 2);
         sprite->data[7]++;
     }
-}
-
-void UpdateFollowerPokemonGraphic(void)
-{
-    // Loaded in case the player changed the species of the Pokemon in the lead of the party.
-    // If so, the following Pokemon needs to change.
-    u16 leadMonGraphicId = GetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_SPECIES, NULL) + OBJ_EVENT_GFX_BULBASAUR - 1;
-    struct ObjectEvent *follower = &gObjectEvents[gSaveBlock2Ptr->follower.objId];
-    // for dev purposes since the script will shift after each rom rebuild
-    gSaveBlock2Ptr->follower.script =  Common_EventScript_TalkToFollower;
-    // If the lead Pokemon is Unown, use the correct sprite
-    if (leadMonGraphicId == OBJ_EVENT_GFX_UNOWN_A)
-    {
-        u8 unownLetter = GET_UNOWN_LETTER(GetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_PERSONALITY));
-
-        // If the Unown is not A, set the graphics id to the proper Unown
-        if (unownLetter)
-            leadMonGraphicId = OBJ_EVENT_GFX_DEOXYS_SPEED + unownLetter;
-    }
-
-    if(gSaveBlock2Ptr->follower.inProgress && leadMonGraphicId != gSaveBlock2Ptr->follower.graphicsId)
-    {
-        // Sets the follower's graphic data to the proper following Pokemon graphic data
-        gSaveBlock2Ptr->follower.graphicsId = leadMonGraphicId;
-
-        // Sets the current follower object's graphic data to the proper data.
-        // Necessary because, without it, the follower's sprite won't change until entering a loading zone.
-        follower->graphicsId = leadMonGraphicId;
-
-        // Specifically for Pokemon Center, if lead Pokemon is revived, deletes old follower and creates new one
-        if(gSpecialVar_Unused_0x8014 == 1)
-        {
-            u8 newSpriteId;
-            struct ObjectEventTemplate clone;
-            struct ObjectEvent backupFollower = *follower;
-            backupFollower.graphicsId = gSaveBlock2Ptr->follower.graphicsId;
-            DestroySprite(&gSprites[gObjectEvents[gSaveBlock2Ptr->follower.objId].spriteId]);
-            RemoveObjectEvent(&gObjectEvents[gSaveBlock2Ptr->follower.objId]);
-
-            clone = *GetObjectEventTemplateByLocalIdAndMap(gSaveBlock2Ptr->follower.map.id, gSaveBlock2Ptr->follower.map.number, gSaveBlock2Ptr->follower.map.group);
-            clone.graphicsId = gSaveBlock2Ptr->follower.graphicsId;
-            clone.localId = 254;
-            gSaveBlock2Ptr->follower.objId = TrySpawnObjectEventTemplate(&clone, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, clone.x, clone.y);
-
-            follower = &gObjectEvents[gSaveBlock2Ptr->follower.objId];
-            newSpriteId = follower->spriteId;
-            *follower = backupFollower;
-            follower->spriteId = newSpriteId;
-            MoveObjectEventToMapCoords(follower, follower->currentCoords.x, follower->currentCoords.y);
-            ObjectEventTurn(follower, follower->facingDirection);
-            gSpecialVar_Unused_0x8014 = 0;
-        }
-    }
-}
-
-static void SparkleCallback(struct Sprite *sprite)
-{    
-    if (++sprite->data[0] >= 19)
-    {
-        FreeSpriteOamMatrix(sprite);
-        DestroySprite(sprite);
-    }
-}
-
-static void BigSparkleCallback(struct Sprite *sprite)
-{   
-    if (sprite->data[0] % 2 == 0)
-    {
-        switch(sprite->data[7])
-        {
-            // North Sparkle
-            case 0:
-                sprite->x++;
-                break;
-            // NorthEast Sparkle
-            case 1:
-                if (sprite->data[0] % 4 == 0)
-                    sprite->y++;
-                else
-                    sprite->x++;
-                break;
-            // East sparkle
-            case 2:
-                sprite->y++;
-                break;
-            // SouthEast Sparkle
-            case 3:
-                if (sprite->data[0] % 4 == 0)
-                    sprite->y++;
-                else
-                    sprite->x--;
-                break;
-            // South Sparkle
-            case 4:
-                sprite->x--;
-                break;
-            // SouthWest Sparkle
-            case 5:
-                if (sprite->data[0] % 4 == 0)
-                    sprite->y--;
-                else
-                    sprite->x--;
-                break;
-            // West Sparkle
-            case 6:
-                sprite->y--;
-                break;
-            // NorthWest Sparkle
-            case 7:
-                if (sprite->data[0] % 4 == 0)
-                    sprite->y--;
-                else
-                    sprite->x++;
-                break;
-        }
-    }
-
-    if (++sprite->data[0] >= 19)
-    {
-        FreeSpriteOamMatrix(sprite);
-        DestroySprite(sprite);
-    }
-}
-
-bool8 IsBigSprite(u16 graphicsId)
-{
-    switch(graphicsId)
-    {
-        case OBJ_EVENT_GFX_STEELIX:
-        case OBJ_EVENT_GFX_LUGIA_FOLLOWER:
-        case OBJ_EVENT_GFX_HOOH_FOLLOWER:
-        case OBJ_EVENT_GFX_WAILORD:
-            return TRUE;
-        default:
-            return FALSE;
-    }
-}
-
-static void SparklePokeballCallback(struct Sprite *sprite)
-{    
-    sprite->data[0]++;
-
-    if (sprite->data[0] >= 10)
-    {
-        struct ObjectEvent *player = &gObjectEvents[gPlayerAvatar.objectEventId];
-        struct ObjectEvent *follower = &gObjectEvents[gSaveBlock2Ptr->follower.objId];
-        s16 x = gSprites[follower->spriteId].x;
-        s16 y = gSprites[follower->spriteId].y;
-        u8 spriteId;
-        u16 graphicsId;
-
-        DestroySprite(sprite);
-
-        gSprites[follower->spriteId].oam.priority = ElevationToPriority(follower->previousElevation);
-        gSprites[gPlayerAvatar.spriteId].oam.priority = ElevationToPriority(player->previousElevation);
-        player->fixedPriority = FALSE;
-
-        // Shift the location of the sparkle, depending on which way the follower will be facing
-        // Account for the other Unown forms
-        if (gSaveBlock2Ptr->follower.graphicsId > OBJ_EVENT_GFX_DEOXYS_SPEED)
-            graphicsId = 200;
-        #ifndef POKEMON_EXPANSION
-        else if (gSaveBlock2Ptr->follower.graphicsId > OBJ_EVENT_GFX_CELEBI) // Gen 3+ OBJ_EVENT_GFX constants are 25 too high due to OLD_UNOWN constants.
-            graphicsId = gSaveBlock2Ptr->follower.graphicsId - OBJ_EVENT_GFX_BULBASAUR - 25;
-        #endif
-        else
-            graphicsId = gSaveBlock2Ptr->follower.graphicsId - OBJ_EVENT_GFX_BULBASAUR;
-
-        switch(gObjectEvents[gPlayerAvatar.objectEventId].facingDirection)
-        {
-            case DIR_SOUTH:
-                x -= 16 - FollowerSparkleCoords[graphicsId][0];
-                if (IsBigSprite(follower->graphicsId))
-                    x -= 16;
-
-                y += 16 - FollowerSparkleCoords[graphicsId][1];
-
-                break;
-            case DIR_NORTH:
-                x -= 16 - FollowerSparkleCoords[graphicsId][2];
-                if (IsBigSprite(follower->graphicsId))
-                    x -= 16;
-
-                y += 16 - FollowerSparkleCoords[graphicsId][3];
-
-                break;
-            case DIR_EAST:
-                x += 7 - FollowerSparkleCoords[graphicsId][4]; // 7 looks better than 8
-                if (IsBigSprite(follower->graphicsId))
-                    x += 16;
-
-                y += 16 - FollowerSparkleCoords[graphicsId][5];
-
-                break;
-            case DIR_WEST:
-                x -= 8 - FollowerSparkleCoords[graphicsId][4];
-                if (IsBigSprite(follower->graphicsId))
-                    x -= 16;
-
-                y += 16 - FollowerSparkleCoords[graphicsId][5];
-
-                break;
-        }
-
-        if (IsBigSprite(follower->graphicsId))
-        {
-            // North sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &BigSparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].data[7] = 0;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 0);
-            }
-
-            // NorthEast sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &BigSparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].data[7] = 1;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 1);
-            }
-
-            // East sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &BigSparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].data[7] = 2;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 2);
-            }
-
-            // SouthEast sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &BigSparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].data[7] = 3;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 3);
-            }
-
-            // South sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &BigSparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].data[7] = 4;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 4);
-            }
-
-            // SouthWest sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &BigSparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].data[7] = 5;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 5);
-            }
-
-            // West sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &BigSparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].data[7] = 6;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 6);
-            }
-
-            // NorthWest sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &BigSparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].data[7] = 7;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 7);
-            }
-        }
-        else
-        {
-            // North sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &SparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 0);
-            }
-
-            // NorthEast sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &SparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 1);
-            }
-
-            // East sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &SparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 2);
-            }
-
-            // SouthEast sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &SparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 3);
-            }
-
-            // South sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &SparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 4);
-            }
-
-            // SouthWest sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &SparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 5);
-            }
-
-            // West sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &SparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 6);
-            }
-
-            // NorthWest sparkle
-            spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_EXPANDING_SPARKLE, &SparkleCallback, x, y, 0);
-            if (spriteId != MAX_SPRITES)
-            {
-                gSprites[spriteId].coordOffsetEnabled = TRUE;
-                gSprites[spriteId].oam.priority = 1;
-                gSprites[spriteId].data[0] = 0;
-                gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-                InitSpriteAffineAnim(&gSprites[spriteId]);
-                StartSpriteAffineAnim(&gSprites[spriteId], 7);
-            }
-        }
-    }
-}
-
-void FollowerPokeballSparkle(void)
-{
-    if (gObjectEvents[gSaveBlock2Ptr->follower.objId].invisible == TRUE && gSaveBlock2Ptr->follower.comeOutDoorStairs == 0 && !(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER) && gSaveBlock2Ptr->follower.inProgress)
-    {
-        struct ObjectEvent *player = &gObjectEvents[gPlayerAvatar.objectEventId];
-        struct ObjectEvent *follower = &gObjectEvents[gSaveBlock2Ptr->follower.objId];
-        s16 x = player->currentCoords.x;
-        s16 y = player->currentCoords.y;
-        u8 spriteId;
-
-        switch(player->facingDirection)
-        {
-            case DIR_SOUTH:
-                SetSpritePosToOffsetMapCoords(&x, &y, 8, 4);
-                gSprites[follower->spriteId].y = y - 4;
-                break;
-            case DIR_NORTH:
-                SetSpritePosToOffsetMapCoords(&x, &y, 8, 0);
-                gSprites[follower->spriteId].y = y;
-
-                // Check to see if the bike-bump glitch has occured
-                if(gSaveBlock2Ptr->follower.flags & 0x200)
-                    y += 4;
-                break;
-            case DIR_EAST:
-            case DIR_WEST:
-                SetSpritePosToOffsetMapCoords(&x, &y, 8, 8);
-                gSprites[follower->spriteId].y = y - 8;
-                break;
-        }    
-        gSprites[follower->spriteId].x = x;
-
-        switch(GetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_POKEBALL))
-        {
-            case ITEM_MASTER_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_MASTER_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_ULTRA_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_ULTRA_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_GREAT_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_GREAT_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_SAFARI_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_SAFARI_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_NET_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_NET_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_DIVE_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_DIVE_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_NEST_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_NEST_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_REPEAT_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_REPEAT_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_TIMER_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_TIMER_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_LUXURY_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_LUXURY_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_PREMIER_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_PREMIER_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            #ifdef ITEM_EXPANSION
-            case ITEM_HEAL_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_HEAL_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_DUSK_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_DUSK_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_QUICK_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_QUICK_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_LEVEL_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_LEVEL_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_LURE_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_LURE_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_MOON_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_MOON_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_FRIEND_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_FRIEND_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_LOVE_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_LOVE_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_FAST_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_FAST_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_HEAVY_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_HEAVY_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_DREAM_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_DREAM_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_SPORT_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_SPORT_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_PARK_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_PARK_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            case ITEM_CHERISH_BALL:
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_CHERISH_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-            #endif
-            default: // PokeBall
-                spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_ITEM_BALL, &SparklePokeballCallback, x, y, 2);
-                break;
-        }
-
-        if (spriteId != MAX_SPRITES)
-        {
-            gSprites[spriteId].coordOffsetEnabled = TRUE;
-            gSprites[spriteId].oam.priority = 2;
-            gSprites[spriteId].data[0] = 0;
-        }
-
-        follower->currentCoords.x = player->currentCoords.x;
-        follower->currentCoords.y = player->currentCoords.y;
-        follower->facingDirection = player->facingDirection;
-
-        gSprites[follower->spriteId].animNum = player->facingDirection - 1;
-
-        if (player->facingDirection == DIR_NORTH)
-        {
-            gSprites[follower->spriteId].oam.priority = 0;
-            gSprites[follower->spriteId].subpriority = 0;
-            gSprites[gPlayerAvatar.spriteId].oam.priority = 1;
-            gSprites[gPlayerAvatar.spriteId].subpriority = 1; 
-        }
-        else
-        {
-            gSprites[follower->spriteId].oam.priority = 1;
-            gSprites[follower->spriteId].subpriority = 1;
-            gSprites[gPlayerAvatar.spriteId].oam.priority = 0;
-            gSprites[gPlayerAvatar.spriteId].subpriority = 0; 
-        }
-        player->fixedPriority = TRUE;
-        LockPlayerFieldControls();
-
-        SeekSpriteAnim(&gSprites[follower->spriteId], 0);        
-        ObjectEventForceSetHeldMovement(follower, MOVEMENT_ACTION_FOLLOWING_POKEMON_GROW);
-    }
-}
-
-void FollowerIntoPokeball(void)
-{
-    if (gObjectEvents[gSaveBlock2Ptr->follower.objId].invisible == FALSE && gSaveBlock2Ptr->follower.inProgress)
-    {
-        gSaveBlock2Ptr->follower.delayedState = 0;
-        gSaveBlock2Ptr->follower.comeOutDoorStairs = 0;
-        LockPlayerFieldControls();
-        ObjectEventForceSetHeldMovement(&gObjectEvents[gSaveBlock2Ptr->follower.objId], MOVEMENT_ACTION_FOLLOWING_POKEMON_SHRINK);
-        gSpecialVar_Unused_0x8014 = 1;
-    }
-}
-
-void GetFollowerCardinalDirection(void)
-{
-    u8 playerX, playerY, followerX, followerY;
-    struct ObjectEvent* player = &gObjectEvents[gPlayerAvatar.objectEventId];
-    struct ObjectEvent* follower = &gObjectEvents[GetFollowerMapObjId()];
-    playerX = player->currentCoords.x;
-    playerY = player->currentCoords.y;
-    followerX = follower->currentCoords.x;
-    followerY = follower->currentCoords.y;
-    if(followerX == playerX)
-    {
-        if(followerY > playerY)
-            gSpecialVar_Unused_0x8014 = 2;
-        else
-            gSpecialVar_Unused_0x8014 = 0;
-    }
-    if(followerY == playerY)
-    {
-        if(followerX > playerX)
-            gSpecialVar_Unused_0x8014 = 1;
-        else
-            gSpecialVar_Unused_0x8014 = 3;
-    }
-    return;
-}
-
-static const u8 sFollowerText1[] = _(" is a little bored.");
-static const u8 sFollowerText2[] = _(" is going about its day.");
-static const u8 sFollowerText3[] = _(" is getting tired.");
-static const u8 sFollowerText4[] = _(" seems happy to talk to you.");
-static const u8 sFollowerText5[] = _(" is super excited!");
-
-
-void BufferFollowerSpecies(void)
-{
-    u16 species, random;
-    u8 friendship;
-    struct ObjectEvent* follower = &gObjectEvents[GetFollowerMapObjId()];
-    species = follower->graphicsId - OBJ_EVENT_GFX_BULBASAUR +1;
-    GetSpeciesName(gStringVar1, species);
-    random = Random()%100;
-    if (random < 95)
-    {
-        switch (random % 3)
-        {
-        default:
-        case 0:
-            StringAppend(gStringVar1, sFollowerText1);
-            break;
-        case 1:
-            StringAppend(gStringVar1, sFollowerText2);
-            break;
-        case 2:
-            StringAppend(gStringVar1, sFollowerText3);
-            break;
-        }
-        return;
-    }
-    if(random < 99)
-    {
-        StringAppend(gStringVar1, sFollowerText4);
-        friendship = GetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_FRIENDSHIP, NULL);
-        friendship++;
-        SetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_FRIENDSHIP, &friendship);
-        return;
-    }
-    StringAppend(gStringVar1, sFollowerText5);
-    friendship = GetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_FRIENDSHIP, NULL);
-    friendship += 5;
-    SetMonData(&gPlayerParty[GetLeadMonNotFaintedIndex()], MON_DATA_FRIENDSHIP, &friendship);
-    return;
 }
