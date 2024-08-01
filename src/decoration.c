@@ -1369,6 +1369,7 @@ static void Task_PlaceDecoration(u8 taskId)
             }
             break;
         case 1:
+            RemoveFollowingPokemon();
             gPaletteFade.bufferTransferDisabled = TRUE;
             ConfigureCameraObjectForPlacingDecoration(&sPlaceDecorationGraphicsDataBuffer, gCurDecorationItems[gCurDecorationIndex]);
             SetUpDecorationShape(taskId);

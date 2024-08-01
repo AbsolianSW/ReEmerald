@@ -66,6 +66,9 @@ u8 MovementAction_WalkInPlaceSlowLeft_Step0(struct ObjectEvent *, struct Sprite 
 u8 MovementAction_WalkInPlaceSlowRight_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_WalkInPlaceNormalDown_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_WalkInPlace_Step1(struct ObjectEvent *, struct Sprite *);
+u8 MovementAction_ExitPokeball_Step1(struct ObjectEvent *, struct Sprite *);
+u8 MovementAction_EnterPokeball_Step1(struct ObjectEvent *, struct Sprite *);
+u8 MovementAction_EnterPokeball_Step2(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_WalkInPlaceNormalUp_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_WalkInPlaceNormalLeft_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_WalkInPlaceNormalRight_Step0(struct ObjectEvent *, struct Sprite *);
@@ -77,6 +80,8 @@ u8 MovementAction_WalkInPlaceFasterDown_Step0(struct ObjectEvent *, struct Sprit
 u8 MovementAction_WalkInPlaceFasterUp_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_WalkInPlaceFasterLeft_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_WalkInPlaceFasterRight_Step0(struct ObjectEvent *, struct Sprite *);
+u8 MovementAction_ExitPokeball_Step0(struct ObjectEvent *, struct Sprite *);
+u8 MovementAction_EnterPokeball_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_RideWaterCurrentDown_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_RideWaterCurrentDown_Step1(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_RideWaterCurrentUp_Step0(struct ObjectEvent *, struct Sprite *);
@@ -261,15 +266,6 @@ u8 MovementAction_FlyUp_Step1(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_Fly_Finish(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_FlyDown_Step0(struct ObjectEvent *, struct Sprite *);
 u8 MovementAction_FlyDown_Step1(struct ObjectEvent *, struct Sprite *);
-u8 MovementAction_FollowingPokemon_Step0(struct ObjectEvent *, struct Sprite *);
-u8 MovementAction_FollowingPokemon_FaceSouth_Step0(struct ObjectEvent *, struct Sprite *);
-u8 MovementAction_FollowingPokemon_FaceNorth_Step0(struct ObjectEvent *, struct Sprite *);
-u8 MovementAction_FollowingPokemon_FaceWest_Step0(struct ObjectEvent *, struct Sprite *);
-u8 MovementAction_FollowingPokemon_FaceEast_Step0(struct ObjectEvent *, struct Sprite *);
-u8 MovementAction_FollowingPokemon_Shrink_Step0(struct ObjectEvent *, struct Sprite *);
-u8 MovementAction_FollowingPokemon_Shrink_Step1(struct ObjectEvent *, struct Sprite *);
-u8 MovementAction_FollowingPokemon_Grow_Step0(struct ObjectEvent *, struct Sprite *);
-u8 MovementAction_FollowingPokemon_Grow_Step1(struct ObjectEvent *, struct Sprite *);
 static bool8 MovementAction_RaiseHand_Step0(struct ObjectEvent *, struct Sprite *);
 static bool8 MovementAction_RaiseHandAndStop_Step1(struct ObjectEvent *, struct Sprite *);
 static bool8 MovementAction_RaiseHandAndJump_Step1(struct ObjectEvent *, struct Sprite *);
@@ -316,6 +312,8 @@ u8 (*const gMovementActionFuncs_WalkInPlaceFasterDown[])(struct ObjectEvent *, s
 u8 (*const gMovementActionFuncs_WalkInPlaceFasterUp[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_WalkInPlaceFasterLeft[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_WalkInPlaceFasterRight[])(struct ObjectEvent *, struct Sprite *);
+u8 (*const gMovementActionFuncs_ExitPokeball[])(struct ObjectEvent *, struct Sprite *);
+u8 (*const gMovementActionFuncs_EnterPokeball[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_RideWaterCurrentDown[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_RideWaterCurrentUp[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_RideWaterCurrentLeft[])(struct ObjectEvent *, struct Sprite *);
@@ -433,14 +431,6 @@ u8 (*const gMovementActionFuncs_StopLevitateAtTop[])(struct ObjectEvent *, struc
 u8 (*const gMovementActionFuncs_Figure8[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_FlyUp[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_FlyDown[])(struct ObjectEvent *, struct Sprite *);
-u8 (*const gMovementActionFuncs_FlyDown[])(struct ObjectEvent *, struct Sprite *);
-u8 (*const gMovementActionFuncs_FollowingPokemon[])(struct ObjectEvent *, struct Sprite *);
-u8 (*const gMovementActionFuncs_FollowingPokemon_FaceSouth[])(struct ObjectEvent *, struct Sprite *);
-u8 (*const gMovementActionFuncs_FollowingPokemon_FaceNorth[])(struct ObjectEvent *, struct Sprite *);
-u8 (*const gMovementActionFuncs_FollowingPokemon_FaceWest[])(struct ObjectEvent *, struct Sprite *);
-u8 (*const gMovementActionFuncs_FollowingPokemon_FaceEast[])(struct ObjectEvent *, struct Sprite *);
-u8 (*const gMovementActionFuncs_FollowingPokemon_Shrink[])(struct ObjectEvent *, struct Sprite *);
-u8 (*const gMovementActionFuncs_FollowingPokemon_Grow[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_EmoteX[])(struct ObjectEvent *, struct Sprite *);
 u8 (*const gMovementActionFuncs_EmoteDoubleExclMark[])(struct ObjectEvent *, struct Sprite *);
 static bool8 (*const sMovementActionFuncs_RaiseHandAndStop[])(struct ObjectEvent *, struct Sprite *);
@@ -606,13 +596,8 @@ u8 (*const *const gMovementActionFuncs[])(struct ObjectEvent *, struct Sprite *)
     [MOVEMENT_ACTION_FIGURE_8] = gMovementActionFuncs_Figure8,
     [MOVEMENT_ACTION_FLY_UP] = gMovementActionFuncs_FlyUp,
     [MOVEMENT_ACTION_FLY_DOWN] = gMovementActionFuncs_FlyDown,
-    [MOVEMENT_ACTION_FOLLOWING_POKEMON] = gMovementActionFuncs_FollowingPokemon,
-    [MOVEMENT_ACTION_FOLLOWING_POKEMON_FACESOUTH] = gMovementActionFuncs_FollowingPokemon_FaceSouth,
-    [MOVEMENT_ACTION_FOLLOWING_POKEMON_FACENORTH] = gMovementActionFuncs_FollowingPokemon_FaceNorth,
-    [MOVEMENT_ACTION_FOLLOWING_POKEMON_FACEWEST] = gMovementActionFuncs_FollowingPokemon_FaceWest,
-    [MOVEMENT_ACTION_FOLLOWING_POKEMON_FACEEAST] = gMovementActionFuncs_FollowingPokemon_FaceEast,
-    [MOVEMENT_ACTION_FOLLOWING_POKEMON_SHRINK] = gMovementActionFuncs_FollowingPokemon_Shrink,
-    [MOVEMENT_ACTION_FOLLOWING_POKEMON_GROW] = gMovementActionFuncs_FollowingPokemon_Grow,
+    [MOVEMENT_ACTION_EXIT_POKEBALL] = gMovementActionFuncs_ExitPokeball,
+    [MOVEMENT_ACTION_ENTER_POKEBALL] = gMovementActionFuncs_EnterPokeball,
     [MOVEMENT_ACTION_RAISE_HAND_AND_STOP]                = sMovementActionFuncs_RaiseHandAndStop,
     [MOVEMENT_ACTION_RAISE_HAND_AND_JUMP]                = sMovementActionFuncs_RaiseHandAndJump,
     [MOVEMENT_ACTION_RAISE_HAND_AND_SWIM]                = sMovementActionFuncs_RaiseHandAndSwim,
@@ -748,15 +733,11 @@ static const s16 sJumpInitDisplacements[] = {
     [JUMP_DISTANCE_IN_PLACE] = 0,
     [JUMP_DISTANCE_NORMAL] = 1,
     [JUMP_DISTANCE_FAR] = 1,
-    [JUMP_DISTANCE_FAR_QUICK] = 1,
-    [JUMP_DISTANCE_FAR_QUICKER] = 1,
 };
 static const s16 sJumpDisplacements[] = {
     [JUMP_DISTANCE_IN_PLACE] = 0,
     [JUMP_DISTANCE_NORMAL] = 0,
     [JUMP_DISTANCE_FAR] = 1,
-    [JUMP_DISTANCE_FAR_QUICK] = 1,
-    [JUMP_DISTANCE_FAR_QUICKER] = 1,
 };
 
 u8 (*const gMovementActionFuncs_Jump2Down[])(struct ObjectEvent *, struct Sprite *) = {
@@ -913,6 +894,18 @@ u8 (*const gMovementActionFuncs_WalkInPlaceFasterDown[])(struct ObjectEvent *, s
     MovementAction_WalkInPlaceFasterDown_Step0,
     MovementAction_WalkInPlace_Step1,
     MovementAction_PauseSpriteAnim,
+};
+
+u8 (*const gMovementActionFuncs_ExitPokeball[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementAction_ExitPokeball_Step0,
+    MovementAction_ExitPokeball_Step1,
+    MovementAction_PauseSpriteAnim,
+};
+
+u8 (*const gMovementActionFuncs_EnterPokeball[])(struct ObjectEvent *, struct Sprite *) = {
+    MovementAction_EnterPokeball_Step0,
+    MovementAction_EnterPokeball_Step1,
+    MovementAction_EnterPokeball_Step2,
 };
 
 u8 (*const gMovementActionFuncs_WalkInPlaceFasterUp[])(struct ObjectEvent *, struct Sprite *) = {

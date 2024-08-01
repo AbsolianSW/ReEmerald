@@ -99,9 +99,9 @@ void SetPlayerGotFirstFans(void);
 u16 GetNumFansOfPlayerInTrainerFanClub(void);
 
 static void RecordCyclingRoadResults(u32, u8);
-static void LoadLinkPartnerObjectEventSpritePalette(u16 graphicsId, u8 localEventId, u8 paletteNum);
-static void Task_PetalburgGymSlideOpenRoomDoors(u8 taskId);
-static void PetalburgGymSetDoorMetatiles(u8 roomNumber, u16 metatileId);
+static void LoadLinkPartnerObjectEventSpritePalette(u8, u8, u8);
+static void Task_PetalburgGymSlideOpenRoomDoors(u8);
+static void PetalburgGymSetDoorMetatiles(u8, u16);
 static void Task_PCTurnOnEffect(u8);
 static void PCTurnOnEffect(struct Task *);
 static void PCTurnOnEffect_SetMetatile(s16, s8, s8);
@@ -511,7 +511,7 @@ void SpawnLinkPartnerObjectEvent(void)
     };
     u8 myLinkPlayerNumber;
     u8 playerFacingDirection;
-    u16 linkSpriteId;
+    u8 linkSpriteId;
     u8 i;
 
     myLinkPlayerNumber = GetMultiplayerId();
@@ -572,7 +572,7 @@ void SpawnLinkPartnerObjectEvent(void)
     }
 }
 
-static void LoadLinkPartnerObjectEventSpritePalette(u16 graphicsId, u8 localEventId, u8 paletteNum)
+static void LoadLinkPartnerObjectEventSpritePalette(u8 graphicsId, u8 localEventId, u8 paletteNum)
 {
     u8 adjustedPaletteNum;
     // Note: This temp var is necessary; paletteNum += 6 doesn't match.
@@ -1423,7 +1423,7 @@ void SetShoalItemFlag(u16 unused)
 void LoadWallyZigzagoon(void)
 {
     u16 monData;
-    CreateMon(&gPlayerParty[0], SPECIES_ZIGZAGOON, 7, 10, FALSE, 0, OT_ID_PLAYER_ID, 0);
+    CreateMon(&gPlayerParty[0], SPECIES_ZIGZAGOON, 7, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
     monData = TRUE;
     SetMonData(&gPlayerParty[0], MON_DATA_ABILITY_NUM, &monData);
     monData = MOVE_TACKLE;
@@ -1537,21 +1537,6 @@ u8 GetLeadMonIndex(void)
         if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_EGG
          && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_NONE)
             return i;
-    }
-    return 0;
-}
-
-u8 GetLeadMonNotFaintedIndex(void)
-{
-    u8 i;
-    u8 partyCount = CalculatePlayerPartyCount();
-    for(i = 0; i < partyCount; i++)
-    {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) != SPECIES_EGG && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG, NULL) != 0
-            && GetMonData(&gPlayerParty[i], MON_DATA_HP, NULL) != 0)
-        {
-            return i;    
-        }
     }
     return 0;
 }
@@ -2377,7 +2362,7 @@ void ShowScrollableMultichoice(void)
         break;
     case SCROLL_MULTI_SS_TIDAL_DESTINATION:
         task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 8;
+        task->tNumItems = 7;
         task->tLeft = 19;
         task->tTop = 1;
         task->tWidth = 10;
@@ -2387,26 +2372,10 @@ void ShowScrollableMultichoice(void)
         break;
     case SCROLL_MULTI_BATTLE_TENT_RULES:
         task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 8;
+        task->tNumItems = 7;
         task->tLeft = 17;
         task->tTop = 1;
         task->tWidth = 12;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_1:
-    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_2:
-    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_3:
-    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_4:
-    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_5:
-    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_6:
-    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_7:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 8;
-        task->tLeft = 19;
-        task->tTop = 1;
-        task->tWidth = 10;
         task->tHeight = 12;
         task->tKeepOpenAfterSelect = FALSE;
         task->tTaskId = taskId;
@@ -2560,7 +2529,6 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
         gText_NavelRock,
         gText_BirthIsland,
         gText_FarawayIsland,
-        gText_OneIsland,
         gText_Exit
     },
     [SCROLL_MULTI_BATTLE_TENT_RULES] =
@@ -2571,83 +2539,6 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
         gText_PokemonMoves,
         gText_Underpowered,
         gText_WhenInDanger,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_1] =
-    {
-        gText_LilycoveCity,
-        gText_TwoIsland,
-        gText_ThreeIsland,
-        gText_FourIsland,
-        gText_FiveIsland,
-        gText_SixIsland,
-        gText_SevenIsland,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_2] =
-    {
-        gText_LilycoveCity,
-        gText_OneIsland,
-        gText_ThreeIsland,
-        gText_FourIsland,
-        gText_FiveIsland,
-        gText_SixIsland,
-        gText_SevenIsland,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_3] =
-    {
-        gText_LilycoveCity,
-        gText_OneIsland,
-        gText_TwoIsland,
-        gText_FourIsland,
-        gText_FiveIsland,
-        gText_SixIsland,
-        gText_SevenIsland,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_4] =
-    {
-        gText_LilycoveCity,
-        gText_OneIsland,
-        gText_TwoIsland,
-        gText_ThreeIsland,
-        gText_FiveIsland,
-        gText_SixIsland,
-        gText_SevenIsland,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_5] =
-    {
-        gText_LilycoveCity,
-        gText_OneIsland,
-        gText_TwoIsland,
-        gText_ThreeIsland,
-        gText_FourIsland,
-        gText_SixIsland,
-        gText_SevenIsland,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_6] =
-    {
-        gText_LilycoveCity,
-        gText_OneIsland,
-        gText_TwoIsland,
-        gText_ThreeIsland,
-        gText_FourIsland,
-        gText_FiveIsland,
-        gText_SevenIsland,
-        gText_Exit
-    },
-    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_7] =
-    {
-        gText_LilycoveCity,
-        gText_OneIsland,
-        gText_TwoIsland,
-        gText_ThreeIsland,
-        gText_FourIsland,
-        gText_FiveIsland,
-        gText_SixIsland,
         gText_Exit
     }
 };
@@ -3158,7 +3049,8 @@ static void HideFrontierExchangeCornerItemIcon(u16 menu, u16 unused)
         case SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_2:
         case SCROLL_MULTI_BF_EXCHANGE_CORNER_VITAMIN_VENDOR:
         case SCROLL_MULTI_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR:
-            DestroySpriteAndFreeResources(&gSprites[sScrollableMultichoice_ItemSpriteId]);
+            // This makes sure deleting the icon will not clear palettes in use by object events
+            FieldEffectFreeGraphicsResources(&gSprites[sScrollableMultichoice_ItemSpriteId]);
             break;
         }
         sScrollableMultichoice_ItemSpriteId = MAX_SPRITES;
@@ -3368,7 +3260,6 @@ void ScrollableMultichoice_ClosePersistentMenu(void)
 #undef tTaskId
 
 #define DEOXYS_ROCK_LEVELS 11
-#define ROCK_PAL_ID 10
 
 void DoDeoxysRockInteraction(void)
 {
@@ -3445,11 +3336,13 @@ static void Task_DeoxysRockInteraction(u8 taskId)
     }
 }
 
+// duplicate of event_object_movement
+#define OBJ_EVENT_PAL_TAG_BIRTH_ISLAND_STONE      0x111F
+
 static void ChangeDeoxysRockLevel(u8 rockLevel)
 {
-    u8 objectEventId;
-    LoadPalette(&sDeoxysRockPalettes[rockLevel], OBJ_PLTT_ID(ROCK_PAL_ID), PLTT_SIZEOF(4));
-    TryGetObjectEventIdByLocalIdAndMap(LOCALID_BIRTH_ISLAND_EXTERIOR_ROCK, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &objectEventId);
+    u8 paletteNum = IndexOfSpritePaletteTag(OBJ_EVENT_PAL_TAG_BIRTH_ISLAND_STONE);
+    LoadPalette(&sDeoxysRockPalettes[rockLevel], OBJ_PLTT_ID(paletteNum), PLTT_SIZEOF(4));
 
     if (rockLevel == 0)
         PlaySE(SE_M_CONFUSE_RAY); // Failure sound
@@ -3495,10 +3388,13 @@ void IncrementBirthIslandRockStepCount(void)
     }
 }
 
+// called before fade-in
 void SetDeoxysRockPalette(void)
 {
-    LoadPalette(&sDeoxysRockPalettes[(u8)VarGet(VAR_DEOXYS_ROCK_LEVEL)], OBJ_PLTT_ID(ROCK_PAL_ID), PLTT_SIZEOF(4));
-    BlendPalettes(1 << (ROCK_PAL_ID + 16), 16, 0);
+    u32 paletteNum = IndexOfSpritePaletteTag(OBJ_EVENT_PAL_TAG_BIRTH_ISLAND_STONE);
+    LoadPalette(&sDeoxysRockPalettes[(u8)VarGet(VAR_DEOXYS_ROCK_LEVEL)], OBJ_PLTT_ID(paletteNum), PLTT_SIZEOF(4));
+    // Set faded to all black, weather blending handled during fade-in
+    CpuFill16(0, &gPlttBufferFaded[OBJ_PLTT_ID(paletteNum)], 32);
 }
 
 void SetPCBoxToSendMon(u8 boxId)

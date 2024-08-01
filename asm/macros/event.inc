@@ -1735,44 +1735,23 @@
 	.2byte \quantity
 	.endm
 
-		@ sets an NPC up to follow the player
-	.macro setfollower localId:req, flags:req
-	.byte 0xe4
-	.byte \localId
-	.2byte \flags
-	.endm
-	
-	@ remove the following NPC (assumes there will only ever be one)
-	.macro destroyfollower
-	.byte 0xe5
-	.endm
-	
-	@ makes the player and follower face one another
-	.macro facefollower
-	.byte 0xe6
-	.endm
-	
-	@ checks if you have a follower. returns the result to VAR_RESULT
-	.macro checkfollower
-	.byte 0xe7
-	.endm
-
-	@ checks if the follower is visible. returns the result to VAR_RESULT. FALSE if you have no follower or if follower is invisible, TRUE otherwise
-    .macro isfollowervisible
-	.byte 0xe8
-	.endm
+@ Like callnative, but function expects a ctx
+  	.macro callfunc func:req
+  	.byte 0xe4
+  	.4byte \func
+  	.endm
 
 	.macro buffernicknameofboxmon stringVarId:req
-	.byte 0xe9
+	.byte 0xe5
 	stringvar \stringVarId
 	.endm
 
 	.macro checkfossil
-	.byte 0xea
+	.byte 0xe6
 	.endm
 
 	.macro removefossil
-	.byte 0xeb
+	.byte 0xe7
 	.endm
 
 

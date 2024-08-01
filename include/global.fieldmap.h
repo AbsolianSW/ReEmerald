@@ -199,7 +199,7 @@ struct ObjectEvent
              u32 hideReflection:1;
              int :0;
     /*0x04*/ u8 spriteId;
-    /*0x05*/ u16 graphicsId;
+    /*0x05*/ u8 graphicsId;
     /*0x06*/ u8 movementType;
     /*0x07*/ u8 trainerType;
     /*0x08*/ u8 localId;
@@ -211,20 +211,29 @@ struct ObjectEvent
     /*0x10*/ struct Coords16 currentCoords;
     /*0x14*/ struct Coords16 previousCoords;
     /*0x18*/ u16 facingDirection:4; // current direction?
-             u16 movementDirection:4;
-             u16 rangeX:4;
-             u16 rangeY:4;
-    /*0x1A*/ u8 fieldEffectSpriteId;
-    /*0x1B*/ u8 warpArrowSpriteId;
-    /*0x1C*/ u8 movementActionId;
-    /*0x1D*/ u8 trainerRange_berryTreeId;
-    /*0x1E*/ u8 currentMetatileBehavior;
-    /*0x1F*/ u8 previousMetatileBehavior;
-    /*0x20*/ u8 previousMovementDirection;
-    /*0x21*/ u8 directionSequenceIndex;
-    /*0x22*/ u8 playerCopyableMovement; // COPY_MOVE_*
-    /*0x23*/ //u8 padding2;
-    /*size = 0x24*/
+             u16 movementDirection : 4;
+             u16 rangeX : 4;
+             u16 rangeY : 4;
+             /*0x1A*/ u8 fieldEffectSpriteId;
+             /*0x1B*/ u8 warpArrowSpriteId;
+             /*0x1C*/ u8 movementActionId;
+             /*0x1D*/ u8 trainerRange_berryTreeId;
+             /*0x1E*/ u8 currentMetatileBehavior;
+             /*0x1F*/ u8 previousMetatileBehavior;
+             /*0x20*/ u8 previousMovementDirection;
+             /*0x21*/ u8 directionSequenceIndex;
+             /*0x22*/ union __attribute__((packed))
+             {
+                 u8 playerCopyableMovement; // COPY_MOVE_*
+                 struct __attribute__((packed))
+                 {
+                     u16 species : 10; // 11 bits; 1024 species
+                     u16 form : 5;     // Used for Deoxys, Unown, etc
+                     u16 shiny : 1;
+                 } mon;
+                 u16 asU16;
+             } extra;
+             /*size = 0x24*/
 };
 
 struct ObjectEventGraphicsInfo
@@ -267,6 +276,11 @@ enum {
 #define PLAYER_AVATAR_FLAG_CONTROLLABLE (1 << 5)
 #define PLAYER_AVATAR_FLAG_FORCED_MOVE  (1 << 6)
 #define PLAYER_AVATAR_FLAG_DASH         (1 << 7)
+
+#define PLAYER_AVATAR_FLAG_BIKE        (PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE)
+// Player avatar flags for which follower pokemon are hidden
+#define FOLLOWER_INVISIBLE_FLAGS       (PLAYER_AVATAR_FLAG_SURFING | PLAYER_AVATAR_FLAG_UNDERWATER | \
+                                        PLAYER_AVATAR_FLAG_BIKE | PLAYER_AVATAR_FLAG_FORCED_MOVE)
 
 enum
 {

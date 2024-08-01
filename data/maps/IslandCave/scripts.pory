@@ -91,6 +91,7 @@ IslandCave_EventScript_ClearSteps::
 IslandCave_EventScript_Regice::
 	lock
 	faceplayer
+	bufferspeciesname 0, SPECIES_REGICE
 	waitse
 	playmoncry SPECIES_REGICE, CRY_MODE_ENCOUNTER
 	delay 40

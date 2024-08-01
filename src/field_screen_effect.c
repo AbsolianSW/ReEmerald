@@ -27,7 +27,6 @@
 #include "sound.h"
 #include "start_menu.h"
 #include "task.h"
-#include "follow_me.h"
 #include "text.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
@@ -38,12 +37,13 @@
 
 static void Task_ExitNonAnimDoor(u8);
 static void Task_ExitNonDoor(u8);
-static void Task_ExitMossdeepGymWarp(u8);
 static void Task_DoContestHallWarp(u8);
 static void FillPalBufferWhite(void);
 static void Task_ExitDoor(u8);
 static bool32 WaitForWeatherFadeIn(void);
 static void Task_SpinEnterWarp(u8 taskId);
+static void Task_WarpAndLoadMap(u8 taskId);
+static void Task_DoDoorWarp(u8 taskId);
 static void Task_EnableScriptAfterMusicFade(u8 taskId);
 
 // data[0] is used universally by tasks in this file as a state for switches
@@ -111,7 +111,7 @@ void WarpFadeOutScreen(void)
     }
 }
 
-void SetPlayerVisibility(bool8 visible)
+static void SetPlayerVisibility(bool8 visible)
 {
     SetPlayerInvisibility(!visible);
 }
@@ -275,7 +275,6 @@ void FieldCB_DefaultWarpExit(void)
     Overworld_PlaySpecialMapMusic();
     WarpFadeInScreen();
     SetUpWarpExitTask();
-    FollowMe_WarpSetEnd();
     LockPlayerFieldControls();
 }
 
@@ -310,7 +309,7 @@ static void FieldCB_MossdeepGymWarpExit(void)
     Overworld_PlaySpecialMapMusic();
     WarpFadeInScreen();
     PlaySE(SE_WARP_OUT);
-    CreateTask(Task_ExitMossdeepGymWarp, 10);
+    CreateTask(Task_ExitNonDoor, 10);
     LockPlayerFieldControls();
     SetObjectEventLoadFlag((~SKIP_OBJECT_EVENT_LOAD) & 0xF);
 }
@@ -324,7 +323,6 @@ static void Task_ExitDoor(u8 taskId)
     switch (task->tState)
     {
     case 0:
-        HideFollower();
         SetPlayerVisibility(FALSE);
         FreezeObjectEvents();
         PlayerGetDestCoords(x, y);
@@ -345,26 +343,15 @@ static void Task_ExitDoor(u8 taskId)
         if (IsPlayerStandingStill())
         {
             u8 objEventId;
-            
-        #if FAST_FOLLOWERS == TRUE
-            if (!gSaveBlock2Ptr->follower.inProgress)
-        #endif
-                task->data[1] = FieldAnimateDoorClose(*x, *y);
-            
+            task->data[1] = FieldAnimateDoorClose(*x, *y);
             objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
             ObjectEventClearHeldMovementIfFinished(&gObjectEvents[objEventId]);
             task->tState = 3;
         }
         break;
     case 3:
-    #if FAST_FOLLOWERS == TRUE
-        if (gSaveBlock2Ptr->follower.inProgress || task->data[1] < 0 || gTasks[task->data[1]].isActive != TRUE)
-    #else
         if (task->data[1] < 0 || gTasks[task->data[1]].isActive != TRUE)
-    #endif
         {
-            FollowMe_SetIndicatorToComeOutDoor();
-            FollowMe_WarpSetEnd();
             UnfreezeObjectEvents();
             task->tState = 4;
         }
@@ -372,12 +359,6 @@ static void Task_ExitDoor(u8 taskId)
     case 4:
         UnlockPlayerFieldControls();
         DestroyTask(taskId);
-        
-    #if FAST_FOLLOWERS == TRUE
-        if (gSaveBlock2Ptr->follower.inProgress)
-            FlagSet(FLAG_FOLLOWER_IN_BUILDING);
-    #endif
-        
         break;
     }
 }
@@ -391,7 +372,6 @@ static void Task_ExitNonAnimDoor(u8 taskId)
     switch (task->tState)
     {
     case 0:
-        HideFollower();
         SetPlayerVisibility(FALSE);
         FreezeObjectEvents();
         PlayerGetDestCoords(x, y);
@@ -410,8 +390,6 @@ static void Task_ExitNonAnimDoor(u8 taskId)
     case 2:
         if (IsPlayerStandingStill())
         {
-            FollowMe_SetIndicatorToComeOutDoor();
-            FollowMe_WarpSetEnd();
             UnfreezeObjectEvents();
             task->tState = 3;
         }
@@ -436,47 +414,9 @@ static void Task_ExitNonDoor(u8 taskId)
         if (WaitForWeatherFadeIn())
         {
             UnfreezeObjectEvents();
-            // Account for follower exiting pokeball after scripted warp
-            if (gSaveBlock2Ptr->follower.createSurfBlob != 2)
-                gSaveBlock2Ptr->follower.comeOutDoorStairs = 2;
             UnlockPlayerFieldControls();
             DestroyTask(taskId);
         }
-        break;
-    }
-}
-
-static void Task_ExitMossdeepGymWarp(u8 taskId)
-{
-    struct Task *task = &gTasks[taskId];
-    switch (gTasks[taskId].tState)
-    {
-    case 0:
-        FreezeObjectEvents();
-        LockPlayerFieldControls();
-        gTasks[taskId].tState++;
-        break;
-    case 1:
-        if (WaitForWeatherFadeIn())
-        {
-            // Account for follower exiting pokeball after scripted warp
-            if (gSaveBlock2Ptr->follower.createSurfBlob != 2)
-                gSaveBlock2Ptr->follower.comeOutDoorStairs = 2;
-            task->tState = 2;
-        }
-        break;
-    case 2:
-        if (IsPlayerStandingStill())
-        {
-            //FollowMe_SetIndicatorToComeOutDoor();
-            FollowMe_WarpSetEnd();
-            UnfreezeObjectEvents();
-            task->tState = 3;
-        }
-        break;
-    case 3:
-        UnlockPlayerFieldControls();
-        DestroyTask(taskId);
         break;
     }
 }
@@ -703,7 +643,7 @@ void ReturnFromLinkRoom(void)
     CreateTask(Task_ReturnToWorldFromLinkRoom, 10);
 }
 
-void Task_WarpAndLoadMap(u8 taskId)
+static void Task_WarpAndLoadMap(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
 
@@ -730,6 +670,65 @@ void Task_WarpAndLoadMap(u8 taskId)
         WarpIntoMap();
         SetMainCallback2(CB2_LoadMap);
         DestroyTask(taskId);
+        break;
+    }
+}
+
+static void Task_DoDoorWarp(u8 taskId)
+{
+    struct Task *task = &gTasks[taskId];
+    s16 *x = &task->data[2];
+    s16 *y = &task->data[3];
+    struct ObjectEvent *followerObject = GetFollowerObject();
+
+    switch (task->tState)
+    {
+    case 0:
+        FreezeObjectEvents();
+        PlayerGetDestCoords(x, y);
+        PlaySE(GetDoorSoundEffect(*x, *y - 1));
+        if (followerObject) {
+            // Put follower into pokeball
+            ClearObjectEventMovement(followerObject, &gSprites[followerObject->spriteId]);
+            ObjectEventSetHeldMovement(followerObject, MOVEMENT_ACTION_ENTER_POKEBALL);
+        }
+        task->data[1] = FieldAnimateDoorOpen(*x, *y - 1);
+        task->tState = 1;
+        break;
+    case 1:
+        if (task->data[1] < 0 || gTasks[task->data[1]].isActive != TRUE)
+        {
+            u8 objEventId;
+            objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
+            ObjectEventClearHeldMovementIfActive(&gObjectEvents[objEventId]);
+            objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
+            ObjectEventSetHeldMovement(&gObjectEvents[objEventId], MOVEMENT_ACTION_WALK_NORMAL_UP);
+            task->tState = 2;
+        }
+        break;
+    case 2:
+        if (IsPlayerStandingStill())
+        {
+            u8 objEventId;
+            task->data[1] = FieldAnimateDoorClose(*x, *y - 1);
+            objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
+            ObjectEventClearHeldMovementIfFinished(&gObjectEvents[objEventId]);
+            SetPlayerVisibility(FALSE);
+            task->tState = 3;
+        }
+        break;
+    case 3:
+        if (task->data[1] < 0 || gTasks[task->data[1]].isActive != TRUE)
+        {
+            task->tState = 4;
+        }
+        break;
+    case 4:
+        TryFadeOutOldMapMusic();
+        WarpFadeOutScreen();
+        PlayRainStoppingSoundEffect();
+        task->tState = 0;
+        task->func = Task_WarpAndLoadMap;
         break;
     }
 }
@@ -1017,7 +1016,6 @@ static void Task_SpinEnterWarp(u8 taskId)
     case 1:
         if (WaitForWeatherFadeIn() && IsPlayerSpinEntranceActive() != TRUE)
         {
-            //FollowMe_WarpSetEnd();
             UnfreezeObjectEvents();
             UnlockPlayerFieldControls();
             DestroyTask(taskId);
@@ -1170,6 +1168,9 @@ static void Task_OrbEffect(u8 taskId)
         tState = 4;
         break;
     case 4:
+        // If the caller script is delayed after starting the orb effect, a `waitstate` might be reached *after*
+        // we enable the ScriptContext in case 2; enabling it here as well avoids softlocks in this scenario
+        ScriptContext_Enable();
         if (--tShakeDelay == 0)
         {
             s32 panning;
