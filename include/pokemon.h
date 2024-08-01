@@ -551,5 +551,7 @@ u8 *MonSpritesGfxManager_GetSpritePtr(u8 managerId, u8 spriteNum);
 u8 getLevelCap(void);
 u8 hasPlayerCaughtThisEvolutionLine(u16 species);
 u16 GetPreEvolution(u16 species);
+u32 GetShinyOdds();
+u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl);
 
 #endif // GUARD_POKEMON_H

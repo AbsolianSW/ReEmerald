@@ -2251,7 +2251,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
             // Choose random OT IDs until one that results in a non-shiny Pokémon
             value = Random32();
             shinyValue = GET_SHINY_VALUE(value, personality);
-        } while (shinyValue < SHINY_ODDS);
+        } while (shinyValue < GetShinyOdds());
     }
     else if (otIdType == OT_ID_PRESET)
     {
@@ -2943,7 +2943,6 @@ void CalculateCastformStatsAfterFormChange(u8 battlerId, u8 form)
     s32 spDefenseEV = GetMonData(mon, MON_DATA_SPDEF_EV, NULL);
     s32 level = GetLevelFromMonExp(mon);
     s32 n;
-    DebugPrintf("calcing stats for form %d", form);
     CALC_STAT_CASTFORM(sCastformBaseStats[form][0], attackIV, attackEV, STAT_ATK, MON_DATA_ATK,n)
     gBattleMons[battlerId].attack = n;
     CALC_STAT_CASTFORM(sCastformBaseStats[form][1], defenseIV, defenseEV, STAT_ATK, MON_DATA_ATK, n)
@@ -3194,9 +3193,6 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     defense = defender->defense;
     spAttack = attacker->spAttack;
     spDefense = defender->spDefense;
-
-    if(doAbilityPopup)
-        DebugPrintf("atk is %d", attack);
     // Get attacker hold item info
     if (attacker->item == ITEM_ENIGMA_BERRY)
     {
@@ -6652,7 +6648,7 @@ const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 p
         return gMonPaletteTable[SPECIES_NONE].data;
 
     shinyValue = GET_SHINY_VALUE(otId, personality);
-    if (shinyValue < SHINY_ODDS)
+    if (shinyValue < GetShinyOdds())
         return gMonShinyPaletteTable[species].data;
     else
         return gMonPaletteTable[species].data;
@@ -6671,7 +6667,7 @@ const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u
     u32 shinyValue;
 
     shinyValue = GET_SHINY_VALUE(otId, personality);
-    if (shinyValue < SHINY_ODDS)
+    if (shinyValue < GetShinyOdds())
         return &gMonShinyPaletteTable[species];
     else
         return &gMonPaletteTable[species];
@@ -6847,7 +6843,7 @@ bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
 {
     bool8 retVal = FALSE;
     u32 shinyValue = GET_SHINY_VALUE(otId, personality);
-    if (shinyValue < SHINY_ODDS)
+    if (shinyValue < GetShinyOdds())
         retVal = TRUE;
     return retVal;
 }
@@ -7329,6 +7325,8 @@ u8 getLevelCap(void)
         currentCap = 16;
     if(FlagGet(FLAG_DEFEATED_ELITE_4_DRAKE))
         currentCap = 17;
+    if(FlagGet(FLAG_CHALLENGES_LEVEL_CAP_EXTREME))
+        return gLevelCaps[currentCap] *85 / 100;
     return gLevelCaps[currentCap];
 }
 
@@ -8102,4 +8100,113 @@ u8 hasPlayerCaughtThisEvolutionLine(u16 species)
             return 1;
     }
     return 0;
+}
+
+u32 GetShinyOdds() {
+    u32 number,i,j;
+    i=0;
+    number = 65536;
+    for(i;i<gSaveBlock2Ptr->challenges.shinyOdds;i++)
+    {
+        number/=2;
+    }
+    return number;
+}
+
+u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl)
+{
+    u16 finalSpecies;
+    bool8 isFinishedEvolving = FALSE;
+    u32 i = 0;
+    switch (placeholderIndex)
+    {
+    case SPECIES_RIVAL_GRASS_STARTER:
+        if (FlagGet(FLAG_CHALLENGES_STARTERAFFECTSRIVAL))
+            finalSpecies = NationalPokedexNumToSpecies(gSaveBlock2Ptr->challenges.grassStarter);
+        else
+            finalSpecies = SPECIES_TREECKO;
+        break;
+    case SPECIES_RIVAL_WATER_STARTER:
+        if (FlagGet(FLAG_CHALLENGES_STARTERAFFECTSRIVAL))
+            finalSpecies = NationalPokedexNumToSpecies(gSaveBlock2Ptr->challenges.waterStarter);
+        else
+            finalSpecies = SPECIES_MUDKIP;
+        break;
+    case SPECIES_RIVAL_FIRE_STARTER:
+        if (FlagGet(FLAG_CHALLENGES_STARTERAFFECTSRIVAL))
+            finalSpecies = NationalPokedexNumToSpecies(gSaveBlock2Ptr->challenges.fireStarter);
+        else
+            finalSpecies = SPECIES_TORCHIC;
+        break;
+    }
+    if (gEvolutionTable[finalSpecies][1].method)
+    {
+        switch (finalSpecies)
+        {
+        case SPECIES_GLOOM:
+        case SPECIES_POLIWHIRL:
+        case SPECIES_WURMPLE:
+        case SPECIES_CLAMPERL:
+            if (gSaveBlock2Ptr->playerGender)
+                i = 1;
+            break;
+        case SPECIES_TYROGUE:
+        case SPECIES_SLOWPOKE:
+            if (!gSaveBlock2Ptr->playerGender)
+                i = 1;
+            break;
+        case SPECIES_EEVEE:
+            switch (placeholderIndex)
+            {
+            case SPECIES_RIVAL_GRASS_STARTER:
+                break;
+            case SPECIES_RIVAL_WATER_STARTER:
+                i = 1;
+                break;
+            case SPECIES_RIVAL_FIRE_STARTER:
+                i = 2;
+                break;
+            }
+            break;
+        case SPECIES_NINCADA:
+            if (lvl > 30)
+                i = 1;
+            break;
+        }
+    }
+    while (!isFinishedEvolving)
+    {
+        isFinishedEvolving = TRUE;
+        switch (gEvolutionTable[finalSpecies][i].method)
+        {
+        case EVO_LEVEL:
+        case EVO_LEVEL_ATK_GT_DEF:
+        case EVO_LEVEL_ATK_EQ_DEF:
+        case EVO_LEVEL_ATK_LT_DEF:
+        case EVO_LEVEL_SILCOON:
+        case EVO_LEVEL_CASCOON:
+        case EVO_LEVEL_NINJASK:
+        case EVO_LEVEL_SHEDINJA:
+            if (gEvolutionTable[finalSpecies][i].param <= lvl)
+            {
+                isFinishedEvolving = FALSE;
+                finalSpecies = gEvolutionTable[finalSpecies][i].targetSpecies;
+            }
+            break;
+        case EVO_FRIENDSHIP:
+        case EVO_FRIENDSHIP_DAY:
+        case EVO_FRIENDSHIP_NIGHT:
+        case EVO_ITEM:
+        case EVO_BEAUTY:
+            if(lvl>25)
+            {
+                isFinishedEvolving = FALSE;
+                finalSpecies = gEvolutionTable[finalSpecies][i].targetSpecies;
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    return finalSpecies;
 }

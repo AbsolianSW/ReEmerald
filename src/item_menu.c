@@ -2280,7 +2280,6 @@ bool8 UseRegisteredKeyItemOnField(void)
     HideMapNamePopUpWindow();
     ChangeBgY_ScreenOff(0, 0, BG_COORD_SET);
     i = CountRegisteredItems();
-    DebugPrintf("%d registered items", i);
     // Show key item wheel
     if (i >= 1) {
         func = Task_KeyItemWheel;

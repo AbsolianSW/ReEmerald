@@ -1698,7 +1698,7 @@ static void Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter(u8 taskId)
         gSprites[gTasks[taskId].tAbsolSpriteId].oam.objMode = ST_OAM_OBJ_NORMAL;
         if (!RunTextPrintersAndIsPrinter0Active())
         {
-            gTasks[taskId].tTimer = 64;
+            gTasks[taskId].tTimer = 4;
             gTasks[taskId].func = Task_NewGameBirchSpeech_WhatChallengesWillAwait;
         }
     }
@@ -1745,54 +1745,15 @@ static void Task_NewGameBirchSpeech_StartChallengeScreen(u8 taskId)
     }
 }
 
-static void Task_NewGameBirchSpeech_ChallengesConfirm(u8 taskId)
+static void Task_NewGameBirchSpeech_ChallengesConfirmed(u8 taskId)
 {
     u8 spriteId;
-    NewGameBirchSpeech_ClearWindow(0);
-    gSprites[gTasks[taskId].tBirchSpriteId].invisible = TRUE;
-    gSprites[gTasks[taskId].tAbsolSpriteId].invisible = TRUE;
-    if (gSaveBlock2Ptr->playerGender != MALE)
-        spriteId = gTasks[taskId].tMaySpriteId;
-    else
-        spriteId = gTasks[taskId].tBrendanSpriteId;
-    gSprites[spriteId].x = 120;
-    gSprites[spriteId].y = 60;
-    gSprites[spriteId].invisible = FALSE;
-    gTasks[taskId].tPlayerSpriteId = spriteId;
     NewGameBirchSpeech_StartFadeInTarget1OutTarget2(taskId, 2);
-    NewGameBirchSpeech_StartFadePlatformOut(taskId, 1);
-    StringExpandPlaceholders(gStringVar4, gText_ChallengesConfirm);
-    AddTextPrinterForMessage(TRUE);
-    gTasks[taskId].func = Task_NewGameBirchSpeech_CreateChallengeYesNo;
-}
-
-static void Task_NewGameBirchSpeech_CreateChallengeYesNo(u8 taskId)
-{
-    if (!RunTextPrintersAndIsPrinter0Active())
-    {
-        CreateYesNoMenuParameterized(2, 1, 0xF3, 0xDF, 2, 15,1);
-        gTasks[taskId].func = Task_NewGameBirchSpeech_ProcessChallengeYesNoMenu;
-    }
-}
-
-static void Task_NewGameBirchSpeech_ProcessChallengeYesNoMenu(u8 taskId)
-{
-    switch (Menu_ProcessInputNoWrapClearOnChoose())
-    {
-        case 0:
-            PlaySE(SE_SELECT);
-            gTasks[taskId].func = Task_NewGameBirchSpeech_AreYouReady;
-            break;
-        case MENU_B_PRESSED:
-        case 1:
-            PlaySE(SE_SELECT);
-            gTasks[taskId].func = Task_NewGameBirchSpeech_StartChallengeScreen;
-    }
+    gTasks[taskId].func = Task_NewGameBirchSpeech_AreYouReady;
 }
 
 static void Task_NewGameBirchSpeech_AreYouReady(u8 taskId)
 {
-    NewGameBirchSpeech_ClearWindow(0);
     StringExpandPlaceholders(gStringVar4, gText_Birch_AreYouReady);
     AddTextPrinterForMessage(TRUE);
     gTasks[taskId].func = Task_NewGameBirchSpeech_ShrinkPlayer;
@@ -1978,7 +1939,7 @@ static void CB2_NewGameBirchSpeech_ReturnFromChallengeScreen(void)
         gTasks[taskId].tPlayerGender = MALE;
         spriteId = gTasks[taskId].tBrendanSpriteId;
     }
-    gSprites[spriteId].x = 180;
+    gSprites[spriteId].x = 120;
     gSprites[spriteId].y = 60;
     gSprites[spriteId].invisible = FALSE;
     gTasks[taskId].tPlayerSpriteId = spriteId;
@@ -2021,7 +1982,7 @@ static void SpriteCB_MovePlayerDownWhileShrinking(struct Sprite *sprite)
 
 static u8 NewGameBirchSpeech_CreateAbsolSprite(u8 x, u8 y)
 {
-    return CreateMonPicSprite_Affine(SPECIES_ABSOL, SHINY_ODDS, 0, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
+    return CreateMonPicSprite_Affine(SPECIES_ABSOL, GetShinyOdds(), 0, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
 }
 
 static void AddBirchSpeechObjects(u8 taskId)
@@ -2453,7 +2414,7 @@ static void Task_NewGameBirchSpeech_ReturnFromChallengeScreenShowTextbox(u8 task
     if (gTasks[taskId].tTimer-- <= 0)
     {
         NewGameBirchSpeech_ShowDialogueWindow(0, 1);
-        gTasks[taskId].func = Task_NewGameBirchSpeech_ChallengesConfirm;
+        gTasks[taskId].func = Task_NewGameBirchSpeech_ChallengesConfirmed;
     }
 }
 

@@ -10383,7 +10383,7 @@ static void Cmd_trygivecaughtmonnick(void)
         gBattle_BG3_X = 256;
         for (i = 0; i < MAX_SPRITES; i++)
             DestroySprite(&gSprites[i]);
-        spriteId = CreateMonPicSprite_HandleDeoxys(GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_SPECIES), SHINY_ODDS, GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_PERSONALITY), TRUE, 120, 80, 11, TAG_NONE);
+        spriteId = CreateMonPicSprite_HandleDeoxys(GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_SPECIES), GetShinyOdds(), GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_PERSONALITY), TRUE, 120, 80, 11, TAG_NONE);
         gSprites[spriteId].oam.priority = 0;
         gBattleCommunication[0]++;
         break;

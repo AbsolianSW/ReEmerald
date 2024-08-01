@@ -4416,23 +4416,86 @@ void bufferStartersForNotebook(void)
     StringCopy(gStringVar3 , gSpeciesNames[NationalPokedexNumToSpecies(gSaveBlock2Ptr->challenges.fireStarter)]);
 }
 
-void bufferXPMultiplierForNotebook(void)
+static const s32 sPowersOfTen[] =
 {
-    u8 text[4];
+             1,
+            10,
+           100,
+          1000,
+         10000,
+        100000,
+       1000000,
+      10000000,
+     100000000,
+    1000000000,
+};
+
+void bufferChallengeInfoForNotebook(void)
+{
+    u8 text1[4];
+    u8 text2[8];
+    u8 text3[11];
     u8 n = gSaveBlock2Ptr->challenges.xpMultiplier;
-    u16 i = 0;
+    s32 number = 1;
+    u32 i = 0;
+    s32 j = 5;
     if (n / 10 != 0)
     {
-        text[i++] = n / 10 + CHAR_0;
-        text[i++] = CHAR_PERIOD;
-        text[i++] = n % 10 + CHAR_0;
+        text1[i++] = n / 10 + CHAR_0;
+        text1[i++] = CHAR_PERIOD;
+        text1[i++] = n % 10 + CHAR_0;
     }
     else
     {
-        text[i++] = CHAR_0;
-        text[i++] = CHAR_PERIOD;
-        text[i++] = n % 10 + CHAR_0;
+        text1[i++] = CHAR_0;
+        text1[i++] = CHAR_PERIOD;
+        text1[i++] = n % 10 + CHAR_0;
     }
-    text[i] = EOS;
-    StringCopy(gStringVar1 , text);
+    text1[i] = EOS;
+    StringCopy(gStringVar1 , text1);
+    n = gSaveBlock2Ptr->challenges.shinyOdds;
+    for(i=0;i<n;i++)
+    {
+        number*=2;
+    }
+    i = 0;
+    text2[i++] = CHAR_1;
+    text2[i++] = CHAR_SLASH;
+    for(j;j>=0;j--)
+    {
+        if(number/sPowersOfTen[j])
+            text2[i++] = (number / sPowersOfTen[j])%10 + CHAR_0;   
+    }
+    text2[i] = EOS;
+    StringCopy(gStringVar2 , text2);
+    i=0;
+    n = gSaveBlock2Ptr->challenges.startingMoney;
+    while(TRUE)
+    {
+        if (n < 9 * (i + 1))
+        {
+            number = (n - (9 * i)+1) * sPowersOfTen[j];
+            break;
+        }
+        i++;
+        j++;
+    }
+    if (number == 100000000)
+        number = 99999999;
+    for(j=7;j>=0;j--)
+    {
+        if(number/sPowersOfTen[j])
+            text3[i++] = (number / sPowersOfTen[j])%10 + CHAR_0;   
+    }
+    text3[i++] = CHAR_CURRENCY;
+    text3[i] = EOS;
+    StringCopy(gStringVar3 , text3);
+}
+
+//var 2 is buffer
+//var 3 is type 0=grass,1=water,2=fire
+//var 4 is level
+void BufferRivalFollowerSpecies(void)
+{
+    gSpecialVar_0x8002 = GetRivalStarterSpecies(gSpecialVar_0x8003+SPECIES_RIVAL_GRASS_STARTER,gSpecialVar_0x8004)+OBJ_EVENT_GFX_BULBASAUR - 1;
 }

@@ -539,8 +539,8 @@ struct Challenges
     u8 xpMultiplier;
     u8 limitedEncounters;
     u8 speciesClause;
-    u8 escapeRope;
-    u8 fieldMoves;
+    u8 shinyOdds;
+    u8 startingMoney;
     u8 starterAffectsRival;
     u8 gauntletMode;
 };

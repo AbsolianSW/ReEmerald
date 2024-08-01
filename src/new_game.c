@@ -98,6 +98,11 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
     gSaveBlock2Ptr->regionMapZoom = FALSE;
     gSaveBlock2Ptr->challenges.xpMultiplier=10;
+    gSaveBlock2Ptr->challenges.grassStarter=SpeciesToNationalPokedexNum(SPECIES_TREECKO);
+    gSaveBlock2Ptr->challenges.waterStarter=SpeciesToNationalPokedexNum(SPECIES_MUDKIP);
+    gSaveBlock2Ptr->challenges.fireStarter=SpeciesToNationalPokedexNum(SPECIES_TORCHIC);
+    gSaveBlock2Ptr->challenges.startingMoney=29;
+    gSaveBlock2Ptr->challenges.shinyOdds=13;
 }
 
 static void ClearPokedexFlags(void)
@@ -148,6 +153,39 @@ void ResetMenuAndMonGlobals(void)
     ResetPokeblockScrollPositions();
 }
 
+static const s32 sPowersOfTen[] =
+{
+             1,
+            10,
+           100,
+          1000,
+         10000,
+        100000,
+       1000000,
+      10000000,
+     100000000,
+    1000000000,
+};
+static u32 GetStartingMoney()
+{
+    u32 number,i,j;
+    i=0;
+    j=0;
+    while (TRUE)
+    {
+        if (gSaveBlock2Ptr->challenges.startingMoney < 9 * (i + 1))
+        {
+            number = (gSaveBlock2Ptr->challenges.startingMoney - (9 * i)+1) * sPowersOfTen[j];
+            break;
+        }
+        i++;
+        j++;
+    }
+    if (number == 100000000)
+        number = 99999999;
+    return number;
+}
+
 void NewGameInitData(void)
 {
     if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
@@ -171,7 +209,7 @@ void NewGameInitData(void)
     ResetGabbyAndTy();
     ClearSecretBases();
     ClearBerryTrees();
-    SetMoney(&gSaveBlock1Ptr->money, 3000);
+    SetMoney(&gSaveBlock1Ptr->money, GetStartingMoney());
     SetCoins(0);
     ResetLinkContestBoolean();
     ResetGameStats();
@@ -220,13 +258,17 @@ static void ResetMiniGamesRecords(void)
 
 static void HandleChallenges(void)
 {
-    if(gSaveBlock2Ptr -> challenges.levelCap)
+    if (gSaveBlock2Ptr->challenges.levelCap)
+    {
         FlagSet(FLAG_CHALLENGES_LEVEL_CAP);
-    if(gSaveBlock2Ptr-> challenges.permaDeath)
+        if (gSaveBlock2Ptr->challenges.levelCap == 2)
+            FlagSet(FLAG_CHALLENGES_LEVEL_CAP_EXTREME);
+    }
+    if (gSaveBlock2Ptr->challenges.permaDeath)
         FlagSet(FLAG_CHALLENGES_PERMA_DEATH);
-    if(gSaveBlock2Ptr -> challenges.limitedEncounters)
+    if (gSaveBlock2Ptr->challenges.limitedEncounters)
         FlagSet(FLAG_CHALLENGES_LIMITED_ENCOUNTERS);
-    if(gSaveBlock2Ptr -> challenges.speciesClause)
+    if (gSaveBlock2Ptr->challenges.speciesClause)
         FlagSet(FLAG_CHALLENGES_SPECIES_CLAUSE);
     if(gSaveBlock2Ptr -> challenges.noBattleItems)
         FlagSet(FLAG_CHALLENGES_NO_BATTLE_ITEMS);
@@ -236,6 +278,10 @@ static void HandleChallenges(void)
         FlagSet(FLAG_CHALLENGES_INFINITE_CANDY);
     if(gSaveBlock2Ptr -> challenges.repellant)
         FlagSet(FLAG_CHALLENGES_REPELLANT);
+    if(gSaveBlock2Ptr -> challenges.starterAffectsRival)
+        FlagSet(FLAG_CHALLENGES_STARTERAFFECTSRIVAL);
+    if(gSaveBlock2Ptr -> challenges.gauntletMode)
+        FlagSet(FLAG_CHALLENGES_GAUNTLET_MODE);
 
     
     VarSet(VAR_XP_MULTIPLIER, gSaveBlock2Ptr->challenges.xpMultiplier);
