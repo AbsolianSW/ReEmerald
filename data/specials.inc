@@ -445,7 +445,7 @@ gSpecials::
 	def_special BufferVarsForIVRater
 	def_special BufferVarsForHiddenPowerIdentifier
 	def_special bufferStartersForNotebook
-	def_special bufferXPMultiplierForNotebook
+	def_special bufferChallengeInfoForNotebook
 	def_special LinkContestWaitForConnection
 	def_special GetWirelessCommType
 	def_special LinkContestTryShowWirelessIndicator
@@ -541,3 +541,4 @@ gSpecials::
 	def_special TrySetBattleTowerLinkType
 	def_special VsSeekerResetObjectMovementAfterChargeComplete
 	def_special VsSeekerFreezeObjectsAfterChargeComplete
+	def_special BufferRivalFollowerSpecies

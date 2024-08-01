@@ -276,7 +276,7 @@ movement Island2Main_Movement_CameraBackFromCutsceneGC{
 }
 
 movement Island2Main_Movement_CameraToCutsceneCB36{
-	walk_down *9
+	walk_down *10
 	walk_right*3
 }
 

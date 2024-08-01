@@ -30,7 +30,7 @@ LittlerootTown_ProfessorBirchsLab_MapScripts::
 
 LittlerootTown_ProfessorBirchsLab_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
-	setvar VAR_0x8004, 0
+	setvar VAR_0x8004, 5
 	call Common_EventScript_SetupRivalFollowerId
 	call ProfBirch_EventScript_UpdateLocation
 	setflag FLAG_FOLLOWER_ACTIVE

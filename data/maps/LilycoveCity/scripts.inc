@@ -13,7 +13,7 @@ LilycoveCity_OnTransition:
 	setflag FLAG_HIDE_LILYCOVE_CONTEST_HALL_REPORTER
 	call_if_set FLAG_SYS_WEATHER_CTRL, Common_EventScript_SetAbnormalWeather
 	call Common_EventScript_SetupRivalGfxId
-	setvar VAR_0x8004, 2
+	setvar VAR_0x8004, 40
 	call Common_EventScript_SetupRivalFollowerId
 	end
 

@@ -1,3 +1,8 @@
 Island3_Main_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Island3_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION
 	.byte 0
+
+Island3_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION:
+	setflag FLAG_VISITED_THREE_ISLAND
+	end
 

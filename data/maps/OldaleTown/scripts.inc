@@ -9,7 +9,7 @@ OldaleTown_MapScripts::
 
 OldaleTown_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
-	setvar VAR_0x8004, 0
+	setvar VAR_0x8004, 5
 	call Common_EventScript_SetupRivalFollowerId
 	setflag FLAG_VISITED_OLDALE_TOWN
 	call_if_unset FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_BlockWestEntrance

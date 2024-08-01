@@ -19,7 +19,7 @@ Route104_EventScript_StartSailToDewford::
 
 Route104_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
-	setvar VAR_0x8004, 0
+	setvar VAR_0x8004, 5
 	call Common_EventScript_SetupRivalFollowerId
 	call Route104_EventScript_TrySetRivalPos
 	call Route104_EventScript_ShowOrHideWhiteHerbFlorist

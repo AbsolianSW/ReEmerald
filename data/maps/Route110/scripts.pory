@@ -18,7 +18,7 @@ Route110_OnResume:
 Route110_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call Common_EventScript_SetupRivalOnBikeGfxId
-	setvar VAR_0x8004, 1
+	setvar VAR_0x8004, 20
 	call Common_EventScript_SetupRivalFollowerId
 	call_if_eq VAR_CYCLING_CHALLENGE_STATE, 1, Route110_EventScript_SaveCyclingMusic
 	end

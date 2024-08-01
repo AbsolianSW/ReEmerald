@@ -343,6 +343,7 @@ Island2Main_Movement_CameraToCutsceneCB36:
 	walk_down
 	walk_down
 	walk_down
+	walk_down
 	walk_right
 	walk_right
 	walk_right
