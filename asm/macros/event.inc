@@ -1965,3 +1965,9 @@
 	setvar VAR_0x8006, \item
 	special CreateEnemyEventMon
 	.endm
+
+	@0=north, 1=east, 2=south, 3=west
+	.macro getfollowercardinaldirection
+	callnative GetFollowerCardinalDirection
+	.endm
+	

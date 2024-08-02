@@ -377,7 +377,6 @@ Route104_EventScript_SailToDewford::
 	removeobject LOCALID_BRINEY_R104
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerBoardBoat
 	waitmovement 0
-	
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_ROUTE104
 	call Common_EventScript_PlayBrineysBoatMusic
 	goto_if_set FLAG_ENABLE_NORMAN_MATCH_CALL, Route104_EventScript_SailToDewfordNoCall
@@ -417,6 +416,8 @@ Route104_EventScript_ArriveInDewford::
 	showobjectat OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerMoveForBriney
 	waitmovement 0
+	applymovement OBJ_EVENT_ID_FOLLOWER, Route104_Movement_FollowerMoveForBriney
+	waitmovement 0
 	setobjectxyperm LOCALID_BRINEY_DEWFORD, 12, 8
 	addobject LOCALID_BRINEY_DEWFORD
 	setobjectsubpriority LOCALID_BRINEY_DEWFORD, MAP_DEWFORD_TOWN, 0
@@ -436,6 +437,12 @@ Route104_EventScript_ArriveInDewford::
 	goto_if_unset FLAG_DELIVERED_STEVEN_LETTER, Route104_EventScript_DeliverLetterReminder
 	goto_if_set FLAG_DELIVERED_STEVEN_LETTER, Route104_EventScript_LandedInDewford
 	end
+
+Route104_Movement_FollowerMoveForBriney:
+	walk_left
+	walk_left
+	face_right
+	step_end
 
 Route104_EventScript_DeliverLetterReminder::
 	msgbox Route104_Text_LandedInDewfordDeliverLetter, MSGBOX_DEFAULT

@@ -126,8 +126,10 @@ MauvilleCity_EventScript_WallyAndUncleExitNorth::
 	waitmovement 0
 	delay 30
 	applymovement OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerFaceUncleNorth
-	
+	getfollowercardinaldirection
 	call_if_eq VAR_UNUSED_0x8014, 2, MauvilleCity_EventScript_FollowerMoveOutOfTheWay
+	releaseall
+	lock
 	applymovement LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleApproachPlayerNorth
 	waitmovement 0
 	msgbox MauvilleCity_Text_UncleVisitUsSometime, MSGBOX_DEFAULT

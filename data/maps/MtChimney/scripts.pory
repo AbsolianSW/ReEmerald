@@ -85,8 +85,10 @@ MtChimney_EventScript_Maxie::
 
 MtChimney_EventScript_ArchieApproachPlayerEast::
 	applymovement LOCALID_ARCHIE, MtChimney_Movement_ArchieApproachPlayerEast
-	
+	getfollowercardinaldirection
 	call_if_eq VAR_UNUSED_0x8014, 3, MtChimney_EventScript_MoveFollowerOutOfTheWayEast
+	releaseall
+	lock
 	waitmovement 0
 	return
 	

@@ -1,8 +1,20 @@
 @ NOTE: Route 109's sail to Dewford script references local IDs from Dewford's map.
 @  These are labeled in DewfordTown/scripts.inc
 
+.set LOCALID_LORA_PET, 26
+
 Route109_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Route109_OnTransition
 	.byte 0
+
+Route109_OnTransition::
+	goto_if_set FLAG_ROUTE109_NPC_TRADE_COMPLETED, Route109_OnTransition2
+	setvar VAR_TEMP_4, SPECIES_SPHEAL
+	end
+
+Route109_OnTransition2::
+	setvar VAR_TEMP_4, 8478
+	end
 
 Route109_EventScript_StartDepartForDewford::
 	call EventScript_BackupMrBrineyLocation
@@ -20,11 +32,15 @@ Route109_EventScript_StartDepartForDewford::
 Route109_EventScript_EnterBoatSouth::
 	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerEnterBoatSouth
 	waitmovement 0
+	applymovement OBJ_EVENT_ID_FOLLOWER, EnterPokeballMovement
+	waitmovement 0
 	goto Route109_EventScript_DoSailToDewford
 	end
 
 Route109_EventScript_EnterBoatEast::
 	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerEnterBoatEast
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_FOLLOWER, EnterPokeballMovement
 	waitmovement 0
 	goto Route109_EventScript_DoSailToDewford
 	end
@@ -32,20 +48,25 @@ Route109_EventScript_EnterBoatEast::
 Route109_EventScript_EnterBoatWest::
 	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerEnterBoatWest
 	waitmovement 0
+	applymovement OBJ_EVENT_ID_FOLLOWER, EnterPokeballMovement
+	waitmovement 0
 	goto Route109_EventScript_DoSailToDewford
 	end
 
 Route109_EventScript_DoSailToDewford::
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_ROUTE109
-	
 	call Common_EventScript_PlayBrineysBoatMusic
 	applymovement LOCALID_BOAT_R109, Route109_Movement_SailToDewford
 	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_SailToDewford
+	callnative RemoveFollowingPokemon
 	waitmovement 0
+	callnative UpdateFollowingPokemon
 	delay 50
 	call Common_EventScript_StopBrineysBoatMusic
 	showobjectat OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN
 	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerExitBoat
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_FOLLOWER, Route109_Movement_FollowerMoveForBriney
 	waitmovement 0
 	addobject LOCALID_BOAT_DEWFORD
 	clearflag FLAG_HIDE_MR_BRINEY_BOAT_DEWFORD_TOWN
@@ -58,9 +79,6 @@ Route109_EventScript_DoSailToDewford::
 	setflag FLAG_HIDE_ROUTE_109_MR_BRINEY_BOAT
 	hideobjectat LOCALID_BOAT_R109, MAP_ROUTE109
 	msgbox DewfordTown_Text_BrineyLandedInDewford, MSGBOX_DEFAULT
-	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerMoveLeft
-	waitmovement 0
-	
 	closemessage
 	copyvar VAR_BRINEY_LOCATION, VAR_0x8008
 	resetobjectsubpriority OBJ_EVENT_ID_PLAYER, MAP_ROUTE109
@@ -69,9 +87,16 @@ Route109_EventScript_DoSailToDewford::
 	release
 	end
 
+Route109_Movement_FollowerMoveForBriney:
+	walk_left
+	walk_left
+	face_right
+	step_end
+
 Route109_Movement_PlayerMoveLeft:
 	walk_left
 	face_right
+	delay_16
 	step_end
 
 Route109_Movement_SailToDewford:
@@ -468,6 +493,74 @@ Route109_EventScript_Elijah::
 	trainerbattle_single TRAINER_ELIJAH, Route109_Text_ElijahIntro, Route109_Text_ElijahDefeated
 	msgbox Route109_Text_ElijahPostBattle, MSGBOX_AUTOCLOSE
 	end
+
+Route109_EventScript_Trade::
+	lock
+	faceplayer
+	goto_if_set FLAG_ROUTE109_NPC_TRADE_COMPLETED, Route109_EventScript_TradeCompleted
+	setvar VAR_0x8008, INGAME_TRADE_SPHEAL
+	copyvar VAR_0x8004, VAR_0x8008
+	specialvar VAR_RESULT, GetInGameTradeSpeciesInfo
+	copyvar VAR_0x8009, VAR_RESULT
+	msgbox Route109_Text_WantADog, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Route109_EventScript_DeclineTrade
+	special ChoosePartyMon
+	waitstate
+	copyvar VAR_0x800A, VAR_0x8004
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, RustboroCity_House1_EventScript_DeclineTrade
+	copyvar VAR_0x8005, VAR_0x800A
+	specialvar VAR_RESULT, GetTradeSpecies
+	copyvar VAR_0x800B, VAR_RESULT
+	goto_if_ne VAR_RESULT, VAR_0x8009, Route109_EventScript_NotRequestedMon
+	copyvar VAR_0x8004, VAR_0x8008
+	copyvar VAR_0x8005, VAR_0x800A
+	special CreateInGameTradePokemon
+	special DoInGameTradeScene
+	removeobject LOCALID_LORA_PET
+	waitstate
+	setvar VAR_TEMP_4, 8478
+	addobject LOCALID_LORA_PET
+	msgbox Route109_Text_ThankYouSoMuch, MSGBOX_DEFAULT
+	setflag FLAG_ROUTE109_NPC_TRADE_COMPLETED
+	release
+	end
+
+Route109_Text_WantADog::
+	.string "I have this Spheal, but I really\n"
+	.string "want a dog! Do you have a dog?$"
+
+Route109_Text_ThankYouSoMuch::
+	.string "Thank you so much! I love it\n"
+	.string "already!$"
+
+Route109_EventScript_DeclineTrade::
+	msgbox Route109_Text_ThatsTooBad, MSGBOX_DEFAULT
+	release
+	end
+
+Route109_Text_ThatsTooBad::
+	.string "That's too bad...I really want\n"
+	.string "a dog...$"
+
+Route109_EventScript_NotRequestedMon::
+	bufferspeciesname STR_VAR_1, VAR_0x8009
+	msgbox Route109_Text_ThatsNotADog, MSGBOX_DEFAULT
+	release
+	end
+
+Route109_Text_ThatsNotADog::
+	.string "But that's not the kind of dog\n"
+	.string "I wanted...$"
+
+Route109_EventScript_TradeCompleted::
+	msgbox Route109_Text_ThisIsTheBest, MSGBOX_DEFAULT
+	release
+	end
+
+Route109_Text_ThisIsTheBest::
+	.string "This is the best! Thank you so\n"
+	.string "much for this dog!$"
+
 
 DewfordTown_Text_BrineyLandedInSlateportDeliverGoods:
 	.string "MR. BRINEY: Ahoy!\n"

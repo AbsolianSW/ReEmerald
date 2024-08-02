@@ -3960,3 +3960,37 @@ static void SpriteCB_LinkPlayer(struct Sprite *sprite)
         sprite->data[7]++;
     }
 }
+
+void GetFollowerCardinalDirection(void)
+{
+    u8 playerX, playerY, followerX, followerY;
+    u32 i=0;
+    struct ObjectEvent* player = &gObjectEvents[gPlayerAvatar.objectEventId];
+    struct ObjectEvent* follower;
+    for(i; i< OBJECT_EVENTS_COUNT;i++)
+    {
+        if(gObjectEvents[i].movementType == MOVEMENT_TYPE_FOLLOW_PLAYER)
+            follower = &gObjectEvents[i];
+    }
+    playerX = player->currentCoords.x;
+    playerY = player->currentCoords.y;
+    followerX = follower->currentCoords.x;
+    followerY = follower->currentCoords.y;
+    DebugPrintf("follower x:%d,y:%d, player x:%d,y:%d", followerX,followerY,playerX,playerY);
+    if(followerX == playerX)
+    {
+        if(followerY > playerY)
+            gSpecialVar_Unused_0x8014 = 2;
+        else
+            gSpecialVar_Unused_0x8014 = 0;
+    }
+    if(followerY == playerY)
+    {
+        if(followerX > playerX)
+            gSpecialVar_Unused_0x8014 = 1;
+        else
+            gSpecialVar_Unused_0x8014 = 3;
+    }
+    DebugPrintf("var set to %d", gSpecialVar_Unused_0x8014);
+    return;
+}

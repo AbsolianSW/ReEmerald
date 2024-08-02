@@ -548,10 +548,12 @@ PetalburgCity_EventScript_Scott3::
 	end
 
 PetalburgCity_EventScript_Scott::
-	
+	getfollowercardinaldirection
 	call_if_eq VAR_UNUSED_0x8014, 1, PetalburgCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_SCOTT, PetalburgCity_Movement_ScottStartWalkLeft
 	waitmovement 0
+	releaseall
+	lock
 	playse SE_PIN
 	applymovement LOCALID_SCOTT, Common_Movement_ExclamationMark
 	waitmovement 0

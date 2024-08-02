@@ -385,7 +385,6 @@ RusturfTunnel_Movement_PlayerMoveAsideForBriney:
 	step_end
 	
 RusturfTunnel_Movement_PlayerFollowerMoveAsideForBriney:
-	walk_left
 	walk_down
 	face_up
 	step_end

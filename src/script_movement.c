@@ -1,6 +1,7 @@
 #include "global.h"
 #include "script_movement.h"
 #include "event_object_movement.h"
+#include "field_player_avatar.h"
 #include "task.h"
 #include "util.h"
 #include "constants/event_objects.h"
@@ -208,7 +209,7 @@ static void ScriptMovement_MoveObjects(u8 taskId)
 static void ScriptMovement_TakeStep(u8 taskId, u8 moveScrId, u8 objEventId, const u8 *movementScript)
 {
     u8 nextMoveActionId;
-
+    u8 i;
     if (ObjectEventIsHeldMovementActive(&gObjectEvents[objEventId])
      && !ObjectEventClearHeldMovementIfFinished(&gObjectEvents[objEventId]))
         return;
@@ -221,6 +222,18 @@ static void ScriptMovement_TakeStep(u8 taskId, u8 moveScrId, u8 objEventId, cons
     }
     else
     {
+        if(gObjectEvents[objEventId].isPlayer)
+        {
+            for(i=0;i<16;i++)
+            {
+                if(gObjectEvents[i].movementType == MOVEMENT_TYPE_FOLLOW_PLAYER)
+                {
+                    //UnfreezeObjectEvent(&gObjectEvents[i]); //unfreeze follower so it can follow the player
+                    DebugPrintf("frozen set to %d, active set to %d",gObjectEvents[i].frozen,gObjectEvents[i].active);
+                }
+            }
+            PlayerSetCopyableMovement(COPY_MOVE_WALK);
+        }
         if (!ObjectEventSetHeldMovement(&gObjectEvents[objEventId], nextMoveActionId))
         {
             movementScript++;
@@ -228,4 +241,3 @@ static void ScriptMovement_TakeStep(u8 taskId, u8 moveScrId, u8 objEventId, cons
         }
     }
 }
-

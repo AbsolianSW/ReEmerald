@@ -6843,8 +6843,6 @@ bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
 {
     bool8 retVal = FALSE;
     u32 shinyValue = GET_SHINY_VALUE(otId, personality);
-    DebugPrintf("shiny odds are %d", GetShinyOdds());
-    DebugPrintf("shiny value is %d", shinyValue);
     if (shinyValue < GetShinyOdds())
         retVal = TRUE;
     return retVal;

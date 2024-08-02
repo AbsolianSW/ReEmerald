@@ -165,7 +165,6 @@ DewfordTown_EventScript_SailToSlateport::
 	applymovement OBJ_EVENT_ID_PLAYER, DewfordTown_Movement_PlayerBoardBoat
 	waitmovement 0
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN
-	
 	call Common_EventScript_PlayBrineysBoatMusic
 	applymovement LOCALID_BOAT_DEWFORD, DewfordTown_Movement_SailToSlateport
 	applymovement OBJ_EVENT_ID_PLAYER, DewfordTown_Movement_SailToSlateport
@@ -173,6 +172,8 @@ DewfordTown_EventScript_SailToSlateport::
 	call Common_EventScript_StopBrineysBoatMusic
 	showobjectat OBJ_EVENT_ID_PLAYER, MAP_ROUTE109
 	applymovement OBJ_EVENT_ID_PLAYER, DewfordTown_Movement_ExitBoatSlateport
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_FOLLOWER, DewfordTown_Movement_FollowerMoveForBriney, MAP_ROUTE109
 	waitmovement 0
 	setobjectxyperm LOCALID_BRINEY_R109, 21, 26
 	addobject LOCALID_BRINEY_R109
@@ -186,9 +187,6 @@ DewfordTown_EventScript_SailToSlateport::
 	hideobjectat LOCALID_BOAT_DEWFORD, MAP_DEWFORD_TOWN
 	call_if_unset FLAG_DELIVERED_DEVON_GOODS, DewfordTown_EventScript_LandedSlateportDeliverGoods
 	call_if_set FLAG_DELIVERED_DEVON_GOODS, DewfordTown_EventScript_LandedSlateport
-	applymovement OBJ_EVENT_ID_PLAYER, DewfordTown_Movement_PlayerMoveUp
-	waitmovement 0
-	
 	closemessage
 	copyvar VAR_BRINEY_LOCATION, VAR_0x8008
 	resetobjectsubpriority OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN
@@ -196,9 +194,11 @@ DewfordTown_EventScript_SailToSlateport::
 	copyobjectxytoperm LOCALID_BRINEY_R109
 	release
 	end
-	
-DewfordTown_Movement_PlayerMoveUp:
+
+DewfordTown_Movement_FollowerMoveForBriney:
 	walk_up
+	walk_up
+	face_down
 	step_end
 
 DewfordTown_EventScript_LandedSlateportDeliverGoods::

@@ -66,7 +66,7 @@ Route116_TunnelersRestHouse_Text_TunnelHasGoneThrough:
 	.string "dreams do come true.$"
 	
 Route116_TunnelersRestHouse_Text_MagneticPokemonInTheTunnel:
-	.string "Have you heard? apparently there are\n"
+	.string "Have you heard? Apparently there are\n"
 	.string "some magnetic Pokemon in the tunnel!\p"
 	.string "If only I had some MAGNET PULL, maybe\n"
 	.string "I could find them...$"

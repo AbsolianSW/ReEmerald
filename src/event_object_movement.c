@@ -9548,7 +9548,7 @@ void FreezeObjectEvents(void)
 {
     u8 i;
     for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
-        if (gObjectEvents[i].active && i != gPlayerAvatar.objectEventId)
+        if (gObjectEvents[i].active && i != gPlayerAvatar.objectEventId && gObjectEvents[i].movementType != MOVEMENT_TYPE_FOLLOW_PLAYER)
             FreezeObjectEvent(&gObjectEvents[i]);
 }
 
@@ -9556,7 +9556,7 @@ void FreezeObjectEventsExceptOne(u8 objectEventId)
 {
     u8 i;
     for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
-        if (i != objectEventId && gObjectEvents[i].active && i != gPlayerAvatar.objectEventId)
+        if (i != objectEventId && gObjectEvents[i].active && i != gPlayerAvatar.objectEventId&& gObjectEvents[i].movementType != MOVEMENT_TYPE_FOLLOW_PLAYER)
             FreezeObjectEvent(&gObjectEvents[i]);
 }
 

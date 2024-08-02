@@ -530,8 +530,10 @@ LittlerootTown_EventScript_MomApproachPlayerFemale::
 	return
 
 LittlerootTown_EventScript_MomApproachPlayer0::
-	
+	getfollowercardinaldirection
 	call_if_eq VAR_UNUSED_0x8014, 2, LittlerootTown_EventScript_MoveFollowerOutOfTheWay
+	releaseall
+	lock
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	applymovement LOCALID_MOM, LittlerootTown_Movement_MomApproachPlayer0
@@ -539,8 +541,10 @@ LittlerootTown_EventScript_MomApproachPlayer0::
 	return
 
 LittlerootTown_EventScript_MomApproachPlayer1::
-	
+	getfollowercardinaldirection
 	call_if_eq VAR_UNUSED_0x8014, 2, LittlerootTown_EventScript_MoveFollowerOutOfTheWay
+	releaseall
+	lock
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	applymovement LOCALID_MOM, LittlerootTown_Movement_MomApproachPlayer1

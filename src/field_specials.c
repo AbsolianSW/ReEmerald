@@ -4367,24 +4367,19 @@ void bufferChallengeInfoForNotebook(void)
     i=0;
     j=0;
     n = gSaveBlock2Ptr->challenges.startingMoney;
-    DebugPrintf("n is %d", n);
     while(TRUE)
     {
-        DebugPrintf("notebook i is %d", i);
-        DebugPrintf("notebook j is %d", j);
         if (n < 9 * (i + 1))
         {
             number = (n - (9 * i)+1) * sPowersOfTen[j];
             break;
         }
-        DebugPrintf("notebook number is %d", number);
         i++;
         j++;
     }
     if (number == 100000000)
         number = 99999999;
     i = 0;
-    DebugPrintf("Final notebook Number is %d", number);
     for(j=7;j>=0;j--)
     {
         if(number/sPowersOfTen[j])
