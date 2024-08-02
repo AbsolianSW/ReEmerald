@@ -83,7 +83,7 @@ Route104_EventScript_RivalTrigger::
 Route104_Movement_MoveFollowerOutOfTheWay:
 	walk_right
 	walk_down
-	follower_face_left
+	face_left
 	step_end
 
 @ Unused, shares script with Rustboro encounter instead
@@ -151,7 +151,7 @@ Route104_Movement_RivalApproachPlayer:
 	
 Route104_Movement_RivalFollowerApproachPlayer:
 	walk_left
-	follower_face_right
+	face_right
 	step_end
 
 Route104_Movement_PlayerFaceRival:
@@ -376,7 +376,7 @@ Route104_EventScript_SailToDewford::
 	removeobject LOCALID_BRINEY_R104
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerBoardBoat
 	waitmovement 0
-	hidefollower
+	
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_ROUTE104
 	call Common_EventScript_PlayBrineysBoatMusic
 	goto_if_set FLAG_ENABLE_NORMAN_MATCH_CALL, Route104_EventScript_SailToDewfordNoCall

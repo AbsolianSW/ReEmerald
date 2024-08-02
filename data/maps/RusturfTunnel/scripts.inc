@@ -207,7 +207,7 @@ RusturfTunnel_Movement_PlayerWatchBoyfriend1:
 RusturfTunnel_Movement_FollowerWatchBoyfriend1:
 	walk_left
 	walk_left
-	follower_face_right
+	face_right
 	step_end
 
 RusturfTunnel_Movement_PlayerWatchBoyfriend:
@@ -218,7 +218,7 @@ RusturfTunnel_Movement_PlayerWatchBoyfriend:
 RusturfTunnel_Movement_FollowerWatchBoyfriend:
 	walk_right
 	walk_right
-	follower_face_left
+	face_left
 	step_end
 
 RusturfTunnel_Movement_BoyfriendFaceRight:
@@ -375,7 +375,7 @@ RusturfTunnel_Movement_PushPlayerAsideForGrunt:
 RusturfTunnel_Movement_PushPlayerFollowerAsideForGrunt:
 	walk_fast_left
 	walk_fast_up
-	follower_face_down
+	face_down
 	step_end
 
 RusturfTunnel_Movement_PlayerMoveAsideForBriney:
@@ -386,7 +386,7 @@ RusturfTunnel_Movement_PlayerMoveAsideForBriney:
 RusturfTunnel_Movement_PlayerFollowerMoveAsideForBriney:
 	walk_left
 	walk_down
-	follower_face_up
+	face_up
 	step_end
 
 RusturfTunnel_Movement_GruntEscape:

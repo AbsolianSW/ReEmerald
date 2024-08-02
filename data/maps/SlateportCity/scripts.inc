@@ -731,7 +731,7 @@ SlateportCity_EventScript_CaptStern::
 	applymovement LOCALID_TY, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	delay 25
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 2, SlateportCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_CAPT_STERN, SlateportCity_Movement_SternWatchGabbyAndTyExit
 	applymovement OBJ_EVENT_ID_PLAYER, SlateportCity_Movement_PlayerFaceStern
@@ -786,7 +786,7 @@ SlateportCity_EventScript_MoveFollowerOutOfTheWay::
 SlateportCity_Movement_MoveFollowerOutOfTheWay:
 	walk_left
 	walk_up
-	follower_face_down
+	face_down
 	step_end
 
 SlateportCity_Movement_OldWomanConcern:

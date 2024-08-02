@@ -736,18 +736,23 @@ static void StartingMoney_DrawChoices(u16 selection)
     s32 number,i,j;
     i=0;
     j=0;
+    DebugPrintf("selection is %d", selection);
     while (TRUE)
     {
+        DebugPrintf("menu i is %d", i);
+        DebugPrintf("menu j is %d", j);
         if (selection < 9 * (i + 1))
         {
             number = (selection - (9 * i)+1) * sPowersOfTen[j];
             break;
         }
+        DebugPrintf("menu number is %d", number);
         i++;
         j++;
     }
     if (number == 100000000)
         number = 99999999;
+    DebugPrintf("final number in menu is %d", number);
     for (i = 0; gText_FrameTypeNumber[i] != EOS && i <= 5; i++)
         text[i] = gText_FrameTypeNumber[i];
     for(j=7;j>=0;j--)

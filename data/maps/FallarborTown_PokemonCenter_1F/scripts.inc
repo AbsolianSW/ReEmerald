@@ -53,7 +53,7 @@ FallarborTown_PokemonCenter_1F_Movement_PlayerOutOfTheWay:
 FallarborTown_PokemonCenter_1F_Movement_FollowerOutOfTheWay:
 	walk_down
 	walk_right
-	follower_face_left
+	face_left
 	step_end
 
 FallarborTown_PokemonCenter_1F_Movement_LanetteExit:

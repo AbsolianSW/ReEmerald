@@ -18,7 +18,6 @@ Common_EventScript_TransferredToPC::
 	buffernicknameofboxmon STR_VAR_2
 	call_if_unset FLAG_SYS_PC_LANETTE, EventScript_TransferredSomeonesPC
 	call_if_set FLAG_SYS_PC_LANETTE, EventScript_TransferredLanettesPC
-	updatefollowerpokemongraphic
 	return
 
 EventScript_TransferredSomeonesPC::

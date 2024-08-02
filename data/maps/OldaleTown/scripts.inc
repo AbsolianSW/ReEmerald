@@ -329,16 +329,16 @@ OldaleTown_Movement_RivalFollowerApproachPlayer1:
 	delay_8
 	walk_left
 	walk_left
-	follower_face_left
+	face_left
 	step_end
 
 OldaleTown_Movement_RivalFollowerApproachPlayer2:
 	walk_left
-	follower_face_left
+	face_left
 	step_end
 
 OldaleTown_Movement_RivalFollowerApproachPlayer3:
-	follower_face_left
+	face_left
 	step_end
 
 OldaleTown_Movement_RivalExit:
@@ -352,7 +352,7 @@ OldaleTown_Movement_RivalExit:
 	
 OldaleTown_Movement_RivalFollowerExit:
 	walk_left
-	follower_face_down
+	face_down
 	walk_down
 	walk_down
 	walk_down

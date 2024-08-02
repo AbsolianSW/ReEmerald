@@ -549,7 +549,7 @@ PetalburgCity_EventScript_Scott3::
 	end
 
 PetalburgCity_EventScript_Scott::
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 1, PetalburgCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_SCOTT, PetalburgCity_Movement_ScottStartWalkLeft
 	waitmovement 0
@@ -591,7 +591,7 @@ PetalburgCity_EventScript_MoveFollowerOutOfTheWay::
 PetalburgCity_Movement_MoveFollowerOutOfTheWay::
 	walk_up
 	walk_left
-	follower_face_right
+	face_right
 	step_end
 	
 
@@ -623,10 +623,10 @@ PetalburgCity_EventScript_ScottExit3::
 PetalburgCity_Movement_FollowerOutOfTheWayScott3:
 	walk_left
 	walk_down
-	follower_face_up
+	face_up
 	delay_16
 	delay_16
-	follower_face_left
+	face_left
 	step_end
 
 PetalburgCity_Movement_ScottStartWalkLeft:

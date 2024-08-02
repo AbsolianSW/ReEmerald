@@ -976,6 +976,7 @@ extern const u8 gText_BootedUpHM[];
 extern const u8 gText_BootedUpTM[];
 extern const u8 gText_TMHMContainedVar1[];
 extern const u8 gText_PlayerUsedVar2[];
+extern const u8 gText_PlayerUsedRepel[];
 extern const u8 gText_RepelEffectsLingered[];
 extern const u8 gText_RepellantOn[];
 extern const u8 gText_RepellantOff[];

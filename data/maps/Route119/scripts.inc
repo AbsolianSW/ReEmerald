@@ -77,7 +77,7 @@ Route119_EventScript_RivalEncounter::
 	end
 	
 Route119_Movement_RivalFollowerInitial:
-	follower_face_up
+	face_up
 	step_end
 
 Route119_EventScript_PlayMayMusic::
@@ -195,13 +195,13 @@ Route119_EventScript_SetScottPos2::
 Route119_Movement_FollowerMoveAwayForScott1:
 	walk_right
 	walk_down
-	follower_face_up
+	face_up
 	step_end
 
 Route119_Movement_FollowerMoveAwayForScott2:
 	walk_left
 	walk_down
-	follower_face_up
+	face_up
 	step_end
 
 
@@ -232,7 +232,7 @@ Route119_Movement_RivalEnter1Follower:
 	walk_up
 	walk_up
 	walk_left
-	follower_face_down
+	face_down
 	step_end
 
 Route119_Movement_RivalEnter2Follower:
@@ -240,7 +240,7 @@ Route119_Movement_RivalEnter2Follower:
 	walk_up
 	walk_up
 	walk_right
-	follower_face_down
+	face_down
 	step_end
 
 Route119_EventScript_RivalExit1::
@@ -258,13 +258,13 @@ Route119_EventScript_RivalExit2::
 Route119_Movement_RivalExit1Follower:
 	walk_fast_up
 	walk_fast_left
-	follower_face_down
+	face_down
 	step_end
 
 Route119_Movement_RivalExit2Follower:
 	walk_fast_up
 	walk_fast_right
-	follower_face_down
+	face_down
 	step_end
 
 

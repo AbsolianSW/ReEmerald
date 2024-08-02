@@ -158,7 +158,7 @@ PetalburgCity_Gym_EventScript_BeginWallyTutorialEast::
 	end
 
 PetalburgCity_Gym_EventScript_BeginWallyTutorial::
-	getfollowercardinaldirection
+	
 	addobject LOCALID_WALLY
 	playse SE_DOOR
 	call_if_eq VAR_UNUSED_0x8014, 1, PetalburgCity_Gym_EventScript_FollowerMoveFromWest
@@ -509,7 +509,7 @@ PetalburgCity_Gym_EventScript_WallysDadFaceNormanWest::
 
 PetalburgCity_Gym_EventScript_WallysDadApproachPlayerNorth::
 	applymovement LOCALID_WALLYS_DAD, PetalburgCity_Gym_Movement_WallysDadApproachPlayerNorth
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 3, PetalburgCity_Gym_EventScript_FollowerMoveOutOfTheWayNorth
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
@@ -524,7 +524,7 @@ PetalburgCity_Gym_EventScript_FollowerMoveOutOfTheWayNorth::
 PetalburgCity_Gym_Movement_FollowerMoveOutOfTheWayNorth:
 	walk_down
 	walk_right
-	follower_face_left
+	face_left
 	step_end
 
 PetalburgCity_Gym_EventScript_WallysDadApproachPlayerEast::
@@ -547,7 +547,7 @@ PetalburgCity_Gym_EventScript_WallysDadApproachPlayerWest::
 	
 PetalburgCity_Gym_Movement_FollowerMoveOutOfTheWay:
 	walk_right
-	follower_face_left
+	face_left
 	step_end
 
 PetalburgCity_Gym_EventScript_ExitGymWithWallysDadNorth::
@@ -693,13 +693,13 @@ PetalburgCity_Gym_Movement_Unused:
 PetalburgCity_Gym_Movement_FollowerFromWest:
 	walk_down
 	walk_left
-	follower_face_down
+	face_down
 	step_end
 
 PetalburgCity_Gym_Movement_FollowerFromEast:
 	walk_down
 	walk_right
-	follower_face_down
+	face_down
 	step_end
 
 

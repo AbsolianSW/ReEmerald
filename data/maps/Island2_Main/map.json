@@ -177,7 +177,7 @@
       "flag": "FLAG_TWO_ISLAND_HIDE_SHELLY"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SUICUNE",
+      "graphics_id": "OBJ_EVENT_GFX_OW_MON",
       "x": 22,
       "y": 9,
       "elevation": 0,
@@ -242,7 +242,7 @@
       "flag": "FLAG_TWO_ISLAND_HIDE_AQUA"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SUICUNE",
+      "graphics_id": "OBJ_EVENT_GFX_OW_MON",
       "x": 9,
       "y": 7,
       "elevation": 0,

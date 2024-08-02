@@ -37,7 +37,7 @@ Route109_EventScript_EnterBoatWest::
 
 Route109_EventScript_DoSailToDewford::
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_ROUTE109
-	hidefollower
+	
 	call Common_EventScript_PlayBrineysBoatMusic
 	applymovement LOCALID_BOAT_R109, Route109_Movement_SailToDewford
 	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_SailToDewford
@@ -60,7 +60,7 @@ Route109_EventScript_DoSailToDewford::
 	msgbox DewfordTown_Text_BrineyLandedInDewford, MSGBOX_DEFAULT
 	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerMoveLeft
 	waitmovement 0
-	showfollower
+	
 	closemessage
 	copyvar VAR_BRINEY_LOCATION, VAR_0x8008
 	resetobjectsubpriority OBJ_EVENT_ID_PLAYER, MAP_ROUTE109

@@ -22,20 +22,19 @@ Common_EventScript_SetupRivalFollowerId::
 EventScript_RivalGrass::
 	setvar VAR_0x8003, 0
 	special BufferRivalFollowerSpecies
-	copyvar VAR_OBJ_GFX_ID_1,VAR_0x8002
-	special BufferRivalFollowerSpecies
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_OW_MON
 	return 
 
 EventScript_RivalWater::
 	setvar VAR_0x8003, 1
 	special BufferRivalFollowerSpecies
-	copyvar VAR_OBJ_GFX_ID_1,VAR_0x8002
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_OW_MON
 	return 
 	
 EventScript_RivalFire::
 	setvar VAR_0x8003, 2
 	special BufferRivalFollowerSpecies
-	copyvar VAR_OBJ_GFX_ID_1,VAR_0x8002
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_OW_MON
 	return 
 
 Common_EventScript_SetupRivalOnBikeGfxId::

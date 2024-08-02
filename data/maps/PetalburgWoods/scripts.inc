@@ -152,7 +152,7 @@ PetalburgWoods_Movement_DevonResearcherExitLeft:
 PetalburgWoods_Movement_DevonResearcherExitLeftFollower:
 	walk_fast_up
 	walk_fast_left
-	follower_face_right
+	face_right
 	step_end
 
 PetalburgWoods_Movement_DevonResearcherApproachPlayerLeft:
@@ -185,7 +185,7 @@ PetalburgWoods_Movement_DevonResearcherExitRight:
 PetalburgWoods_Movement_DevonResearcherExitRightFollower:
 	walk_fast_up
 	walk_fast_right
-	follower_face_left
+	face_left
 	step_end
 
 PetalburgWoods_Movement_WatchResearcherLeave:

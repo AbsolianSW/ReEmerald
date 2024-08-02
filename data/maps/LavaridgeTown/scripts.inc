@@ -195,7 +195,7 @@ LavaridgeTown_Movement_RivalApproachPlayer2Part1:
 	step_end
 	
 LavaridgeTown_Movement_RivalFollowerApproachPlayer2Part1:
-	follower_face_left
+	face_left
 	step_end
 	
 LavaridgeTown_Movement_RivalApproachPlayer2Part2:
@@ -212,7 +212,7 @@ LavaridgeTown_Movement_RivalFollowerApproachPlayer2Part2:
 	walk_left
 	walk_left
 	walk_left
-	follower_face_left
+	face_left
 	step_end
 
 LavaridgeTown_Movement_RivalApproachPlayer1:

@@ -530,7 +530,7 @@ LittlerootTown_EventScript_MomApproachPlayerFemale::
 	return
 
 LittlerootTown_EventScript_MomApproachPlayer0::
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 2, LittlerootTown_EventScript_MoveFollowerOutOfTheWay
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
@@ -539,7 +539,7 @@ LittlerootTown_EventScript_MomApproachPlayer0::
 	return
 
 LittlerootTown_EventScript_MomApproachPlayer1::
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 2, LittlerootTown_EventScript_MoveFollowerOutOfTheWay
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
@@ -554,7 +554,7 @@ LittlerootTown_EventScript_MoveFollowerOutOfTheWay::
 LittlerootTown_Movement_MoveFollowerOutOfTheWay::
 	walk_left
 	walk_up
-	follower_face_down
+	face_down
 	step_end
 
 LittlerootTown_EventScript_MomApproachPlayerMale2::

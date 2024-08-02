@@ -131,12 +131,12 @@ Route110_TrickHouseEntrance_EventScript_TrickMasterFound::
 	turnobject LOCALID_TRICK_MASTER, DIR_EAST
 	turnobject OBJ_EVENT_ID_PLAYER, DIR_WEST
 	applymovement OBJ_EVENT_ID_FOLLOWER, Route110_TrickHouseEntrance_MovementFollower
-	showfollower
+	
 	end
 	
 Route110_TrickHouseEntrance_MovementFollower:
 	walk_fast_right
-	follower_face_left
+	face_left
 	step_end
 
 Route110_TrickHouseEntrance_EventScript_SetTrickMasterHidingSpot::

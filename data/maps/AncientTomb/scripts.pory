@@ -56,9 +56,9 @@ AncientTomb_EventScript_CaveEntranceSide::
 	end
 
 AncientTomb_EventScript_Registeel::
+	bufferspeciesname 0, SPECIES_REGISTEEL
 	lock
 	faceplayer
-	bufferspeciesname 0, SPECIES_REGISTEEL
 	waitse
 	playmoncry SPECIES_REGISTEEL, CRY_MODE_ENCOUNTER
 	delay 40

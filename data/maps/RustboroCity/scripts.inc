@@ -124,7 +124,7 @@ RustboroCity_Movement_PlayerWalkDown:
 RustboroCity_Movement_PlayerFollowerWalkDown:
 	walk_left
 	walk_down
-	follower_face_up
+	face_up
 	step_end
 
 RustboroCity_Movement_ScientistApproachPlayer:
@@ -678,7 +678,7 @@ RustboroCity_EventScript_RivalTrigger0::
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 0, RustboroCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_RIVAL, RustboroCity_Movement_RivalApproachPlayer0
 	applymovement LOCALID_RIVAL_FOLLOWER, RustboroCity_Movement_RivalFollowerApproachPlayer0
@@ -697,7 +697,7 @@ RustboroCity_EventScript_RivalTrigger1::
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 0, RustboroCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_RIVAL, RustboroCity_Movement_RivalApproachPlayer1
 	applymovement LOCALID_RIVAL_FOLLOWER, RustboroCity_Movement_RivalFollowerApproachPlayer1
@@ -716,7 +716,7 @@ RustboroCity_EventScript_RivalTrigger2::
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 0, RustboroCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_RIVAL, RustboroCity_Movement_RivalApproachPlayer2
 	applymovement LOCALID_RIVAL_FOLLOWER, RustboroCity_Movement_RivalFollowerApproachPlayer2
@@ -735,7 +735,7 @@ RustboroCity_EventScript_RivalTrigger3::
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 0, RustboroCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_RIVAL, RustboroCity_Movement_RivalApproachPlayer3
 	applymovement LOCALID_RIVAL_FOLLOWER, RustboroCity_Movement_RivalFollowerApproachPlayer3
@@ -754,7 +754,7 @@ RustboroCity_EventScript_RivalTrigger4::
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 0, RustboroCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_RIVAL, RustboroCity_Movement_RivalApproachPlayer4
 	applymovement LOCALID_RIVAL_FOLLOWER, RustboroCity_Movement_RivalFollowerApproachPlayer4
@@ -773,7 +773,7 @@ RustboroCity_EventScript_RivalTrigger5::
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 0, RustboroCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_RIVAL, RustboroCity_Movement_RivalApproachPlayer5
 	applymovement LOCALID_RIVAL_FOLLOWER, RustboroCity_Movement_RivalFollowerApproachPlayer5
@@ -792,7 +792,7 @@ RustboroCity_EventScript_RivalTrigger6::
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 0, RustboroCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_RIVAL, RustboroCity_Movement_RivalApproachPlayer6
 	applymovement LOCALID_RIVAL_FOLLOWER, RustboroCity_Movement_RivalFollowerApproachPlayer6
@@ -811,7 +811,7 @@ RustboroCity_EventScript_RivalTrigger7::
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 0, RustboroCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_RIVAL, RustboroCity_Movement_RivalApproachPlayer7
 	applymovement LOCALID_RIVAL_FOLLOWER, RustboroCity_Movement_RivalFollowerApproachPlayer7
@@ -827,7 +827,7 @@ RustboroCity_EventScript_MoveFollowerOutOfTheWay:
 RustboroCity_Movement_MoveFollowerOutOfTheWay:
 	walk_left
 	walk_down
-	follower_face_up
+	face_up
 	step_end
 
 RustboroCity_EventScript_RivalEncounter::
@@ -983,7 +983,7 @@ RustboroCity_Movement_RivalFollowerApproachPlayer0:
 	walk_left
 	walk_left
 	walk_left
-	follower_face_down
+	face_down
 	step_end
 
 RustboroCity_Movement_RivalApproachPlayer1:
@@ -1000,7 +1000,7 @@ RustboroCity_Movement_RivalFollowerApproachPlayer1:
 	walk_left
 	walk_left
 	walk_left
-	follower_face_down
+	face_down
 	step_end
 
 RustboroCity_Movement_RivalApproachPlayer2:
@@ -1015,7 +1015,7 @@ RustboroCity_Movement_RivalFollowerApproachPlayer2:
 	walk_down
 	walk_left
 	walk_left
-	follower_face_down
+	face_down
 	step_end
 
 RustboroCity_Movement_RivalApproachPlayer3:
@@ -1028,7 +1028,7 @@ RustboroCity_Movement_RivalFollowerApproachPlayer3:
 	walk_right
 	walk_down
 	walk_left
-	follower_face_down
+	face_down
 	step_end
 
 RustboroCity_Movement_RivalApproachPlayer4:
@@ -1039,7 +1039,7 @@ RustboroCity_Movement_RivalApproachPlayer4:
 RustboroCity_Movement_RivalFollowerApproachPlayer4:
 	walk_right
 	walk_down
-	follower_face_down
+	face_down
 	step_end
 
 RustboroCity_Movement_RivalApproachPlayer5:
@@ -1052,7 +1052,7 @@ RustboroCity_Movement_RivalFollowerApproachPlayer5:
 	walk_right
 	walk_down
 	walk_right
-	follower_face_down
+	face_down
 	step_end
 
 RustboroCity_Movement_RivalApproachPlayer6:
@@ -1067,7 +1067,7 @@ RustboroCity_Movement_RivalFollowerApproachPlayer6:
 	walk_down
 	walk_right
 	walk_right
-	follower_face_down
+	face_down
 	step_end
 
 RustboroCity_Movement_RivalApproachPlayer7:
@@ -1084,7 +1084,7 @@ RustboroCity_Movement_RivalFollowerApproachPlayer7:
 	walk_right
 	walk_right
 	walk_right
-	follower_face_down
+	face_down
 	step_end
 
 RustboroCity_EventScript_Boy1::

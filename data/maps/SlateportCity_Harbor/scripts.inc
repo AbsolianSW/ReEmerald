@@ -109,7 +109,7 @@ SlateportCity_Harbor_EventScript_SternApproachPlayer::
 SlateportCity_Harbor_Movement_FollowerOutOfTheWay:
 	walk_up
 	walk_left
-	follower_face_right
+	face_right
 	step_end
 
 SlateportCity_Harbor_Movement_AquaBoardSub:

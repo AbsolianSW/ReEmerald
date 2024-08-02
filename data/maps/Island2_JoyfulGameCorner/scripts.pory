@@ -84,7 +84,7 @@ Island2_JoyfulGameCorner_Movement_OutOfTheWay:
 Island2_JoyfulGameCorner_Movement_OutOfTheWayFollower:
 	walk_faster_left
 	walk_faster_left
-	follower_face_right
+	face_right
 	step_end
 	
 Island2_JoyfulGameCorner_Movement_GruntApproachLostelle:

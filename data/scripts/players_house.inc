@@ -599,7 +599,7 @@ PlayersHouse_1F_EventScript_MomApproachPlayerAfterTVMale::
 PlayersHouse_1F_Movement_FollowerOutOfTheWayMale:
 	walk_left
 	walk_left
-	follower_face_right
+	face_right
 	step_end
 	
 
@@ -614,7 +614,7 @@ PlayersHouse_1F_EventScript_MomApproachPlayerAfterTVFemale::
 PlayersHouse_1F_Movement_FollowerOutOfTheWayFemale:
 	walk_right
 	walk_right
-	follower_face_left
+	face_left
 	step_end
 	
 

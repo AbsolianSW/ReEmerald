@@ -92,7 +92,7 @@ SlateportCity_OceanicMuseum_2F_EventScript_CaptStern::
 	end
 	
 SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay::
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 3, SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay2
 	return
 	
@@ -104,7 +104,7 @@ SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay2::
 SlateportCity_OceanicMuseum_2F_Movement_FollowerOutOfTheWay:
 	walk_up
 	walk_right
-	follower_face_left
+	face_left
 	step_end
 
 SlateportCity_OceanicMuseum_2F_EventScript_ReadyRegisterBirch::

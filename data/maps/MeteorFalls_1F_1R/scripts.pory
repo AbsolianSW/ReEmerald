@@ -223,7 +223,7 @@ MeteorFalls_1F_1R_Movement_PushPlayerOutOfWay:
 	
 MeteorFalls_1F_1R_Movement_PushFollowerOutOfWay:
 	walk_up
-	follower_face_down
+	face_down
 	step_end
 
 MeteorFalls_1F_1R_EventScript_ProfCozmo::

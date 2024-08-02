@@ -32,7 +32,7 @@ VictoryRoad_1F_EventScript_WallyBattleTrigger1::
 VictoryRoad_1F_Movement_FollowerWallyApproach1:
 	walk_right
 	walk_up
-	follower_face_down
+	face_down
 	step_end
 
 
@@ -49,7 +49,7 @@ VictoryRoad_1F_EventScript_WallyBattleTrigger2::
 VictoryRoad_1F_Movement_FollowerWallyApproach2:
 	walk_left
 	walk_up
-	follower_face_down
+	face_down
 	step_end
 
 VictoryRoad_1F_EventScript_WallyEntranceBattle::

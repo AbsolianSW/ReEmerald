@@ -4365,19 +4365,26 @@ void bufferChallengeInfoForNotebook(void)
     text2[i] = EOS;
     StringCopy(gStringVar2 , text2);
     i=0;
+    j=0;
     n = gSaveBlock2Ptr->challenges.startingMoney;
+    DebugPrintf("n is %d", n);
     while(TRUE)
     {
+        DebugPrintf("notebook i is %d", i);
+        DebugPrintf("notebook j is %d", j);
         if (n < 9 * (i + 1))
         {
             number = (n - (9 * i)+1) * sPowersOfTen[j];
             break;
         }
+        DebugPrintf("notebook number is %d", number);
         i++;
         j++;
     }
     if (number == 100000000)
         number = 99999999;
+    i = 0;
+    DebugPrintf("Final notebook Number is %d", number);
     for(j=7;j>=0;j--)
     {
         if(number/sPowersOfTen[j])
@@ -4393,5 +4400,5 @@ void bufferChallengeInfoForNotebook(void)
 //var 4 is level
 void BufferRivalFollowerSpecies(void)
 {
-    gSpecialVar_0x8002 = GetRivalStarterSpecies(gSpecialVar_0x8003+SPECIES_RIVAL_GRASS_STARTER,gSpecialVar_0x8004)+OBJ_EVENT_GFX_BULBASAUR - 1;
+    VarSet(VAR_TEMP_4,GetRivalStarterSpecies(gSpecialVar_0x8003+SPECIES_RIVAL_GRASS_STARTER,gSpecialVar_0x8004));
 }

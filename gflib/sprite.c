@@ -1667,9 +1667,6 @@ void FreeSpritePaletteByTag(u16 tag)
     u8 index = IndexOfSpritePaletteTag(tag);
     if (index != 0xFF) {
       sSpritePaletteTags[index] = TAG_NONE;
-      #if DEBUG
-      FillPalette(0, index * 16 + 0x100, 32);
-      #endif
     }
 }
 

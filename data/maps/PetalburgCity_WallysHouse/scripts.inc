@@ -23,7 +23,7 @@ PetalburgCity_WallysHouse_EventScript_GiveHMSurf::
 	
 	applymovement OBJ_EVENT_ID_FOLLOWER, PetalburgCity_WallysHouse_Movement_FollowerOffPlayer 
 	waitmovement 0
-	showfollower
+	
 	msgbox PetalburgCity_WallysHouse_Text_PleaseExcuseUs, MSGBOX_DEFAULT
 	giveitem ITEM_HM_SURF
 	setflag FLAG_RECEIVED_HM_SURF
@@ -34,7 +34,7 @@ PetalburgCity_WallysHouse_EventScript_GiveHMSurf::
 	
 PetalburgCity_WallysHouse_Movement_FollowerOffPlayer:
 	walk_left
-	follower_face_right
+	face_right
 	step_end
 
 PetalburgCity_WallysHouse_EventScript_WallysDad::

@@ -131,7 +131,7 @@ DewfordTown_EventScript_SailToPetalburg::
 	applymovement OBJ_EVENT_ID_PLAYER, DewfordTown_Movement_PlayerBoardBoat
 	waitmovement 0
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN
-	hidefollower
+	
 	call Common_EventScript_PlayBrineysBoatMusic
 	applymovement LOCALID_BOAT_DEWFORD, DewfordTown_Movement_SailToPetalburg
 	applymovement OBJ_EVENT_ID_PLAYER, DewfordTown_Movement_SailToPetalburg
@@ -164,7 +164,7 @@ DewfordTown_EventScript_SailToSlateport::
 	applymovement OBJ_EVENT_ID_PLAYER, DewfordTown_Movement_PlayerBoardBoat
 	waitmovement 0
 	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN
-	hidefollower
+	
 	call Common_EventScript_PlayBrineysBoatMusic
 	applymovement LOCALID_BOAT_DEWFORD, DewfordTown_Movement_SailToSlateport
 	applymovement OBJ_EVENT_ID_PLAYER, DewfordTown_Movement_SailToSlateport
@@ -187,7 +187,7 @@ DewfordTown_EventScript_SailToSlateport::
 	call_if_set FLAG_DELIVERED_DEVON_GOODS, DewfordTown_EventScript_LandedSlateport
 	applymovement OBJ_EVENT_ID_PLAYER, DewfordTown_Movement_PlayerMoveUp
 	waitmovement 0
-	showfollower
+	
 	closemessage
 	copyvar VAR_BRINEY_LOCATION, VAR_0x8008
 	resetobjectsubpriority OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN

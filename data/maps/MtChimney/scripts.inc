@@ -84,7 +84,7 @@ MtChimney_EventScript_Maxie::
 
 MtChimney_EventScript_ArchieApproachPlayerEast::
 	applymovement LOCALID_ARCHIE, MtChimney_Movement_ArchieApproachPlayerEast
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 3, MtChimney_EventScript_MoveFollowerOutOfTheWayEast
 	waitmovement 0
 	return
@@ -95,12 +95,12 @@ MtChimney_EventScript_MoveFollowerOutOfTheWayEast::
 	
 MtChimney_Movement_MoveFollowerOutOfTheWayEast:
 	walk_down
-	follower_face_up
+	face_up
 	step_end
 
 MtChimney_EventScript_ArchieApproachPlayerNorth::
 	applymovement LOCALID_ARCHIE, MtChimney_Movement_ArchieApproachPlayerNorth
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 3, MtChimney_EventScript_MoveFollowerOutOfTheWayNorth
 	waitmovement 0
 	return
@@ -111,7 +111,7 @@ MtChimney_EventScript_MoveFollowerOutOfTheWayNorth::
 	
 MtChimney_Movement_MoveFollowerOutOfTheWayNorth:
 	walk_up
-	follower_face_down
+	face_down
 	step_end
 
 MtChimney_EventScript_ArchieExitEast::

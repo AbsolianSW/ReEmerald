@@ -215,7 +215,7 @@ Route119_WeatherInstitute_2F_Movement_ShoveFollowerOutOfWay:
 	delay_16
 	delay_16
 	ride_water_current_down
-	follower_face_up
+	face_up
 	step_end
 
 Route119_WeatherInstitute_2F_Movement_PlayerReturnToPosition:
@@ -225,7 +225,7 @@ Route119_WeatherInstitute_2F_Movement_PlayerReturnToPosition:
 	
 Route119_WeatherInstitute_2F_Movement_FollowerReturnToPosition:
 	slide_down
-	follower_face_up
+	face_up
 	step_end
 
 Route119_WeatherInstitute_2F_Movement_ScientistApproachPlayer:

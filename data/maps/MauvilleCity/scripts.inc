@@ -126,7 +126,7 @@ MauvilleCity_EventScript_WallyAndUncleExitNorth::
 	waitmovement 0
 	delay 30
 	applymovement OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerFaceUncleNorth
-	getfollowercardinaldirection
+	
 	call_if_eq VAR_UNUSED_0x8014, 2, MauvilleCity_EventScript_FollowerMoveOutOfTheWay
 	applymovement LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleApproachPlayerNorth
 	waitmovement 0
@@ -147,7 +147,7 @@ MauvilleCity_EventScript_FollowerMoveOutOfTheWay:
 MauvilleCity_Movement_FollowerMoveOutOfTheWay:
 	walk_right
 	walk_up
-	follower_face_left
+	face_left
 	step_end
 	
 
@@ -259,7 +259,7 @@ MauvilleCity_Movement_KirliaExitNorth1:
 	walk_down
 	walk_down
 	walk_left
-	follower_face_right
+	face_right
 	step_end
 
 MauvilleCity_Movement_WallyExitEast1:

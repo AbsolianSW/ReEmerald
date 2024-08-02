@@ -1349,7 +1349,7 @@ void ReturnToFieldFromFlyMapSelect(void)
     gFieldCallback = FieldCallback_Fly;
 }
 
-static void FieldCallback_Fly(void)
+void FieldCallback_Fly(void)
 {
     FadeInFromBlack();
     CreateTask(Task_UseFly, 0);
@@ -1566,7 +1566,7 @@ static bool8 FallWarpEffect_End(struct Task *task)
 #define tState   data[0]
 #define tGoingUp data[1]
 
-static void HideFollowerForFieldEffect(void) {
+static void ForFieldEffect(void) {
     struct ObjectEvent *followerObj = GetFollowerObject();
     if (!followerObj || followerObj->invisible)
         return;
@@ -1597,7 +1597,7 @@ static bool8 EscalatorWarpOut_Init(struct Task *task)
     FreezeObjectEvents();
     CameraObjectReset2();
     StartEscalator(task->tGoingUp);
-    HideFollowerForFieldEffect();
+    ForFieldEffect();
     task->tState++;
     return FALSE;
 }
@@ -1981,7 +1981,7 @@ static bool8 LavaridgeGymB1FWarpEffect_Init(struct Task *task, struct ObjectEven
     task->data[1] = 1;
     task->data[0]++;
     if (objectEvent->localId == OBJ_EVENT_ID_PLAYER) // Hide follower before warping
-        HideFollowerForFieldEffect();
+        ForFieldEffect();
     return TRUE;
 }
 
@@ -2257,9 +2257,8 @@ void SpriteCB_AshPuff(struct Sprite *sprite)
 void StartEscapeRopeFieldEffect(void)
 {
     LockPlayerFieldControls();
-    FollowerIntoPokeball();
     FreezeObjectEvents();
-    HideFollowerForFieldEffect();
+    ForFieldEffect();
     CreateTask(Task_EscapeRopeWarpOut, 80);
 }
 
@@ -3024,7 +3023,7 @@ static void SurfFieldEffect_Init(struct Task *task)
 {
     LockPlayerFieldControls();
     FreezeObjectEvents();
-    HideFollowerForFieldEffect();
+    ForFieldEffect();
     gPlayerAvatar.preventStep = TRUE;
     SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_SURFING);
     PlayerGetDestCoords(&task->tDestX, &task->tDestY);
@@ -3138,8 +3137,6 @@ u8 FldEff_NPCFlyOut(void)
 {
     u8 spriteId = CreateSprite(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_BIRD], 0x78, 0, 1);
     struct Sprite *sprite = &gSprites[spriteId];
-
-    sprite->oam.paletteNum = 0;
     sprite->oam.priority = 1;
     sprite->callback = SpriteCB_NPCFlyOut;
     sprite->data[1] = gFieldEffectArguments[0];
@@ -3322,7 +3319,6 @@ static u8 CreateFlyBirdSprite(void)
     struct Sprite *sprite;
     spriteId = CreateSprite(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_BIRD], 0xff, 0xb4, 0x1);
     sprite = &gSprites[spriteId];
-    sprite->oam.paletteNum = 0;
     sprite->oam.priority = 1;
     sprite->callback = SpriteCB_FlyBirdLeaveBall;
     sprite->oam.paletteNum = LoadObjectEventPalette(gSaveBlock2Ptr->playerGender ? FLDEFF_PAL_TAG_MAY : FLDEFF_PAL_TAG_BRENDAN);
