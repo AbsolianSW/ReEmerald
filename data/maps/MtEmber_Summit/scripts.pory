@@ -13,7 +13,7 @@ script MtEmber_Summit_Cutscene{
 	applymovement(OBJ_EVENT_ID_CAMERA, MtEmber_Summit_CameraMovementUp)
 	waitmovement(0)
 	special(RemoveCameraObject)
-	msgbox(format("At last...I've found you, MOLTRES. Together, we shall finally conquer this world and expand the land masses, just as MAXIE foresaw!"))
+	msgbox(format("At last...I've found you, Moltres. Together, we shall finally conquer this world and expand the land masses, just as Maxie foresaw!"))
 	playmoncry(SPECIES_MOLTRES, CRY_MODE_ENCOUNTER)
 	delay(30)
 	removeobject(5)

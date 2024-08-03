@@ -43,7 +43,7 @@ Island1_PokemonCenter_1F_EventScript_Hiker::
 
 
 Island1_PokemonCenter_1F_Text_TradedWithBoyfriend:
-	.string "I traded POKéMON with my boyfriend\n"
+	.string "I traded Pokémon with my boyfriend\n"
     .string "far away!\p"
     .string "Everyone's saying that we can\n"
     .string "thank CELIO for that.\p"

@@ -17,6 +17,6 @@ text MtEmber_RubyPath_1F_Text_GruntDefeat {
 }
 
 text MtEmber_RubyPath_1F_Text_GruntPostBattle {
-	format("Beaten by a child...maybe I'm just not cut out for TEAM MAGMA?")
+	format("Beaten by a child...maybe I'm just not cut out for Team Magma?")
 }
 

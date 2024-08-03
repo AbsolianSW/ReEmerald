@@ -244,14 +244,14 @@ static const u8 sChallengeDetailTexts[PAGE_COUNT*(ROWS_OPTIONS-1)][DETAIL_TEXT_L
     [MENUITEM_INFINITECANDY] = _("You start the game with a key item\nthat functions as an infinitely\nreusable Rare Candy."),
     [MENUITEM_REPELLANT] = _("You start the game with a key item\nthat functions as toggleable\nRepel."),
     [MENUITEM_STARTINGMONEY] = _("How much money you start the game\nwith."),
-    [MENUITEM_SHINYODDS] = _("How likely it is for Pokemon to be\nshiny."),
+    [MENUITEM_SHINYODDS] = _("How likely it is for Pokémon to be\nshiny."),
     [MENUITEM_GRASSSTARTER] = _("What species will be in the grass\nstarter slot. Can optionally affect\nthe rival's team."),
     [MENUITEM_WATERSTARTER] = _("What species will be in the water\nstarter slot. Can optionally affect\nthe rival's team."),
     [MENUITEM_FIRESTARTER] = _("What species will be in the fire\nstarter slot. Can optionally affect\nthe rival's team."),
     [MENUITEM_STARTERAFFECTSRIVAL] = _("If set, the rival will use the\nspecies specified above, evolving\nat appropriate levels"),
     [MENUITEM_LEVELCAP] = _("Caps level to the next boss fights\nace's level. Extreme instead caps \nto 85%."),
     [MENUITEM_GAUNTLETMODE] = _("When you enter a route, dungeon or\ngym, you can't leave until you defeat\nevery trainer. Boss fights heal you."),
-    [MENUITEM_NOBATTLEITEMS] = _("You won't be able to use items in\nbattle except for Pokeballs and held\nitems. Opponents unaffected."),
+    [MENUITEM_NOBATTLEITEMS] = _("You won't be able to use items in\nbattle except for Pokéballs and held\nitems. Opponents unaffected."),
     [MENUITEM_XPMULTIPLIER] = _("This multiplier will be applied to all\nexperience earned.")
 };
 

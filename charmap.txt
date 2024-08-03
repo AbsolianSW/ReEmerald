@@ -42,14 +42,14 @@
 SUPER_ER    = 2C
 '&'         = 2D
 '+'         = 2E
-LV          = 34
+Lv          = 34
 '='         = 35
 ';'         = 36
 '¿'         = 51
 '¡'         = 52
 PK          = 53
-PKMN        = 53 54
-POKEBLOCK   = 55 56 57 58 59
+Pkmn        = 53 54
+Pokeblock   = 55 56 57 58 59
 'Í'         = 5A
 '%'         = 5B
 '('         = 5C
@@ -330,7 +330,7 @@ TALL_PLUS   = FC 0C FB
 STRING = FD
 
 @ string placeholders
-PLAYER         = FD 01
+Player         = FD 01
 STR_VAR_1      = FD 02
 STR_VAR_2      = FD 03
 STR_VAR_3      = FD 04
@@ -339,12 +339,12 @@ RIVAL          = FD 06
 @ version-dependent strings (originally made for Ruby/Sapphire differences)
 @ Emerald uses the Sapphire strings (except for VERSION).
 VERSION        = FD 07 @ "EMERALD"
-AQUA           = FD 08
-MAGMA          = FD 09
-ARCHIE         = FD 0A
-MAXIE          = FD 0B
-KYOGRE         = FD 0C
-GROUDON        = FD 0D
+Aqua           = FD 08
+Magma          = FD 09
+Archie         = FD 0A
+Maxie          = FD 0B
+Kyogre         = FD 0C
+Groudon        = FD 0D
 
 @ battle string placeholders
 

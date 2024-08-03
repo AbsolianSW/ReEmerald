@@ -231,7 +231,7 @@ BattleFrontier_BattlePyramidTop_Text_ReachedSummitUpYouGo:
 
 BattleFrontier_BattlePyramidTop_Text_PlayerConqueredPyramid:
 	.string "The PYRAMID's new conqueror!\n"
-	.string "Let the name {PLAYER} be known!$"
+	.string "Let the name {Player} be known!$"
 
 BattleFrontier_BattlePyramidTop_Text_ChiefBeatYouHere:
 	.string "It is a delight to see you here!\p"
@@ -252,7 +252,7 @@ BattleFrontier_BattlePyramidTop_Text_ExplorationsAreGrandestAdventure:
 	.string "are the grandest of adventures?\p"
 	.string "Your own wits!\p"
 	.string "Your own strength!\p"
-	.string "Your own POKéMON!\p"
+	.string "Your own Pokémon!\p"
 	.string "And, above all, only your own courage\n"
 	.string "to lead you through unknown worlds…$"
 

@@ -349,17 +349,17 @@ PlayersHouse_2F_Text_ClockIsStopped:
 	.string "Better set it and start it!$"
 
 PlayersHouse_2F_Text_HowDoYouLikeYourRoom:
-	.string "MOM: {PLAYER}, how do you like your\n"
+	.string "Mom: {Player}, how do you like your\n"
 	.string "new room?\p"
 	.string "Good! Everything's put away neatly!\p"
 	.string "They finished moving everything in\n"
 	.string "downstairs, too.\p"
-	.string "POKéMON movers are so convenient!\p"
+	.string "Pokémon movers are so convenient!\p"
 	.string "Oh, you should make sure that\n"
 	.string "everything's all there on your desk.$"
 
 PlayersHouse_2F_Text_Notebook:
-	.string "{PLAYER} flipped open the notebook.\p"
+	.string "{Player} flipped open the notebook.\p"
 	.string "Challenges active:$"
 	
 PlayersHouse_2F_Text_NotebookLevelCap:
@@ -382,7 +382,7 @@ PlayersHouse_2F_Text_NotebookSpeciesClause:
 PlayersHouse_2F_Text_NotebookNoBattleItems:
 	.string "No Battle Items: You can not use\n"
 	.string "items in battle. Held items are\p"
-	.string "are allowed, and the AI will\n"
+	.string "are allowed, and the enemies will\n"
 	.string "still use items.$"
 	
 PlayersHouse_2F_Text_NotebookForceSetMode:
@@ -400,13 +400,13 @@ PlayersHouse_2F_Text_NotebookXPMultiplier:
 	
 PlayersHouse_2F_Text_NotebookInfiniteCandy:
 	.string "Infinite Candy: You started the\n"
-	.string "game with a KEY ITEM that acts\p"
-	.string "as an infinite RARE CANDY.$"
+	.string "game with a Key Item that acts\p"
+	.string "as an infinite Rare Candy.$"
 	
 PlayersHouse_2F_Text_NotebookRepellant:
 	.string "Repellant: You started the game\n"
-	.string "with a KEY ITEM that acts as an\p"
-	.string "infinite REPEL.$"
+	.string "with a Key Item that acts as an\p"
+	.string "infinite Repel.$"
 
 PlayersHouse_2F_Text_NotebookShinyOdds::
 	.string "The shiny odds are {STR_VAR_2}.$"
@@ -423,8 +423,8 @@ PlayersHouse_2F_Text_NotebookGauntletMode::
 	.string "The game is in gauntlet mode.$"
 
 Common_Text_LookCloserAtMap:
-	.string "{PLAYER} took a closer look at the\n"
-	.string "HOENN region map.$"
+	.string "{Player} took a closer look at the\n"
+	.string "Hoenn region map.$"
 
 PlayersHouse_2F_Text_ItsAGameCube:
 	.string "It's a Nintendo GameCube.\p"

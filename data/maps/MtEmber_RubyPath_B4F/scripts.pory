@@ -8,7 +8,7 @@ script MtEmber_RubyPath_B4F_Grunt1 {
 }
 
 text MtEmber_RubyPath_B4F_Text_Grunt1Intro{
-	format("You can't be here! Official TEAM MAGMA business!")
+	format("You can't be here! Official Team Magma business!")
 }
 
 text MtEmber_RubyPath_B4F_Text_Grunt1Defeat {
@@ -27,7 +27,7 @@ script MtEmber_RubyPath_B4F_Grunt2 {
 }
 
 text MtEmber_RubyPath_B4F_Text_Grunt2Intro{
-	format("Official TEAM MAGMA business! Please leave the area immediately!")
+	format("Official Team Magma business! Please leave the area immediately!")
 }
 
 text MtEmber_RubyPath_B4F_Text_Grunt2Defeat {

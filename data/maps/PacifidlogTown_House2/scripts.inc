@@ -66,14 +66,14 @@ PacifidlogTown_House2_EventScript_UnhappyAzurill::
 
 PacifidlogTown_House2_Text_ChairmansYoungerBrotherOnVacation:
 	.string "Er-hem!\p"
-	.string "I am the POKéMON FAN CLUB's most\n"
+	.string "I am the Pokémon FAN CLUB's most\n"
 	.string "important person, the CHAIRMAN!\p"
 	.string "That's all my brother ever says. He's \p"
 	.string "the golden child, it's so frustrating.$"
 
 PacifidlogTown_House2_Text_AhYourPokemon:
 	.string "Ah!\n"
-	.string "Your POKéMON…$"
+	.string "Your Pokémon…$"
 
 PacifidlogTown_House2_Text_PutInSomeMoreEffort:
 	.string "Hmm…\n"
@@ -82,7 +82,7 @@ PacifidlogTown_House2_Text_PutInSomeMoreEffort:
 
 PacifidlogTown_House2_Text_ViciousPokemonTakeThis:
 	.string "It has a vicious look to it.\p"
-	.string "A frightening POKéMON like that\n"
+	.string "A frightening Pokémon like that\n"
 	.string "deserves a TM like this.$"
 
 PacifidlogTown_House2_Text_ExplainFrustration:

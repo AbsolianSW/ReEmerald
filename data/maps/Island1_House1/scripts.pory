@@ -10,6 +10,6 @@ script Island1_House1_EventScript_OldMan {
 script Island1_House1_EventScript_OldWoman {
 	lock
 	faceplayer
-	msgbox(format("Let me think… When was the last time MT. EMBER erupted?"))
+	msgbox(format("Let me think… When was the last time Mt. Ember erupted?"))
 	release
 }

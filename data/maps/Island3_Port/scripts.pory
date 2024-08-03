@@ -5,7 +5,7 @@ script Island3_Port_Woman{
     lock
     faceplayer
     if(var(VAR_THREE_ISLAND_STATE) >= 2){
-        msgbox(format("Those Goons ran off, and LOSTELLE was found safe. Everything turned out for the best!"))
+        msgbox(format("Those Goons ran off, and Lostelle was found safe. Everything turned out for the best!"))
         release
         end
     }
@@ -15,7 +15,7 @@ script Island3_Port_Woman{
 }
 
 script Island3_Port_Aqua1 {
-    msgbox(format("We're TEAM AQUA! I'm just a lowly grunt, so I don't get to go on cool missions yet..."))
+    msgbox(format("We're Team Aqua! I'm just a lowly grunt, so I don't get to go on cool missions yet..."))
     end
 }
 
@@ -29,7 +29,7 @@ script Island3_Port_Aqua2 {
 script Island3_Port_AquaBlockade {
     lock
     faceplayer
-    msgbox(format("Stop right there! Official TEAM AQUA Business"))
+    msgbox(format("Stop right there! Official Team Aqua Business"))
     applymovement(4, Common_Movement_FaceUp)
     applymovement(5, Common_Movement_FaceUp)
     applymovement(6, Common_Movement_FaceUp)

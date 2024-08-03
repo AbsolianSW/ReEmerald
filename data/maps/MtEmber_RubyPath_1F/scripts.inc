@@ -19,4 +19,4 @@ MtEmber_RubyPath_1F_Text_GruntDefeat::
 
 MtEmber_RubyPath_1F_Text_GruntPostBattle::
 	.string "Beaten by a child...maybe I'm just not\n"
-	.string "cut out for TEAM MAGMA?$"
+	.string "cut out for Team Magma?$"

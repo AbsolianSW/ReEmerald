@@ -28,12 +28,12 @@ script Island2_CapeBrink_SuicuneCatchingScene{
     closemessage
     applymovement(1,Common_Movement_WalkInPlaceFasterUp)
     waitmovement(0)
-    msgbox(format("It sure does...and with it by our side, surely we're unstoppable! Let's just hope these MASTER BALLs are as good as advertised."))
+    msgbox(format("It sure does...and with it by our side, surely we're unstoppable! Let's just hope these Master Balls are as good as advertised."))
     closemessage
     playmoncry(SPECIES_SUICUNE, CRY_MODE_ENCOUNTER)
     delay(30)
     removeobject(2)
-    msgbox(format("HAHAHA! Yes! It worked! Quick, let's get out of here and meet up with MATT and the others on THREE ISLAND!"))
+    msgbox(format("HAHAHA! Yes! It worked! Quick, let's get out of here and meet up with Matt and the others on Three Island!"))
     closemessage
     fadescreen(FADE_TO_BLACK)
     removeobject(3)

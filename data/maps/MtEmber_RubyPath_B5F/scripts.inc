@@ -31,15 +31,15 @@ MtEmber_RubyPath_B5F_Event_Script_Message_Text_0:
 	.string "Celio$"
 
 MtEmber_RubyPath_B5F_Event_Script_Tabitha_Text_0:
-	.string "TABITHA: Hmmm...surely if they found\n"
-	.string "one Ruby in this cave there must be\l"
+	.string "Tabitha: Hmmm...surely if they found one\n"
+	.string "Ruby in this cave there must be\l"
 	.string "another one somewhere...$"
 
 MtEmber_RubyPath_B5F_Event_Script_Tabitha_Text_1:
 	.string "What? How did you get in here? You still\n"
 	.string "didn't learn your lesson, huh? Well let\l"
-	.string "me show you the true power of TEAM\l"
-	.string "MAGMA!$"
+	.string "me show you the true power of Team\l"
+	.string "Magma!$"
 
 MtEmber_RubyPath_B5F_Event_Script_Tabitha_Text_2:
 	.string "Ahaha! Wow, you are really strong. Oh\n"

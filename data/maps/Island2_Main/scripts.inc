@@ -623,14 +623,14 @@ Island2_Main_Merchant_Text_0:
 
 Island2_Main_Sailor_Text_0:
 	.string "That fellow there, he moved here from\n"
-	.string "CELADON CITY. He started up a shop\l"
-	.string "with his younger brother. You have to\l"
+	.string "Celadon City. He started up a shop with\l"
+	.string "his younger brother. You have to\l"
 	.string "wonder if he knew what he was getting\l"
 	.string "into...$"
 
 Island2_Main_Woman_Text_0:
 	.string "The shopkeepers brother took a job at\n"
-	.string "the GAME CORNER. He was originally just\l"
+	.string "the Game Corner. He was originally just\l"
 	.string "trying to get some money so they could\l"
 	.string "expand, but he liked it so much that he\l"
 	.string "stayed there! The shop is doing well\l"
@@ -638,11 +638,11 @@ Island2_Main_Woman_Text_0:
 
 Island2_Main_Beauty_Text_0:
 	.string "Listen, listen. Did you know? A famous\n"
-	.string "TRAINER came to the ISLAND a while\l"
-	.string "back. He's one of the Kanto region's\l"
-	.string "ELITE FOUR. His name is BRUNO. He went\l"
-	.string "away disappointed when he found out\l"
-	.string "that they were all sold out of Rage\l"
+	.string "trainer came to the island a while back.\l"
+	.string "He's one of the Kanto region's Elite\l"
+	.string "Four. His name is Bruno. He went away\l"
+	.string "disappointed when he found out that\l"
+	.string "they were all sold out of Rage\l"
 	.string "Candybars.$"
 
 Island2_Main_SuperNerd_Text_0:
@@ -652,12 +652,12 @@ Island2_Main_SuperNerd_Text_0:
 Island2_Main_Boy_Text_0:
 	.string "There's an old woman who lives in a\n"
 	.string "cottage out on the cape. She gives the\l"
-	.string "eye to POKéMON. It's a bit unnerving.$"
+	.string "eye to Pokémon. It's a bit unnerving.$"
 
 Island2_Main_LittleBoy_Text_0:
 	.string "Boing! Boing!\n"
 	.string "Have you tried the jumping game?\p"
-	.string "The POKéMON you can enter…\n"
+	.string "The Pokémon you can enter…\n"
 	.string "Boing!\p"
 	.string "Some go boing!\p"
 	.string "And some go boooooooing!\p"
@@ -665,7 +665,7 @@ Island2_Main_LittleBoy_Text_0:
 	.string "Boing!$"
 
 Island2_Main_Sign_Text_0:
-	.string "TWO ISLAND\n"
+	.string "Two Island\n"
 	.string "Boon island for two$"
 
 Island2_Main_FastCurrentSign_Text_0:
@@ -674,10 +674,10 @@ Island2_Main_FastCurrentSign_Text_0:
 
 Island2_Main_GameCornerSign_Text_0:
 	.string "Skip&Chomp!\n"
-	.string "Joyful GAME CORNER$"
+	.string "Joyful Game Corner$"
 
 Island2_Main_CutsceneFromGameCorner_Text_0:
-	.string "Ok! We've got SUICUNE, and Matt has\n"
+	.string "Ok! We've got Suicune, and Matt has\n"
 	.string "radioded me that he's got the girl as\l"
 	.string "well. You go and follow\l"
 	.string "Matt...apparently the brat has followed\l"
@@ -685,8 +685,8 @@ Island2_Main_CutsceneFromGameCorner_Text_0:
 	.string "behind to hold them off!$"
 
 Island2_Main_CutsceneFromGameCorner_Text_1:
-	.string "You got it boss! We'll get to THREE\n"
-	.string "ISLAND as fast as possible.$"
+	.string "You got it boss! We'll get to Three\n"
+	.string "Island as fast as possible.$"
 
 Island2_Main_CutsceneFromCapeBrink_Text_0:
 	.string "Shelly come in!...I've got the girl, let's\n"
@@ -701,7 +701,7 @@ Island2_Main_CutsceneFromCapeBrink_Text_2:
 	.string "Berry Forest.$"
 
 Island2_Main_CutsceneFromCapeBrink_Text_3:
-	.string "Alright, let's head to THREE ISLAND...$"
+	.string "Alright, let's head to Three Island...$"
 
 Island2_Main_CutsceneFromCapeBrink_Text_4:
 	.string "This brat again...I'll take care of them,\n"

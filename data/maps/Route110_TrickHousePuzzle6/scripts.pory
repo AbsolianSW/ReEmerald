@@ -44,7 +44,7 @@ Route110_TrickHousePuzzle6_EventScript_Sebastian::
 	end
 
 Route110_TrickHousePuzzle6_Text_WroteSecretCodeLockOpened:
-	.string "{PLAYER} wrote down the secret code\n"
+	.string "{Player} wrote down the secret code\n"
 	.string "on the door.\p"
 	.string "“TRICK MASTER is my life.”\n"
 	.string "… … … … … … … …\p"
@@ -64,7 +64,7 @@ Route110_TrickHousePuzzle6_Text_SophiaPostBattle:
 	.string "repeating!$"
 
 Route110_TrickHousePuzzle6_Text_BennyIntro:
-	.string "Maybe I could get my BIRD POKéMON\n"
+	.string "Maybe I could get my BIRD Pokémon\n"
 	.string "to fly over the wall…$"
 
 Route110_TrickHousePuzzle6_Text_BennyDefeat:

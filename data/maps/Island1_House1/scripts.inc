@@ -23,5 +23,5 @@ Island1_House1_EventScript_OldMan_Text_0:
 	.string "the volcano. That's my daily routine.$"
 
 Island1_House1_EventScript_OldWoman_Text_0:
-	.string "Let me think… When was the last time MT.\n"
-	.string "EMBER erupted?$"
+	.string "Let me think… When was the last time Mt.\n"
+	.string "Ember erupted?$"

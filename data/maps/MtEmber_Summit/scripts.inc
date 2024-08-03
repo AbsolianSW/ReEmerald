@@ -96,10 +96,10 @@ MtEmber_Summit_MoltresFlyAway:
 	step_end
 
 MtEmber_Summit_Cutscene_Text_0:
-	.string "At last...I've found you, MOLTRES.\n"
+	.string "At last...I've found you, Moltres.\n"
 	.string "Together, we shall finally conquer this\l"
 	.string "world and expand the land masses, just\l"
-	.string "as MAXIE foresaw!$"
+	.string "as Maxie foresaw!$"
 
 MtEmber_Summit_Cutscene_Text_1:
 	.string "I've got it! Let's move!$"

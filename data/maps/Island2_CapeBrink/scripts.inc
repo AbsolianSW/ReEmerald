@@ -250,10 +250,10 @@ Island2_CapeBrink_SuicuneCatchingScene_Text_0:
 Island2_CapeBrink_SuicuneCatchingScene_Text_1:
 	.string "It sure does...and with it by our side,\n"
 	.string "surely we're unstoppable! Let's just\l"
-	.string "hope these MASTER BALLs are as good\l"
-	.string "as advertised.$"
+	.string "hope these Master Balls are as good as\l"
+	.string "advertised.$"
 
 Island2_CapeBrink_SuicuneCatchingScene_Text_2:
 	.string "HAHAHA! Yes! It worked! Quick, let's get\n"
-	.string "out of here and meet up with MATT and\l"
-	.string "the others on THREE ISLAND!$"
+	.string "out of here and meet up with Matt and\l"
+	.string "the others on Three Island!$"

@@ -335,7 +335,7 @@ MossdeepCity_SpaceCenter_1F_Text_CantStrollOnBeachWithMagma:
 	.string "strolls on the beach aren't safe.$"
 
 MossdeepCity_SpaceCenter_1F_Text_DidPokemonComeFromSpace:
-	.string "Some people claim that POKéMON came\n"
+	.string "Some people claim that Pokémon came\n"
 	.string "from space. Could it be true?$"
 
 MossdeepCity_SpaceCenter_1F_Text_AquaShouldBeatMagma:
@@ -357,7 +357,7 @@ MossdeepCity_SpaceCenter_1F_Text_MagmaWantsToSpoilMyDream:
 	.string "I'm not having any of that!$"
 
 MossdeepCity_SpaceCenter_1F_Text_StevenMagmaCantBeAllowedToTakeFuel:
-	.string "STEVEN: {PLAYER}{KUN}, have you read that\n"
+	.string "STEVEN: {Player}{KUN}, have you read that\n"
 	.string "proclamation already?\p"
 	.string "TEAM MAGMA is coming after the rocket\n"
 	.string "fuel on this island.\p"

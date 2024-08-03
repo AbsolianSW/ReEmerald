@@ -17,7 +17,7 @@ MtEmber_RubyPath_B4F_Grunt2::
 
 
 MtEmber_RubyPath_B4F_Text_Grunt1Intro::
-	.string "You can't be here! Official TEAM MAGMA\n"
+	.string "You can't be here! Official Team Magma\n"
 	.string "business!$"
 
 MtEmber_RubyPath_B4F_Text_Grunt1Defeat::
@@ -27,7 +27,7 @@ MtEmber_RubyPath_B4F_Text_Grunt1PostBattle::
 	.string "Get lost already!$"
 
 MtEmber_RubyPath_B4F_Text_Grunt2Intro::
-	.string "Official TEAM MAGMA business! Please\n"
+	.string "Official Team Magma business! Please\n"
 	.string "leave the area immediately!$"
 
 MtEmber_RubyPath_B4F_Text_Grunt2Defeat::

@@ -112,7 +112,7 @@ MoveTutor_Text_HeatWaveDeclined::
 
 MoveTutor_Text_HeatWaveWhichMon::
     .string "You're terribly brave!\p"
-    .string "Which POKéMON should I teach\n"
+    .string "Which Pokémon should I teach\n"
     .string "HEAT WAVE?$"
     
 MoveTutor_Text_HeatWaveTaught::
