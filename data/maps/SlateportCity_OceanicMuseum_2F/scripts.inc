@@ -94,8 +94,6 @@ SlateportCity_OceanicMuseum_2F_EventScript_CaptStern::
 SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay::
 	getfollowercardinaldirection
 	call_if_eq VAR_UNUSED_0x8014, 3, SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay2
-	releaseall
-	lock
 	return
 	
 SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay2::
@@ -368,7 +366,7 @@ SlateportCity_OceanicMuseum_2F_Text_ArchieWarning:
 
 SlateportCity_OceanicMuseum_2F_Text_SternThankYouForSavingUs:
 	.string "Capt. Stern: You're…\n"
-	.string "Ah, okay, you're {Player}{KUN}…\p"
+	.string "Ah, okay, you're {Player}{Kun}…\p"
 	.string "Anyway, that was a tense situation!\n"
 	.string "Thank you for saving us!\p"
 	.string "Oh, yes, I almost forgot that you\n"

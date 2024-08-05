@@ -200,7 +200,7 @@ gText_Rage::
 	.string "Rage$"
 
 gText_FocusEnergy::
-	.string "Focus ENERGY$"
+	.string "Focus Energy$"
 
 gText_Hypnosis::
 	.string "Hypnosis$"
@@ -250,19 +250,19 @@ gContestMoveTypeToughText::
 	.string "Tough$"
 
 gText_AppealNumWhichMoveWillBePlayed::
-	.string "Appeal no. {STR_VAR_1}!\n"
+	.string "Appeal no. {Str_Var_1}!\n"
 	.string "Which move will be played?$"
 
 gText_AppealNumButItCantParticipate::
-	.string "Appeal no. {STR_VAR_1}!\n"
+	.string "Appeal no. {Str_Var_1}!\n"
 	.string "But it can't participate!$"
 
 gText_MonAppealedWithMove::
-	.string "{STR_VAR_1} appealed with\n"
-	.string "{STR_VAR_2}!$"
+	.string "{Str_Var_1} appealed with\n"
+	.string "{Str_Var_2}!$"
 
 gText_MonWasWatchingOthers::
-	.string "{STR_VAR_1} was watching\n"
+	.string "{Str_Var_1} was watching\n"
 	.string "the others.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_AllOutOfAppealTime::
@@ -320,47 +320,47 @@ gText_WorkedLittleBetterThanUsual::
 @ Round result texts
 
 gText_MonFailedToStandOutAtAll::
-	.string "{STR_VAR_1} failed to\n"
+	.string "{Str_Var_1} failed to\n"
 	.string "stand out at all…{PAUSE_UNTIL_PRESS}$"
 
 gText_MonDidntStandOutVeryMuch::
-	.string "{STR_VAR_1} didn't stand\n"
+	.string "{Str_Var_1} didn't stand\n"
 	.string "out very much…{PAUSE_UNTIL_PRESS}$"
 
 gText_MonCaughtALittleAttention::
-	.string "{STR_VAR_1} caught a\n"
+	.string "{Str_Var_1} caught a\n"
 	.string "little attention.{PAUSE_UNTIL_PRESS}$"
 
 gText_MonAttractedALotOfAttention::
-	.string "{STR_VAR_1} attracted a\n"
+	.string "{Str_Var_1} attracted a\n"
 	.string "lot of attention.{PAUSE_UNTIL_PRESS}$"
 
 gText_MonCommandedTotalAttention::
-	.string "{STR_VAR_1} commanded\n"
+	.string "{Str_Var_1} commanded\n"
 	.string "total attention.{PAUSE_UNTIL_PRESS}$"
 
 gText_MonHasntMadeItsAppeal::
-	.string "{STR_VAR_1} hasn't made\n"
+	.string "{Str_Var_1} hasn't made\n"
 	.string "its appeal.{PAUSE_UNTIL_PRESS}$"
 
 @ Unused
 gText_AnticipationSwelledForMonsAppealNext2::
 	.string "Anticipation swelled for\n"
-	.string "{STR_VAR_1}'s appeal next.$"
+	.string "{Str_Var_1}'s appeal next.$"
 
 gText_EmptyContestString::
 	.string "$"
 
 gText_JudgesViewsOnMonHeldFirm::
 	.string "The Judge 's views on\n"
-	.string "{STR_VAR_1} held firm.$"
+	.string "{Str_Var_1} held firm.$"
 
 gText_MonsXChangedPerceptions::
-	.string "{STR_VAR_1}'s {STR_VAR_3}\n"
+	.string "{Str_Var_1}'s {Str_Var_3}\n"
 	.string "changed perceptions.$"
 
 gText_MonsAppealEffectWoreOff::
-	.string "{STR_VAR_1}'s appeal\n"
+	.string "{Str_Var_1}'s appeal\n"
 	.string "effect wore off.$"
 
 gText_SpecialAppealsEffectWoreOff::
@@ -373,7 +373,7 @@ gText_EveryonesAppealsMadeToLookSame::
 
 gText_CheapenedMonsAppeal::
 	.string "It cheapened\n"
-	.string "{STR_VAR_2}'s appeal.$"
+	.string "{Str_Var_2}'s appeal.$"
 
 gText_CheapenedAppealOfThoseAhead::
 	.string "It cheapened the appeal\n"
@@ -381,11 +381,11 @@ gText_CheapenedAppealOfThoseAhead::
 
 gText_StoleAttentionAwayFromMon::
 	.string "It stole attention away\n"
-	.string "from {STR_VAR_2}.$"
+	.string "from {Str_Var_2}.$"
 
 gText_CheapenedMonsAppeal2::
 	.string "It cheapened\n"
-	.string "{STR_VAR_2}'s appeal.$"
+	.string "{Str_Var_2}'s appeal.$"
 
 gText_SeverelyCheapenedOtherAppeals::
 	.string "It severely cheapened\n"
@@ -393,7 +393,7 @@ gText_SeverelyCheapenedOtherAppeals::
 
 gText_AnticipationSwelledForMonsAppealNext::
 	.string "Anticipation swelled for\n"
-	.string "{STR_VAR_1}'s appeal next.$"
+	.string "{Str_Var_1}'s appeal next.$"
 
 gText_CheapenedAppealOfThoseAhead2::
 	.string "It cheapened the appeal\n"
@@ -429,7 +429,7 @@ gText_StoodOutAsMuchAsSpecialAppeals::
 
 gText_StoodOutAsMuchAsMon::
 	.string "It stood out as much as\n"
-	.string "{STR_VAR_1}.$"
+	.string "{Str_Var_1}.$"
 
 gText_JammedAppealsMadeEvenLessNoticeable::
 	.string "Jammed appeals were made\n"
@@ -446,7 +446,7 @@ gText_BecameMoreConsciousOfOtherMons::
 	.string "of the other Pokémon.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonCantMakeAnAppealAfterThis::
-	.string "{STR_VAR_1} can't make an\n"
+	.string "{Str_Var_1} can't make an\n"
 	.string "appeal after this.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_SettledDownJustLittleBit::
@@ -475,14 +475,14 @@ gText_TriedToDazzleOthers::
 
 gText_JudgeLookedAwayFromMon::
 	.string "The Judge looked away\n"
-	.string "from {STR_VAR_1}.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
+	.string "from {Str_Var_1}.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_TriedToUnnerveNextMon::
 	.string "It tried to unnerve the\n"
 	.string "next Pokémon.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonBecameNervous::
-	.string "{STR_VAR_1} became\n"
+	.string "{Str_Var_1} became\n"
 	.string "nervous.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_AppealTriedToUnnerveWaitingMons::
@@ -494,7 +494,7 @@ gText_TauntedMonsDoingWell::
 	.string "doing well.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonRegainedItsForm::
-	.string "{STR_VAR_1} regained its\n"
+	.string "{Str_Var_1} regained its\n"
 	.string "form.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_TriedToJamMonDoingWell::
@@ -502,19 +502,19 @@ gText_TriedToJamMonDoingWell::
 	.string "doing well.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_StandoutMonHustledEvenMore::
-	.string "The standout {STR_VAR_1}\n"
+	.string "The standout {Str_Var_1}\n"
 	.string "hustled even more.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_LargelyUnnoticedMonWorkedHard::
 	.string "The largely unnoticed\n"
-	.string "{STR_VAR_1} worked hard.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
+	.string "{Str_Var_1} worked hard.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_WorkedAsMuchAsMonBefore::
 	.string "It worked as much as\n"
 	.string "Pokémon before it.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealDidNotGoWell::
-	.string "{STR_VAR_1}'s appeal did\n"
+	.string "{Str_Var_1}'s appeal did\n"
 	.string "not go well.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_WorkedAsMuchAsPrecedingMon::
@@ -522,47 +522,47 @@ gText_WorkedAsMuchAsPrecedingMon::
 	.string "preceding Pokémon.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealDidNotGoWell2::
-	.string "{STR_VAR_1}'s appeal did\n"
+	.string "{Str_Var_1}'s appeal did\n"
 	.string "not go well.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealDidNotGoWell3::
-	.string "{STR_VAR_1}'s appeal did\n"
+	.string "{Str_Var_1}'s appeal did\n"
 	.string "not go well.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealWentSlightlyWell::
-	.string "{STR_VAR_1}'s appeal\n"
+	.string "{Str_Var_1}'s appeal\n"
 	.string "went slightly well.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealWentPrettyWell::
-	.string "{STR_VAR_1}'s appeal\n"
+	.string "{Str_Var_1}'s appeal\n"
 	.string "went pretty well.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealWentExcellently::
-	.string "{STR_VAR_1}'s appeal\n"
+	.string "{Str_Var_1}'s appeal\n"
 	.string "went excellently.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealWasDud::
-	.string "{STR_VAR_1}'s appeal was\n"
+	.string "{Str_Var_1}'s appeal was\n"
 	.string "a dud.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealDidNotWorkVeryWell::
-	.string "{STR_VAR_1}'s appeal did\n"
+	.string "{Str_Var_1}'s appeal did\n"
 	.string "not work very well.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealWentSlightlyWell2::
-	.string "{STR_VAR_1}'s appeal\n"
+	.string "{Str_Var_1}'s appeal\n"
 	.string "went slightly well.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealWentPrettyWell2::
-	.string "{STR_VAR_1}'s appeal\n"
+	.string "{Str_Var_1}'s appeal\n"
 	.string "went pretty well.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealWentVeryWell::
-	.string "{STR_VAR_1}'s appeal\n"
+	.string "{Str_Var_1}'s appeal\n"
 	.string "went very well.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsAppealWentExcellently2::
-	.string "{STR_VAR_1}'s appeal\n"
+	.string "{Str_Var_1}'s appeal\n"
 	.string "went excellently.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_SameTypeAsOneBeforeGood::
@@ -582,11 +582,11 @@ gText_DidntDoAsWellAsMonBefore::
 	.string "Pokémon before.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsConditionRoseAboveUsual::
-	.string "{STR_VAR_1}'s condition\n"
+	.string "{Str_Var_1}'s condition\n"
 	.string "rose above usual.{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MonsHotStatusMadeGreatAppeal::
-	.string "{STR_VAR_1}'s hot status\n"
+	.string "{Str_Var_1}'s hot status\n"
 	.string "made it a great appeal!{PAUSE 15}{PAUSE 15}{PAUSE 15}{PAUSE 15}$"
 
 gText_MovedUpInLineForNextAppeal::
@@ -603,7 +603,7 @@ gText_ScrambledUpOrderForNextTurn::
 
 gText_JudgeLookedAtMonExpectantly::
 	.string "The Judge looked at\n"
-	.string "{STR_VAR_1} expectantly.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
+	.string "{Str_Var_1} expectantly.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_AppealComboWentOverWell::
 	.string "The appeal combo went\n"
@@ -618,19 +618,19 @@ gText_AppealComboWentOverExcellently::
 	.string "over excellently.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonManagedToAvertGaze::
-	.string "{STR_VAR_1} managed to\n"
+	.string "{Str_Var_1} managed to\n"
 	.string "avert its gaze.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonManagedToAvoidSeeingIt::
-	.string "{STR_VAR_1} managed to\n"
+	.string "{Str_Var_1} managed to\n"
 	.string "avoid seeing it.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonIsntFazedByThatSortOfThing::
-	.string "{STR_VAR_1} isn't fazed\n"
+	.string "{Str_Var_1} isn't fazed\n"
 	.string "by that sort of thing.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonBecameALittleDistracted::
-	.string "{STR_VAR_1} became a\n"
+	.string "{Str_Var_1} became a\n"
 	.string "little distracted.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_TriedToStartleOtherPokemon::
@@ -638,27 +638,27 @@ gText_TriedToStartleOtherPokemon::
 	.string "other Pokémon.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonLookedDownOutOfDistraction::
-	.string "{STR_VAR_1} looked down\n"
+	.string "{Str_Var_1} looked down\n"
 	.string "out of distraction.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonTurnedBackOutOfDistraction::
-	.string "{STR_VAR_1} turned back\n"
+	.string "{Str_Var_1} turned back\n"
 	.string "out of distraction.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonCouldntHelpUtteringCry::
-	.string "{STR_VAR_1} couldn't help\n"
+	.string "{Str_Var_1} couldn't help\n"
 	.string "uttering a cry.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonCouldntHelpLeapingUp::
-	.string "{STR_VAR_1} couldn't help\n"
+	.string "{Str_Var_1} couldn't help\n"
 	.string "leaping up.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonTrippedOutOfDistraction::
-	.string "{STR_VAR_1} tripped over\n"
+	.string "{Str_Var_1} tripped over\n"
 	.string "out of distraction.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonWasTooNervousToMove::
-	.string "{STR_VAR_1} was too\n"
+	.string "{Str_Var_1} was too\n"
 	.string "nervous to move.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_ButItMessedUp2::
@@ -684,27 +684,27 @@ gText_BadConditionResultedInWeakAppeal::
 	.string "resulted in a weak appeal.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonWasUnaffected::
-	.string "{STR_VAR_1} was\n"
+	.string "{Str_Var_1} was\n"
 	.string "unaffected.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_RepeatedAppeal::
-	.string "{STR_VAR_1} disappointed\n"
+	.string "{Str_Var_1} disappointed\n"
 	.string "by repeating an appeal.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonsXWentOverGreat::
-	.string "{STR_VAR_1}'s {STR_VAR_3}\n"
+	.string "{Str_Var_1}'s {Str_Var_3}\n"
 	.string "went over great.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonsXDidntGoOverWell::
-	.string "{STR_VAR_1}'s {STR_VAR_3}\n"
+	.string "{Str_Var_1}'s {Str_Var_3}\n"
 	.string "didn't go over well here…{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonsXGotTheCrowdGoing::
-	.string "{STR_VAR_1}'s {STR_VAR_3}\n"
+	.string "{Str_Var_1}'s {Str_Var_3}\n"
 	.string "got the crowd going.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonCantAppealNextTurn::
-	.string "{STR_VAR_1} can't appeal\n"
+	.string "{Str_Var_1} can't appeal\n"
 	.string "next turn…{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_AttractedCrowdsAttention::
@@ -713,11 +713,11 @@ gText_AttractedCrowdsAttention::
 
 gText_CrowdContinuesToWatchMon::
 	.string "The crowd continues to\n"
-	.string "watch {STR_VAR_3}.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
+	.string "watch {Str_Var_3}.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_MonsMoveIsIgnored::
-	.string "{STR_VAR_1}'s\n"
-	.string "{STR_VAR_2} is ignored.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
+	.string "{Str_Var_1}'s\n"
+	.string "{Str_Var_2} is ignored.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 gText_Contest_Shyness::
 	.string "shyness$"
@@ -751,7 +751,7 @@ gText_Contest_Toughness::
 
 @ Unused
 gText_Tension::
-	.string "TENSION$"
+	.string "Tension$"
 
 gText_CoolMove::
 	.string "Cool Move$"

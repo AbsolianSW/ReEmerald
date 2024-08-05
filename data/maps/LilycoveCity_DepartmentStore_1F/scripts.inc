@@ -36,7 +36,7 @@ LilycoveCity_DepartmentStore_1F_EventScript_LotteryClerk::
 	incrementgamestat GAME_STAT_WON_POKEMON_LOTTERY
 	call_if_eq VAR_0x8006, 0, LilycoveCity_DepartmentStore_1F_EventScript_TicketMatchPartyMon
 	call_if_eq VAR_0x8006, 1, LilycoveCity_DepartmentStore_1F_EventScript_TicketMatchPCMon
-	bufferitemname STR_VAR_1, VAR_0x8005
+	bufferitemname Str_Var_1, VAR_0x8005
 	call_if_eq VAR_0x8004, 1, LilycoveCity_DepartmentStore_1F_EventScript_TwoDigitMatch
 	call_if_eq VAR_0x8004, 2, LilycoveCity_DepartmentStore_1F_EventScript_ThreeDigitMatch
 	call_if_eq VAR_0x8004, 3, LilycoveCity_DepartmentStore_1F_EventScript_FourDigitMatch

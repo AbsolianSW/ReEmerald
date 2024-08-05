@@ -40,11 +40,11 @@ gText_Birch_WhatsYourName::
 	.string "What's your name?$"
 
 gText_Birch_SoItsPlayer::
-	.string "So it's {Player}{KUN}?$"
+	.string "So it's {Player}{Kun}?$"
 
 gText_Birch_YourePlayer::
 	.string "Ah, okay!\p"
-	.string "You're {Player}{KUN} who's moving to my\n"
+	.string "You're {Player}{Kun} who's moving to my\n"
 	.string "hometown of Littleroot.\l"
 	.string "I get it now!\p"
 	.string "$"

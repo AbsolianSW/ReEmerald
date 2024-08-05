@@ -17,7 +17,7 @@ SecretBase_Text_ClumpOfGrass:
 SecretBase_Text_ClumpUseSecretPower:
 	.string "If this clump of grass can be moved,\n"
 	.string "it might be possible to go inside.\p"
-	.string "Use the SECRET POWER?$"
+	.string "Use the Secret Power?$"
 
 SecretBase_Text_DiscoveredSmallEntrance:
 	.string "Discovered a small entrance!$"
@@ -30,7 +30,7 @@ SecretBase_EventScript_CheckEntrance::
 	goto_if_eq VAR_RESULT, TRUE, SecretBase_EventScript_AlreadyHasSecretBase
 	checkpartymove MOVE_SECRET_POWER
 	setfieldeffectargument 0, VAR_RESULT
-	buffermovename STR_VAR_2, MOVE_SECRET_POWER
+	buffermovename Str_Var_2, MOVE_SECRET_POWER
 	goto_if_eq VAR_0x8007, SECRET_BASE_RED_CAVE, SecretBase_EventScript_Cave
 	goto_if_eq VAR_0x8007, SECRET_BASE_BROWN_CAVE, SecretBase_EventScript_Cave
 	goto_if_eq VAR_0x8007, SECRET_BASE_BLUE_CAVE, SecretBase_EventScript_Cave
@@ -42,7 +42,7 @@ SecretBase_EventScript_CheckEntrance::
 SecretBase_EventScript_Cave::
 	lockall
 	goto_if_eq VAR_RESULT, PARTY_SIZE, SecretBase_EventScript_CaveNoSecretPower
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	bufferpartymonnick Str_Var_1, VAR_RESULT
 	msgbox SecretBase_Text_IndentUseSecretPower, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, SecretBase_EventScript_CancelOnEntrance
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
@@ -72,7 +72,7 @@ SecretBase_EventScript_CaveEnter::
 SecretBase_EventScript_Tree::
 	lockall
 	goto_if_eq VAR_RESULT, PARTY_SIZE, SecretBase_EventScript_TreeNoSecretPower
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	bufferpartymonnick Str_Var_1, VAR_RESULT
 	msgbox SecretBase_Text_TreeUseSecretPower, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, SecretBase_EventScript_CancelOnEntrance
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
@@ -102,7 +102,7 @@ SecretBase_EventScript_TreeEnter::
 SecretBase_EventScript_Shrub::
 	lockall
 	goto_if_eq VAR_RESULT, PARTY_SIZE, SecretBase_EventScript_ShrubNoSecretPower
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	bufferpartymonnick Str_Var_1, VAR_RESULT
 	msgbox SecretBase_Text_ClumpUseSecretPower, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, SecretBase_EventScript_CancelOnEntrance
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
@@ -202,8 +202,8 @@ SecretBase_EventScript_AlreadyHasSecretBase::
 	fadescreenswapbuffers FADE_FROM_BLACK
 	msgbox SecretBase_Text_MovingCompletedUseSecretPower, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, SecretBase_EventScript_CancelOnEntrance
-	bufferpartymonnick STR_VAR_1, VAR_0x8004
-	buffermovename STR_VAR_2, MOVE_SECRET_POWER
+	bufferpartymonnick Str_Var_1, VAR_0x8004
+	buffermovename Str_Var_2, MOVE_SECRET_POWER
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
 	closemessage
 	closemessage
@@ -678,7 +678,7 @@ SecretBase_Text_AllDecorationsWillBeReturned:
 
 SecretBase_Text_WantToRegisterSecretBase:
 	.string "Do you want to register\n"
-	.string "{STR_VAR_1}'s Secret Base?$"
+	.string "{Str_Var_1}'s Secret Base?$"
 
 SecretBase_Text_AlreadyRegisteredDelete:
 	.string "This data is already registered.\n"
@@ -712,8 +712,8 @@ SecretBase_Text_RegistryInfo:
 	.string "may be registered.$"
 
 SecretBase_Text_BattleTowerShield:
-	.string "A shield of {STR_VAR_2} that marks winning\n"
-	.string "{STR_VAR_1} times in a row at the Battle Tower.$"
+	.string "A shield of {Str_Var_2} that marks winning\n"
+	.string "{Str_Var_1} times in a row at the Battle Tower.$"
 
 SecretBase_Text_ToyTV:
 	.string "A realistic toy TV. It could be easily\n"
@@ -730,7 +730,7 @@ SecretBase_Text_SkittyTV:
 SecretBase_Text_WouldYouLikeToMoveBases:
 	.string "You may only make one Secret Base.\p"
 	.string "Would you like to move from the Secret\n"
-	.string "Base near {STR_VAR_1}?$"
+	.string "Base near {Str_Var_1}?$"
 
 SecretBase_Text_MovingCompletedUseSecretPower:
 	.string "Moving completed.\p"

@@ -273,7 +273,7 @@ static const u8 sCarbosDesc[] = _(
 
 static const u8 sCalciumDesc[] = _(
     "Raises the base\n"
-    "Sp. atk stat of one\n"
+    "Sp. Atk stat of one\n"
     "Pokémon.");
 
 static const u8 sRareCandyDesc[] = _(
@@ -293,7 +293,7 @@ static const u8 sPPUpDesc[] = _(
 
 static const u8 sZincDesc[] = _(
     "Raises the base\n"
-    "Sp. def stat of one\n"
+    "Sp. Def stat of one\n"
     "Pokémon.");
 
 static const u8 sPPMaxDesc[] = _(
@@ -334,7 +334,7 @@ static const u8 sXAccuracyDesc[] = _(
 
 static const u8 sXSpecialDesc[] = _(
     "Raises the stat\n"
-    "Sp. atk during one\n"
+    "Sp. Atk during one\n"
     "battle.");
 
 static const u8 sPokeDollDesc[] = _(
@@ -620,12 +620,12 @@ static const u8 sQualotBerryDesc[] = _(
 static const u8 sHondewBerryDesc[] = _(
     "Makes a Pokémon\n"
     "friendly but lowers\n"
-    "trained Sp. atk.");
+    "trained Sp. Atk.");
 
 static const u8 sGrepaBerryDesc[] = _(
     "Makes a Pokémon\n"
     "friendly but lowers\n"
-    "trained Sp. def.");
+    "trained Sp. Def.");
 
 static const u8 sTamatoBerryDesc[] = _(
     "Makes a Pokémon\n"
@@ -694,12 +694,12 @@ static const u8 sSalacBerryDesc[] = _(
 
 static const u8 sPetayaBerryDesc[] = _(
     "A hold item that\n"
-    "raises Sp. atk in\n"
+    "raises Sp. Atk in\n"
     "a pinch.");
 
 static const u8 sApicotBerryDesc[] = _(
     "A hold item that\n"
-    "raises Sp. def in\n"
+    "raises Sp. Def in\n"
     "a pinch.");
 
 static const u8 sLansatBerryDesc[] = _(
@@ -780,17 +780,17 @@ static const u8 sCleanseTagDesc[] = _(
 
 static const u8 sSoulDewDesc[] = _(
     "Hold item: raises\n"
-    "Sp. atk & Sp. def of\n"
+    "Sp. Atk & Sp. Def of\n"
     "Latios & Latias.");
 
 static const u8 sDeepSeaToothDesc[] = _(
     "A hold item that\n"
-    "raises the Sp. atk\n"
+    "raises the Sp. Atk\n"
     "of Clamperl.");
 
 static const u8 sDeepSeaScaleDesc[] = _(
     "A hold item that\n"
-    "raises the Sp. def\n"
+    "raises the Sp. Def\n"
     "of Clamperl.");
 
 static const u8 sSmokeBallDesc[] = _(
@@ -835,7 +835,7 @@ static const u8 sDragonScaleDesc[] = _(
 
 static const u8 sLightBallDesc[] = _(
     "A hold item that\n"
-    "raises the Sp. atk\n"
+    "raises the Sp. Atk\n"
     "of Pikachu.");
 
 static const u8 sSoftSandDesc[] = _(
@@ -1138,8 +1138,8 @@ static const u8 sTM03Desc[] = _(
     "that may confuse.");
 
 static const u8 sTM04Desc[] = _(
-    "Raises Sp. atk and\n"
-    "Sp. def by focusing\n"
+    "Raises Sp. Atk and\n"
+    "Sp. Def by focusing\n"
     "the mind.");
 
 static const u8 sTM05Desc[] = _(
@@ -1200,7 +1200,7 @@ static const u8 sTM15Desc[] = _(
 static const u8 sTM16Desc[] = _(
     "Creates a wall of\n"
     "light that lowers\n"
-    "Sp. atk damage.");
+    "Sp. Atk damage.");
 
 static const u8 sTM17Desc[] = _(
     "Negates all damage,\n"
@@ -1265,12 +1265,12 @@ static const u8 sTM28Desc[] = _(
 static const u8 sTM29Desc[] = _(
     "A powerful psychic\n"
     "attack that may\n"
-    "lower Sp. def.");
+    "lower Sp. Def.");
 
 static const u8 sTM30Desc[] = _(
     "Hurls a dark lump\n"
     "at the foe. It may\n"
-    "lower Sp. def.");
+    "lower Sp. Def.");
 
 static const u8 sTM31Desc[] = _(
     "Destroys barriers\n"
@@ -1370,7 +1370,7 @@ static const u8 sTM49Desc[] = _(
 static const u8 sTM50Desc[] = _(
     "Enables full-power\n"
     "attack, but sharply\n"
-    "lowers Sp. atk.");
+    "lowers Sp. Atk.");
 
 
 static const u8 sHM01Desc[] = _(

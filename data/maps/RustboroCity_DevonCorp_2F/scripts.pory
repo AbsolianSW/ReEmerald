@@ -102,35 +102,35 @@ RustboroCity_DevonCorp_2F_EventScript_FossilMonReady::
 	end
 
 RustboroCity_DevonCorp_2F_EventScript_LileepReady::
-	bufferspeciesname STR_VAR_1, SPECIES_LILEEP
+	bufferspeciesname Str_Var_1, SPECIES_LILEEP
 	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_LILEEP
 	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
 	goto RustboroCity_DevonCorp_2F_EventScript_Received
 	end
 
 RustboroCity_DevonCorp_2F_EventScript_AnorithReady::
-	bufferspeciesname STR_VAR_1, SPECIES_ANORITH
+	bufferspeciesname Str_Var_1, SPECIES_ANORITH
 	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_ANORITH
 	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
 	goto RustboroCity_DevonCorp_2F_EventScript_Received
 	end
 	
 RustboroCity_DevonCorp_2F_EventScript_OmanyteReady::
-	bufferspeciesname STR_VAR_1, SPECIES_OMANYTE
+	bufferspeciesname Str_Var_1, SPECIES_OMANYTE
 	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_OMANYTE
 	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
 	goto RustboroCity_DevonCorp_2F_EventScript_Received
 	end
 	
 RustboroCity_DevonCorp_2F_EventScript_KabutoReady::
-	bufferspeciesname STR_VAR_1, SPECIES_KABUTO
+	bufferspeciesname Str_Var_1, SPECIES_KABUTO
 	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_KABUTO
 	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
 	goto RustboroCity_DevonCorp_2F_EventScript_Received
 	end
 	
 RustboroCity_DevonCorp_2F_EventScript_AerodactylReady::
-	bufferspeciesname STR_VAR_1, SPECIES_AERODACTYL
+	bufferspeciesname Str_Var_1, SPECIES_AERODACTYL
 	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_AERODACTYL
 	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
 	goto RustboroCity_DevonCorp_2F_EventScript_Received
@@ -169,12 +169,12 @@ RustboroCity_DevonCorp_2F_EventScript_TransferToPC::
 	end
 
 RustboroCity_DevonCorp_2F_EventScript_ReceivedFanfare::
-	bufferspeciesname STR_VAR_2, VAR_TEMP_TRANSFERRED_SPECIES
+	bufferspeciesname Str_Var_2, VAR_TEMP_TRANSFERRED_SPECIES
 	playfanfare MUS_OBTAIN_ITEM
 	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
 	waitmessage
 	waitfanfare
-	bufferspeciesname STR_VAR_1, VAR_TEMP_TRANSFERRED_SPECIES
+	bufferspeciesname Str_Var_1, VAR_TEMP_TRANSFERRED_SPECIES
 	return
 
 RustboroCity_DevonCorp_2F_EventScript_FinishReceiving::
@@ -269,7 +269,7 @@ RustboroCity_DevonCorp_2F_Text_TwoFossilsPickOne:
 RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher:
 	.string "Excellent!\n"
 	.string "Let's do this right away.\p"
-	.string "{Player} handed the {STR_VAR_1} to\n"
+	.string "{Player} handed the {Str_Var_1} to\n"
 	.string "the Devon Researcher.$"
 
 RustboroCity_DevonCorp_2F_Text_FossilRegeneratorTakesTime:
@@ -285,10 +285,10 @@ RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife:
 	.string "Your fossilized Pokémon has been\n"
 	.string "brought back to life!\p"
 	.string "The fossil was an ancient Pokémon.\n"
-	.string "{STR_VAR_1}, it was!$"
+	.string "{Str_Var_1}, it was!$"
 
 RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher:
-	.string "{Player} received {STR_VAR_2} from\n"
+	.string "{Player} received {Str_Var_2} from\n"
 	.string "the Devon Researcher.$"
 
 @ Unused

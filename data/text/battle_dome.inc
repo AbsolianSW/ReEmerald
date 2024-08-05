@@ -278,22 +278,22 @@ BattleDome_Text_LetTheBattleBegin::
 	.string "Let the battle begin!$"
 
 BattleDome_Text_TrainerWonUsingMove::
-	.string "{STR_VAR_1} won using {STR_VAR_2}!$"
+	.string "{Str_Var_1} won using {Str_Var_2}!$"
 
 BattleDome_Text_TrainerBecameChamp::
-	.string "{STR_VAR_1} became the champ!$"
+	.string "{Str_Var_1} became the champ!$"
 
 BattleDome_Text_TrainerWonByDefault::
-	.string "{STR_VAR_1} won by default!$"
+	.string "{Str_Var_1} won by default!$"
 
 BattleDome_Text_TrainerWonOutrightByDefault::
-	.string "{STR_VAR_1} won outright by default!$"
+	.string "{Str_Var_1} won outright by default!$"
 
 BattleDome_Text_TrainerWonNoMoves::
-	.string "{STR_VAR_1} won without using a move!$"
+	.string "{Str_Var_1} won without using a move!$"
 
 BattleDome_Text_TrainerWonOutrightNoMoves::
-	.string "{STR_VAR_1} won outright with no moves!$"
+	.string "{Str_Var_1} won outright with no moves!$"
 
 BattleDome_Text_Round1Match1::
 	.string "Round 1, Match 1$"

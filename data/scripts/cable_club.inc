@@ -772,7 +772,7 @@ EventScript_RecordCenter_Spot3::
 	end
 
 RecordCorner_EventScript_ReceivedGiftItem::
-	bufferitemname STR_VAR_2, VAR_TEMP_RECORD_MIX_GIFT_ITEM
+	bufferitemname Str_Var_2, VAR_TEMP_RECORD_MIX_GIFT_ITEM
 	message RecordCorner_Text_PlayerSentOverOneX
 	waitmessage
 	waitbuttonpress
@@ -862,10 +862,10 @@ CableClub_EventScript_UnionRoomAttendant::
 	goto_if_eq VAR_RESULT, FALSE, CableClub_EventScript_UnionRoomAdapterNotConnected
 	message CableClub_Text_WelcomeUnionRoomEnter
 	waitmessage
-	goto CableClub_EventScript_UnionRoomSelect
+	goto CableClub_EventScript_UnionRoomselect
 	end
 
-CableClub_EventScript_UnionRoomSelect::
+CableClub_EventScript_UnionRoomselect::
 	multichoice 17, 6, MULTI_YESNOINFO, FALSE
 	switch VAR_RESULT
 	case 0, CableClub_EventScript_EnterUnionRoom
@@ -877,7 +877,7 @@ CableClub_EventScript_UnionRoomSelect::
 CableClub_EventScript_UnionRoomInfo::
 	message CableClub_Text_UnionRoomInfo
 	waitmessage
-	goto CableClub_EventScript_UnionRoomSelect
+	goto CableClub_EventScript_UnionRoomselect
 	end
 
 CableClub_EventScript_EnterUnionRoom::
@@ -954,7 +954,7 @@ CableClub_EventScript_DontAskAboutLinking::
 CableClub_EventScript_DirectCornerAttendant::
 	lock
 	faceplayer
-	setvar VAR_FRONTIER_FACILITY, FACILITY_MULTI_OR_EREADER  @ Set preemptively for multi battles, ignored otherwise
+	setvar VAR_FRONTIER_FACILITY, FACILITY_MULTI_OR_EREADER  @ Set preemptively for Multi Battles, ignored otherwise
 	goto_if_unset FLAG_SYS_POKEDEX_GET, CableClub_EventScript_WirelessClubAdjustements
 	specialvar VAR_RESULT, IsBadEggInParty
 	goto_if_eq VAR_RESULT, TRUE, CableClub_EventScript_AbortLinkPlayerHasBadEgg

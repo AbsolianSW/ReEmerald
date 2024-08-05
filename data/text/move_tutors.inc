@@ -29,7 +29,7 @@ MoveTutor_Text_RolloutTeach:
 	.string "that way.\p"
 	.string "Do you think your Pokémon will\n"
 	.string "want to roll, too?\p"
-	.string "I can teach one the move ROLLOUT\n"
+	.string "I can teach one the move Rollout\n"
 	.string "if you'd like.$"
 
 MoveTutor_Text_RolloutDeclined:
@@ -49,7 +49,7 @@ MoveTutor_Text_FuryCutterTeach:
 	.string "when you keep using it in a row.\p"
 	.string "It's a bug-type move, and it is\n"
 	.string "wickedly cool.\p"
-	.string "It's called FURY CUTTER.\n"
+	.string "It's called Fury Cutter.\n"
 	.string "Want me to teach it to a Pokémon?$"
 
 MoveTutor_Text_FuryCutterDeclined:
@@ -70,7 +70,7 @@ MoveTutor_Text_MetronomeTeach:
 	.string "a spell that made money appear when\l"
 	.string "you waggle a finger?\p"
 	.string "If you want, I can teach your Pokémon\n"
-	.string "the move METRONOME.\p"
+	.string "the move Metronome.\p"
 	.string "Money won't appear, but your Pokémon\n"
 	.string "will waggle a finger. Yes?$"
 
@@ -160,7 +160,7 @@ MoveTutor_Text_DynamicPunchWhichMon:
 
 MoveTutor_Text_DynamicPunchTaught:
 	.string "I want you to win at the Mossdeep Gym\n"
-	.string "using that DYNAMICPUNCH!$"
+	.string "using that Dynamicpunch!$"
 
 MoveTutor_Text_DoubleEdgeTeach:
 	.string "Sigh…\p"

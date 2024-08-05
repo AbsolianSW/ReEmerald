@@ -95,14 +95,14 @@ RustboroCity_Flat1_2F_Text_HelloDoYouKnowFunnyPhrase:
 	.string "You see, I'm a new father, so raising\n"
 	.string "a child is all new to me.\p"
 	.string "And I have a problem. My daughter\n"
-	.string "WALDA doesn't laugh enough.\p"
+	.string "Walda doesn't laugh enough.\p"
 	.string "I think she'd laugh for me if I told\n"
 	.string "her something funny.\p"
 	.string "Do you know of a funny word or\n"
 	.string "phrase you can tell me?$"
 
 RustboroCity_Flat1_2F_Text_BeenSayingXDoYouKnowBetterPhrase:
-	.string "I've been saying “{STR_VAR_1}”\n"
+	.string "I've been saying “{Str_Var_1}”\n"
 	.string "to amuse her lately.\p"
 	.string "Do you know of a better word or\n"
 	.string "a phrase that might work?$"
@@ -121,8 +121,8 @@ RustboroCity_Flat1_2F_Text_LetsGiveItATry2:
 	.string "Well, let's give it a try, shall we?$"
 
 RustboroCity_Flat1_2F_Text_OhShesLaughing:
-	.string "{STR_VAR_1}.\n"
-	.string "{STR_VAR_1}.\p"
+	.string "{Str_Var_1}.\n"
+	.string "{Str_Var_1}.\p"
 	.string "Oh, yes! She's laughing!\n"
 	.string "Oh, I am as delighted as she!$"
 
@@ -131,8 +131,8 @@ RustboroCity_Flat1_2F_Text_LetsGiveItATry:
 	.string "Well, let's give it a try, shall we?$"
 
 RustboroCity_Flat1_2F_Text_ShesNotSmilingAtAll:
-	.string "{STR_VAR_1}.\n"
-	.string "{STR_VAR_1}.\p"
+	.string "{Str_Var_1}.\n"
+	.string "{Str_Var_1}.\p"
 	.string "Hmmm… She's not smiling at all.\n"
 	.string "Maybe Walda is one serious child…$"
 
@@ -140,12 +140,12 @@ RustboroCity_Flat1_2F_Text_ThinkOfMyOwnPhrase:
 	.string "Oh, so you don't know any good words.\n"
 	.string "I'd better think for myself, then.\p"
 	.string "Hmm…\n"
-	.string "How about “{STR_VAR_1}”?\l"
+	.string "How about “{Str_Var_1}”?\l"
 	.string "Let's see if that will work.$"
 
 RustboroCity_Flat1_2F_Text_ShesNotSmilingAtAll2:
-	.string "{STR_VAR_1}.\n"
-	.string "{STR_VAR_1}.\p"
+	.string "{Str_Var_1}.\n"
+	.string "{Str_Var_1}.\p"
 	.string "Hmmm… She's not smiling at all.\n"
 	.string "Maybe Walda is one serious child…$"
 

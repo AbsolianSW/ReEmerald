@@ -8,7 +8,7 @@ Std_ObtainItem::
 	return
 
 EventScript_ObtainItemMessage::
-	bufferitemnameplural STR_VAR_2, ITEMID, AMOUNT
+	bufferitemnameplural Str_Var_2, ITEMID, AMOUNT
 	checkitemtype ITEMID
 	call EventScript_BufferPocketNameAndTryFanfare
 	call_if_eq VAR_0x8007, TRUE, EventScript_ObtainedItem
@@ -25,27 +25,27 @@ EventScript_BufferPocketNameAndTryFanfare::
 	end
 
 EventScript_BufferItemsPocket::
-	bufferstdstring STR_VAR_3, STDSTRING_ITEMS
+	bufferstdstring Str_Var_3, STDSTRING_ITEMS
 	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedItem
 	return
 
 EventScript_BufferKeyItemsPocket::
-	bufferstdstring STR_VAR_3, STDSTRING_KEYITEMS
+	bufferstdstring Str_Var_3, STDSTRING_KEYITEMS
 	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedItem
 	return
 
 EventScript_BufferPokeballsPocket::
-	bufferstdstring STR_VAR_3, STDSTRING_POKEBALLS
+	bufferstdstring Str_Var_3, STDSTRING_POKEBALLS
 	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedItem
 	return
 
 EventScript_BufferTMHMsPocket::
-	bufferstdstring STR_VAR_3, STDSTRING_TMHMS
+	bufferstdstring Str_Var_3, STDSTRING_TMHMS
 	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedTMHM
 	return
 
 EventScript_BufferBerriesPocket::
-	bufferstdstring STR_VAR_3, STDSTRING_BERRIES
+	bufferstdstring Str_Var_3, STDSTRING_BERRIES
 	call_if_eq VAR_0x8007, TRUE, EventScript_PlayFanfareObtainedItem
 	return
 
@@ -75,7 +75,7 @@ Std_ObtainDecoration::
 	return
 
 EventScript_ObtainDecorationMessage::
-	bufferdecorationname STR_VAR_2, ITEMID
+	bufferdecorationname Str_Var_2, ITEMID
 	call_if_eq VAR_0x8007, TRUE, EventScript_ObtainedDecor
 	call_if_eq VAR_0x8007, FALSE, EventScript_NoRoomForDecor
 	return
@@ -100,7 +100,7 @@ Std_FindItem::
 	copyvar VAR_0x8005, AMOUNT
 	checkitemspace ITEMID, AMOUNT
 	copyvar VAR_0x8007, VAR_RESULT
-	bufferitemnameplural STR_VAR_2, ITEMID, AMOUNT
+	bufferitemnameplural Str_Var_2, ITEMID, AMOUNT
 	checkitemtype ITEMID
 	call EventScript_BufferPocketNameAndTryFanfare
 	call_if_eq VAR_0x8007, TRUE, EventScript_PickUpItem
@@ -117,7 +117,7 @@ EventScript_PickUpItem::
 	call_if_eq VAR_0x8008, FALSE, EventScript_FoundItem
 	waitfanfare
 	waitmessage
-	bufferitemnameplural STR_VAR_2, VAR_0x8004, VAR_0x8005
+	bufferitemnameplural Str_Var_2, VAR_0x8004, VAR_0x8005
 	pyramid_inchallenge
 	goto_if_eq VAR_RESULT, TRUE, EventScript_PutBattlePyramidItemInBag
 	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
@@ -128,7 +128,7 @@ EventScript_PutBattlePyramidItemInBag::
 	return
 
 EventScript_FoundTMHM::
-	bufferitemnameplural STR_VAR_1, VAR_0x8004, VAR_0x8005
+	bufferitemnameplural Str_Var_1, VAR_0x8004, VAR_0x8005
 	message gText_PlayerFoundOneTMHM
 	return
 
@@ -147,7 +147,7 @@ EventScript_HiddenItemScript::
 	waitse
 	additem VAR_0x8005
 	copyvar VAR_0x8007, VAR_RESULT
-	bufferitemnameplural STR_VAR_2, VAR_0x8005, 1
+	bufferitemnameplural Str_Var_2, VAR_0x8005, 1
 	checkitemtype VAR_0x8005
 	call EventScript_BufferPocketNameAndTryFanfare
 	goto_if_eq VAR_0x8007, TRUE, EventScript_PickUpHiddenItem
@@ -163,7 +163,7 @@ EventScript_PickUpHiddenItem::
 	end
 
 EventScript_FoundHiddenTMHM::
-	bufferitemnameplural STR_VAR_1, VAR_0x8004, 1
+	bufferitemnameplural Str_Var_1, VAR_0x8004, 1
 	message gText_PlayerFoundOneTMHM
 	goto EventScript_PutHiddenItemInPocket
 	end
@@ -176,7 +176,7 @@ EventScript_FoundHiddenItem::
 EventScript_PutHiddenItemInPocket::
 	waitmessage
 	waitfanfare
-	bufferitemnameplural STR_VAR_2, VAR_0x8004, 1
+	bufferitemnameplural Str_Var_2, VAR_0x8004, 1
 	copyvar VAR_0x8004, VAR_0x8008
 	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
 	special TryPutTreasureInvestigatorsOnAir

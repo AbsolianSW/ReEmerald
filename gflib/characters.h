@@ -73,10 +73,10 @@
 //
 #define CHAR_SPACER            0x77 // Empty space
 //
-#define CHAR_UP_ARROW          0x79
-#define CHAR_DOWN_ARROW        0x7A
-#define CHAR_LEFT_ARROW        0x7B
-#define CHAR_RIGHT_ARROW       0x7C
+#define CHAR_Up_Arrow          0x79
+#define CHAR_Down_Arrow        0x7A
+#define CHAR_Left_Arrow        0x7B
+#define CHAR_Right_Arrow       0x7C
 //
 #define CHAR_SUPER_E           0x84
 #define CHAR_LESS_THAN         0x85
@@ -195,10 +195,10 @@
 #define CHAR_DPAD_NONE      0x0C
 
 // CHAR_EXTRA_SYMBOL chars
-#define CHAR_UP_ARROW_2    0x00
-#define CHAR_DOWN_ARROW_2  0x01
-#define CHAR_LEFT_ARROW_2  0x02
-#define CHAR_RIGHT_ARROW_2 0x03
+#define CHAR_Up_Arrow_2    0x00
+#define CHAR_Down_Arrow_2  0x01
+#define CHAR_Left_Arrow_2  0x02
+#define CHAR_Right_Arrow_2 0x03
 #define CHAR_PLUS_2        0x04
 #define CHAR_LV_2          0x05
 #define CHAR_PP            0x06

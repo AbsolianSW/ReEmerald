@@ -5745,6 +5745,7 @@ bool8 ScrFunc_IsFollowerFieldMoveUser(struct ScriptContext *ctx) {
     if (follower && obj && !obj->invisible) {
         u16 followIndex = ((u32)follower - (u32)gPlayerParty) / sizeof(struct Pokemon);
         *var = userIndex == followIndex;
+        DebugPrintf("var set to %d", *var);
     }
     return FALSE;
 }

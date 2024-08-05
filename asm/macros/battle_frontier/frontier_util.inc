@@ -103,7 +103,7 @@
 	special CallFrontierUtilFunc
 	.endm
 
-	@ TRUE if there are insufficient eligible party mons to participate in the challenge, and buffers caught ineligible species to STR_VAR_1. FALSE otherwise. The return value is stored in VAR_0x8004 instead, and the current level mode is expected to be in VAR_RESULT
+	@ TRUE if there are insufficient eligible party mons to participate in the challenge, and buffers caught ineligible species to Str_Var_1. FALSE otherwise. The return value is stored in VAR_0x8004 instead, and the current level mode is expected to be in VAR_RESULT
 	.macro frontier_checkineligible
 	setvar VAR_0x8004, FRONTIER_UTIL_FUNC_CHECK_INELIGIBLE
 	special CallFrontierUtilFunc
@@ -133,12 +133,12 @@
 	special CallFrontierUtilFunc
 	.endm
 
-	@ Buffer the name of gTrainerBattleOpponent_A in STR_VAR_1 (0) or STR_VAR_2 (1)
+	@ Buffer the name of gTrainerBattleOpponent_A in Str_Var_1 (0) or Str_Var_2 (1)
 	.macro frontier_gettrainername stringVar:req
 	setvar VAR_0x8004, FRONTIER_UTIL_FUNC_BUFFER_TRAINER_NAME
-	.if \stringVar == STR_VAR_1
+	.if \stringVar == Str_Var_1
 		setvar VAR_0x8005, 0
-	.elseif \stringVar == STR_VAR_2
+	.elseif \stringVar == Str_Var_2
 		setvar VAR_0x8005, 1
 	.else
 		setvar VAR_0x8005, \stringVar

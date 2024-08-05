@@ -161,7 +161,7 @@ SlateportCity_Pokemart_EnergyGuru:
 SlateportCity_EventScript_EffortRibbonWoman::
 	lock
 	faceplayer
-	bufferleadmonspeciesname STR_VAR_1
+	bufferleadmonspeciesname Str_Var_1
 	msgbox SlateportCity_Text_OhYourPokemon, MSGBOX_DEFAULT
 	specialvar VAR_RESULT, LeadMonHasEffortRibbon
 	call_if_eq VAR_RESULT, TRUE, SlateportCity_EventScript_MonHasEffortRibbon
@@ -943,77 +943,77 @@ SlateportCity_EventScript_ChooseBerryPowderItem::
 	end
 
 SlateportCity_EventScript_EnergyPowder::
-	bufferitemname STR_VAR_1, ITEM_ENERGY_POWDER
+	bufferitemname Str_Var_1, ITEM_ENERGY_POWDER
 	setvar VAR_0x8008, ITEM_ENERGY_POWDER
 	setvar VAR_0x8009, 50
 	goto SlateportCity_EventScript_TryBuyBerryPowderItem
 	end
 
 SlateportCity_EventScript_EnergyRoot::
-	bufferitemname STR_VAR_1, ITEM_ENERGY_ROOT
+	bufferitemname Str_Var_1, ITEM_ENERGY_ROOT
 	setvar VAR_0x8008, ITEM_ENERGY_ROOT
 	setvar VAR_0x8009, 80
 	goto SlateportCity_EventScript_TryBuyBerryPowderItem
 	end
 
 SlateportCity_EventScript_HealPowder::
-	bufferitemname STR_VAR_1, ITEM_HEAL_POWDER
+	bufferitemname Str_Var_1, ITEM_HEAL_POWDER
 	setvar VAR_0x8008, ITEM_HEAL_POWDER
 	setvar VAR_0x8009, 50
 	goto SlateportCity_EventScript_TryBuyBerryPowderItem
 	end
 
 SlateportCity_EventScript_RevivalHerb::
-	bufferitemname STR_VAR_1, ITEM_REVIVAL_HERB
+	bufferitemname Str_Var_1, ITEM_REVIVAL_HERB
 	setvar VAR_0x8008, ITEM_REVIVAL_HERB
 	setvar VAR_0x8009, 300
 	goto SlateportCity_EventScript_TryBuyBerryPowderItem
 	end
 
 SlateportCity_EventScript_Protein::
-	bufferitemname STR_VAR_1, ITEM_PROTEIN
+	bufferitemname Str_Var_1, ITEM_PROTEIN
 	setvar VAR_0x8008, ITEM_PROTEIN
 	setvar VAR_0x8009, 1000
 	goto SlateportCity_EventScript_TryBuyBerryPowderItem
 	end
 
 SlateportCity_EventScript_Iron::
-	bufferitemname STR_VAR_1, ITEM_IRON
+	bufferitemname Str_Var_1, ITEM_IRON
 	setvar VAR_0x8008, ITEM_IRON
 	setvar VAR_0x8009, 1000
 	goto SlateportCity_EventScript_TryBuyBerryPowderItem
 	end
 
 SlateportCity_EventScript_Carbos::
-	bufferitemname STR_VAR_1, ITEM_CARBOS
+	bufferitemname Str_Var_1, ITEM_CARBOS
 	setvar VAR_0x8008, ITEM_CARBOS
 	setvar VAR_0x8009, 1000
 	goto SlateportCity_EventScript_TryBuyBerryPowderItem
 	end
 
 SlateportCity_EventScript_Calcium::
-	bufferitemname STR_VAR_1, ITEM_CALCIUM
+	bufferitemname Str_Var_1, ITEM_CALCIUM
 	setvar VAR_0x8008, ITEM_CALCIUM
 	setvar VAR_0x8009, 1000
 	goto SlateportCity_EventScript_TryBuyBerryPowderItem
 	end
 
 SlateportCity_EventScript_Zinc::
-	bufferitemname STR_VAR_1, ITEM_ZINC
+	bufferitemname Str_Var_1, ITEM_ZINC
 	setvar VAR_0x8008, ITEM_ZINC
 	setvar VAR_0x8009, 1000
 	goto SlateportCity_EventScript_TryBuyBerryPowderItem
 	end
 
 SlateportCity_EventScript_HPUp::
-	bufferitemname STR_VAR_1, ITEM_HP_UP
+	bufferitemname Str_Var_1, ITEM_HP_UP
 	setvar VAR_0x8008, ITEM_HP_UP
 	setvar VAR_0x8009, 1000
 	goto SlateportCity_EventScript_TryBuyBerryPowderItem
 	end
 
 SlateportCity_EventScript_PPUp::
-	bufferitemname STR_VAR_1, ITEM_PP_UP
+	bufferitemname Str_Var_1, ITEM_PP_UP
 	setvar VAR_0x8008, ITEM_PP_UP
 	setvar VAR_0x8009, 3000
 	goto SlateportCity_EventScript_TryBuyBerryPowderItem
@@ -1117,7 +1117,7 @@ SlateportCity_Text_EnergyGuruSellWhatYouNeed:
 
 SlateportCity_Text_OhYourPokemon:
 	.string "Oh?\n"
-	.string "Your {STR_VAR_1}…$"
+	.string "Your {Str_Var_1}…$"
 
 SlateportCity_Text_PleaseGiveItThisEffortRibbon:
 	.string "Went for it stupendously!\p"
@@ -1129,7 +1129,7 @@ SlateportCity_Text_ReceivedEffortRibbon:
 
 SlateportCity_Text_PutEffortRibbonOnMon:
 	.string "{Player} put the Effort Ribbon\n"
-	.string "on {STR_VAR_1}.$"
+	.string "on {Str_Var_1}.$"
 
 SlateportCity_Text_GoForItLittleHarder:
 	.string "You have to go for it a little harder.\p"
@@ -1137,7 +1137,7 @@ SlateportCity_Text_GoForItLittleHarder:
 	.string "something nice.$"
 
 SlateportCity_Text_EffortRibbonLooksGoodOnIt:
-	.string "Oh! Your {STR_VAR_1}, that Effort\n"
+	.string "Oh! Your {Str_Var_1}, that Effort\n"
 	.string "Ribbon looks good on it!$"
 
 SlateportCity_Text_WonderIfLighthouseStartlesPokemon:
@@ -1169,7 +1169,7 @@ SlateportCity_Text_BuyBricksSoDecorWontGetDirty:
 	.string "If you put Dolls or Cushions on\n"
 	.string "the floor, they'll get dirty.\p"
 	.string "I'm going to buy some Bricks so my\n"
-	.string "DOLLS and Cushions won't get dirty\l"
+	.string "Dolls and Cushions won't get dirty\l"
 	.string "when I leave them out.$"
 
 SlateportCity_Text_GoingToCompeteInBattleTent:
@@ -1354,7 +1354,7 @@ SlateportCity_Text_SternWhewFirstInterview:
 	.string "TV. That was nerve-wracking.$"
 
 SlateportCity_Text_OhPlayerWeMadeDiscovery:
-	.string "Oh! {Player}{KUN}!\n"
+	.string "Oh! {Player}{Kun}!\n"
 	.string "You're looking great!\p"
 	.string "We made a huge discovery on our last\n"
 	.string "seafloor exploration.\p"
@@ -1381,12 +1381,12 @@ SlateportCity_Text_SternWhatWasAllThat:
 	.string "Where did it come from?$"
 
 SlateportCity_Text_FromHarborTryingToTakeSub:
-	.string "It's from the Harbor!\p"
+	.string "It's from the harbor!\p"
 	.string "The submarine!\n"
 	.string "They're trying to take it!$"
 
 SlateportCity_Text_PleaseComeWithMe:
-	.string "{Player}{KUN}!\n"
+	.string "{Player}{Kun}!\n"
 	.string "Please, come with me!$"
 
 SlateportCity_Text_BattleTentSign:
@@ -1400,79 +1400,79 @@ SlateportCity_Text_SternsShipyardWantedSign:
 
 SlateportCity_Text_SternsShipyardNearsCompletion:
 	.string "Stern's Shipyard\p"
-	.string "“The ferry S.S. TIDAL nears\n"
+	.string "“The ferry S.S. Tidal nears\n"
 	.string "completion for serving the ports of\l"
-	.string "SLATEPORT and LILYCOVE.”$"
+	.string "Slateport and Lilycove.”$"
 
 SlateportCity_Text_SternsShipyardFerryComplete:
-	.string "STERN'S SHIPYARD\p"
-	.string "“Boarding of the SLATEPORT-LILYCOVE\n"
-	.string "ferry S.S. TIDAL is handled at the\l"
-	.string "HARBOR.”$"
+	.string "Stern's Shipyard\p"
+	.string "“Boarding of the Slateport-Lilycove\n"
+	.string "ferry S.S. Tidal is handled at the\l"
+	.string "harbor.”$"
 
 SlateportCity_Text_PokemonFanClubSign:
-	.string "Pokémon FAN CLUB\n"
+	.string "Pokémon Fan Club\n"
 	.string "“Calling all fans of Pokémon!”$"
 
 SlateportCity_Text_OceanicMuseumSign:
 	.string "“The endless sea sustains\n"
 	.string "all life.”\p"
-	.string "OCEANIC MUSEUM$"
+	.string "Oceanic Museum$"
 
 SlateportCity_Text_CitySign:
-	.string "SLATEPORT CITY\p"
+	.string "Slateport City\p"
 	.string "“The port where people and Pokémon\n"
 	.string "cross paths.”$"
 
 SlateportCity_Text_MarketSign:
-	.string "SLATEPORT MARKET\n"
+	.string "Slateport Market\n"
 	.string "“Unique items found nowhere else!”$"
 
 SlateportCity_Text_HarborFerryUnderConstruction:
-	.string "SLATEPORT HARBOR\p"
-	.string "“The ferry S.S. TIDAL is under\n"
-	.string "construction in the SHIPYARD.\p"
+	.string "Slateport Harbor\p"
+	.string "“The ferry S.S. Tidal is under\n"
+	.string "construction in the shipyard.\p"
 	.string "“Service is scheduled to begin\n"
 	.string "shortly.”$"
 
 SlateportCity_Text_HarborSign:
-	.string "SLATEPORT HARBOR\p"
+	.string "Slateport Harbor\p"
 	.string "“Enjoy a delightful cruise on\n"
-	.string "the ferry S.S. TIDAL.”$"
+	.string "the ferry S.S. Tidal.”$"
 
 SlateportCity_Text_NameRatersHouseSign:
-	.string "NAME RATER'S HOUSE\n"
+	.string "Name Rater's house\n"
 	.string "“Pokémon nicknames rated.”$"
 
 SlateportCity_Text_ExplainBerries:
 	.string "If a wild Pokémon gets hurt, it heals\n"
-	.string "itself by chewing on BERRIES.\p"
+	.string "itself by chewing on berries.\p"
 	.string "Did you know that?\p"
 	.string "Somebody saw that and got the idea\n"
-	.string "of making medicine from BERRIES.\p"
+	.string "of making medicine from berries.\p"
 	.string "Did you know that?\p"
-	.string "To turn BERRIES into medicine,\n"
+	.string "To turn berries into medicine,\n"
 	.string "they must be crushed into powder.\p"
 	.string "Did you know that?\p"
 	.string "You seem to have an interest\n"
-	.string "in BERRIES!\p"
+	.string "in berries!\p"
 	.string "I've got something good for someone\n"
 	.string "like you.$"
 
 SlateportCity_Text_ExplainBerryPowder:
 	.string "I recently had machines installed at\n"
-	.string "Pokémon CENTERS for crushing BERRIES.\p"
-	.string "The BERRY CRUSH machines are at\n"
-	.string "the DIRECT CORNER upstairs.\p"
+	.string "Pokémon Centers for crushing berries.\p"
+	.string "The Berry Crush machines are at\n"
+	.string "the Direct Corner upstairs.\p"
 	.string "Did you know?\p"
-	.string "Could you make BERRY POWDER for\n"
+	.string "Could you make Berry Powder for\n"
 	.string "me using those machines?\p"
 	.string "I can make you all sorts of medicine\n"
-	.string "if you bring me lots of BERRY POWDER.$"
+	.string "if you bring me lots of Berry Powder.$"
 
 SlateportCity_Text_BroughtMeSomeBerryPowder:
 	.string "Have you brought me some\n"
-	.string "BERRY POWDER?$"
+	.string "Berry Powder?$"
 
 SlateportCity_Text_ExchangeWhatWithIt:
 	.string "What would you like to exchange\n"
@@ -1480,69 +1480,69 @@ SlateportCity_Text_ExchangeWhatWithIt:
 
 SlateportCity_Text_ExchangeBerryPowderForItem:
 	.string "Okay, you want to exchange your\n"
-	.string "BERRY POWDER for one {STR_VAR_1}?$"
+	.string "Berry Powder for one {Str_Var_1}?$"
 
 SlateportCity_Text_DontHaveEnoughBerryPowder:
 	.string "Oh, dear. You don't have enough\n"
-	.string "BERRY POWDER.$"
+	.string "Berry Powder.$"
 
 SlateportCity_Text_FineBerryPowderTradeSomethingElse:
-	.string "This is fine BERRY POWDER.\n"
+	.string "This is fine Berry Powder.\n"
 	.string "It will make excellent medicine.\p"
 	.string "Would you like to trade more of your\n"
-	.string "BERRY POWDER for something else?$"
+	.string "Berry Powder for something else?$"
 
 SlateportCity_Text_WhenYouGetMoreBringItToMe:
 	.string "Okay! When you get some more\n"
-	.string "BERRY POWDER, bring it to me, please!$"
+	.string "Berry Powder, bring it to me, please!$"
 
 SlateportCity_Text_ComeBackToTradeBerryPowder:
 	.string "Come back if you'd like to trade your\n"
-	.string "BERRY POWDER for some medicine.\p"
+	.string "Berry Powder for some medicine.\p"
 	.string "I'm always running a bazaar here.\p"
 	.string "Did you know?$"
 
 SlateportCity_Text_YouDroveTeamAquaAway:
-	.string "SCOTT: Huh?\n"
+	.string "Scott: Huh?\n"
 	.string "I'm sure I met you somewhere before.\p"
 	.string "Have I introduced myself to you?\n"
-	.string "If not, my name's SCOTT.\p"
-	.string "I just saw TEAM AQUA run away from\n"
+	.string "If not, my name's Scott.\p"
+	.string "I just saw Team Aqua run away from\n"
 	.string "here like they were stung.\p"
 	.string "Let me guess--you drove them away?$"
 
 SlateportCity_Text_MaybeThisTrainer:
-	.string "SCOTT: Hmm…\n"
-	.string "Maybe, just maybe, this TRAINER…$"
+	.string "Scott: Hmm…\n"
+	.string "Maybe, just maybe, this trainer…$"
 
 SlateportCity_Text_LetsRegisterEachOther:
-	.string "SCOTT: All right! I think you're going\n"
+	.string "Scott: All right! I think you're going\n"
 	.string "to become a good friend.\p"
 	.string "So, let's register each other in our\n"
-	.string "POKéNAVS.\p"
+	.string "Pokénavs.\p"
 	.string "… … … … … …$"
 
 SlateportCity_Text_RegisteredScott:
-	.string "Registered this SCOTT person\n"
-	.string "in the POKéNAV.$"
+	.string "Registered this Scott person\n"
+	.string "in the Pokénav.$"
 
 SlateportCity_Text_KeepEyeOnTrainersBeSeeingYou:
-	.string "SCOTT: What I'd like to do is tag along\n"
+	.string "Scott: What I'd like to do is tag along\n"
 	.string "with you, but I do want to keep an eye\l"
 	.string "on the talents of other people, too.\p"
 	.string "So, I'll be off to roam other towns\n"
 	.string "a bit more.\p"
-	.string "Be seeing you, {Player}{KUN}!$"
+	.string "Be seeing you, {Player}{Kun}!$"
 
 SlateportCity_Text_TakingBattleTentChallenge:
-	.string "SCOTT: Oh, hey!\n"
-	.string "If it isn't {Player}{KUN}!\p"
-	.string "{Player}{KUN}, let me guess--you're going\n"
-	.string "to take the BATTLE TENT challenge?\p"
+	.string "Scott: Oh, hey!\n"
+	.string "If it isn't {Player}{Kun}!\p"
+	.string "{Player}{Kun}, let me guess--you're going\n"
+	.string "to take the Battle Tent challenge?\p"
 	.string "Yeah! That's a good idea!\n"
 	.string "That's a really great idea!\p"
-	.string "After all, a tough TRAINER is\n"
-	.string "the perfect fit for the BATTLE TENT!\p"
+	.string "After all, a tough trainer is\n"
+	.string "the perfect fit for the Battle Tent!\p"
 	.string "Give it your best effort!$"
 	
 SlateportCity_Text_PokemonIdentifierIntro:
@@ -1568,59 +1568,59 @@ SlateportCity_Text_Very_Strong_Power:
 	
 SlateportCity_Text_Fighting_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Fighting attacks!$"
+	.string "hidden power lies in fighting attacks!$"
 	
 SlateportCity_Text_Flying_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Flying attacks!$"
+	.string "hidden power lies in flying attacks!$"
 	
 SlateportCity_Text_Poison_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Poison attacks!$"
+	.string "hidden power lies in poison attacks!$"
 	
 SlateportCity_Text_Ground_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Ground attacks!$"
+	.string "hidden power lies in ground attacks!$"
 	
 SlateportCity_Text_Rock_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Rock attacks!$"
+	.string "hidden power lies in rock attacks!$"
 	
 SlateportCity_Text_Bug_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Bug attacks!$"
+	.string "hidden power lies in bug attacks!$"
 	
 SlateportCity_Text_Dark_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Dark attacks!$"
+	.string "hidden power lies in dark attacks!$"
 	
 SlateportCity_Text_Steel_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Steel attacks!$"
+	.string "hidden power lies in steel attacks!$"
 	
 SlateportCity_Text_Fire_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Fire attacks!$"
+	.string "hidden power lies in fire attacks!$"
 	
 SlateportCity_Text_Water_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Water attacks!$"
+	.string "hidden power lies in water attacks!$"
 	
 SlateportCity_Text_Grass_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Grass attacks!$"
+	.string "hidden power lies in grass attacks!$"
 	
 SlateportCity_Text_Electric_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Electric attacks!$"
+	.string "hidden power lies in electric attacks!$"
 	
 SlateportCity_Text_Psychic_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Psychic attacks!$"
+	.string "hidden power lies in psychic attacks!$"
 	
 SlateportCity_Text_Ice_Type:
 	.string "I see...it looks like this Pokemons\n"
-	.string "hidden power lies in Ice attacks!$"
+	.string "hidden power lies in ice attacks!$"
 	
 SlateportCity_Text_Dragon_Type:
 	.string "I see...it looks like this Pokemons\n"

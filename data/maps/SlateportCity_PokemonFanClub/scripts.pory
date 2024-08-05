@@ -46,7 +46,7 @@ SlateportCity_PokemonFanClub_EventScript_ChairmanAssessLeadMon::
 	call_if_unset FLAG_RECEIVED_PINK_SCARF, SlateportCity_PokemonFanClub_EventScript_CheckMonCute
 	call_if_unset FLAG_RECEIVED_BLUE_SCARF, SlateportCity_PokemonFanClub_EventScript_CheckMonBeauty
 	call_if_unset FLAG_RECEIVED_RED_SCARF, SlateportCity_PokemonFanClub_EventScript_CheckMonCool
-	bufferleadmonspeciesname STR_VAR_1
+	bufferleadmonspeciesname Str_Var_1
 	switch VAR_TEMP_1
 	case 0, SlateportCity_PokemonFanClub_EventScript_NoHighConditions
 	case 1, SlateportCity_PokemonFanClub_EventScript_GiveRedScarf
@@ -314,10 +314,10 @@ SlateportCity_PokemonFanClub_Text_NoSpaceForReward:
 	.string "Your Pokémon is growing quite well,\n"
 	.string "so you deserve a reward.\p"
 	.string "Unfortunately, you have no space for\n"
-	.string "this in your BAG.$"
+	.string "this in your bag.$"
 
 SlateportCity_PokemonFanClub_Text_MonMostImpressiveGiveItThis:
-	.string "Your {STR_VAR_1}, it is growing in\n"
+	.string "Your {Str_Var_1}, it is growing in\n"
 	.string "a most impressive manner!\l"
 	.string "It is one fine specimen!\p"
 	.string "But! If you were to give it this,\n"
@@ -368,7 +368,7 @@ SlateportCity_PokemonFanClub_Text_ShowMePokemonThatLoveYou:
 SlateportCity_PokemonFanClub_Text_PokemonAdoresYou:
 	.string "Your Pokémon really adores you.\p"
 	.string "For you, a most compassionate\n"
-	.string "trainer, a gift from the FAN CLUB!$"
+	.string "trainer, a gift from the Fan Club!$"
 
 SlateportCity_PokemonFanClub_Text_TreatPokemonWithLove:
 	.string "Pokémon are very sensitive to\n"

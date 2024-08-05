@@ -816,7 +816,7 @@ Common_EventScript_NameReceivedPartyMon::
 	return
 
 Common_EventScript_PlayerHandedOverTheItem::
-	bufferitemname STR_VAR_1, VAR_0x8004
+	bufferitemname Str_Var_1, VAR_0x8004
 	playfanfare MUS_OBTAIN_TMHM
 	message gText_PlayerHandedOverTheItem
 	waitmessage
@@ -836,14 +836,14 @@ Common_EventScript_PlayerHandedOverTheItem::
 @ The below and surf.inc could be split into some text/notices.inc
 gText_PokemartSign::
 	.string "“Selected items for your convenience!”\n"
-	.string "Pokémon MART$"
+	.string "Pokémon Mart$"
 
 gText_PokemonCenterSign::
 	.string "“Rejuvenate your tired partners!”\n"
 	.string "Pokémon CENTER$"
 
 gText_MomOrDadMightLikeThisProgram::
-	.string "{STR_VAR_1} might like this program.\n"
+	.string "{Str_Var_1} might like this program.\n"
 	.string "… … … … … … … … … … … … … … … …\p"
 	.string "Better get going!$"
 
@@ -861,7 +861,7 @@ gText_SelectWithoutRegisteredItem::
 
 gText_SendAnotherMonToPC::
 	.string "Choose a Monster to send to the PC to\n"
-	.string "make room for {STR_VAR_1}?$"
+	.string "make room for {Str_Var_1}?$"
 
 gText_PokemonTrainerSchoolEmail::
 	.string "There's an e-mail from Pokémon TRAINER\n"
@@ -880,14 +880,14 @@ gText_PokeblockLinkCanceled::
 
 gText_UnusedNicknameReceivedPokemon::
 	.string "Want to give a nickname to\n"
-	.string "the {STR_VAR_2} you received?$"
+	.string "the {Str_Var_2} you received?$"
 
 gText_PlayerWhitedOut::
 	.string "{Player} is out of usable\n"
 	.string "Pokémon!\p{Player} whited out!$"
 
 gText_RegisteredTrainerinPokeNav::
-	.string "Registered {STR_VAR_1} {STR_VAR_2}\n"
+	.string "Registered {Str_Var_1} {Str_Var_2}\n"
 	.string "in the POKéNAV.$"
 
 gText_ComeBackWithSecretPower::
@@ -938,15 +938,15 @@ gText_SorryRecordCornerPreparation::
 
 gText_PlayerHandedOverTheItem::
 	.string "{Player} handed over the\n"
-	.string "{STR_VAR_1}.$"
+	.string "{Str_Var_1}.$"
 
 gText_ThankYouForAccessingMysteryGift::
 	.string "Thank you for accessing the\n"
 	.string "MYSTERY GIFT System.$"
 
 gText_PlayerFoundOneTMHM::
-	.string "{Player} found one {STR_VAR_1}\n"
-	.string "{STR_VAR_2}!$"
+	.string "{Player} found one {Str_Var_1}\n"
+	.string "{Str_Var_2}!$"
 
 gText_Sudowoodo_Attacked::
 	.string "The weird tree doesn't like the\n"
@@ -954,7 +954,7 @@ gText_Sudowoodo_Attacked::
 	.string "The weird tree attacked!$"
 
 gText_LegendaryFlewAway::
-	.string "The {STR_VAR_1} flew away!$"
+	.string "The {Str_Var_1} flew away!$"
 
 	.include "data/text/pc_transfer.inc"
 	.include "data/text/questionnaire.inc"
@@ -1001,7 +1001,7 @@ Common_EventScript_LegendaryFlewAway::
 	fadescreenswapbuffers FADE_TO_BLACK
 	removeobject VAR_LAST_TALKED
 	fadescreenswapbuffers FADE_FROM_BLACK
-	bufferspeciesname STR_VAR_1, VAR_0x8004
+	bufferspeciesname Str_Var_1, VAR_0x8004
 	msgbox gText_LegendaryFlewAway, MSGBOX_DEFAULT
 	release
 	end

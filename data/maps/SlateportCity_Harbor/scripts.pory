@@ -388,7 +388,7 @@ SlateportCity_Harbor_Text_MayISeeYourTicket:
 	.string "May I see your Ticket?$"
 
 SlateportCity_Harbor_Text_YouMustHaveTicket:
-	.string "{Player} doesn't have the TICKET…\p"
+	.string "{Player} Doesn't have the Ticket…\p"
 	.string "I'm terribly sorry.\p"
 	.string "You must have a Ticket to board\n"
 	.string "the ferry.$"
@@ -463,7 +463,7 @@ SlateportCity_Harbor_Text_CaptSternWhyStealMySubmarine:
 	.string "I don't stand a chance against them…$"
 
 SlateportCity_Harbor_Text_TeamAquaLeftNeedDive:
-	.string "Capt. Stern: Oh, {Player}{KUN}…\p"
+	.string "Capt. Stern: Oh, {Player}{Kun}…\p"
 	.string "Okay… So Team Aqua left before you\n"
 	.string "could stop them…\p"
 	.string "Oh, no, don't blame yourself.\n"
@@ -494,7 +494,7 @@ SlateportCity_Harbor_Text_WontBeLongBeforeWeFinishFerry:
 	.string "making the ferry!$"
 
 SlateportCity_Harbor_Text_FinishedMakingFerry:
-	.string "Capt. Stern: {Player}{KUN}!\p"
+	.string "Capt. Stern: {Player}{Kun}!\p"
 	.string "We finally finished making the ferry\n"
 	.string "S.S. Tidal!\p"
 	.string "We couldn't have done it without\n"
@@ -503,16 +503,16 @@ SlateportCity_Harbor_Text_FinishedMakingFerry:
 
 SlateportCity_Harbor_Text_WouldYouTradeScanner:
 	.string "Capt. Stern: Oh?\n"
-	.string "{Player}{KUN}, that item you have…\p"
+	.string "{Player}{Kun}, that item you have…\p"
 	.string "That's a Scanner! That would sure\n"
 	.string "help us on our explorations.\p"
-	.string "{Player}{KUN}, would you trade your\n"
+	.string "{Player}{Kun}, would you trade your\n"
 	.string "Scanner for something?\p"
 	.string "Like, say, an Old Sea Map that I have?$"
 
 SlateportCity_Harbor_Text_IfYouWantToTradeLetMeKnow:
 	.string "Capt. Stern: Are you certain?\n"
-	.string "It's useless to you, {Player}{KUN}…\p"
+	.string "It's useless to you, {Player}{Kun}…\p"
 	.string "Well, okay, then. If you want to trade\n"
 	.string "your Scanner, let me know.$"
 
@@ -528,6 +528,6 @@ SlateportCity_Harbor_Text_HandedScannerToStern:
 	.string "Capt. Stern.$"
 
 SlateportCity_Harbor_Text_ThisWillHelpResearch:
-	.string "Capt. Stern: Thanks, {Player}{KUN}!\n"
+	.string "Capt. Stern: Thanks, {Player}{Kun}!\n"
 	.string "This will help our research a lot!$"
 `

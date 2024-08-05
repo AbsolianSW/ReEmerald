@@ -100,7 +100,7 @@ EWRAM_DATA static u16 sTrainerBattleMode = 0;
 EWRAM_DATA u16 gTrainerBattleOpponent_A = 0;
 EWRAM_DATA u16 gTrainerBattleOpponent_B = 0;
 EWRAM_DATA u16 gPartnerTrainerId = 0;
-EWRAM_DATA bool8 gCannotCatch = 0;
+EWRAM_DATA bool8 gCannotCatch = 0; //doubles as marker for dynamic rematch system
 EWRAM_DATA static u16 sTrainerObjectEventLocalId = 0;
 EWRAM_DATA static u8 *sTrainerAIntroSpeech = NULL;
 EWRAM_DATA static u8 *sTrainerBIntroSpeech = NULL;
@@ -1152,12 +1152,14 @@ const u8 *BattleSetup_ConfigureTrainerBattle(const u8 *data)
     case TRAINER_BATTLE_REMATCH_DOUBLE:
         TrainerBattleLoadArgs(sDoubleBattleParams, data);
         SetMapVarsToTrainer();
-        gTrainerBattleOpponent_A = GetRematchTrainerId(gTrainerBattleOpponent_A);
+        //gTrainerBattleOpponent_A = GetRematchTrainerId(gTrainerBattleOpponent_A); obsolete with new rematch system.
+        gCannotCatch = 1;
         return EventScript_TryDoDoubleRematchBattle;
     case TRAINER_BATTLE_REMATCH:
         TrainerBattleLoadArgs(sOrdinaryBattleParams, data);
         SetMapVarsToTrainer();
-        gTrainerBattleOpponent_A = GetRematchTrainerId(gTrainerBattleOpponent_A);
+        //gTrainerBattleOpponent_A = GetRematchTrainerId(gTrainerBattleOpponent_A);
+        gCannotCatch = 1;
         return EventScript_TryDoRematchBattle;
     case TRAINER_BATTLE_PYRAMID:
         if (gApproachingTrainerId == 0)
@@ -1357,7 +1359,7 @@ static void CB2_EndTrainerBattle(void)
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         if (!InBattlePyramid() && !InTrainerHillChallenge())
         {
-            RegisterTrainerInMatchCall();
+            //RegisterTrainerInMatchCall(); //we don't want trainers registered anymore because we have the vs seeker. also why tf is that done here when the script does it anyways
             SetBattledTrainersFlags();
         }
     }
@@ -1376,7 +1378,7 @@ static void CB2_EndRematchBattle(void)
     else
     {
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
-        RegisterTrainerInMatchCall();
+        //RegisterTrainerInMatchCall(); see CB2_EndTrainerBattle
         SetBattledTrainersFlags();
         HandleRematchVarsOnBattleEnd();
     }

@@ -19,7 +19,7 @@ LilycoveCity_DepartmentStore_1F_Text_PleasePickTicket:
 	.string "…{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}…{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}…{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}$"
 
 LilycoveCity_DepartmentStore_1F_Text_TicketNumberIsXPleaseWait:
-	.string "The Loto Ticket number is {STR_VAR_1}.\p"
+	.string "The Loto Ticket number is {Str_Var_1}.\p"
 	.string "I need to run a check on this number\n"
 	.string "to see if it matches any of your\l"
 	.string "Pokémon's ID numbers. Please wait.$"
@@ -27,13 +27,13 @@ LilycoveCity_DepartmentStore_1F_Text_TicketNumberIsXPleaseWait:
 LilycoveCity_DepartmentStore_1F_Text_TicketMatchesPartyMon:
 	.string "Congratulations!\p"
 	.string "The ID number of your team's\n"
-	.string "{STR_VAR_1} matches your\l"
-	.string "LOTO TICKET's number!$"
+	.string "{Str_Var_1} matches your\l"
+	.string "Loto Ticket's number!$"
 
 LilycoveCity_DepartmentStore_1F_Text_TicketMatchesPCMon:
 	.string "Congratulations!\p"
 	.string "The ID number of your PC-boxed\n"
-	.string "{STR_VAR_1} matches your\l"
+	.string "{Str_Var_1} matches your\l"
 	.string "Loto Ticket's number!$"
 
 LilycoveCity_DepartmentStore_1F_Text_NoNumbersMatched:
@@ -43,23 +43,23 @@ LilycoveCity_DepartmentStore_1F_Text_NoNumbersMatched:
 LilycoveCity_DepartmentStore_1F_Text_TwoDigitsMatched:
 	.string "Two digits matched, so you win the\n"
 	.string "third prize!\l"
-	.string "You've won the {STR_VAR_1}!$"
+	.string "You've won the {Str_Var_1}!$"
 
 LilycoveCity_DepartmentStore_1F_Text_ThreeDigitsMatched:
 	.string "Three digits matched, so you win the\n"
 	.string "second prize!\l"
-	.string "You've won the {STR_VAR_1}!$"
+	.string "You've won the {Str_Var_1}!$"
 
 LilycoveCity_DepartmentStore_1F_Text_FourDigitsMatched:
 	.string "Four digits matched, so you win the\n"
 	.string "first prize!\l"
-	.string "You've won the {STR_VAR_1}!$"
+	.string "You've won the {Str_Var_1}!$"
 
 LilycoveCity_DepartmentStore_1F_Text_AllFiveDigitsMatched:
 	.string "Oh, my goodness, all five digits\n"
 	.string "matched!\p"
 	.string "You've won the jackpot prize!\n"
-	.string "You've won the {STR_VAR_1}!$"
+	.string "You've won the {Str_Var_1}!$"
 
 LilycoveCity_DepartmentStore_1F_Text_NoRoomForThis:
 	.string "Oh?\n"

@@ -66,8 +66,8 @@ PacifidlogTown_House2_EventScript_UnhappyAzurill::
 
 PacifidlogTown_House2_Text_ChairmansYoungerBrotherOnVacation:
 	.string "Er-hem!\p"
-	.string "I am the Pokémon FAN CLUB's most\n"
-	.string "important person, the CHAIRMAN!\p"
+	.string "I am the Pokémon Fan Club's most\n"
+	.string "important person, the Chairman!\p"
 	.string "That's all my brother ever says. He's \p"
 	.string "the golden child, it's so frustrating.$"
 
@@ -86,7 +86,7 @@ PacifidlogTown_House2_Text_ViciousPokemonTakeThis:
 	.string "deserves a TM like this.$"
 
 PacifidlogTown_House2_Text_ExplainFrustration:
-	.string "If it doesn't like you, FRUSTRATION's\n"
+	.string "If it doesn't like you, Frustration's\n"
 	.string "power goes up.$"
 
 PacifidlogTown_House2_Text_AlreadyVicious:
@@ -94,15 +94,15 @@ PacifidlogTown_House2_Text_AlreadyVicious:
 	.string "great to see.$"
 
 PacifidlogTown_House2_Text_Rurii:
-	.string "AZURILL: Rurii.$"
+	.string "Azurill: Rurii.$"
 
 PacifidlogTown_House2_Text_VeryFriendlyWithTrainer:
 	.string "It appears to be very friendly with the\n"
-	.string "TRAINER.$"
+	.string "trainer.$"
 
 PacifidlogTown_House2_Text_Rururi:
-	.string "AZURILL: Rururi!$"
+	.string "Azurill: Rururi!$"
 
 PacifidlogTown_House2_Text_DoesntLikeTrainerVeryMuch:
-	.string "It doesn't appear to like the TRAINER\n"
+	.string "It doesn't appear to like the trainer\n"
 	.string "very much.$"

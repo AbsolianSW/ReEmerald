@@ -103,18 +103,18 @@ Island2_Main_House_EventScript_ComeBackWithMushroom::
 	end
 
 Island2_Main_House_Text_ImTheMoveTutor:
-	.string "I'm the Pokémon MOVE MANIAC.\p"
+	.string "I'm the Pokémon Move Maniac.\p"
     .string "I know every single move that\n"
     .string "Pokémon learn growing up.\p"
     .string "I'm also a mushroom maniac.\p"
-    .string "Bring me two TINYMUSHROOMS,\n"
-    .string "or one BIG MUSHROOM.\p"
+    .string "Bring me two Tinymushrooms,\n"
+    .string "or one Big Mushroom.\p"
     .string "If you do that for me, I'll teach\n"
     .string "a move to one Pokémon.$"
 
 Island2_Main_House_Text_ThoseAreMushroomsWantMeToTeachMove:
 	.string "Sniff, sniff…\n"
-    .string "Hm! You smell of MUSHROOMS!\p"
+    .string "Hm! You smell of Mushrooms!\p"
     .string "Do you want me to teach a move\n"
     .string "to a Pokémon of yours?$"
 
@@ -131,16 +131,16 @@ Island2_Main_House_Text_DontHaveMoveToTeachPokemon:
 
 Island2_Main_House_Text_HandedOverMushroom:
 	.string "{Player} handed over one\n"
-    .string "BIG MUSHROOM in exchange.$"
+    .string "Big Mushroom in exchange.$"
 	
 Island2_Main_House_Text_HandedOverMushrooms:
 	.string "{Player} handed over two\n"
-    .string "TINYMUSHROOMS in exchange.$"
+    .string "Tinymushrooms in exchange.$"
 
 Island2_Main_House_Text_ComeBackWithMushroom:
 	.string "If your Pokémon need to learn a move,\n"
-	.string "come back with some MUSHROOMS.$"
+	.string "come back with some mushrooms.$"
 
 Island2_Main_House_Text_CantTeachEgg:
 	.string "Hunh? There isn't a single move that\n"
-	.string "I can teach an EGG.$"
+	.string "I can teach an egg.$"

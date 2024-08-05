@@ -77,7 +77,7 @@ SSTidalRooms_Text_ColtonDefeat:
 SSTidalRooms_Text_ColtonPostBattle:
 	.string "I get so excited imagining what kinds\n"
 	.string "of Pokémon I'll get to see in the next\l"
-	.string "CONTEST. The anticipation of it thrills!$"
+	.string "Contest. The anticipation of it thrills!$"
 
 SSTidalRooms_Text_MicahIntro:
 	.string "Are your friends strong?$"

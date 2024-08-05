@@ -368,7 +368,7 @@ LilycoveCity_ContestHall_Text_GiveItBestSmartAppeal:
 	.string "Let's appeal!$"
 
 LilycoveCity_ContestHall_Text_AreYouEnjoyingThisContest:
-	.string "JUDGE: Are you enjoying this contest?\p"
+	.string "Judge: Are you enjoying this contest?\p"
 	.string "Come back with three friends, and\n"
 	.string "all of you may enter a contest!$"
 

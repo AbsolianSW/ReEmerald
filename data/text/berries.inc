@@ -140,14 +140,14 @@ Route104_PrettyPetalFlowerShop_Text_ThisIsPrettyPetalFlowerShop:
 	.string "Spreading flowers all over the world!$"
 
 Route104_PrettyPetalFlowerShop_Text_LearnAboutBerries:
-	.string "{Player}{KUN}, would you like to learn about\n"
+	.string "{Player}{Kun}, would you like to learn about\n"
 	.string "berries?$"
 
 Route104_PrettyPetalFlowerShop_Text_IntroLearnAboutBerries:
 	.string "Your name is?\p"
-	.string "{Player}{KUN}.\n"
+	.string "{Player}{Kun}.\n"
 	.string "That's a nice name.\p"
-	.string "{Player}{KUN}, would you like to learn about\n"
+	.string "{Player}{Kun}, would you like to learn about\n"
 	.string "berries?$"
 
 Route104_PrettyPetalFlowerShop_Text_BerriesExplanation:
@@ -161,7 +161,7 @@ Route104_PrettyPetalFlowerShop_Text_BerriesExplanation:
 	.string "I want to see the whole wide world\n"
 	.string "filled with beautiful flowers.\l"
 	.string "That's my dream.\p"
-	.string "Please help me, {Player}{KUN}. Plant berries\n"
+	.string "Please help me, {Player}{Kun}. Plant berries\n"
 	.string "and bring more flowers into the world.$"
 
 Route104_PrettyPetalFlowerShop_Text_FlowersBringHappiness:

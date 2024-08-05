@@ -46,7 +46,7 @@
 	special CallBattleTowerFunc
 	.endm
 
-	@ Buffer the opponent's easy chat intro speech to STR_VAR_4
+	@ Buffer the opponent's easy chat intro speech to Str_Var_4
 	.macro tower_getopponentintro opponent:req
 	setvar VAR_0x8004, BATTLE_TOWER_FUNC_GET_OPPONENT_INTRO
 	setvar VAR_0x8005, \opponent
@@ -66,7 +66,7 @@
 	special CallBattleTowerFunc
 	.endm
 
-	@ Receives/loads the opponent data for a link multi challenge. Returns 6 when finished, and finishes immediately if not doing a link multi battle.
+	@ Receives/loads the opponent data for a link multi challenge. Returns 6 when finished, and finishes immediately if not doing a link Multi Battle.
 	.macro tower_loadlinkopponents
 	setvar VAR_0x8004, BATTLE_TOWER_FUNC_LOAD_LINK_OPPONENTS
 	special CallBattleTowerFunc

@@ -14,7 +14,7 @@ Questionnaire_Text_YouKnowThoseWordsGift::
 	.string "That means you must know about\n"
 	.string "the Mystery Gift.\p"
 	.string "From now on, you should be\n"
-	.string "receiving MYSTERY GIFTS!$"
+	.string "receiving Mystery Gifts!$"
 
 Questionnaire_Text_YouCanAccessMysteryGift::
 	.string "Once you save your game, you can\n"

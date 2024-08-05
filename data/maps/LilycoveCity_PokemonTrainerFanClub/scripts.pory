@@ -601,13 +601,13 @@ LilycoveCity_PokemonTrainerFanClub_Text_OthersDontKnowYoureTheBest:
 LilycoveCity_PokemonTrainerFanClub_Text_TrainersPowerIsOutOfTheOrdinary:
 	.string "I hate to say this, but the trainer\n"
 	.string "everybody's talking about is\l"
-	.string "{STR_VAR_1}, no question about it!\p"
+	.string "{Str_Var_1}, no question about it!\p"
 	.string "That trainer's power…\n"
 	.string "It's out of the ordinary.$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_TrainerIsBestNoOneWantsToListen:
 	.string "Darn it… I've been telling people\n"
-	.string "that {STR_VAR_1} is the best now…\p"
+	.string "that {Str_Var_1} is the best now…\p"
 	.string "But no one wants to listen…$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_HearingAboutToughNewTrainer:
@@ -663,7 +663,7 @@ LilycoveCity_PokemonTrainerFanClub_Text_YourFatherNeverGaveUpSoKeepOnBattling:
 	.string "So keep on battling!$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_LongWayToGoComparedToNorman:
-	.string "NORMAN battled with more power,\n"
+	.string "Norman battled with more power,\n"
 	.string "charisma, and showmanship than you.\p"
 	.string "Even though people may say that\n"
 	.string "you're strong…\p"
@@ -700,11 +700,11 @@ LilycoveCity_PokemonTrainerFanClub_Text_AlwaysCheerForYou:
 	.string "really strong, {Player}!$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_EveryoneThinksTrainerIsCool:
-	.string "{STR_VAR_1} is really cool…\p"
+	.string "{Str_Var_1} is really cool…\p"
 	.string "Everyone thinks so, right, right?$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_TrainerIsReallyCoolItsJustMe:
-	.string "{STR_VAR_1} really is cool, don't\n"
+	.string "{Str_Var_1} really is cool, don't\n"
 	.string "you think so?\p"
 	.string "Even if it's just me, I'm going to keep\n"
 	.string "cheering my favorite trainer.$"
@@ -729,14 +729,14 @@ LilycoveCity_PokemonTrainerFanClub_Text_OnlyOneWhoCheersForYou:
 	.string "Because I believe in you, {Player}!$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_TrainerIsWickedlyCool:
-	.string "{STR_VAR_1} is so wickedly cool…\n"
+	.string "{Str_Var_1} is so wickedly cool…\n"
 	.string "I want to shake hands with my hero.$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_NeverGoingToStopBeingTrainersFan:
 	.string "Even if I'm the only one…\p"
 	.string "I'm never going to stop being\n"
-	.string "{STR_VAR_1}'s fan!\p"
-	.string "Because I've heard, {STR_VAR_1}\n"
+	.string "{Str_Var_1}'s fan!\p"
+	.string "Because I've heard, {Str_Var_1}\n"
 	.string "never loses!$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_YoureAmazingAfterAll:
@@ -755,16 +755,16 @@ LilycoveCity_PokemonTrainerFanClub_Text_ImInYourCorner:
 LilycoveCity_PokemonTrainerFanClub_Text_ThinkTrainerIsNumberOne:
 	.string "You're a pretty decent trainer,\n"
 	.string "I think.\p"
-	.string "But I also think that {STR_VAR_1}\n"
+	.string "But I also think that {Str_Var_1}\n"
 	.string "is number one right now.\p"
 	.string "That's just my opinion.\n"
 	.string "Don't worry about it too much.$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_YoureMaybeStrongerThanTrainer:
 	.string "Wow, you really are strong.\n"
-	.string "Maybe even stronger than {STR_VAR_1}.\p"
-	.string "But {STR_VAR_1} needs me.\p"
-	.string "If I don't cheer for {STR_VAR_1},\n"
+	.string "Maybe even stronger than {Str_Var_1}.\p"
+	.string "But {Str_Var_1} needs me.\p"
+	.string "If I don't cheer for {Str_Var_1},\n"
 	.string "who will?$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_YouChangedMyMind:
@@ -780,17 +780,17 @@ LilycoveCity_PokemonTrainerFanClub_Text_YouBattleAttractivelyInToughSituation:
 
 LilycoveCity_PokemonTrainerFanClub_Text_TrainerIsStandout:
 	.string "Among the recently hot trainers,\n"
-	.string "{STR_VAR_1} is the standout.\p"
+	.string "{Str_Var_1} is the standout.\p"
 	.string "That toughness, it's simply not normal.\p"
 	.string "You're doing okay, but you're not in\n"
-	.string "the same class as {STR_VAR_1}.$"
+	.string "the same class as {Str_Var_1}.$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_NoOneCanKnockYouButTrainerStronger:
 	.string "You are really popular…\p"
 	.string "You're strong, and you're caring to\n"
 	.string "Pokémon. No one can knock you.\p"
-	.string "But, you know, I believe in {STR_VAR_1}.\p"
-	.string "{STR_VAR_1} is definitely stronger!\n"
+	.string "But, you know, I believe in {Str_Var_1}.\p"
+	.string "{Str_Var_1} is definitely stronger!\n"
 	.string "I'm positive!$"
 
 LilycoveCity_PokemonTrainerFanClub_Text_YouImpressive:

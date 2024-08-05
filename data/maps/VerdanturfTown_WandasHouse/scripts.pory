@@ -102,7 +102,7 @@ VerdanturfTown_WandasHouse_Text_StrongerSpeechShort:
 	.string "to another battle.$"
 
 VerdanturfTown_WandasHouse_Text_WallysNextDoor:
-	.string "Uncle: Oh! {Player}{KUN}!\n"
+	.string "Uncle: Oh! {Player}{Kun}!\n"
 	.string "Wally's next door.\p"
 	.string "But, boy, there's something I have to\n"
 	.string "tell you.\p"
@@ -130,7 +130,7 @@ VerdanturfTown_WandasHouse_Text_MeetWanda:
 	.string "telling me about.\p"
 	.string "I'm Wally's cousin.\n"
 	.string "Glad to meet you!\p"
-	.string "I think WALLY's become a lot more lively\n"
+	.string "I think Wally's become a lot more lively\n"
 	.string "and healthy since he came here.$"
 
 VerdanturfTown_WandasHouse_Text_DontWorryAboutWally:
@@ -160,7 +160,7 @@ VerdanturfTown_WandasHouse_Text_DaughtersBoyfriendWasDigging:
 VerdanturfTown_WandasHouse_Text_IfAnythingHappenedToWally:
 	.string "If anything were to happen to Wally,\n"
 	.string "I would never be able to look his\l"
-	.string "parents in PETALBURG in the eye…$"
+	.string "parents in Petalburg in the eye…$"
 
 VerdanturfTown_WandasHouse_Text_WallyWasInEverGrande:
 	.string "Wally was in Ever Grande?\p"

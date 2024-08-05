@@ -315,7 +315,7 @@ TrainerHill_Entrance_Text_SaveGameBeforeEnter:
 TrainerHill_Entrance_Text_TrainersUpToFloorX:
 	.string "Let's see…\n"
 	.string "The trainers here now are…\p"
-	.string "Up to floor no. {STR_VAR_1}.$"
+	.string "Up to floor no. {Str_Var_1}.$"
 
 TrainerHill_Entrance_Text_TrainersInEveryRoom:
 	.string "Let's see…\n"
@@ -427,7 +427,7 @@ TrainerHill_Roof_Text_BuiltTrainerHillToFindPartner:
 	.string "with whom I may form a tag team!$"
 
 TrainerHill_Entrance_Text_ChallengeTime:
-	.string "{STR_VAR_1} min. {STR_VAR_2}.{STR_VAR_3} sec.$"
+	.string "{Str_Var_1} min. {Str_Var_2}.{Str_Var_3} sec.$"
 
 TrainerHill_Entrance_Text_WhatSortOfTrainersAreAhead:
 	.string "Who knows what sort of trainers\n"

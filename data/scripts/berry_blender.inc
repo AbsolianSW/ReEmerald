@@ -193,14 +193,14 @@ BerryBlender_Text_SearchingForFriends:
 	.string "… … B Button: Cancel$"
 
 BerryBlender_Text_Player1Arrived:
-	.string "{STR_VAR_1} arrived.$"
+	.string "{Str_Var_1} arrived.$"
 
 BerryBlender_Text_Player1And2Arrived:
-	.string "{STR_VAR_1} and {STR_VAR_2} arrived.$"
+	.string "{Str_Var_1} and {Str_Var_2} arrived.$"
 
 BerryBlender_Text_AllPlayersArrived:
-	.string "{STR_VAR_1}, {STR_VAR_2}, and\n"
-	.string "{STR_VAR_3} arrived.$"
+	.string "{Str_Var_1}, {Str_Var_2}, and\n"
+	.string "{Str_Var_3} arrived.$"
 
 BerryBlender_Text_NoBerriesLink:
 	.string "You have no berries.\n"
@@ -232,7 +232,7 @@ BerryBlender_Text_DontHaveAnyBerriesHaveOne:
 
 BerryBlender_Text_UseItToMakePokeblocksTogether:
 	.string "We'll use it to make {Pokeblock}s together\n"
-	.string "using the BERRY blender.$"
+	.string "using the Berry blender.$"
 
 BerryBlender_Text_DontHaveAnyBerriesNoneToSpare:
 	.string "Oh?\n"

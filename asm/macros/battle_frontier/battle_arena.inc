@@ -42,7 +42,7 @@
 	special CallBattleArenaFunction
 	.endm
 
-	@ Buffer the opponents name to STR_VAR_1
+	@ Buffer the opponents name to Str_Var_1
 	.macro arena_gettrainername
 	setvar VAR_0x8004, BATTLE_ARENA_FUNC_GET_TRAINER_NAME
 	special CallBattleArenaFunction

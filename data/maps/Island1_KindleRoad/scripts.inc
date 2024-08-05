@@ -96,7 +96,7 @@ Island1_KindleRoad_Text_AbigailPostBattle::
     .string "Maybe I should wear one, too…$"
 
 Island1_KindleRoad_Text_FinnIntro::
-    .string "Seen from here, MT. EMBER towers\n"
+    .string "Seen from here, Mt. Ember towers\n"
     .string "into the sky.$"
 
 Island1_KindleRoad_Text_FinnDefeat::
@@ -115,7 +115,7 @@ Island1_KindleRoad_Text_GarrettDefeat::
     .string "You're good, you!$"
 
 Island1_KindleRoad_Text_GarrettPostBattle::
-    .string "Instead of using SURF all the time,\n"
+    .string "Instead of using Surf all the time,\n"
     .string "you should swim some.$"
 
 Island1_KindleRoad_Text_TommyIntro::
@@ -196,44 +196,44 @@ Island1_KindleRoad_Text_ClairePostBattle::
     .string "I feel famished again.$"
 
 Island1_KindleRoad_Text_KiaIntro::
-    .string "KIA: My big brother and I make\n"
+    .string "Kia: My big brother and I make\n"
     .string "an awesome combination!$"
 
 Island1_KindleRoad_Text_KiaDefeat::
-    .string "KIA: Huh?!\n"
+    .string "Kia: Huh?!\n"
     .string "I can't believe it!$"
 
 Island1_KindleRoad_Text_KiaPostBattle::
-    .string "KIA: How could there be anyone\n"
+    .string "Kia: How could there be anyone\n"
     .string "better than my big brother?$"
 
 Island1_KindleRoad_Text_KiaNotEnoughMons::
-    .string "KIA: If you want to battle with\n"
+    .string "Kia: If you want to battle with\n"
     .string "us, you have to bring at least two\l"
     .string "Pokémon with you.$"
 
 Island1_KindleRoad_Text_MikIntro::
-    .string "MIK: Together with KIA, I'm afraid\n"
+    .string "Mik: Together with Kia, I'm afraid\n"
     .string "of nothing!$"
 
 Island1_KindleRoad_Text_MikDefeat::
-    .string "MIK: Whoa!\n"
+    .string "Mik: Whoa!\n"
     .string "That's too much!$"
 
 Island1_KindleRoad_Text_MikPostBattle::
-    .string "MIK: How could my combination\n"
-    .string "with KIA fail?$"
+    .string "Mik: How could my combination\n"
+    .string "with Kia fail?$"
 
 Island1_KindleRoad_Text_MikNotEnoughMons::
-    .string "MIK: Hey, do you want to battle\n"
+    .string "Mik: Hey, do you want to battle\n"
     .string "with us two?\p"
     .string "Bring two or more Pokémon with\n"
     .string "you, then.$"
 
 Island1_KindleRoad_Text_RouteSign::
-    .string "This is KINDLE ROAD.\p"
-    .string "Go straight for MT. EMBER.$"
+    .string "This is Kindle Road.\p"
+    .string "Go straight for Mt. Ember.$"
 
 Island1_KindleRoad_Text_EmberSpaSign::
     .string "Light the Fire in Your Heart!\n"
-    .string "EMBER SPA$"
+    .string "Ember Spa$"

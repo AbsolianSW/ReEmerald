@@ -66,8 +66,8 @@ Island1_Main_Text_BillProblemsBeingCaused::
     .string "Maxie and Archie all by yourself must've\p"
     .string "been no easy task. Anyways, the reason\n"
     .string "why I've invited you to these islands is\p"
-    .string "that some of the remnants of TEAM AQUA\n"
-    .string "and TEAM MAGMA have come here and are\p"
+    .string "that some of the remnants of Team Aqua\n"
+    .string "and Team Magma have come here and are\p"
     .string "causing all sorts of trouble around the\n"
     .string "islands. I know it's a lot to ask, but\p"
     .string "you're the expert on dealing with them\n"
@@ -85,22 +85,22 @@ Island1_Main_Text_LuckyToHaveCelioHere::
     .string "Here we are on an island smack in\n"
     .string "the middle of nowhere.\p"
     .string "We're lucky to have an upstanding\n"
-    .string "young man like CELIO here.\p"
+    .string "young man like Celio here.\p"
     .string "My granddaughter was in a tizzy\n"
-    .string "over CELIO's friend.\p"
+    .string "over Celio's friend.\p"
     .string "Something about a famous\n"
-    .string "POKéMANIAC?\p"
+    .string "Pokémaniac?\p"
     .string "I'm not sure what that means, but\n"
-    .string "CELIO is quite the man!$"
+    .string "Celio is quite the man!$"
 
 
 Island1_Main_Text_IslandSign::
-    .string "ONE ISLAND\n"
+    .string "One Island\n"
     .string "Friends Gather at Knot Island$"
 
 Island1_Main_Text_PokemonNetCenterSign::
     .string "Expanding the Pokémon World!\n"
-    .string "Pokémon NET CENTER$"
+    .string "Pokémon Net Center$"
 
 
 Island1_Main_Text_IsntWarmClimateHereGreat::

@@ -1180,7 +1180,7 @@ static void PrintNameOnCardBack(void)
         AddTextPrinterParameterized3(WIN_CARD_TEXT, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, sData->textPlayersCard, 216), 9, sTrainerCardTextColors, TEXT_SKIP_DRAW, sData->textPlayersCard);
 }
 
-static const u8 sText_HofTime[] = _("{STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}");
+static const u8 sText_HofTime[] = _("{Str_Var_1}:{Str_Var_2}:{Str_Var_3}");
 
 static void BufferHofDebutTime(void)
 {

@@ -125,7 +125,7 @@
 	special CallBattleDomeFunction
 	.endm
 
-	@ Buffer the name of the winner for the last Dome challenge to STR_VAR_1
+	@ Buffer the name of the winner for the last Dome challenge to Str_Var_1
 	.macro dome_getwinnersname
 	setvar VAR_0x8004, BATTLE_DOME_FUNC_GET_WINNER_NAME
 	special CallBattleDomeFunction

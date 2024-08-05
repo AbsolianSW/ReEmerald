@@ -40,7 +40,7 @@
 	special CallTrainerHillFunction
 	.endm
 
-	@ Buffer the current timer to string vars (mins to STR_VAR_1, secs to STR_VAR_2, fraction of sec to STR_VAR_3)
+	@ Buffer the current timer to string vars (mins to Str_Var_1, secs to Str_Var_2, fraction of sec to Str_Var_3)
 	.macro trainerhill_gettime
 	setvar VAR_0x8004, TRAINER_HILL_FUNC_GET_CHALLENGE_TIME
 	special CallTrainerHillFunction

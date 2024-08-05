@@ -57,7 +57,7 @@ MtPyre_3F_Text_GabrielleIntro:
 
 MtPyre_3F_Text_GabrielleDefeat:
 	.string "That was amazing!\n"
-	.string "You're a very special TRAINER.$"
+	.string "You're a very special trainer.$"
 
 MtPyre_3F_Text_GabriellePostBattle:
 	.string "Pokémon no longer of this world.\n"
@@ -70,7 +70,7 @@ MtPyre_3F_Text_GabriellePostBattle:
 MtPyre_3F_Text_GabrielleRegister:
 	.string "I would like to see your Pokémon\n"
 	.string "when they grow up some more…\p"
-	.string "Please, I need to see your POKéNAV.$"
+	.string "Please, I need to see your Pokénav.$"
 
 MtPyre_3F_Text_GabrielleRematchIntro:
 	.string "Oh, it's you…\p"

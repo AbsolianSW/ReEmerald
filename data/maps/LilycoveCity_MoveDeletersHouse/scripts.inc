@@ -81,17 +81,17 @@ LilycoveCity_MoveDeletersHouse_Text_WhichMoveShouldBeForgotten:
 	.string "Which move should be forgotten?$"
 
 LilycoveCity_MoveDeletersHouse_Text_MonOnlyKnowsOneMove:
-	.string "{STR_VAR_1} knows only one move\n"
+	.string "{Str_Var_1} knows only one move\n"
 	.string "so it can't be forgotten…$"
 
 LilycoveCity_MoveDeletersHouse_Text_MonsMoveShouldBeForgotten:
-	.string "Hm! {STR_VAR_1}'s {STR_VAR_2}?\n"
+	.string "Hm! {Str_Var_1}'s {Str_Var_2}?\n"
 	.string "That move should be forgotten?$"
 
 LilycoveCity_MoveDeletersHouse_Text_MonHasForgottenMove:
 	.string "It worked to perfection!\p"
-	.string "{STR_VAR_1} has forgotten\n"
-	.string "{STR_VAR_2} completely.$"
+	.string "{Str_Var_1} has forgotten\n"
+	.string "{Str_Var_2} completely.$"
 
 LilycoveCity_MoveDeletersHouse_Text_ComeAgain:
 	.string "Come again if there are moves that\n"
@@ -103,5 +103,5 @@ LilycoveCity_MoveDeletersHouse_Text_EggCantForgetMoves:
 
 LilycoveCity_MoveDeletersHouse_Text_CantForgetSurf:
 	.string "Hm!\p"
-	.string "Your {STR_VAR_1} doesn't seem willing\n"
+	.string "Your {Str_Var_1} doesn't seem willing\n"
 	.string "to forget SURF.$"

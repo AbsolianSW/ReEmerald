@@ -7,7 +7,9 @@
 #include "data.h"
 #include "decompress.h"
 #include "event_data.h"
+#include "event_object_movement.h"
 #include "field_effect.h"
+#include "field_player_avatar.h"
 #include "gpu_regs.h"
 #include "graphics.h"
 #include "international_string_util.h"
@@ -24,7 +26,9 @@
 #include "pokeball.h"
 #include "pokedex.h"
 #include "pokemon.h"
+#include "pokemon_icon.h"
 #include "random.h"
+#include "region_map.h"
 #include "rtc.h"
 #include "save.h"
 #include "scanline_effect.h"
@@ -184,7 +188,7 @@ static void CreateMainMenuErrorWindow(const u8 *);
 static void ClearMainMenuWindowTilemap(const struct WindowTemplate *);
 static void Task_DisplayMainMenu(u8);
 static void Task_WaitForBatteryDryErrorWindow(u8);
-static void MainMenu_FormatSavegameText(void);
+static void MainMenu_FormatSavegameText(u8 taskId);
 static void HighlightSelectedMainMenuItem(u8, u8, s16);
 static void Task_HandleMainMenuInput(u8);
 static void Task_HandleMainMenuAPressed(u8);
@@ -252,6 +256,8 @@ static void MainMenu_FormatSavegamePlayer(void);
 static void MainMenu_FormatSavegamePokedex(void);
 static void MainMenu_FormatSavegameTime(void);
 static void MainMenu_FormatSavegameBadges(void);
+static void MainMenu_FormatPartySprites(u8 taskId);
+static void CreateMugshot();
 static void NewGameBirchSpeech_CreateDialogueWindowBorder(u8, u8, u8, u8, u8, u8);
 
 // .rodata
@@ -266,18 +272,83 @@ static const u32 sBirchSpeechBgMap[] = INCBIN_U32("graphics/birch_speech/map.bin
 static const u16 sBirchSpeechBgGradientPal[] = INCBIN_U16("graphics/birch_speech/bg2.gbapal");
 static const u16 sBirchSpeechPlatformBlackPal[] = {RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK};
 
+static const u16 sBrendanMugshot_Pal[] = INCBIN_U16("graphics/misc/brendan_mugshot.gbapal");
+static const u32 sBrendanMugshot_Gfx[] = INCBIN_U32("graphics/misc/brendan_mugshot.4bpp.lz");
+static const u16 sMayMugshot_Pal[] = INCBIN_U16("graphics/misc/may_mugshot.gbapal");
+static const u32 sMayMugshot_Gfx[] = INCBIN_U32("graphics/misc/may_mugshot.4bpp.lz");
+
+//
+//  Sprite Data for Mugshots and Icon Shadows 
+//
+#define TAG_MUGSHOT 30012
+static const struct OamData sOamData_Mugshot =
+{
+    .size = SPRITE_SIZE(64x64),
+    .shape = SPRITE_SHAPE(64x64),
+    .priority = 1,
+};
+
+static const struct CompressedSpriteSheet sSpriteSheet_BrendanMugshot =
+{
+    .data = sBrendanMugshot_Gfx,
+    .size = 64*64*1/2,
+    .tag = TAG_MUGSHOT,
+};
+
+static const struct SpritePalette sSpritePal_BrendanMugshot =
+{
+    .data = sBrendanMugshot_Pal,
+    .tag = TAG_MUGSHOT
+};
+
+static const struct CompressedSpriteSheet sSpriteSheet_MayMugshot =
+{
+    .data = sMayMugshot_Gfx,
+    .size = 64*64*1/2,
+    .tag = TAG_MUGSHOT,
+};
+
+static const struct SpritePalette sSpritePal_MayMugshot =
+{
+    .data = sMayMugshot_Pal,
+    .tag = TAG_MUGSHOT
+};
+
+static const union AnimCmd sSpriteAnim_Mugshot[] =
+{
+    ANIMCMD_FRAME(0, 32),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd *const sSpriteAnimTable_Mugshot[] =
+{
+    sSpriteAnim_Mugshot,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_Mugshot =
+{
+    .tileTag = TAG_MUGSHOT,
+    .paletteTag = TAG_MUGSHOT,
+    .oam = &sOamData_Mugshot,
+    .anims = sSpriteAnimTable_Mugshot,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy
+};
+
 #define MENU_LEFT 2
+#define MENU_RIGHT 16
 #define MENU_TOP_WIN0 1
 #define MENU_TOP_WIN1 5
 #define MENU_TOP_WIN2 1
-#define MENU_TOP_WIN3 9
+#define MENU_TOP_WIN3 13
 #define MENU_TOP_WIN4 13
 #define MENU_TOP_WIN5 17
-#define MENU_TOP_WIN6 21
+#define MENU_TOP_WIN6 17
 #define MENU_WIDTH 26
 #define MENU_HEIGHT_WIN0 2
 #define MENU_HEIGHT_WIN1 2
-#define MENU_HEIGHT_WIN2 6
+#define MENU_HEIGHT_WIN2 10
 #define MENU_HEIGHT_WIN3 2
 #define MENU_HEIGHT_WIN4 2
 #define MENU_HEIGHT_WIN5 2
@@ -333,40 +404,40 @@ static const struct WindowTemplate sWindowTemplates_MainMenu[] =
         .bg = 0,
         .tilemapLeft = MENU_LEFT,
         .tilemapTop = MENU_TOP_WIN3,
-        .width = MENU_WIDTH,
+        .width = (MENU_WIDTH/2) -1,
         .height = MENU_HEIGHT_WIN3,
         .paletteNum = 15,
-        .baseBlock = 0x9D
+        .baseBlock = 261
     },
-    // OPTION / MYSTERY GIFT
+    // OPTION 
     {
         .bg = 0,
-        .tilemapLeft = MENU_LEFT,
+        .tilemapLeft = MENU_RIGHT,
         .tilemapTop = MENU_TOP_WIN4,
-        .width = MENU_WIDTH,
+        .width = (MENU_WIDTH/2) -1,
         .height = MENU_HEIGHT_WIN4,
         .paletteNum = 15,
-        .baseBlock = 0xD1
+        .baseBlock = 285
     },
-    // OPTION / MYSTERY EVENTS
+    // MYSTERY GIFT
     {
         .bg = 0,
         .tilemapLeft = MENU_LEFT,
         .tilemapTop = MENU_TOP_WIN5,
-        .width = MENU_WIDTH,
+        .width = (MENU_WIDTH/2) -1,
         .height = MENU_HEIGHT_WIN5,
         .paletteNum = 15,
-        .baseBlock = 0x105
+        .baseBlock = 309
     },
-    // OPTION
+    // MYSTERY EVENTS
     {
         .bg = 0,
-        .tilemapLeft = MENU_LEFT,
+        .tilemapLeft = MENU_RIGHT,
         .tilemapTop = MENU_TOP_WIN6,
-        .width = MENU_WIDTH,
+        .width = (MENU_WIDTH/2) -1,
         .height = MENU_HEIGHT_WIN6,
         .paletteNum = 15,
-        .baseBlock = 0x139
+        .baseBlock = 333
     },
     // Error message window
     {
@@ -808,7 +879,7 @@ static void Task_DisplayMainMenu(u8 taskId)
                 AddTextPrinterParameterized3(2, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuContinue);
                 AddTextPrinterParameterized3(3, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuNewGame);
                 AddTextPrinterParameterized3(4, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuOption);
-                MainMenu_FormatSavegameText();
+                MainMenu_FormatSavegameText(taskId);
                 PutWindowTilemap(2);
                 PutWindowTilemap(3);
                 PutWindowTilemap(4);
@@ -828,7 +899,7 @@ static void Task_DisplayMainMenu(u8 taskId)
                 AddTextPrinterParameterized3(3, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuNewGame);
                 AddTextPrinterParameterized3(4, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuMysteryGift);
                 AddTextPrinterParameterized3(5, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuOption);
-                MainMenu_FormatSavegameText();
+                MainMenu_FormatSavegameText(taskId);
                 PutWindowTilemap(2);
                 PutWindowTilemap(3);
                 PutWindowTilemap(4);
@@ -853,7 +924,7 @@ static void Task_DisplayMainMenu(u8 taskId)
                 AddTextPrinterParameterized3(4, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuMysteryGift2);
                 AddTextPrinterParameterized3(5, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuMysteryEvents);
                 AddTextPrinterParameterized3(6, FONT_NORMAL, 0, 1, sTextColor_Headers, TEXT_SKIP_DRAW, gText_MainMenuOption);
-                MainMenu_FormatSavegameText();
+                MainMenu_FormatSavegameText(taskId);
                 PutWindowTilemap(2);
                 PutWindowTilemap(3);
                 PutWindowTilemap(4);
@@ -911,25 +982,25 @@ static bool8 HandleMainMenuInput(u8 taskId)
     }
     else if ((JOY_NEW(DPAD_UP)) && tCurrItem > 0)
     {
-        if (tMenuType == HAS_MYSTERY_EVENTS && tIsScrolled == TRUE && tCurrItem == 1)
-        {
-            ChangeBgY(0, 0x2000, BG_COORD_SUB);
-            ChangeBgY(1, 0x2000, BG_COORD_SUB);
-            gTasks[tScrollArrowTaskId].tArrowTaskIsScrolled = tIsScrolled = FALSE;
-        }
-        tCurrItem--;
+        tCurrItem = 0;
         sCurrItemAndOptionMenuCheck = tCurrItem;
         return TRUE;
     }
-    else if ((JOY_NEW(DPAD_DOWN)) && tCurrItem < tItemCount - 1)
+    else if ((JOY_NEW(DPAD_DOWN)) && tCurrItem == 0)
     {
-        if (tMenuType == HAS_MYSTERY_EVENTS && tCurrItem == 3 && tIsScrolled == FALSE)
-        {
-            ChangeBgY(0, 0x2000, BG_COORD_ADD);
-            ChangeBgY(1, 0x2000, BG_COORD_ADD);
-            gTasks[tScrollArrowTaskId].tArrowTaskIsScrolled = tIsScrolled = TRUE;
-        }
         tCurrItem++;
+        sCurrItemAndOptionMenuCheck = tCurrItem;
+        return TRUE;
+    }
+    else if ((JOY_NEW(DPAD_RIGHT)) && tCurrItem == 1)
+    {
+        tCurrItem++;
+        sCurrItemAndOptionMenuCheck = tCurrItem;
+        return TRUE;
+    }
+    else if ((JOY_NEW(DPAD_LEFT)) && tCurrItem == 2)
+    {
+        tCurrItem--;
         sCurrItemAndOptionMenuCheck = tCurrItem;
         return TRUE;
     }
@@ -1200,13 +1271,16 @@ static void HighlightSelectedMainMenuItem(u8 menuType, u8 selectedMenuItem, s16 
             {
                 case 0:
                 default:
-                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(2));
+                    SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(8, DISPLAY_WIDTH - 8));
+                    SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(1, MENU_HEIGHT_WIN2*8+16));
                     break;
                 case 1:
-                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(3));
+                    SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(8, DISPLAY_WIDTH/2));
+                    SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(MENU_HEIGHT_WIN2*8+16, MENU_HEIGHT_WIN2*8+MENU_HEIGHT_WIN3*8+32));
                     break;
                 case 2:
-                    SetGpuReg(REG_OFFSET_WIN0V, MENU_WIN_VCOORDS(4));
+                    SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(DISPLAY_WIDTH/2, DISPLAY_WIDTH - 8));
+                    SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(MENU_HEIGHT_WIN2*8+16, MENU_HEIGHT_WIN2*8+MENU_HEIGHT_WIN3*8+32));
                     break;
             }
             break;
@@ -2234,32 +2308,29 @@ static void CreateMainMenuErrorWindow(const u8 *str)
     SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(113, DISPLAY_HEIGHT - 1));
 }
 
-static void MainMenu_FormatSavegameText(void)
+static void MainMenu_FormatSavegameText(u8 taskId)
 {
     MainMenu_FormatSavegamePlayer();
     MainMenu_FormatSavegamePokedex();
     MainMenu_FormatSavegameTime();
     MainMenu_FormatSavegameBadges();
+    MainMenu_FormatPartySprites(taskId);
 }
+
+#define MENU_TAG_X 65
+#define MENU_TEXT_X 152
+
 
 static void MainMenu_FormatSavegamePlayer(void)
 {
+    u8 rivalGfxId;
+    u8 spriteId;
     StringExpandPlaceholders(gStringVar4, gText_ContinueMenuPlayer);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, 0, 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, gSaveBlock2Ptr->playerName, 100), 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
-}
-
-static void MainMenu_FormatSavegameTime(void)
-{
-    u8 str[0x20];
-    u8 *ptr;
-
-    StringExpandPlaceholders(gStringVar4, gText_ContinueMenuTime);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, 0x6C, 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
-    ptr = ConvertIntToDecimalStringN(str, gSaveBlock2Ptr->playTimeHours, STR_CONV_MODE_LEFT_ALIGN, 3);
-    *ptr = 0xF0;
-    ConvertIntToDecimalStringN(ptr + 1, gSaveBlock2Ptr->playTimeMinutes, STR_CONV_MODE_LEADING_ZEROS, 2);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, 0xD0), 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
+    AddTextPrinterParameterized3(2, FONT_NORMAL, MENU_TAG_X, 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
+    AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, gSaveBlock2Ptr->playerName, MENU_TEXT_X), 17, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
+    GetMapName(gStringVar1, GetCurrentRegionMapSectionId(), 0);
+    AddTextPrinterParameterized3(2, FONT_NORMAL, MENU_TAG_X, 1, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar1);
+    CreateMugshot();
 }
 
 static void MainMenu_FormatSavegamePokedex(void)
@@ -2274,11 +2345,25 @@ static void MainMenu_FormatSavegamePokedex(void)
         else
             dexCount = GetHoennPokedexCount(FLAG_GET_CAUGHT);
         StringExpandPlaceholders(gStringVar4, gText_ContinueMenuPokedex);
-        AddTextPrinterParameterized3(2, FONT_NORMAL, 0, 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
+        AddTextPrinterParameterized3(2, FONT_NORMAL, MENU_TAG_X, 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
         ConvertIntToDecimalStringN(str, dexCount, STR_CONV_MODE_LEFT_ALIGN, 3);
-        AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, 100), 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
+        AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, MENU_TEXT_X), 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
     }
 }
+
+static void MainMenu_FormatSavegameTime(void)
+{
+    u8 str[0x20];
+    u8 *ptr;
+
+    StringExpandPlaceholders(gStringVar4, gText_ContinueMenuTime);
+    AddTextPrinterParameterized3(2, FONT_NORMAL, MENU_TAG_X, 49, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
+    ptr = ConvertIntToDecimalStringN(str, gSaveBlock2Ptr->playTimeHours, STR_CONV_MODE_LEFT_ALIGN, 3);
+    *ptr = 0xF0;
+    ConvertIntToDecimalStringN(ptr + 1, gSaveBlock2Ptr->playTimeMinutes, STR_CONV_MODE_LEADING_ZEROS, 2);
+    AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, MENU_TEXT_X), 49, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
+}
+
 
 static void MainMenu_FormatSavegameBadges(void)
 {
@@ -2292,9 +2377,58 @@ static void MainMenu_FormatSavegameBadges(void)
             badgeCount++;
     }
     StringExpandPlaceholders(gStringVar4, gText_ContinueMenuBadges);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, 0x6C, 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
+    AddTextPrinterParameterized3(2, FONT_NORMAL, MENU_TAG_X, 65, sTextColor_MenuInfo, TEXT_SKIP_DRAW, gStringVar4);
     ConvertIntToDecimalStringN(str, badgeCount, STR_CONV_MODE_LEADING_ZEROS, 1);
-    AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, 0xD0), 33, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
+    AddTextPrinterParameterized3(2, FONT_NORMAL, GetStringRightAlignXOffset(FONT_NORMAL, str, MENU_TEXT_X), 65, sTextColor_MenuInfo, TEXT_SKIP_DRAW, str);
+}
+
+#define Y_ORIG 18
+#define INCR 28
+static void MainMenu_FormatPartySprites(u8 taskId)
+{
+    u32 i = 0;
+    u16 species;
+    u32 personality;
+    u16 x=186,y=Y_ORIG;
+    u8 spriteIndex = 2;
+    struct Pokemon mon;
+    for (i; i < gSaveBlock1Ptr->playerPartyCount; i++)
+    {
+        mon = gSaveBlock1Ptr->playerParty[i];
+        species = GetMonData(&mon, MON_DATA_SPECIES);
+        personality = GetMonData(&mon, MON_DATA_PERSONALITY);
+        LoadMonIconPalette(species);
+        gTasks[taskId].data[spriteIndex] = CreateMonIcon(species, SpriteCB_MonIcon, x, y, 4, personality, TRUE);
+        gSprites[gTasks[taskId].data[spriteIndex++]].oam.priority = 0;
+        if(y<(Y_ORIG + INCR*2))
+        {
+            y+=INCR;
+        } else
+        {
+            x +=(INCR);
+            y =Y_ORIG;
+        }
+    }
+}
+
+static void CreateMugshot()
+{
+    u8 spriteId;
+    if (gSaveBlock2Ptr->playerGender == MALE)
+    {
+        LoadCompressedSpriteSheet(&sSpriteSheet_BrendanMugshot);
+        LoadSpritePalette(&sSpritePal_BrendanMugshot);
+    }
+    else
+    {
+        LoadCompressedSpriteSheet(&sSpriteSheet_MayMugshot);
+        LoadSpritePalette(&sSpritePal_MayMugshot);
+    }
+    spriteId = CreateSprite(&sSpriteTemplate_Mugshot, 44, 56, 1);
+    gSprites[spriteId].invisible = FALSE;
+    StartSpriteAnim(&gSprites[spriteId], 0);
+    gSprites[spriteId].oam.priority = 0;
+    return;
 }
 
 static void LoadMainMenuWindowFrameTiles(u8 bgId, u16 tileOffset)

@@ -275,8 +275,8 @@ ContestHall_EventScript_GetCategoryTough::
 	return
 
 ContestHall_EventScript_ContestGettingStarted::
-	buffercontestname STR_VAR_2, VAR_0x8008
-	bufferstdstring STR_VAR_3, VAR_0x8009
+	buffercontestname Str_Var_2, VAR_0x8008
+	bufferstdstring Str_Var_3, VAR_0x8009
 	call ContestHall_EventScript_GettingStarted
 	lockall
 	applymovement LOCALID_MC, ContestHall_Movement_MCBackUp
@@ -377,7 +377,7 @@ ContestHall_EventScript_Player4WalkToCenter::
 ContestHall_EventScript_ShowContestMonPic::
 	special BufferContestTrainerAndMonNames
 	addvar VAR_0x8006, 1
-	buffernumberstring STR_VAR_2, VAR_0x8006
+	buffernumberstring Str_Var_2, VAR_0x8006
 	lockall
 	applymovement VAR_0x800B, ContestHall_Movement_ContestantDelay32
 	waitmovement 0
@@ -911,7 +911,7 @@ ContestHall_EventScript_CongratulateWinner::
 	special BufferContestWinnerTrainerName
 	special BufferContestWinnerMonName
 	addvar VAR_0x8005, 1
-	buffernumberstring STR_VAR_2, VAR_0x8005
+	buffernumberstring Str_Var_2, VAR_0x8005
 	addvar VAR_0x8005, -1
 	call ContestHall_EventScript_CongratsWinner
 	applymovement VAR_TEMP_3, ContestHall_Movement_WinningPlayerWalkUp
@@ -1503,21 +1503,21 @@ LilycoveCity_ContestLobby_Text_ComeBackForPrizeLater:
 
 ContestHall_Text_GettingStartedParticipantsAsFollows:
 	.string "MC: Hello! We're just getting started\n"
-	.string "with a {STR_VAR_3} Rank Pokémon\l"
-	.string "{STR_VAR_2}!\p"
+	.string "with a {Str_Var_3} Rank Pokémon\l"
+	.string "{Str_Var_2}!\p"
 	.string "The participating trainers and their\n"
 	.string "Pokémon are as follows:$"
 
 ContestHall_Text_GettingStartedParticipantsAsFollowsLink:
 	.string "MC: Hello! We're just getting started\n"
 	.string "with a 4-player linked Pokémon\l"
-	.string "{STR_VAR_2}!\p"
+	.string "{Str_Var_2}!\p"
 	.string "The participating trainers and their\n"
 	.string "Pokémon are as follows:$"
 
 ContestHall_Text_EntryXTrainersMon:
-	.string "MC: Entry No. {STR_VAR_2}!\n"
-	.string "{STR_VAR_1}'s {STR_VAR_3}!$"
+	.string "MC: Entry No. {Str_Var_2}!\n"
+	.string "{Str_Var_1}'s {Str_Var_3}!$"
 
 ContestHall_Text_SeenContestantsAudienceWillVote:
 	.string "MC: We've just seen the four Pokémon\n"
@@ -1561,8 +1561,8 @@ ContestHall_Text_WeWillNowDeclareWinner:
 	.string "Judge: We will now declare the winner!$"
 
 ContestHall_Text_CongratsTrainerXandMon:
-	.string "MC: Entry No. {STR_VAR_2}!\p"
-	.string "{STR_VAR_3} and {STR_VAR_1},\n"
+	.string "MC: Entry No. {Str_Var_2}!\p"
+	.string "{Str_Var_3} and {Str_Var_1},\n"
 	.string "congratulations!$"
 
 ContestHall_Text_CongratsPleaseCompeteAgain:
@@ -1582,7 +1582,7 @@ ContestHall_Text_ReceivedRibbon:
 
 ContestHall_Text_PutRibbonOnMon:
 	.string "{Player} put the ribbon on\n"
-	.string "{STR_VAR_1}.$"
+	.string "{Str_Var_1}.$"
 
 ContestHall_Text_PickUpPrizeAtCounterLater:
 	.string "Please pick up your prize at\n"
@@ -1616,7 +1616,7 @@ LilycoveCity_ContestLobby_Text_Explain4PlayerContest:
 	.string "with me, please.\p"
 	.string "Please choose the same contest\n"
 	.string "as your fellow contestants.\p"
-	.string "The CONTEST begins as soon as all\n"
+	.string "The contest begins as soon as all\n"
 	.string "players register their entry.\p"
 	.string "After that, the usual contest rules\n"
 	.string "apply.$"
@@ -1637,7 +1637,7 @@ LilycoveCity_ContestLobby_Text_TransmissionError:
 
 LilycoveCity_ContestLobby_Text_PlayersChoseDifferentContest:
 	.string "You may have chosen a different\n"
-	.string "CONTEST than another player.$"
+	.string "contest than another player.$"
 
 LilycoveCity_ContestLobby_Text_PlayersMadeDifferentChoice:
 	.string "You may have made a different\n"
@@ -1660,7 +1660,7 @@ LilycoveCity_ContestLobby_Text_TransmissionErrorTryAgain:
 LilycoveCity_ContestLobby_Text_YourMonIsEntryNumX:
 	.string "Your Pokémon will be entered in\n"
 	.string "the contest.\p"
-	.string "Your Pokémon is Entry No. {STR_VAR_2}.$"
+	.string "Your Pokémon is Entry No. {Str_Var_2}.$"
 
 LilycoveCity_ContestLobby_Text_ContestBeginShortly:
 	.string "The contest will begin shortly.$"
@@ -1766,7 +1766,7 @@ LilycoveCity_ContestLobby_Text_WhichContestMode:
 ContestHall_Text_GettingStartedWireless:
 	.string "MC: Hello! We're just getting started\n"
 	.string "with a 4-player linked Pokémon\l"
-	.string "{STR_VAR_2}!$"
+	.string "{Str_Var_2}!$"
 
 ContestHall_Text_ParticipantsAsFollows:
 	.string "The participating trainers and their\n"

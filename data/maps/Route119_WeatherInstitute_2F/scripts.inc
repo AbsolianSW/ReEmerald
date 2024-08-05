@@ -54,7 +54,9 @@ Route119_WeatherInstitute_2F_EventScript_ShellyDefeated::
 	msgbox Route119_WeatherInstitute_2F_Text_ShellyPostBattle, MSGBOX_DEFAULT
 	closemessage
 	addobject LOCALID_GRUNT_3
-	applymovement LOCALID_GRUNT_3, Route119_WeatherInstitute_2F_Movement_GruntApproachShelly
+	applymovement LOCALID_GRUNT_3, Route119_WeatherInstitute_2F_Movement_GruntApproachShelly1
+	waitmovement 0
+	applymovement LOCALID_GRUNT_3, Route119_WeatherInstitute_2F_Movement_GruntApproachShelly2
 	applymovement OBJ_EVENT_ID_PLAYER, Route119_WeatherInstitute_2F_Movement_ShovePlayerOutOfWay
 	applymovement OBJ_EVENT_ID_FOLLOWER, Route119_WeatherInstitute_2F_Movement_ShoveFollowerOutOfWay
 	waitmovement 0
@@ -91,7 +93,7 @@ Route119_WeatherInstitute_2F_EventScript_ShellyDefeated::
 Route119_WeatherInstitute_2F_EventScript_ReceiveCastform::
 	msgbox Route119_WeatherInstitute_2F_Text_ThanksPleaseTakePokemon, MSGBOX_DEFAULT
 	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_CASTFORM
-	bufferspeciesname STR_VAR_1, SPECIES_CASTFORM
+	bufferspeciesname Str_Var_1, SPECIES_CASTFORM
 	specialvar VAR_0x8009, CalculatePlayerPartyCount
 	call_if_eq VAR_0x8009, 6, Common_Event_Script_ChooseMonToSendToPC
 	givemon SPECIES_CASTFORM, 25, ITEM_MYSTIC_WATER
@@ -128,7 +130,7 @@ Route119_WeatherInstitute_2F_EventScript_ReceivedCastformFanfare::
 	message Route119_WeatherInstitute_2F_Text_PlayerReceivedCastform
 	waitmessage
 	waitfanfare
-	bufferspeciesname STR_VAR_1, SPECIES_CASTFORM
+	bufferspeciesname Str_Var_1, SPECIES_CASTFORM
 	return
 
 Route119_WeatherInstitute_2F_EventScript_ExplainCastform::
@@ -184,9 +186,7 @@ Route119_WeatherInstitute_2F_EventScript_NoAbnormalWeather::
 	release
 	end
 
-Route119_WeatherInstitute_2F_Movement_GruntApproachShelly:
-	walk_fast_left
-	walk_fast_left
+Route119_WeatherInstitute_2F_Movement_GruntApproachShelly1:
 	walk_fast_left
 	walk_fast_left
 	walk_fast_left
@@ -198,22 +198,17 @@ Route119_WeatherInstitute_2F_Movement_GruntApproachShelly:
 	walk_fast_left
 	step_end
 
+Route119_WeatherInstitute_2F_Movement_GruntApproachShelly2:
+	walk_fast_left
+	walk_fast_left
+	step_end
+
 Route119_WeatherInstitute_2F_Movement_ShovePlayerOutOfWay:
-	delay_16
-	delay_16
-	delay_16
-	delay_16
-	delay_16
 	ride_water_current_up
 	walk_in_place_faster_down
 	step_end
 	
 Route119_WeatherInstitute_2F_Movement_ShoveFollowerOutOfWay:
-	delay_16
-	delay_16
-	delay_16
-	delay_16
-	delay_16
 	ride_water_current_down
 	face_up
 	step_end
@@ -242,7 +237,7 @@ Route119_WeatherInstitute_2F_EventScript_WeatherScientist::
 	end
 
 Route119_WeatherInstitute_2F_Text_Grunt2Intro:
-	.string "The INSTITUTE created a type of\n"
+	.string "The Institute created a type of\n"
 	.string "Pokémon that has something to do with\l"
 	.string "the weather. We're here to take them!$"
 
@@ -252,10 +247,10 @@ Route119_WeatherInstitute_2F_Text_Grunt2Defeat:
 Route119_WeatherInstitute_2F_Text_Grunt2PostBattle:
 	.string "If the Pokémon they made here can\n"
 	.string "control the weather freely, then we of\l"
-	.string "TEAM AQUA definitely need it!$"
+	.string "Team Aqua definitely need it!$"
 
 Route119_WeatherInstitute_2F_Text_Grunt3Intro:
-	.string "We're TEAM AQUA!\n"
+	.string "We're Team Aqua!\n"
 	.string "We appear wherever anything rare is\l"
 	.string "found!$"
 
@@ -264,7 +259,7 @@ Route119_WeatherInstitute_2F_Text_Grunt3Defeat:
 
 Route119_WeatherInstitute_2F_Text_Grunt3PostBattle:
 	.string "You don't have any idea what we of\n"
-	.string "TEAM AQUA are working towards!\l"
+	.string "Team Aqua are working towards!\l"
 	.string "You stay out of our way!$"
 
 Route119_WeatherInstitute_2F_Text_Grunt5Intro:
@@ -284,7 +279,7 @@ Route119_WeatherInstitute_2F_Text_Grunt5PostBattle:
 
 Route119_WeatherInstitute_2F_Text_ShellyIntro:
 	.string "Ahahahaha!\p"
-	.string "You're going to meddle in TEAM AQUA's\n"
+	.string "You're going to meddle in Team Aqua's\n"
 	.string "affairs?\p"
 	.string "You're either absolutely fearless,\n"
 	.string "simply ignorant, or both!\p"
@@ -296,24 +291,24 @@ Route119_WeatherInstitute_2F_Text_ShellyDefeat:
 	.string "You're disgustingly strong!$"
 
 Route119_WeatherInstitute_2F_Text_ShellyPostBattle:
-	.string "It's bad enough to have TEAM MAGMA\n"
+	.string "It's bad enough to have Team Magma\n"
 	.string "blunder about, but now there's you!\p"
 	.string "What makes you want to sniff around\n"
 	.string "in our business, anyway?$"
 
 Route119_WeatherInstitute_2F_Text_TeamMagmaJustPassedBy:
 	.string "We have a situation here!\p"
-	.string "A TEAM MAGMA mob just passed\n"
-	.string "the WEATHER INSTITUTE.\p"
+	.string "A Team Magma mob just passed\n"
+	.string "the Weather Institute.\p"
 	.string "They appear to be headed for\n"
-	.string "MT. PYRE!$"
+	.string "Mt. Pyre!$"
 
 Route119_WeatherInstitute_2F_Text_WeHaveToHurryToMtPyre:
 	.string "What?!\p"
 	.string "We can't waste any more time here!\n"
-	.string "We have to hurry to MT. PYRE, too!\p"
+	.string "We have to hurry to Mt. Pyre, too!\p"
 	.string "Ahahahaha!\n"
-	.string "TEAM MAGMA, just you wait!$"
+	.string "Team Magma, just you wait!$"
 
 Route119_WeatherInstitute_2F_Text_ThanksPleaseTakePokemon:
 	.string "Thanks!\n"
@@ -327,13 +322,13 @@ Route119_WeatherInstitute_2F_Text_NoRoomForPokemon:
 	.string "for this Pokémon.$"
 
 Route119_WeatherInstitute_2F_Text_PlayerReceivedCastform:
-	.string "{Player} received CASTFORM!$"
+	.string "{Player} received Castform!$"
 
 Route119_WeatherInstitute_2F_Text_PokemonChangesWithWeather:
 	.string "That Pokémon changes shape according\n"
 	.string "to the weather conditions.\p"
 	.string "There're plenty of them in the\n"
-	.string "INSTITUTE--go ahead and take it.$"
+	.string "Institute--go ahead and take it.$"
 
 Route119_WeatherInstitute_2F_Text_ChangingWeatherRidiculous:
 	.string "I've been researching rain for many\n"
@@ -342,19 +337,19 @@ Route119_WeatherInstitute_2F_Text_ChangingWeatherRidiculous:
 
 Route119_WeatherInstitute_2F_Text_GroudonWeather:
 	.string "I track weather patterns over\n"
-	.string "the HOENN region.\p"
+	.string "the Hoenn region.\p"
 	.string "Presently, a drought has been recorded\n"
-	.string "in {STR_VAR_1}.\p"
+	.string "in {Str_Var_1}.\p"
 	.string "Could that mean, somewhere near\n"
-	.string "{STR_VAR_1}…$"
+	.string "{Str_Var_1}…$"
 
 Route119_WeatherInstitute_2F_Text_KyogreWeather:
 	.string "I track weather patterns over\n"
-	.string "the HOENN region.\p"
+	.string "the Hoenn region.\p"
 	.string "Presently, heavy rainfall has been\n"
-	.string "recorded over {STR_VAR_1}.\p"
+	.string "recorded over {Str_Var_1}.\p"
 	.string "Could that mean, somewhere near\n"
-	.string "{STR_VAR_1}…$"
+	.string "{Str_Var_1}…$"
 
 Route119_WeatherInstitute_2F_Text_NoAbnormalWeather:
 	.string "Abnormal weather conditions are\n"
@@ -364,5 +359,5 @@ Route119_WeatherInstitute_2F_Text_NoAbnormalWeather:
 	
 Route119_WeatherInstitute_2F_Text_ThanksForBeingASafeguard:
 	.string "Again, we can not thank you enough for\n"
-	.string "being our Safeguard against TEAM AQUA.\p"
+	.string "being our Safeguard against Team Aqua.\p"
 	.string "Oh, i know! Here, have this!$"

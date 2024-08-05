@@ -291,7 +291,7 @@ Route117_Text_DoYouWantEgg:
 
 Route117_Text_YourMonIsDoingFine:
 	.string "Ah, it's you! Good to see you.\n"
-	.string "Your {STR_VAR_1}'s doing fine.$"
+	.string "Your {Str_Var_1}'s doing fine.$"
 
 Route117_Text_IllKeepIt:
 	.string "Well then, I'll keep it.\n"
@@ -303,17 +303,17 @@ Route117_Text_YouHaveNoRoomForIt:
 
 Route117_Text_ReceivedEgg:
 	.string "{Player} received the egg from\n"
-	.string "the DAY-CARE MAN.$"
+	.string "the Day-Care Man.$"
 
 Route117_Text_TakeGoodCareOfIt:
 	.string "Take good care of it.$"
 
 Route117_Text_FriendlyWithOtherTrainersMon:
-	.string "By the way, about your {STR_VAR_1},\n"
+	.string "By the way, about your {Str_Var_1},\n"
 	.string "it seemed to be friendly with\l"
-	.string "{STR_VAR_2}'s {STR_VAR_3}.\p"
+	.string "{Str_Var_2}'s {Str_Var_3}.\p"
 	.string "I may even have seen it receiving\n"
-	.string "a piece of MAIL.$"
+	.string "a piece of mail.$"
 
 @ Unused
 Route117_Text_SeeWifeIfYouWantToPickUpMon:
@@ -321,8 +321,8 @@ Route117_Text_SeeWifeIfYouWantToPickUpMon:
 	.string "have a word with my wife.$"
 
 Route117_Text_YourMonsAreDoingFine:
-	.string "Ah, it's you! Your {STR_VAR_1} and\n"
-	.string "{STR_VAR_2} are doing fine.$"
+	.string "Ah, it's you! Your {Str_Var_1} and\n"
+	.string "{Str_Var_2} are doing fine.$"
 
 Route117_Text_IWillKeepDoYouWantIt:
 	.string "I really will keep it.\n"
@@ -338,7 +338,7 @@ Route117_PokemonDayCare_Text_WhichMonShouldWeRaise:
 	.string "you?$"
 
 Route117_PokemonDayCare_Text_WellRaiseYourMon:
-	.string "Fine, we'll raise your {STR_VAR_1}\n"
+	.string "Fine, we'll raise your {Str_Var_1}\n"
 	.string "for a while.\p"
 	.string "Come back for it later.$"
 
@@ -369,8 +369,8 @@ Route117_PokemonDayCare_Text_GoodToSeeYou:
 	.string "Your Pokémon can only be doing good!$"
 
 Route117_PokemonDayCare_Text_YourMonHasGrownXLevels:
-	.string "By level, your {STR_VAR_1} has\n"
-	.string "grown by {STR_VAR_2}.$"
+	.string "By level, your {Str_Var_1} has\n"
+	.string "grown by {Str_Var_2}.$"
 
 Route117_PokemonDayCare_Text_YourTeamIsFull:
 	.string "Your Pokémon team is full.\n"
@@ -381,15 +381,15 @@ Route117_PokemonDayCare_Text_TakeBackWhichMon:
 	.string "Which Pokémon will you take back?$"
 
 Route117_PokemonDayCare_Text_ItWillCostX:
-	.string "If you want your {STR_VAR_1} back,\n"
-	.string "it will cost ¥{STR_VAR_2}.$"
+	.string "If you want your {Str_Var_1} back,\n"
+	.string "it will cost ¥{Str_Var_2}.$"
 
 Route117_PokemonDayCare_Text_HeresYourMon:
 	.string "Perfect!\n"
 	.string "Here's your Pokémon.$"
 
 Route117_PokemonDayCare_Text_TookBackMon:
-	.string "{Player} took back {STR_VAR_1} from\n"
+	.string "{Player} took back {Str_Var_1} from\n"
 	.string "the Day-Care Lady.$"
 
 Route117_PokemonDayCare_Text_YouHaveJustOneMon:

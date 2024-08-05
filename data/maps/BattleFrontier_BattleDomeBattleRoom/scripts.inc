@@ -7,7 +7,7 @@
 
 .set NO_DRAW,       0
 .set DRAW_TRAINER,  1
-.set DRAW_Tucker,   2
+.set DRAW_TUCKER,   2
 
 BattleFrontier_BattleDomeBattleRoom_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_BattleDomeBattleRoom_OnTransition
@@ -97,7 +97,7 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_Draw::
 	delay 180
 	applymovement LOCALID_REFEREE, BattleFrontier_BattleDomeBattleRoom_Movement_RefereeExit
 	waitmovement 0
-	goto_if_eq VAR_TEMP_2, DRAW_Tucker, BattleFrontier_BattleDomeBattleRoom_EventScript_LostToOpponent @ Tucker always wins on a draw
+	goto_if_eq VAR_TEMP_2, DRAW_TUCKER, BattleFrontier_BattleDomeBattleRoom_EventScript_LostToOpponent @ Tucker always wins on a draw
 	dome_compareseeds
 	switch VAR_RESULT
 	case 1, BattleFrontier_BattleDomeBattleRoom_EventScript_DefeatedOpponent
@@ -107,7 +107,7 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_LostToOpponent::
 	dome_getopponentname
 	call_if_eq VAR_TEMP_2, NO_DRAW, BattleFrontier_BattleDomeBattleRoom_EventScript_OpponentWon
 	call_if_eq VAR_TEMP_2, DRAW_TRAINER, BattleFrontier_BattleDomeBattleRoom_EventScript_OpponentWonDraw
-	call_if_eq VAR_TEMP_2, DRAW_Tucker, BattleFrontier_BattleDomeBattleRoom_EventScript_TuckerWonDraw
+	call_if_eq VAR_TEMP_2, DRAW_TUCKER, BattleFrontier_BattleDomeBattleRoom_EventScript_TuckerWonDraw
 	playse SE_M_ENCORE2
 	call BattleFrontier_BattleDomeBattleRoom_EventScript_AudienceLookAround
 	delay 60
@@ -118,13 +118,13 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_WarpToLobbyLost::
 	goto BattleFrontier_BattleDomeBattleRoom_EventScript_WarpToLobby
 
 BattleFrontier_BattleDomeBattleRoom_EventScript_OpponentWon::
-	frontier_gettrainername STR_VAR_2
+	frontier_gettrainername Str_Var_2
 	message BattleFrontier_BattleDomeBattleRoom_Text_TrainerIsWinner
 	waitmessage
 	return
 
 BattleFrontier_BattleDomeBattleRoom_EventScript_OpponentWonDraw::
-	frontier_gettrainername STR_VAR_1
+	frontier_gettrainername Str_Var_1
 	message BattleFrontier_BattleDomeBattleRoom_Text_RefereesDecidedWinnerTrainer
 	waitmessage
 	return
@@ -440,7 +440,7 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_LostToTucker::
 	goto BattleFrontier_BattleDomeBattleRoom_EventScript_LostTourney
 
 BattleFrontier_BattleDomeBattleRoom_EventScript_TuckerDraw::
-	setvar VAR_TEMP_2, DRAW_Tucker
+	setvar VAR_TEMP_2, DRAW_TUCKER
 	goto BattleFrontier_BattleDomeBattleRoom_EventScript_Draw
 
 BattleFrontier_BattleDomeBattleRoom_EventScript_DoDomeBattle::
@@ -929,9 +929,9 @@ BattleFrontier_BattleDomeBattleRoom_Text_PlayerHasEnteredDome:
 	.string "{Player} has entered the Battle Dome!$"
 
 BattleFrontier_BattleDomeBattleRoom_Text_PlayerVersusTrainer:
-	.string "{STR_VAR_1}\n"
+	.string "{Str_Var_1}\n"
 	.string "match!\p"
-	.string "{Player} versus {STR_VAR_2}!\p"
+	.string "{Player} versus {Str_Var_2}!\p"
 	.string "Let the battle begin!$"
 
 BattleFrontier_BattleDomeBattleRoom_Text_PlayerIsWinner:
@@ -939,7 +939,7 @@ BattleFrontier_BattleDomeBattleRoom_Text_PlayerIsWinner:
 	.string "Congratulations!$"
 
 BattleFrontier_BattleDomeBattleRoom_Text_TrainerIsWinner:
-	.string "{STR_VAR_2} is the winner!\n"
+	.string "{Str_Var_2} is the winner!\n"
 	.string "Congratulations!$"
 
 BattleFrontier_BattleDomeBattleRoom_Text_PlayerIsLv50Champ:
@@ -956,20 +956,20 @@ BattleFrontier_BattleDomeBattleRoom_Text_RefereeDecisionPleaseWait:
 	.string "What an unbelievable finish!\n"
 	.string "We have a double knockout!\p"
 	.string "In this event, the Battle Tournament\n"
-	.string "rules call for a referee's decision.\p"
+	.string "rules call for a Referee's decision.\p"
 	.string "Please wait while the judging\n"
 	.string "is under way.$"
 
 BattleFrontier_BattleDomeBattleRoom_Text_RefereesDecidedWinnerTrainer:
-	.string "The referees have reached\n"
+	.string "The Referees have reached\n"
 	.string "a decision!\p"
 	.string "The winner is…\n"
 	.string "Oh, my goodness!\l"
-	.string "The winner is {STR_VAR_1}!\l"
+	.string "The winner is {Str_Var_1}!\l"
 	.string "Congratulations!$"
 
 BattleFrontier_BattleDomeBattleRoom_Text_RefereesDecidedWinnerPlayer:
-	.string "The referees have reached\n"
+	.string "The Referees have reached\n"
 	.string "a decision!\p"
 	.string "The winner is…\n"
 	.string "Oh, my goodness!\l"
@@ -1058,7 +1058,7 @@ BattleFrontier_BattleDomeBattleRoom_Text_MakeWayForDomeAceTucker:
 	.string "And now… The trainer standing in\n"
 	.string "{Player}'s record-setting path…\p"
 	.string "Yes! The one and only!\n"
-	.string "The Battle Dome commissioner!\l"
+	.string "The Battle Dome Commissioner!\l"
 	.string "Our very own Dome Ace!\l"
 	.string "Make way for Tucker!$"
 
@@ -1170,7 +1170,7 @@ BattleFrontier_BattleDomeBattleRoom_Text_PlayerVersusTucker:
 	.string "Let the battle begin!$"
 
 BattleFrontier_BattleDomeBattleRoom_Text_RefereesDecidedWinnerTucker:
-	.string "The referees have reached\n"
+	.string "The Referees have reached\n"
 	.string "a decision!\p"
 	.string "The winner is…\n"
 	.string "Oh, my goodness!\l"

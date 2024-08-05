@@ -86,11 +86,11 @@ SafariZone_Text_PlacePokeblockOnFeeder:
 	.string "on the {Pokeblock} Feeder?$"
 
 SafariZone_Text_PokeblockStillHere:
-	.string "The {STR_VAR_1} you left\n"
+	.string "The {Str_Var_1} you left\n"
 	.string "before is still here.$"
 
 SafariZone_Text_PokeblockWasPlaced:
-	.string "The {STR_VAR_1} was placed\n"
+	.string "The {Str_Var_1} was placed\n"
 	.string "on the {Pokeblock} Feeder.$"
 
 Route121_SafariZoneEntrance_Text_WelcomeToSafariZone:
@@ -100,7 +100,7 @@ Route121_SafariZoneEntrance_Text_WelcomeToSafariZone:
 	.string "And, you'll see them in their wild,\n"
 	.string "untamed state in natural habitats.\p"
 	.string "What's more, we've thrown open the\n"
-	.string "gates to Pokémon trainers.\p"
+	.string "gates to Pokémon Trainers.\p"
 	.string "You're encouraged to catch Pokémon\n"
 	.string "for keeps!\p"
 	.string "Come in and enjoy the Safari Zone!$"

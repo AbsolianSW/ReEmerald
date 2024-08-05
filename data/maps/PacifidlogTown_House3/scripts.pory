@@ -25,7 +25,7 @@ PacifidlogTown_House3_EventScript_Trader::
 	special CreateInGameTradePokemon
 	special DoInGameTradeScene
 	waitstate
-	bufferspeciesname STR_VAR_1, VAR_0x8009
+	bufferspeciesname Str_Var_1, VAR_0x8009
 	msgbox PacifidlogTown_House3_Text_ItsSubtlyDifferentThankYou, MSGBOX_DEFAULT
 	setflag FLAG_PACIFIDLOG_NPC_TRADE_COMPLETED
 	release
@@ -37,7 +37,7 @@ PacifidlogTown_House3_EventScript_DeclineTrade::
 	end
 
 PacifidlogTown_House3_EventScript_NotRequestedMon::
-	bufferspeciesname STR_VAR_1, VAR_0x8009
+	bufferspeciesname Str_Var_1, VAR_0x8009
 	msgbox PacifidlogTown_House3_Text_WontAcceptAnyLessThanRealMon, MSGBOX_DEFAULT
 	release
 	end
@@ -52,23 +52,23 @@ PacifidlogTown_House3_EventScript_Girl::
 	end
 
 PacifidlogTown_House3_Text_WillingToTradeIt:
-	.string "Check out this {STR_VAR_2}!\p"
-	.string "It's the {STR_VAR_2} that I caught\n"
+	.string "Check out this {Str_Var_2}!\p"
+	.string "It's the {Str_Var_2} that I caught\n"
 	.string "yesterday to celebrate my birthday!\p"
 	.string "Oh, I can see that you want it!\n"
 	.string "After all, it's priceless!\p"
 	.string "I'll tell you what. I might be willing\n"
-	.string "to trade it for a {STR_VAR_1}.$"
+	.string "to trade it for a {Str_Var_1}.$"
 
 PacifidlogTown_House3_Text_ItsSubtlyDifferentThankYou:
-	.string "Oh, so this is a {STR_VAR_1}?\p"
-	.string "It's sort of like a {STR_VAR_2},\n"
+	.string "Oh, so this is a {Str_Var_1}?\p"
+	.string "It's sort of like a {Str_Var_2},\n"
 	.string "and yet it's subtly different.\p"
 	.string "Thank you!$"
 
 PacifidlogTown_House3_Text_WontAcceptAnyLessThanRealMon:
 	.string "No, no, no! I won't accept any\n"
-	.string "less than a real {STR_VAR_1}!$"
+	.string "less than a real {Str_Var_1}!$"
 
 PacifidlogTown_House3_Text_NotDesperateOrAnything:
 	.string "Oh, so you're not going to go through\n"
@@ -79,8 +79,8 @@ PacifidlogTown_House3_Text_NotDesperateOrAnything:
 PacifidlogTown_House3_Text_ReallyWantedToGetBagon:
 	.string "I know I could go looking for one\n"
 	.string "on my own, but…\p"
-	.string "But I really wanted to get a BAGON\n"
-	.string "that another TRAINER caught…$"
+	.string "But I really wanted to get a Bagon\n"
+	.string "that another trainer caught…$"
 
 PacifidlogTown_House3_Text_IsThatAPokedex:
 	.string "Is that a Pokédex?\p"

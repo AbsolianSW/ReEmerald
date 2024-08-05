@@ -1002,15 +1002,15 @@ Route104_Text_FlowerShopSellingSaplings:
 	.string "shopping. Where should I put them?$"
 
 Route104_Text_MrBrineysCottage:
-	.string "MR. Briney's cottage$"
+	.string "Mr. Briney's cottage$"
 
 Route104_Text_RouteSignPetalburg:
 	.string "Route 1O4\n"
-	.string "{RIGHT_ARROW} Petalburg City$"
+	.string "{Right_Arrow} Petalburg City$"
 
 Route104_Text_RouteSignRustboro:
 	.string "Route 1O4\n"
-	.string "{UP_ARROW} Rustboro City$"
+	.string "{Up_Arrow} Rustboro City$"
 
 Route104_Text_PrettyPetalFlowShop:
 	.string "Pretty Petal Flower Shop$"
@@ -1020,25 +1020,25 @@ Route104_Text_TrainerTipsDoubleBattles:
 	.string "In the Hoenn region there are pairs\n"
 	.string "of trainers who challenge others\l"
 	.string "for 2-on-2 Pokémon battles called\l"
-	.string "Double battles.\p"
-	.string "In a Double battle, the trainer must\n"
+	.string "Double Battles.\p"
+	.string "In a Double Battle, the trainer must\n"
 	.string "send out two Pokémon, the one at the\l"
 	.string "left of the list and the top one.\l"
 	.string "Watch how Pokémon are lined up.$"
 
 Route104_Text_MayWeShouldRegister:
-	.string "MAY: Oh, hi, {Player}{KUN}!\p"
-	.string "DEVON upgraded your POKéNAV with\n"
-	.string "the MATCH CALL system, huh?\p"
+	.string "May: Oh, hi, {Player}{Kun}!\p"
+	.string "Devon upgraded your Pokénav with\n"
+	.string "the Match Call system, huh?\p"
 	.string "We should register each other so we\n"
 	.string "can get in contact anytime.$"
 
 Route104_Text_RegisteredMay:
-	.string "{Player} registered MAY\n"
-	.string "in the POKéNAV.$"
+	.string "{Player} registered May\n"
+	.string "in the Pokénav.$"
 
 Route104_Text_MayHowsYourPokedex:
-	.string "MAY: Oh, by the way, {Player}{KUN},\n"
+	.string "May: Oh, by the way, {Player}{Kun},\n"
 	.string "how's your Pokédex coming along?$"
 
 Route104_Text_MayMinesDecentLetsBattle:
@@ -1047,44 +1047,44 @@ Route104_Text_MayMinesDecentLetsBattle:
 	.string "How about a little battle?$"
 
 Route104_Text_MayHaventRaisedPokemon:
-	.string "MAY: Oh, what's the matter?\p"
+	.string "May: Oh, what's the matter?\p"
 	.string "Haven't you caught or raised your\n"
 	.string "Pokémon very much?\p"
-	.string "That's not very good for a TRAINER!$"
+	.string "That's not very good for a trainer!$"
 
 Route104_Text_MayLetsBattle:
-	.string "MAY: So, what do you think?\n"
+	.string "May: So, what do you think?\n"
 	.string "How about a little battle here?$"
 
 Route104_Text_MayIntro:
-	.string "MAY: You just became a TRAINER,\n"
-	.string "{Player}{KUN}. I'm not going to lose!$"
+	.string "May: You just became a trainer,\n"
+	.string "{Player}{Kun}. I'm not going to lose!$"
 
 Route104_Text_MayDefeat:
 	.string "Yikes!\n"
 	.string "You're better than I expected!$"
 
 Route104_Text_MayPostBattle:
-	.string "MAY: I can tell you've gotten pretty\n"
+	.string "May: I can tell you've gotten pretty\n"
 	.string "good with the way you handle Pokémon.\p"
 	.string "But instead of only making them\n"
-	.string "battle, you should be like MR. BRINEY.\p"
+	.string "battle, you should be like Mr. Briney.\p"
 	.string "It's important to become friends with\n"
 	.string "Pokémon, too.$"
 
 Route104_Text_BrendanWeShouldRegister:
-	.string "BRENDAN: Oh, hey, {Player}!\p"
-	.string "Cool, you had DEVON install the MATCH\n"
-	.string "CALL system on your POKéNAV!\p"
+	.string "Brendan: Oh, hey, {Player}!\p"
+	.string "Cool, you had Devon install the Match\n"
+	.string "Call system on your Pokénav!\p"
 	.string "Let's register each other in our\n"
-	.string "POKéNAVS so we can keep in touch.$"
+	.string "Pokénavs so we can keep in touch.$"
 
 Route104_Text_RegisteredBrendan:
-	.string "{Player} registered BRENDAN\n"
-	.string "in the POKéNAV.$"
+	.string "{Player} registered Brendan\n"
+	.string "in the Pokénav.$"
 
 Route104_Text_BrendanHowsYourPokedex:
-	.string "BRENDAN: {Player}, how's your Pokédex?\n"
+	.string "Brendan: {Player}, how's your Pokédex?\n"
 	.string "Have you filled in any pages yet?$"
 
 Route104_Text_BrendanDoingGreatLetsBattle:
@@ -1093,25 +1093,25 @@ Route104_Text_BrendanDoingGreatLetsBattle:
 	.string "a battle?$"
 
 Route104_Text_BrendanNoConfidence:
-	.string "BRENDAN: What's the matter? Don't have\n"
+	.string "Brendan: What's the matter? Don't have\n"
 	.string "any confidence in your Pokémon?$"
 
 Route104_Text_BrendanLetsBattle:
-	.string "BRENDAN: What's up?\n"
+	.string "Brendan: What's up?\n"
 	.string "Want to have a battle with me?$"
 
 Route104_Text_BrendanIntro:
-	.string "BRENDAN: I know you just became\n"
-	.string "a TRAINER, but I won't go easy!$"
+	.string "Brendan: I know you just became\n"
+	.string "a trainer, but I won't go easy!$"
 
 Route104_Text_BrendanDefeat:
 	.string "Hmm…\n"
 	.string "You're pretty good.$"
 
 Route104_Text_BrendanPostBattle:
-	.string "BRENDAN: You've gotten pretty decent\n"
+	.string "Brendan: You've gotten pretty decent\n"
 	.string "at handling Pokémon.\p"
 	.string "But, you know, you shouldn't just be\n"
 	.string "making Pokémon battle.\p"
-	.string "Like MR. BRINEY, it's important to\n"
+	.string "Like Mr. Briney, it's important to\n"
 	.string "become friends with your Pokémon.$"

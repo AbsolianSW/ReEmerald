@@ -498,7 +498,7 @@ BattleFrontier_BattleArenaBattleRoom_Text_PlayerStepForward:
 	.string "Step forward, please!$"
 
 BattleFrontier_BattleArenaBattleRoom_Text_OpponentStepForward:
-	.string "REFEREE: TRAINER {STR_VAR_1}!\n"
+	.string "REFEREE: TRAINER {Str_Var_1}!\n"
 	.string "Step forward, please!$"
 
 BattleFrontier_BattleArenaBattleRoom_Text_SetKOTourneyBegin:
@@ -509,7 +509,7 @@ BattleFrontier_BattleArenaBattleRoom_Text_WinnerIsPlayer:
 	.string "REFEREE: The winner is {Player}!$"
 
 BattleFrontier_BattleArenaBattleRoom_Text_WinnerIsOpponent:
-	.string "REFEREE: The winner is {STR_VAR_1}!$"
+	.string "REFEREE: The winner is {Str_Var_1}!$"
 
 BattleFrontier_BattleArenaBattleRoom_Text_MonsWillBeRestored:
 	.string "Your Pokémon will be restored to\n"

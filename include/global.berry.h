@@ -9,7 +9,7 @@ struct Berry
     const u8 name[BERRY_NAME_LENGTH + 1];
     u8 firmness;
     u16 size;
-    u8 maxYield;
+    u8 maxYield; //these are multiplied by 5 to get actual yields
     u8 minYield;
     const u8 *description1;
     const u8 *description2;

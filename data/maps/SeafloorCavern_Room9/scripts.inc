@@ -249,7 +249,7 @@ SeafloorCavern_Room9_Text_ArchieSoItWasYou:
 SeafloorCavern_Room9_Text_ArchieBeholdKyogre:
 	.string "Archie: Behold!\p"
 	.string "See how beautiful it is, the sleeping\n"
-	.string "form of the ancient Pokémon KYOGRE!\p"
+	.string "form of the ancient Pokémon Kyogre!\p"
 	.string "I have waited so long for this day to\n"
 	.string "come…$"
 

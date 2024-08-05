@@ -26,7 +26,7 @@
 	special CallVerdanturfTentFunction
 	.endm
 
-	@ Buffers the opponents intro speech to STR_VAR_4. Despite being a Verdanturf Tent function, it serves the same purpose for all 3 tents.
+	@ Buffers the opponents intro speech to Str_Var_4. Despite being a Verdanturf Tent function, it serves the same purpose for all 3 tents.
 	.macro battletent_getopponentintro
 	setvar VAR_0x8004, VERDANTURF_TENT_FUNC_GET_OPPONENT_INTRO
 	special CallVerdanturfTentFunction
@@ -93,7 +93,7 @@
 	special CallFallarborTentFunction
 	.endm
 
-	@ Buffer the opponent trainers name to STR_VAR_1
+	@ Buffer the opponent trainers name to Str_Var_1
 	.macro fallarbortent_getopponentname
 	setvar VAR_0x8004, FALLARBOR_TENT_FUNC_GET_OPPONENT_NAME
 	special CallFallarborTentFunction

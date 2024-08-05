@@ -1,6 +1,6 @@
 Std_RegisteredInMatchCall::
-	buffertrainerclassname STR_VAR_1, VAR_0x8000
-	buffertrainername STR_VAR_2, VAR_0x8000
+	buffertrainerclassname Str_Var_1, VAR_0x8000
+	buffertrainername Str_Var_2, VAR_0x8000
 	closemessage
 	delay 30
 	playfanfare MUS_REGISTER_MATCH_CALL

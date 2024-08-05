@@ -1,14 +1,14 @@
 gText_FollowerLovesYou::
-  .string "{STR_VAR_1} is regarding you with\nadoration!$"
+  .string "{Str_Var_1} is regarding you with\nadoration!$"
 
 gText_FollowerLostInThought::
-	.string "{STR_VAR_1} seems lost in thought.$"
+	.string "{Str_Var_1} seems lost in thought.$"
 
 gText_FollowerDefault::
 	.string "ERROR 404: Script not found.$"
 
 gText_WantsToFly::
-	.string "{STR_VAR_1} looks up at the\nsky restlessly.\pWould you like to use Fly?$"
+	.string "{Str_Var_1} looks up at the\nsky restlessly.\pWould you like to use Fly?$"
 
 .macro playfirstmoncry
 callfunc ScrFunc_playfirstmoncry

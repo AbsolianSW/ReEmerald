@@ -3966,12 +3966,7 @@ void GetFollowerCardinalDirection(void)
     u8 playerX, playerY, followerX, followerY;
     u32 i=0;
     struct ObjectEvent* player = &gObjectEvents[gPlayerAvatar.objectEventId];
-    struct ObjectEvent* follower;
-    for(i; i< OBJECT_EVENTS_COUNT;i++)
-    {
-        if(gObjectEvents[i].movementType == MOVEMENT_TYPE_FOLLOW_PLAYER)
-            follower = &gObjectEvents[i];
-    }
+    struct ObjectEvent* follower = GetFollowerObject();
     playerX = player->currentCoords.x;
     playerY = player->currentCoords.y;
     followerX = follower->currentCoords.x;

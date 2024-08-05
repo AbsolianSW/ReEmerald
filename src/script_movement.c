@@ -218,21 +218,37 @@ static void ScriptMovement_TakeStep(u8 taskId, u8 moveScrId, u8 objEventId, cons
     if (nextMoveActionId == MOVEMENT_ACTION_STEP_END)
     {
         SetMovementScriptFinished(taskId, moveScrId);
-        FreezeObjectEvent(&gObjectEvents[objEventId]);
+        if(gObjectEvents[objEventId].movementType != MOVEMENT_TYPE_FOLLOW_PLAYER)//don't freeze follower after scripted movement
+            FreezeObjectEvent(&gObjectEvents[objEventId]);
     }
     else
     {
-        if(gObjectEvents[objEventId].isPlayer)
+        if(gObjectEvents[objEventId].isPlayer)//set copyable movement so follower will follow during scripted movement
         {
-            for(i=0;i<16;i++)
-            {
-                if(gObjectEvents[i].movementType == MOVEMENT_TYPE_FOLLOW_PLAYER)
-                {
-                    //UnfreezeObjectEvent(&gObjectEvents[i]); //unfreeze follower so it can follow the player
-                    DebugPrintf("frozen set to %d, active set to %d",gObjectEvents[i].frozen,gObjectEvents[i].active);
-                }
-            }
-            PlayerSetCopyableMovement(COPY_MOVE_WALK);
+            if(nextMoveActionId == MOVEMENT_ACTION_FACE_DOWN ||
+               nextMoveActionId == MOVEMENT_ACTION_FACE_UP ||
+               nextMoveActionId == MOVEMENT_ACTION_FACE_LEFT ||
+               nextMoveActionId == MOVEMENT_ACTION_FACE_RIGHT ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_SLOW_DOWN ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_SLOW_UP ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_SLOW_LEFT ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_SLOW_RIGHT ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_NORMAL_DOWN ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_NORMAL_UP ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_NORMAL_LEFT ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_NORMAL_RIGHT ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_FAST_DOWN ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_FAST_UP ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_FAST_LEFT ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_FAST_RIGHT ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_FASTER_DOWN ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_FASTER_UP ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_FASTER_LEFT ||
+               nextMoveActionId == MOVEMENT_ACTION_WALK_IN_PLACE_FASTER_RIGHT 
+               )
+               PlayerSetCopyableMovement(COPY_MOVE_FACE);
+            else
+                PlayerSetCopyableMovement(COPY_MOVE_WALK);
         }
         if (!ObjectEventSetHeldMovement(&gObjectEvents[objEventId], nextMoveActionId))
         {

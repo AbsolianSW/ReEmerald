@@ -1536,7 +1536,7 @@ void DrawLevelUpWindowPg1(u16 windowId, u16 *statsBefore, u16 *statsAfter, u8 bg
         AddTextPrinterParameterized3(windowId,
                                      FONT_NORMAL,
                                      0,
-                                     15 * i,
+                                     14 * i,
                                      color,
                                      TEXT_SKIP_DRAW,
                                      sLvlUpStatStrings[i]);
@@ -1545,7 +1545,7 @@ void DrawLevelUpWindowPg1(u16 windowId, u16 *statsBefore, u16 *statsAfter, u8 bg
         AddTextPrinterParameterized3(windowId,
                                      FONT_NORMAL,
                                      56,
-                                     15 * i,
+                                     14 * i,
                                      color,
                                      TEXT_SKIP_DRAW,
                                      text);
@@ -1558,7 +1558,7 @@ void DrawLevelUpWindowPg1(u16 windowId, u16 *statsBefore, u16 *statsAfter, u8 bg
         AddTextPrinterParameterized3(windowId,
                                      FONT_NORMAL,
                                      56 + x,
-                                     15 * i,
+                                     14 * i,
                                      color,
                                      TEXT_SKIP_DRAW,
                                      text);
@@ -1600,7 +1600,7 @@ void DrawLevelUpWindowPg2(u16 windowId, u16 *currStats, u8 bgClr, u8 fgClr, u8 s
         AddTextPrinterParameterized3(windowId,
                                      FONT_NORMAL,
                                      0,
-                                     15 * i,
+                                     14 * i,
                                      color,
                                      TEXT_SKIP_DRAW,
                                      sLvlUpStatStrings[i]);
@@ -1608,7 +1608,7 @@ void DrawLevelUpWindowPg2(u16 windowId, u16 *currStats, u8 bgClr, u8 fgClr, u8 s
         AddTextPrinterParameterized3(windowId,
                                      FONT_NORMAL,
                                      56 + x,
-                                     15 * i,
+                                     14 * i,
                                      color,
                                      TEXT_SKIP_DRAW,
                                      text);

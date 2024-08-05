@@ -14,7 +14,7 @@ ShoalCave_LowTideEntranceRoom_Text_BringMe4ShoalSaltAndShells:
 	.string "every day.$"
 
 ShoalCave_LowTideEntranceRoom_Text_WouldYouLikeShellBell:
-	.string "Oh, hey! Shoal Salt and Shoal SHELLS!\n"
+	.string "Oh, hey! Shoal Salt and Shoal Shells!\n"
 	.string "And enough of them, too!\p"
 	.string "Would you like me to make you\n"
 	.string "a Shell Bell with them?$"
@@ -39,7 +39,7 @@ ShoalCave_LowTideEntranceRoom_Text_WantedToMakeShellBell:
 	.string "I wanted to make a Shell Bell…$"
 
 ShoalCave_LowTideEntranceRoom_Text_NoSpaceInYourBag:
-	.string "You don't have space in your BAG\n"
+	.string "You don't have space in your bag\n"
 	.string "if I were to make it for you.\p"
 	.string "You should make room and come back\n"
 	.string "for a Shell Bell.$"

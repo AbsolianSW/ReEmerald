@@ -25,7 +25,7 @@ CableClub_Text_CloseThisMenu:
 	.string "Close this menu.$"
 
 CableClub_Text_NeedTwoMonsForDoubleBattle:
-	.string "For a Double battle, you must\n"
+	.string "For a Double Battle, you must\n"
 	.string "have at least two Pokémon.$"
 
 CableClub_Text_NeedTwoMonsToTrade:
@@ -33,7 +33,7 @@ CableClub_Text_NeedTwoMonsToTrade:
 	.string "least two Pokémon with you.$"
 
 CableClub_Text_CantTradeEnigmaBerry:
-	.string "A Pokémon holding the {STR_VAR_1}\n"
+	.string "A Pokémon holding the {Str_Var_1}\n"
 	.string "berry can't be traded.$"
 
 gText_PleaseWaitForLink::
@@ -46,7 +46,7 @@ gText_ConfirmLinkWhenPlayersReady::
 	.string "B Button: Cancel$"
 
 gText_ConfirmStartLinkWithXPlayers::
-	.string "Start link with {STR_VAR_1} players.\n"
+	.string "Start link with {Str_Var_1} players.\n"
 	.string "A Button: Confirm\l"
 	.string "B Button: Cancel$"
 
@@ -86,12 +86,12 @@ CableClub_Text_IncorrectNumberOfParticipants:
 	.string "incorrect.$"
 
 CableClub_Text_CantSingleBattleWithXPlayers:
-	.string "The Single battle Mode can't be\n"
-	.string "played by {STR_VAR_1} players.$"
+	.string "The Single Battle Mode can't be\n"
+	.string "played by {Str_Var_1} players.$"
 
 CableClub_Text_CantDoubleBattleWithXPlayers:
-	.string "The Double battle Mode can't be\n"
-	.string "played by {STR_VAR_1} players.$"
+	.string "The Double Battle Mode can't be\n"
+	.string "played by {Str_Var_1} players.$"
 
 CableClub_Text_NeedFourPlayers:
 	.string "There must be four players to play\n"
@@ -115,13 +115,13 @@ CableClub_Text_TooBusyToNotice:
 	.string "notice…$"
 
 CableClub_Text_GotToLookAtTrainerCard:
-	.string "Score! Got to look at {STR_VAR_1}'s\n"
+	.string "Score! Got to look at {Str_Var_1}'s\n"
 	.string "Trainer Card!$"
 
 CableClub_Text_GotToLookAtColoredTrainerCard:
-	.string "Score! Got to look at {STR_VAR_1}'s\n"
+	.string "Score! Got to look at {Str_Var_1}'s\n"
 	.string "Trainer Card!\p"
-	.string "It's a {STR_VAR_2} card!$"
+	.string "It's a {Str_Var_2} card!$"
 
 BattleColosseum_2P_Text_TakePlaceStartBattle:
 	.string "Please take your place and start\n"
@@ -158,8 +158,8 @@ RecordCorner_Text_TakeSeatAndWait:
 	.string "Please take your seat and wait.$"
 
 RecordCorner_Text_PlayerSentOverOneX:
-	.string "{STR_VAR_1} sent over one\n"
-	.string "{STR_VAR_2}.$"
+	.string "{Str_Var_1} sent over one\n"
+	.string "{Str_Var_2}.$"
 
 CableClub_Text_CantMixWithJapaneseGame:
 	.string "Sorry, there is a transmission error.\p"
@@ -226,7 +226,7 @@ CableClub_Text_NeedTwoMonsForUnionRoom:
 	.string "have at least two Pokémon.$"
 
 CableClub_Text_NoEnigmaBerryInUnionRoom:
-	.string "No Pokémon holding the {STR_VAR_1}\n"
+	.string "No Pokémon holding the {Str_Var_1}\n"
 	.string "berry may enter the Union Room.$"
 
 CableClub_Text_UnionRoomAdapterNotConnected:
@@ -242,7 +242,7 @@ CableClub_Text_OhExcuseMe:
 	.string "Excuse me!$"
 
 CableClub_Text_PlayerIsWaiting:
-	.string "It appears as if {STR_VAR_1} is playing\n"
+	.string "It appears as if {Str_Var_1} is playing\n"
 	.string "right now.\l"
 	.string "Go for it!$"
 
@@ -356,15 +356,15 @@ CableClub_Text_UseBerryCrush:
 
 CableClub_Text_ExplainBattleModes:
 	.string "There are three Battle Modes.\p"
-	.string "Single battle is for two trainers\n"
+	.string "Single Battle is for two trainers\n"
 	.string "with one or more Pokémon each.\p"
 	.string "Each trainer can have one Pokémon\n"
 	.string "in battle at a time.\p"
-	.string "double battle is for two trainers\n"
+	.string "Double Battle is for two trainers\n"
 	.string "with two or more Pokémon each.\p"
 	.string "Each trainer will send out two\n"
 	.string "Pokémon in battle at a time.\p"
-	.string "Multi battle is for four trainers\n"
+	.string "Multi Battle is for four trainers\n"
 	.string "with one or more Pokémon each.\p"
 	.string "Each trainer can have one Pokémon\n"
 	.string "in battle at a time.$"
@@ -471,7 +471,7 @@ CableClub_Text_ExplainWirelessClub:
 	.string "with your friends in this room.\p"
 	.string "Sometimes, you may not be able to\n"
 	.string "find your friends in the Union Room\l"
-	.string "or the Direct CORNER.\p"
+	.string "or the Direct Corner.\p"
 	.string "In that case, please move closer\n"
 	.string "to your friends.\p"
 	.string "If the Wireless Adapter isn't\n"

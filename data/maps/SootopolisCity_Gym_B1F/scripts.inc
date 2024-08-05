@@ -164,7 +164,7 @@ SootopolisCity_Gym_B1F_Text_AnnikaDefeat:
 	.string "at my Pokémon?$"
 
 SootopolisCity_Gym_B1F_Text_AnnikaPostBattle:
-	.string "I came to this GYM because Juan\n"
+	.string "I came to this Gym because Juan\n"
 	.string "praised me for my darling Pokémon.\p"
 	.string "Oh, if only I'd met Juan years ago\n"
 	.string "when I was younger…$"

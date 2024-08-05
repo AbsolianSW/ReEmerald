@@ -46,13 +46,13 @@ Island1_PokemonCenter_1F_Text_TradedWithBoyfriend:
 	.string "I traded Pokémon with my boyfriend\n"
     .string "far away!\p"
     .string "Everyone's saying that we can\n"
-    .string "thank CELIO for that.\p"
+    .string "thank Celio for that.\p"
     .string "What a guy!$"
     
 Island1_PokemonCenter_1F_Text_CameFromLittlerootDontKnowIt::
     .string "Oh, you're a stranger here!\n"
     .string "Hi! Where did you come from?\p"
-    .string "…LITTLEROOT TOWN?\n"
+    .string "…Littleroot Town?\n"
     .string "I don't know it!$"
 
 Island1_PokemonCenter_1F_Text_EnormousVolcanoOnIsland::

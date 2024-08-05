@@ -766,7 +766,7 @@
 	trainerbattle TRAINER_BATTLE_REMATCH, \trainer, 0, \intro_text, \lose_text
 	.endm
 
-	@ Starts a rematch double battle. Takes a trainer, intro text, loss text, and text for when you have too few pokemon
+	@ Starts a rematch Double Battle. Takes a trainer, intro text, loss text, and text for when you have too few pokemon
 	.macro trainerbattle_rematch_double trainer:req, intro_text:req, lose_text:req, not_enough_pkmn_text:req
 	trainerbattle TRAINER_BATTLE_REMATCH_DOUBLE, \trainer, 0, \intro_text, \lose_text, \not_enough_pkmn_text
 	.endm
@@ -1027,16 +1027,16 @@
 	.2byte \move
 	.endm
 
-	@ Converts STR_VAR_1, STR_VAR_2, or STR_VAR_3 to its corresponding index into sScriptStringVars (0, 1, or 2).
+	@ Converts Str_Var_1, Str_Var_2, or Str_Var_3 to its corresponding index into sScriptStringVars (0, 1, or 2).
 	@ If given anything else it will output it directly.
-	@ Note: Because the STR_VAR_# arguments given to this macro are not part of a processed string they are not
-	@       replaced with their charmap values, they are just passed as the literal characters "STR_VAR_#".
+	@ Note: Because the Str_Var_# arguments given to this macro are not part of a processed string they are not
+	@       replaced with their charmap values, they are just passed as the literal characters "Str_Var_#".
 	.macro stringvar id:req
-	.if \id == STR_VAR_1
+	.if \id == Str_Var_1
 		.byte 0
-	.elseif \id == STR_VAR_2
+	.elseif \id == Str_Var_2
 		.byte 1
-	.elseif \id == STR_VAR_3
+	.elseif \id == Str_Var_3
 		.byte 2
 	.else
 		.byte \id
@@ -1969,5 +1969,10 @@
 	@0=north, 1=east, 2=south, 3=west
 	.macro getfollowercardinaldirection
 	callnative GetFollowerCardinalDirection
+	.endm
+
+	.macro IsFollowerFieldMoveUser var:req
+	callfunc ScrFunc_IsFollowerFieldMoveUser
+	.2byte \var
 	.endm
 	

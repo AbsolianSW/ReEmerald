@@ -2040,8 +2040,9 @@ bool8 ScrCmd_dofieldeffect(struct ScriptContext *ctx)
 bool8 ScrCmd_setfieldeffectargument(struct ScriptContext *ctx)
 {
     u8 argNum = ScriptReadByte(ctx);
-
-    gFieldEffectArguments[argNum] = (s16)VarGet(ScriptReadHalfword(ctx));
+    s16 arg = (s16)VarGet(ScriptReadHalfword(ctx));
+    DebugPrintf("setting arg to %d",arg );
+    gFieldEffectArguments[argNum] = arg;
     return FALSE;
 }
 

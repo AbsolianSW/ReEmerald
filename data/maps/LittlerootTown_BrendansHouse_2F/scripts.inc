@@ -392,11 +392,11 @@ PlayersHouse_2F_Text_NotebookForceSetMode:
 PlayersHouse_2F_Text_NotebookCustomStarter:
 	.string "Starter Choices: Your starter\n"
 	.string "choices are:\p"
-	.string "{STR_VAR_1}, {STR_VAR_2} and \n"
-	.string "{STR_VAR_3}.$"
+	.string "{Str_Var_1}, {Str_Var_2} and \n"
+	.string "{Str_Var_3}.$"
 	
 PlayersHouse_2F_Text_NotebookXPMultiplier:
-	.string "XP Multiplier set to {STR_VAR_1}$"
+	.string "XP Multiplier set to {Str_Var_1}$"
 	
 PlayersHouse_2F_Text_NotebookInfiniteCandy:
 	.string "Infinite Candy: You started the\n"
@@ -409,11 +409,11 @@ PlayersHouse_2F_Text_NotebookRepellant:
 	.string "infinite Repel.$"
 
 PlayersHouse_2F_Text_NotebookShinyOdds::
-	.string "The shiny odds are {STR_VAR_2}.$"
+	.string "The shiny odds are {Str_Var_2}.$"
 
 PlayersHouse_2F_Text_NotebookStartingMoney::
 	.string "You started with a small loan of\n"
-	.string "{STR_VAR_3}.$"
+	.string "{Str_Var_3}.$"
 
 PlayersHouse_2F_Text_NotebookStarterAffectsRival::
 	.string "Your custom starter choices affect\n"

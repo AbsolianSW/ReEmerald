@@ -134,7 +134,7 @@ Island2_JoyfulGameCorner_Text_IPromise::
 
 Island2_JoyfulGameCorner_Text_NotAgain::
 	.string "What is this? Why do dirty thugs keep\n"
-	.string "coming into my GAME CORNER? Out, I say,\p"
+	.string "coming into my Game Corner? Out, I say,\p"
 	.string "GET OUT!!$"
 	
 Island2_JoyfulGameCorner_Text_OutOfMyWay::
@@ -143,7 +143,7 @@ Island2_JoyfulGameCorner_Text_OutOfMyWay::
 Island2_JoyfulGameCorner_Text_YoureComingWithMe::
 	.string "Shut up old man! You, little girl! You're\n"
 	.string "coming with me. And don't anyone dare\p"
-	.string "follow me out! Official TEAM AQUA\n"
+	.string "follow me out! Official Team Aqua\n"
 	.string "business!$"
 	
 Island2_JoyfulGameCorner_Text_DontTakeMe::

@@ -807,7 +807,7 @@ LilycoveCity_ContestLobby_EventScript_CancelLinkTransmissionError::
 LilycoveCity_ContestLobby_EventScript_StartLinkContest::
 	special GetContestPlayerId
 	addvar VAR_0x8004, 1
-	buffernumberstring STR_VAR_2, VAR_0x8004
+	buffernumberstring Str_Var_2, VAR_0x8004
 	messageautoscroll LilycoveCity_ContestLobby_Text_YourMonIsEntryNumX
 	waitmessage
 	subvar VAR_0x8004, 1
@@ -1029,7 +1029,7 @@ LilycoveCity_ContestLobby_Text_ReceivedARibbon:
 
 LilycoveCity_ContestLobby_Text_PutTheRibbonOnMon:
 	.string "{Player} put the ribbon on\n"
-	.string "{STR_VAR_1}.$"
+	.string "{Str_Var_1}.$"
 
 LilycoveCity_ContestLobby_Text_OkaySeeYou:
 	.string "Okay, see you!$"

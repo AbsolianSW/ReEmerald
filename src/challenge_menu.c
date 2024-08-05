@@ -239,7 +239,7 @@ static const u8 sChallengeDetailTexts[PAGE_COUNT*(ROWS_OPTIONS-1)][DETAIL_TEXT_L
 {
     [MENUITEM_LIMITEDENCOUNTERS] = _("You can only catch the first\nencounter per Location. Underwater\nRoutes not counted separately."),
     [MENUITEM_SPECIESCLAUSE] = _("Encounters of families you have\nalready caught do not count against\nthe limit."),
-    [MENUITEM_PERMADEATH] = _("If a Pokemon faints, it can not be\nrevived through any means."),
+    [MENUITEM_PERMADEATH] = _("If a Pokémon faints, it can not be\nrevived through any means."),
     [MENUITEM_FORCESETMODE] = _("Every battle will be in set mode,\nno matter what you select in the\noptions."),
     [MENUITEM_INFINITECANDY] = _("You start the game with a key item\nthat functions as an infinitely\nreusable Rare Candy."),
     [MENUITEM_REPELLANT] = _("You start the game with a key item\nthat functions as toggleable\nRepel."),
@@ -251,7 +251,7 @@ static const u8 sChallengeDetailTexts[PAGE_COUNT*(ROWS_OPTIONS-1)][DETAIL_TEXT_L
     [MENUITEM_STARTERAFFECTSRIVAL] = _("If set, the rival will use the\nspecies specified above, evolving\nat appropriate levels"),
     [MENUITEM_LEVELCAP] = _("Caps level to the next boss fights\nace's level. Extreme instead caps \nto 85%."),
     [MENUITEM_GAUNTLETMODE] = _("When you enter a route, dungeon or\ngym, you can't leave until you defeat\nevery trainer. Boss fights heal you."),
-    [MENUITEM_NOBATTLEITEMS] = _("You won't be able to use items in\nbattle except for Pokéballs and held\nitems. Opponents unaffected."),
+    [MENUITEM_NOBATTLEITEMS] = _("You won't be able to use items in\nbattle except for Poké Balls and held\nitems. Opponents unaffected."),
     [MENUITEM_XPMULTIPLIER] = _("This multiplier will be applied to all\nexperience earned.")
 };
 

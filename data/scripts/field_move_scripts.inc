@@ -1,7 +1,3 @@
-.macro IsFollowerFieldMoveUser var:req
-callfunc ScrFunc_IsFollowerFieldMoveUser
-.2byte \var
-.endm
 
 @ Interact with cuttable tree
 EventScript_CutTree::
@@ -10,8 +6,8 @@ EventScript_CutTree::
 	checkpartymove MOVE_CUT
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckTreeCantCut
 	setfieldeffectargument 0, VAR_RESULT
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, MOVE_CUT
+	bufferpartymonnick Str_Var_1, VAR_RESULT
+	buffermovename Str_Var_2, MOVE_CUT
 	msgbox Text_WantToCut, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_CancelCut
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
@@ -57,7 +53,7 @@ Text_WantToCut:
 	.string "Would you like to Cut it?$"
 
 Text_MonUsedFieldMove:
-	.string "{STR_VAR_1} used {STR_VAR_2}!$"
+	.string "{Str_Var_1} used {Str_Var_2}!$"
 
 Text_CantCut:
 	.string "This tree looks like it can be\n"
@@ -75,8 +71,8 @@ EventScript_RockSmash::
 	checkpartymove MOVE_ROCK_SMASH
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSmashRock
 	setfieldeffectargument 0, VAR_RESULT
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
-	buffermovename STR_VAR_2, MOVE_ROCK_SMASH
+	bufferpartymonnick Str_Var_1, VAR_RESULT
+	buffermovename Str_Var_2, MOVE_ROCK_SMASH
 	msgbox Text_WantToSmash, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_CancelSmash
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
@@ -132,7 +128,7 @@ EventScript_FollowerSwap:
 	return
 
 EventScript_FollowerMoveNorth:
-	applymovement OBJ_EVENT_ID_FOLLOWER, Movement_WalkUp
+	@applymovement OBJ_EVENT_ID_FOLLOWER, Movement_WalkUp ---- no longer need this because the follower copies us during scripted movements
 	applymovement OBJ_EVENT_ID_PLAYER, Movement_WalkDown
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
@@ -140,7 +136,7 @@ EventScript_FollowerMoveNorth:
 	return
 
 EventScript_FollowerMoveEast:
-	applymovement OBJ_EVENT_ID_FOLLOWER, Movement_WalkRight
+	@applymovement OBJ_EVENT_ID_FOLLOWER, Movement_WalkRight
 	applymovement OBJ_EVENT_ID_PLAYER, Movement_WalkLeft
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
@@ -148,7 +144,7 @@ EventScript_FollowerMoveEast:
 	return
 
 EventScript_FollowerMoveSouth:
-	applymovement OBJ_EVENT_ID_FOLLOWER, Movement_WalkDown
+	@applymovement OBJ_EVENT_ID_FOLLOWER, Movement_WalkDown
 	applymovement OBJ_EVENT_ID_PLAYER, Movement_WalkUp
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown
@@ -156,7 +152,7 @@ EventScript_FollowerMoveSouth:
 	return
 
 EventScript_FollowerMoveWest:
-	applymovement OBJ_EVENT_ID_FOLLOWER, Movement_WalkLeft
+	@applymovement OBJ_EVENT_ID_FOLLOWER, Movement_WalkLeft
 	applymovement OBJ_EVENT_ID_PLAYER, Movement_WalkRight
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft
@@ -286,8 +282,8 @@ Text_WantToStrength:
 	.string "Would you like to use Strength?$"
 
 Text_MonUsedStrength:
-	.string "{STR_VAR_1} used Strength!\p"
-	.string "{STR_VAR_1}'s Strength made it\n"
+	.string "{Str_Var_1} used Strength!\p"
+	.string "{Str_Var_1}'s Strength made it\n"
 	.string "possible to move boulders around!$"
 
 Text_CantStrength:
@@ -302,7 +298,7 @@ EventScript_UseWaterfall::
 	lockall
 	checkpartymove MOVE_WATERFALL
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantWaterfall
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	bufferpartymonnick Str_Var_1, VAR_RESULT
 	setfieldeffectargument 0, VAR_RESULT
 	msgbox Text_WantToWaterfall, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_EndWaterfall
@@ -329,13 +325,13 @@ Text_WantToWaterfall:
 	.string "Would you like to use Waterfall?$"
 
 Text_MonUsedWaterfall:
-	.string "{STR_VAR_1} used Waterfall.$"
+	.string "{Str_Var_1} used Waterfall.$"
 
 EventScript_UseDive::
 	lockall
 	checkpartymove MOVE_DIVE
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantDive
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	bufferpartymonnick Str_Var_1, VAR_RESULT
 	setfieldeffectargument 0, VAR_RESULT
 	setfieldeffectargument 1, 1
 	msgbox Text_WantToDive, MSGBOX_YESNO
@@ -358,7 +354,7 @@ EventScript_UseDiveUnderwater::
 	lockall
 	checkpartymove MOVE_DIVE
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSurface
-	bufferpartymonnick STR_VAR_1, VAR_RESULT
+	bufferpartymonnick Str_Var_1, VAR_RESULT
 	setfieldeffectargument 0, VAR_RESULT
 	setfieldeffectargument 1, 1
 	msgbox Text_WantToSurface, MSGBOX_YESNO
@@ -387,7 +383,7 @@ Text_WantToDive:
 	.string "Would you like to use Dive?$"
 
 Text_MonUsedDive:
-	.string "{STR_VAR_1} used Dive.$"
+	.string "{Str_Var_1} used Dive.$"
 
 Text_CantSurface:
 	.string "Light is filtering down from above.\n"

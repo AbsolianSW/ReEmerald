@@ -1062,7 +1062,7 @@ static const struct InGameTrade sIngameTrades[] =
         .otName = _("Lora"),
         .otGender = FEMALE,
         .sheen = 10,
-        .requestedSpecies = SPECIES_VOLTORB
+        .requestedSpecies = SPECIES_POOCHYENA
     }
 };
 

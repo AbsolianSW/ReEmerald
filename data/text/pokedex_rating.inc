@@ -1,5 +1,5 @@
 gBirchDexRatingText_AreYouCurious::
-	.string "Prof. Birch: Ah, {Player}{KUN}!\p"
+	.string "Prof. Birch: Ah, {Player}{Kun}!\p"
 	.string "Are you curious about how your\n"
 	.string "Pokédex is coming along?$"
 
@@ -9,8 +9,8 @@ gBirchDexRatingText_Cancel::
 
 gBirchDexRatingText_SoYouveSeenAndCaught::
 	.string "Hmhm…\p"
-	.string "So, you've seen {STR_VAR_1} Pokémon,\n"
-	.string "and you've caught {STR_VAR_2} Pokémon…$"
+	.string "So, you've seen {Str_Var_1} Pokémon,\n"
+	.string "and you've caught {Str_Var_2} Pokémon…$"
 
 gBirchDexRatingText_LessThan10::
 	.string "Go into grassy areas more and look\n"
@@ -35,7 +35,7 @@ gBirchDexRatingText_LessThan50::
 	.string "Keep up the effort.$"
 
 gBirchDexRatingText_LessThan60::
-	.string "Are you using any RODS?\n"
+	.string "Are you using any rods?\n"
 	.string "There are many Pokémon in the sea.$"
 
 gBirchDexRatingText_LessThan70::
@@ -111,5 +111,5 @@ gBirchDexRatingText_DexCompleted::
 gBirchDexRatingText_OnANationwideBasis::
 	.string "Hmhm…\n"
 	.string "On a nationwide basis…\p"
-	.string "You've seen {STR_VAR_1} Pokémon,\n"
-	.string "and you've caught {STR_VAR_2} Pokémon…$"
+	.string "You've seen {Str_Var_1} Pokémon,\n"
+	.string "and you've caught {Str_Var_2} Pokémon…$"
