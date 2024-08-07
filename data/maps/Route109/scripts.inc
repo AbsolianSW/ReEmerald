@@ -15,8 +15,8 @@ Route109_OnTransition::
 
 Route109_OnTransition2::
 	setvar VAR_TEMP_4, 8478
-	setobjectmovementtype 25 ,MOVEMENT_TYPE_WALK_SEQUENCE_RIGHT_DOWN_LEFT_UP
-	setobjectmovementtype 26 ,MOVEMENT_TYPE_WALK_SEQUENCE_LEFT_DOWN_RIGHT_UP
+	setobjectmovementtype LOCALID_LORA ,MOVEMENT_TYPE_WALK_SEQUENCE_RIGHT_DOWN_LEFT_UP
+	setobjectmovementtype LOCALID_LORA_PET ,MOVEMENT_TYPE_WALK_SEQUENCE_LEFT_DOWN_RIGHT_UP
 	end
 
 Route109_EventScript_StartDepartForDewford::
@@ -523,6 +523,8 @@ Route109_EventScript_Trade::
 	waitstate
 	setvar VAR_TEMP_4, 8478
 	addobject LOCALID_LORA_PET
+	setobjectmovementtype LOCALID_LORA ,MOVEMENT_TYPE_WALK_SEQUENCE_RIGHT_DOWN_LEFT_UP
+	setobjectmovementtype LOCALID_LORA_PET ,MOVEMENT_TYPE_WALK_SEQUENCE_LEFT_DOWN_RIGHT_UP
 	msgbox Route109_Text_ThankYouSoMuch, MSGBOX_DEFAULT
 	setflag FLAG_ROUTE109_NPC_TRADE_COMPLETED
 	release

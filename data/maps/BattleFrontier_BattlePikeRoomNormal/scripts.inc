@@ -717,10 +717,10 @@ BattleFrontier_BattlePikeRoomNormal_Text_KirliaUsedThunderWave:
 	.string "Kirlia used Thunder Wave!$"
 
 BattleFrontier_BattlePikeRoomNormal_Text_KirliaUsedWillOWisp:
-	.string "Kirlia used Will-o-Wisp!$"
+	.string "Kirlia used Will-O-Wisp!$"
 
 BattleFrontier_BattlePikeRoomNormal_Text_DusclopsUsedWillOWisp:
-	.string "Dusclops used Will-o-Wisp!$"
+	.string "Dusclops used Will-O-Wisp!$"
 
 BattleFrontier_BattlePikeRoomNormal_Text_DusclopsUsedIceBeam:
 	.string "Dusclops used Ice Beam!$"

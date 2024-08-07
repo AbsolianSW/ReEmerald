@@ -3971,7 +3971,6 @@ void GetFollowerCardinalDirection(void)
     playerY = player->currentCoords.y;
     followerX = follower->currentCoords.x;
     followerY = follower->currentCoords.y;
-    DebugPrintf("follower x:%d,y:%d, player x:%d,y:%d", followerX,followerY,playerX,playerY);
     if(followerX == playerX)
     {
         if(followerY > playerY)
@@ -3986,6 +3985,5 @@ void GetFollowerCardinalDirection(void)
         else
             gSpecialVar_Unused_0x8014 = 3;
     }
-    DebugPrintf("var set to %d", gSpecialVar_Unused_0x8014);
     return;
 }

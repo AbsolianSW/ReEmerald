@@ -2389,7 +2389,7 @@ static void MainMenu_FormatPartySprites(u8 taskId)
     u32 i = 0;
     u16 species;
     u32 personality;
-    u16 x=186,y=Y_ORIG;
+    u16 x=184,y=Y_ORIG;
     u8 spriteIndex = 2;
     struct Pokemon mon;
     for (i; i < gSaveBlock1Ptr->playerPartyCount; i++)

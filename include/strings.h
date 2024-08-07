@@ -568,6 +568,7 @@ extern const u8 gText_SearchingPleaseWait[];
 extern const u8 gText_SearchCompleted[];
 extern const u8 gText_NoMatchingPkmnWereFound[];
 extern const u8 gText_SelectorArrow[];
+extern const u8 gText_EmptySpace[];
 
 // birch dex rating text
 extern const u8 gBirchDexRatingText_LessThan10[];
@@ -3120,5 +3121,7 @@ extern const u8 gText_Tutor[];
 extern const u8 gText_PreEvo[];
 extern const u8 gText_2EggGroups[];
 extern const u8 gText_1EggGroup[];
+extern const u8 gText_M[];
+extern const u8 gText_F[];
 
 #endif // GUARD_STRINGS_H

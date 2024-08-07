@@ -8,6 +8,7 @@
 #include "battle_pike.h"
 #include "battle_pyramid.h"
 #include "battle_pyramid_bag.h"
+#include "battle_setup.h"
 #include "bg.h"
 #include "contest.h"
 #include "data.h"
@@ -1483,10 +1484,28 @@ static void Task_HandleCancelChooseMonYesNoInput(u8 taskId)
     }
 }
 
+#define MODE_PARTY 0
+#define MODE_BOX 1
+#define MODE_TRAINER_DATA 2
+#define MODE_ALL_TRAINER_DATA 3
 static u16 PartyMenuButtonHandler(s8 *slotPtr)
 {
     s8 movementDir;
-
+    if (JOY_HELD(START_BUTTON) && JOY_HELD(SELECT_BUTTON))
+    {
+        if(JOY_NEW(DPAD_UP))
+            PrintShowdownData(MODE_PARTY, 0);
+        if(JOY_NEW(DPAD_RIGHT))
+            PrintShowdownData(MODE_BOX, 0);
+        if(JOY_NEW(DPAD_DOWN) &&gPartyMenu.menuType == PARTY_MENU_TYPE_IN_BATTLE)
+        {
+            PrintShowdownData(MODE_TRAINER_DATA, gTrainerBattleOpponent_A);
+            if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+                PrintShowdownData(MODE_TRAINER_DATA, gTrainerBattleOpponent_B);
+        }
+        if(JOY_NEW(DPAD_LEFT))
+            PrintShowdownData(MODE_ALL_TRAINER_DATA, 0);
+    }
     switch (gMain.newAndRepeatedKeys)
     {
     case DPAD_UP:

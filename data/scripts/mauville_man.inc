@@ -370,7 +370,7 @@ MauvilleCity_PokemonCenter_1F_Text_TrainerBattlesStory::
 	.string "never refuse a chance to battle!$"
 
 MauvilleCity_PokemonCenter_1F_Text_PokemonCaughtTitle::
-	.string "The pokémon-catching trainer$"
+	.string "The Pokémon-catching trainer$"
 
 MauvilleCity_PokemonCenter_1F_Text_PokemonCaughtAction::
 	.string "Caught Pokémon$"

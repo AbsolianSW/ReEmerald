@@ -553,5 +553,6 @@ u8 hasPlayerCaughtThisEvolutionLine(u16 species);
 u16 GetPreEvolution(u16 species);
 u32 GetShinyOdds();
 u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl);
+void PrintShowdownData(u8 mode, u16 trainerNum);
 
 #endif // GUARD_POKEMON_H

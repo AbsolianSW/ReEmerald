@@ -86,6 +86,16 @@ static inline char mini_pchar_decode(char encoded)
         ret = '('; // opening parentheses
     else if (encoded == CHAR_RIGHT_PAREN)
         ret = ')'; // closing parentheses
+    else if (encoded == CHAR_AMPERSAND)
+        ret = '&'; // ampersand
+    else if (encoded == CHAR_HYPHEN)
+        ret = '-'; // hyphen
+    else if (encoded == CHAR_MALE)
+        ret = 'M'; 
+    else if (encoded == CHAR_FEMALE)
+        ret = 'F';
+    else if (encoded == CHAR_e_GRAVE || encoded == CHAR_e_ACUTE || encoded == CHAR_e_CIRCUMFLEX || encoded == CHAR_e_DIAERESIS)
+        ret = 'e';
     return ret;
 }
 
@@ -129,7 +139,17 @@ static s32 _putsEncoded(char *s, s32 len, void *buf)
         if(b->pbuffer == b->buffer + b->buffer_len - 1) {
             break;
         }
-        *(b->pbuffer ++) = mini_pchar_decode(s[i]);
+        if(s[i] == CHAR_PK)
+        {
+            *(b->pbuffer ++) = 'P';
+            *(b->pbuffer ++) = 'K';
+        } else if(s[i] == CHAR_MN)
+        {
+            *(b->pbuffer ++) = 'M';
+            *(b->pbuffer ++) = 'N';
+        }
+        else
+            *(b->pbuffer ++) = mini_pchar_decode(s[i]);
     }
     *(b->pbuffer) = 0;
     return b->pbuffer - p0;

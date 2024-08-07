@@ -10485,7 +10485,7 @@ const struct Trainer gTrainers[] = {
     [TRAINER_GRUNT_MT_EMBER_4] =
     {
         .trainerClass = TRAINER_CLASS_TEAM_MAGMA,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MAGMA,
+        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_MAGMA,
         .trainerPic = TRAINER_PIC_MAGMA_GRUNT_F,
         .trainerName = _("Grunt"),
         .items = {},
@@ -10507,7 +10507,7 @@ const struct Trainer gTrainers[] = {
     [TRAINER_GRUNT_MT_EMBER_6] =
     {
         .trainerClass = TRAINER_CLASS_TEAM_MAGMA,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MAGMA,
+        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_MAGMA,
         .trainerPic = TRAINER_PIC_MAGMA_GRUNT_F,
         .trainerName = _("Grunt"),
         .items = {},
@@ -10518,7 +10518,7 @@ const struct Trainer gTrainers[] = {
     [TRAINER_GRUNT_MT_EMBER_7] =
     {
         .trainerClass = TRAINER_CLASS_TEAM_MAGMA,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MAGMA,
+        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_MAGMA,
         .trainerPic = TRAINER_PIC_MAGMA_GRUNT_F,
         .trainerName = _("Grunt"),
         .items = {},
@@ -10551,7 +10551,7 @@ const struct Trainer gTrainers[] = {
     [TRAINER_GRUNT_MT_EMBER_9] =
     {
         .trainerClass = TRAINER_CLASS_TEAM_MAGMA,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MAGMA,
+        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_MAGMA,
         .trainerPic = TRAINER_PIC_MAGMA_GRUNT_F,
         .trainerName = _("Grunt"),
         .items = {},
@@ -10562,7 +10562,7 @@ const struct Trainer gTrainers[] = {
     [TRAINER_GRUNT_MT_EMBER_10] =
     {
         .trainerClass = TRAINER_CLASS_TEAM_MAGMA,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MAGMA,
+        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_MAGMA,
         .trainerPic = TRAINER_PIC_MAGMA_GRUNT_F,
         .trainerName = _("Grunt"),
         .items = {},
@@ -10584,7 +10584,7 @@ const struct Trainer gTrainers[] = {
     [TRAINER_COURTNEY_ISLAND_1] =
     {
         .trainerClass = TRAINER_CLASS_MAGMA_ADMIN,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MAGMA,
+        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_MAGMA,
         .trainerPic = TRAINER_PIC_MAGMA_ADMIN_F,
         .trainerName = _("Courtney"),
         .items = {ITEM_FULL_RESTORE,ITEM_FULL_RESTORE, ITEM_NONE, ITEM_NONE},
@@ -10606,7 +10606,7 @@ const struct Trainer gTrainers[] = {
     [TRAINER_SHELLY_ISLAND_2] =
     {
         .trainerClass = TRAINER_CLASS_AQUA_ADMIN,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_AQUA,
+        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_AQUA,
         .trainerPic = TRAINER_PIC_AQUA_ADMIN_F,
         .trainerName = _("Shelly"),
         .items = {ITEM_FULL_RESTORE,ITEM_FULL_RESTORE, ITEM_NONE, ITEM_NONE},

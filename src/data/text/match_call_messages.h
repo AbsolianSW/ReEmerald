@@ -9,7 +9,7 @@ const u8 gText_MatchCallRuinManiac_Andres_Intro1[] = _("I am searching for under
 const u8 gText_MatchCallRuinManiac_Andres_Intro2[] = _("ruins and relics.");
 
 const u8 gText_MatchCallRuinManiac_Dusty_Strategy[] = _("Overwhelm with power!");
-const u8 gText_MatchCallRuinManiac_Dusty_Pokemon[] = _("Craggy rock pokémon.");
+const u8 gText_MatchCallRuinManiac_Dusty_Pokemon[] = _("Craggy rock Pokémon.");
 const u8 gText_MatchCallRuinManiac_Dusty_Intro1[] = _("In search of ancient lore,");
 const u8 gText_MatchCallRuinManiac_Dusty_Intro2[] = _("I travel the world.");
 
@@ -19,7 +19,7 @@ const u8 gText_MatchCallTuber_Lola_Intro1[] = _("I wish I could swim without");
 const u8 gText_MatchCallTuber_Lola_Intro2[] = _("using an inner tube.");
 
 const u8 gText_MatchCallTuber_Ricky_Strategy[] = _("I don't know. I'll try hard.");
-const u8 gText_MatchCallTuber_Ricky_Pokemon[] = _("Water pokémon are buddies.");
+const u8 gText_MatchCallTuber_Ricky_Pokemon[] = _("Water Pokémon are buddies.");
 const u8 gText_MatchCallTuber_Ricky_Intro1[] = _("It's not like I can't swim.");
 const u8 gText_MatchCallTuber_Ricky_Intro2[] = _("I just like my inner tube.");
 

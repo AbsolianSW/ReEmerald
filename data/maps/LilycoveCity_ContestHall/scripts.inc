@@ -526,12 +526,12 @@ LilycoveCity_ContestHall_Text_WantCuteMonOfMyOwn:
 
 LilycoveCity_ContestHall_Text_BeautyContestStage:
 	.string "Beauty Contest Stage\n"
-	.string "Be allured by beautiful pokémon!$"
+	.string "Be allured by beautiful Pokémon!$"
 
 LilycoveCity_ContestHall_Text_CuteContestStage:
 	.string "Cuteness Contest Stage\n"
-	.string "Be charmed by cute pokémon!$"
+	.string "Be charmed by cute Pokémon!$"
 
 LilycoveCity_ContestHall_Text_SmartContestStage:
 	.string "Smartness Contest Stage\n"
-	.string "Be impressed by smart pokémon!$"
+	.string "Be impressed by smart Pokémon!$"

@@ -80,6 +80,13 @@ EWRAM_DATA struct Pokemon gPlayerParty[PARTY_SIZE] = {0};
 EWRAM_DATA struct Pokemon gEnemyParty[PARTY_SIZE] = {0};
 EWRAM_DATA struct SpriteTemplate gMultiuseSpriteTemplate = {0};
 EWRAM_DATA static struct MonSpritesGfxManager *sMonSpritesGfxManagers[MON_SPR_GFX_MANAGERS_COUNT] = {NULL};
+EWRAM_DATA struct Pokemon gPrintParty[PARTY_SIZE];
+EWRAM_DATA struct BoxPokemon* gPrintBoxMon;
+EWRAM_DATA u8 gPrintPartySize;
+EWRAM_DATA u32 gPrintNameHash;
+EWRAM_DATA u32 gPrintPersonalityValue;
+EWRAM_DATA s8 gPrintNatureOffset;
+EWRAM_DATA u16 gPrintSpecies;
 
 #include "data/battle_moves.h"
 
@@ -8209,4 +8216,323 @@ u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl)
         }
     }
     return finalSpecies;
+}
+
+static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
+{
+    s32 i, j;
+    gPrintNameHash = 0;
+    if (trainerNum == TRAINER_SECRET_BASE)
+        return 0;
+    {
+        gPrintPartySize = gTrainers[trainerNum].partySize;
+        for (i = 0; i < gPrintPartySize; i++)
+        {
+
+            if (gTrainers[trainerNum].doubleBattle == TRUE)
+                gPrintPersonalityValue = 0x80;
+            else if (gTrainers[trainerNum].encounterMusic_gender & F_TRAINER_FEMALE)
+                gPrintPersonalityValue = 0x78; // Use personality more likely to result in a female Pokémon
+            else
+                gPrintPersonalityValue = 0x88; // Use personality more likely to result in a male Pokémon
+            for (j = 0; gTrainers[trainerNum].trainerName[j] != EOS; j++) {
+                gPrintNameHash += gTrainers[trainerNum].trainerName[j];
+            }
+            //NEW: Scramble least significant bit of pv so that trainer Pokemon can have both abilities of species
+            if(gTrainers[trainerNum].trainerName[i%(ARRAY_COUNT(gTrainers[trainerNum].trainerName))]%2) 
+                gPrintPersonalityValue+=1;
+            switch (gTrainers[trainerNum].partyFlags)
+            {
+            case 0:
+            {
+                const struct TrainerMonNoItemDefaultMoves *partyData = gTrainers[trainerNum].party.NoItemDefaultMoves;
+                gPrintSpecies = partyData[i].species;
+                if(partyData[i].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species,partyData[i].lvl);
+                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++) {
+                    gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
+                }
+                gPrintPersonalityValue += gPrintNameHash << 8;
+                CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                break;
+            }
+            case F_TRAINER_PARTY_CUSTOM_MOVESET:
+            {
+                const struct TrainerMonNoItemCustomMoves *partyData = gTrainers[trainerNum].party.NoItemCustomMoves;
+                gPrintSpecies = partyData[i].species;
+                if(partyData[i].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species,partyData[i].lvl);
+                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
+                    gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
+
+                gPrintPersonalityValue += gPrintNameHash << 8;
+                CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+
+                for (j = 0; j < MAX_MON_MOVES; j++)
+                {
+                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
+                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                }
+                break;
+            }
+            case F_TRAINER_PARTY_HELD_ITEM:
+            {
+                const struct TrainerMonItemDefaultMoves *partyData = gTrainers[trainerNum].party.ItemDefaultMoves;
+                gPrintSpecies = partyData[i].species;
+                if(partyData[i].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species,partyData[i].lvl);
+                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
+                    gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
+
+                gPrintPersonalityValue += gPrintNameHash << 8;
+                CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+
+                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+                break;
+            }
+            case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
+            {
+                const struct TrainerMonItemCustomMoves *partyData = gTrainers[trainerNum].party.ItemCustomMoves;
+                gPrintSpecies = partyData[i].species;
+                if(partyData[i].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species,partyData[i].lvl);
+                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
+                    gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
+
+                gPrintPersonalityValue += gPrintNameHash << 8;
+                CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+
+                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+
+                for (j = 0; j < MAX_MON_MOVES; j++)
+                {
+                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
+                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                }
+                break;
+            }
+            case F_TRAINER_EVERYTHING:
+            {
+                const struct TrainerMonEverything *partyData = gTrainers[trainerNum].party.Everything;
+                gPrintSpecies = partyData[i].species;
+                if(partyData[i].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species,partyData[i].lvl);
+                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
+                    gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
+
+                gPrintPersonalityValue += gPrintNameHash << 8;
+                //ensure nature but keep gender intact
+                gPrintNatureOffset = partyData[i].nature - gPrintPersonalityValue%NUM_NATURES;
+                if (gTrainers[trainerNum].encounterMusic_gender & F_TRAINER_FEMALE) {
+                    if(gPrintNatureOffset < 0)
+                        gPrintPersonalityValue += gPrintNatureOffset;
+                    else 
+                        gPrintPersonalityValue += (gPrintNatureOffset -= NUM_NATURES);
+                } else {
+                    if(gPrintNatureOffset < 0)
+                        gPrintPersonalityValue += (gPrintNatureOffset += NUM_NATURES);
+                    else 
+                        gPrintPersonalityValue += gPrintNatureOffset;
+                }
+                CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, USE_RANDOM_IVS, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+
+                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+
+                for (j = 0; j < MAX_MON_MOVES; j++)
+                {
+                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
+                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                }
+                //ivs
+                for(j=0; j < 6;j++) {
+                    SetMonData(&party[i], MON_DATA_HP_IV + j, &partyData[i].iv[j]);
+                }
+                //evs
+                for(j=0; j < 6;j++) {
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &partyData[i].ev[j]);
+                }
+                SetMonData(&party[i], MON_DATA_ABILITY_NUM, &partyData[i].ability);
+                break;
+            }
+            }
+        }
+    }
+    Free(&i);
+    Free(&j);
+    return gTrainers[trainerNum].partySize;
+}
+
+//Species @ Item Name With Spaces
+//Level: 100
+//Naturename Nature
+//Ability: Snow Warning
+//EVs: 4 Def / 252 SpA / 252 Spe etc
+//IVS: 4 Def / 4 SpA etc
+//- Move Name With Spaces 1
+//- Move Name With Spaces 2
+//- Move Name With Spaces 3
+//- Move Name With Spaces 4
+static void PrintMonShowdownData(struct Pokemon mon, u16 trainerNum)
+{
+    DebugPrintf("\n%S(%S)(%S) @ %S\nLevel: %d\n%S Nature\nAbility: %S\nEVs: %d HP / %d Atk / %d Def / %d SpA / %d SpD / %d Spe\nIVs: %d HP / %d Atk / %d Def / %d SpA / %d SpD / %d Spe\n- %S\n- %S\n- %S\n- %S"
+        , (gStringVar1)
+        , gSpeciesNames[GetMonData(&mon, MON_DATA_SPECIES)]
+        , (GetMonGender(&mon)? GetMonGender(&mon) == MON_FEMALE ? gText_F:gText_ExpandedPlaceholder_Empty:gText_M)
+        , gItems[GetMonData(&mon, MON_DATA_HELD_ITEM)].name
+        , GetMonData(&mon, MON_DATA_LEVEL)
+        , gNatureNamePointers[GetMonData(&mon, MON_DATA_PERSONALITY)%25]
+        , gAbilityNames[gSpeciesInfo[GetMonData(&mon, MON_DATA_SPECIES)].abilities[GetMonData(&mon, MON_DATA_ABILITY_NUM)]]
+        , GetMonData(&mon, MON_DATA_HP_EV)
+        , GetMonData(&mon, MON_DATA_ATK_EV)
+        , GetMonData(&mon, MON_DATA_DEF_EV)
+        , GetMonData(&mon, MON_DATA_SPATK_EV)
+        , GetMonData(&mon, MON_DATA_SPDEF_EV)
+        , GetMonData(&mon, MON_DATA_SPEED_EV)
+        , GetMonData(&mon, MON_DATA_HP_IV)
+        , GetMonData(&mon, MON_DATA_ATK_IV)
+        , GetMonData(&mon, MON_DATA_DEF_IV)
+        , GetMonData(&mon, MON_DATA_SPATK_IV)
+        , GetMonData(&mon, MON_DATA_SPDEF_IV)
+        , GetMonData(&mon, MON_DATA_SPEED_IV)
+        ,gMoveNames[GetMonData(&mon, MON_DATA_MOVE1)]
+        ,gMoveNames[GetMonData(&mon, MON_DATA_MOVE2)]
+        ,gMoveNames[GetMonData(&mon, MON_DATA_MOVE3)]
+        ,gMoveNames[GetMonData(&mon, MON_DATA_MOVE4)]
+        );
+}
+static void PrintBoxMonShowdownData(struct BoxPokemon mon)
+{
+    DebugPrintf("\n%S(%S)(%S) @ %S\nLevel: %d\n%S Nature\nAbility: %S\nEVs: %d HP / %d Atk / %d Def / %d SpA / %d SpD / %d Spe\nIVs: %d HP / %d Atk / %d Def / %d SpA / %d SpD / %d Spe\n- %S\n- %S\n- %S\n- %S"
+        , gStringVar1
+        , gSpeciesNames[GetBoxMonData(&mon, MON_DATA_SPECIES)]
+        , (GetBoxMonGender(&mon)? GetBoxMonGender(&mon) == MON_FEMALE ? gText_F:gText_ExpandedPlaceholder_Empty:gText_M)
+        , gItems[GetBoxMonData(&mon, MON_DATA_HELD_ITEM)].name
+        , GetBoxMonData(&mon, MON_DATA_LEVEL)
+        , gNatureNamePointers[GetBoxMonData(&mon, MON_DATA_PERSONALITY)%25]
+        , gAbilityNames[gSpeciesInfo[GetBoxMonData(&mon, MON_DATA_SPECIES)].abilities[GetBoxMonData(&mon, MON_DATA_ABILITY_NUM)]]
+        , GetBoxMonData(&mon, MON_DATA_HP_EV)
+        , GetBoxMonData(&mon, MON_DATA_ATK_EV)
+        , GetBoxMonData(&mon, MON_DATA_DEF_EV)
+        , GetBoxMonData(&mon, MON_DATA_SPATK_EV)
+        , GetBoxMonData(&mon, MON_DATA_SPDEF_EV)
+        , GetBoxMonData(&mon, MON_DATA_SPEED_EV)
+        , GetBoxMonData(&mon, MON_DATA_HP_IV)
+        , GetBoxMonData(&mon, MON_DATA_ATK_IV)
+        , GetBoxMonData(&mon, MON_DATA_DEF_IV)
+        , GetBoxMonData(&mon, MON_DATA_SPATK_IV)
+        , GetBoxMonData(&mon, MON_DATA_SPDEF_IV)
+        , GetBoxMonData(&mon, MON_DATA_SPEED_IV)
+        ,gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE1)]
+        ,gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE2)]
+        ,gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE3)]
+        ,gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE4)]
+        );
+}
+
+static const u8 sTextMyMon[] = _("My Mon ");
+static void PrintPartyShowdownData(u16 trainerNum)
+{
+    u32 i = 0;
+    for(i;i<gPrintPartySize;i++)
+    {
+        if(!trainerNum)
+        {
+            StringCopy(gStringVar1, sTextMyMon);
+            ConvertUIntToDecimalStringN(gStringVar2, i+1, STR_CONV_MODE_LEFT_ALIGN, 2);
+            StringAppend(gStringVar1, gStringVar2);
+        }
+        PrintMonShowdownData(gPrintParty[i], trainerNum);
+    }
+    Free(&i);
+}
+
+static void PrintBoxMonsShowdownData()
+{
+    u32 i, j = (gPrintPartySize + 1), boxIndex;
+    for (i = 0; i < TOTAL_BOXES_COUNT; i++)
+    {
+        boxIndex = 0;
+        for (boxIndex = 0; boxIndex < IN_BOX_COUNT; boxIndex++)
+        {
+            gPrintBoxMon = GetBoxedMonPtr(i, boxIndex);
+            if (GetBoxMonData(gPrintBoxMon, MON_DATA_SPECIES) != SPECIES_NONE)
+            {
+                StringCopy(gStringVar1, sTextMyMon);
+                ConvertUIntToDecimalStringN(gStringVar2, j++, STR_CONV_MODE_LEFT_ALIGN, 2);
+                StringAppend(gStringVar1, gStringVar2);
+                PrintBoxMonShowdownData(*gPrintBoxMon);
+            }
+        }
+    }
+    Free(&i);
+    Free(&j);
+    Free(&boxIndex);
+}
+
+static void PrintTrainerShowdownData(u16 trainerNum, u8 fightNumber)
+{
+    gPrintPartySize = CreateNPCTrainerPartySkeleton(gPrintParty, trainerNum);
+    StringCopy(gStringVar1, gTrainerClassNames[gTrainers[trainerNum].trainerClass]);
+    StringAppend(gStringVar1,gText_EmptySpace);
+    StringAppend(gStringVar1,gTrainers[trainerNum].trainerName);
+    if(fightNumber)
+    {
+        StringAppend(gStringVar1,gText_EmptySpace);
+        ConvertUIntToDecimalStringN(gStringVar2, fightNumber, STR_CONV_MODE_LEFT_ALIGN, 2);
+        StringAppend(gStringVar1, gStringVar2);
+    }
+    PrintPartyShowdownData(trainerNum);
+}
+
+static void PrintTrainersShowdownData()
+{
+    u32 i,j, n;
+    for(i=0;i<TRAINERS_COUNT;i++)
+    {
+        n=0;
+        for(j=0;j<i;j++)
+        {
+            if(gTrainers[i].trainerClass == gTrainers[j].trainerClass && !StringCompare(gTrainers[j].trainerName,gTrainers[i].trainerName))
+                n++;
+        }
+        StringCompare(gTrainers[j].trainerName,gTrainers[i].trainerName);
+        PrintTrainerShowdownData(i,(n?n+1:n));
+    }
+    Free(&i);
+    Free(&j);
+    Free(&n);
+}
+
+#define MODE_PARTY 0
+#define MODE_BOX 1
+#define MODE_TRAINER_DATA 2
+#define MODE_ALL_TRAINER_DATA 3
+
+void PrintShowdownData(u8 mode, u16 trainerNum)
+{
+    u32 i;
+    switch(mode)
+    {
+        case MODE_PARTY:
+            gPrintPartySize = gPlayerPartyCount;
+            for(i=0;i<gPlayerPartyCount;i++)
+            {
+                gPrintParty[i] = gPlayerParty[i];
+            }
+            PrintPartyShowdownData(0);
+            break;
+        case MODE_BOX:
+            for(i=0;i<gPlayerPartyCount;i++)
+            {
+                gPrintParty[i] = gPlayerParty[i];
+            }
+            PrintPartyShowdownData(0);
+            PrintBoxMonsShowdownData();
+            break;
+        case MODE_TRAINER_DATA:
+            PrintTrainerShowdownData(trainerNum, 0);
+            break;
+        case MODE_ALL_TRAINER_DATA:
+                PrintTrainersShowdownData();
+    }
 }
