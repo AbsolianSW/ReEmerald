@@ -22,7 +22,6 @@ sound/songs/midi/*.s
 tools/agbcc
 agbcc
 *.map
-*.ld
 *.bat
 *.dump
 *.sa*
