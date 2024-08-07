@@ -162,7 +162,7 @@ LilycoveCity_DepartmentStore_1F_Text_Azumarill:
 
 LilycoveCity_DepartmentStore_1F_Text_FloorNamesSign:
 	.string "1F: Service Counter\n"
-	.string "    Lottery Corner\p"
+	.string "      Lottery Corner\p"
 	.string "2F: Trainer's Zone\p"
 	.string "3F: Vitamins and Boosters\p"
 	.string "4F: Useful Items\p"

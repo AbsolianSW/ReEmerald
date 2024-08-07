@@ -5340,6 +5340,16 @@ static void PrintEvoData(u8 windowId, u16 species, u8 left, u8 top)
     PrintInfoSubMenuTextSmall(windowId,gStringVar4, left, top);
 }
 
+static const u8 sGrowthRateNames[6][12] =
+{
+    [GROWTH_MEDIUM_FAST] = _("Medium Fast"),
+    [GROWTH_ERRATIC    ] = _("Erratic"),
+    [GROWTH_FLUCTUATING] = _("Fluctuating"),
+    [GROWTH_MEDIUM_SLOW] = _("Medium Slow"),
+    [GROWTH_FAST       ] = _("Fast"),
+    [GROWTH_SLOW       ] = _("Slow"),
+};
+
 static void PrintStats(u16 dexNum, u8 taskId)
 {
     u32 hp, atk, def, spe, spa, spd, cr, xp, ev, evStat, a1, a2, t1, t2;
@@ -5356,7 +5366,7 @@ static void PrintStats(u16 dexNum, u8 taskId)
     spa = gSpeciesInfo[species].baseSpAttack;
     spd = gSpeciesInfo[species].baseSpDefense;
     cr = gSpeciesInfo[species].catchRate;
-    xp = gSpeciesInfo[species].expYield;
+    xp = gSpeciesInfo[species].growthRate;
     a1 = gSpeciesInfo[species].abilities[0];
     a2 = gSpeciesInfo[species].abilities[1];
     t1 = gSpeciesInfo[species].types[0];
@@ -5422,11 +5432,11 @@ static void PrintStats(u16 dexNum, u8 taskId)
     ConvertUIntToDecimalStringN(gStringVar1, cr, STR_CONV_MODE_RIGHT_ALIGN, 3);
     PrintInfoSubMenuText(0,gStringVar1, 76, 137);
     //Yield Window
-    PrintInfoSubMenuText(0,gText_Yields, 110, 23);
-    PrintInfoSubMenuText(0,gText_ExpPoints, 110, 45);
+    PrintInfoSubMenuText(0,gText_Training, 110, 23);
+    PrintInfoSubMenuText(0,gText_GrowthRate, 110, 45);
     PrintInfoSubMenuText(0,gText_EffortValues, 110, 56);
     ConvertUIntToDecimalStringN(gStringVar1, xp, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    PrintInfoSubMenuText(0,gStringVar1, 216, 45);
+    PrintInfoSubMenuText(0,sGrowthRateNames[xp], GetStringRightAlignXOffset(FONT_NORMAL, sGrowthRateNames[xp], 234), 45);
     LoadCompressedSpriteSheet(&sSpriteSheet_MoveTypes);
     LoadCompressedPalette(gMoveTypes_Pal, 0x1D0, 0x60);
     gTasks[taskId].data[4] = CreateSprite(&sSpriteTemplate_MoveTypes, 22, 55, 2);

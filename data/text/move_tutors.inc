@@ -148,7 +148,7 @@ MoveTutor_Text_DynamicPunchTeach:
 	.string "What, don't look at me that way!\n"
 	.string "I'm only hitting the ground!\p"
 	.string "Or do you want me to teach your\n"
-	.string "Pokémon Dynamicpunch?$"
+	.string "Pokémon Dynamic Punch?$"
 
 MoveTutor_Text_DynamicPunchDeclined:
 	.string "Darn! You're even making fun of me?\n"
@@ -160,7 +160,7 @@ MoveTutor_Text_DynamicPunchWhichMon:
 
 MoveTutor_Text_DynamicPunchTaught:
 	.string "I want you to win at the Mossdeep Gym\n"
-	.string "using that Dynamicpunch!$"
+	.string "using that Dynamic Punch!$"
 
 MoveTutor_Text_DoubleEdgeTeach:
 	.string "Sigh…\p"

@@ -327,8 +327,8 @@ LilycoveCity_EventScript_BattleBrendanMudkip::
 	end
 
 LilycoveCity_EventScript_DefeatedMay::
+	msgbox LilycoveCity_Text_MayGiveBlizzard
 	giveitem ITEM_TM_BLIZZARD
-	msgbox LilycoveCity_Text_RivalGiveBlizzard
 	msgbox LilycoveCity_Text_MayGoingBackToLittleroot, MSGBOX_DEFAULT
 	setvar VAR_RESULT, FALSE
 	call_if_set FLAG_BADGE06_GET, LilycoveCity_EventScript_CheckFinalBadge
@@ -361,8 +361,8 @@ LilycoveCity_EventScript_MayBattleFrontier::
 	return
 
 LilycoveCity_EventScript_DefeatedBrendan::
+	msgbox LilycoveCity_Text_BrendanGiveBlizzard
 	giveitem ITEM_TM_BLIZZARD
-	msgbox LilycoveCity_Text_RivalGiveBlizzard
 	msgbox LilycoveCity_Text_BrendanGoingBackToLittleroot, MSGBOX_DEFAULT
 	setvar VAR_RESULT, FALSE
 	call_if_set FLAG_BADGE06_GET, LilycoveCity_EventScript_CheckFinalBadge
@@ -767,8 +767,14 @@ LilycoveCity_Text_HoneymoonVowToSeeRarePokemon:
 	.string "Pokémon as soon as we arrived.\p"
 	.string "I mean, we are totally happy!$"
 	
-LilycoveCity_Text_RivalGiveBlizzard:
-	.string "Wow...your fighting skills are truely\n"
-	.string "impressive. Here, take this, you can\p"
-	.string "probably make better use of it\n"
-	.string "anyways!$"
+LilycoveCity_Text_BrendanGiveBlizzard:
+	.string "Brendan: Wow...your fighting skills are\n"
+	.string "truely impressive. Here, take this,\p"
+	.string "you can probably make better use\n"
+	.string " of it anyways!$"
+	
+LilycoveCity_Text_MayGiveBlizzard:
+	.string "May: Wow...your fighting skills are\n"
+	.string "truely impressive. Here, take this,\p"
+	.string "you can probably make better use\n"
+	.string " of it anyways!$"

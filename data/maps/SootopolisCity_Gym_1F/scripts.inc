@@ -279,7 +279,7 @@ SootopolisCity_Gym_1F_Text_GymStatue:
 
 SootopolisCity_Gym_1F_Text_GymStatueCertified:
 	.string "Sootopolis City Pokémon Gym\p"
-	.string "Juan's Certified Trainers:\n"
+	.string "Juan's certified Trainers:\n"
 	.string "{Player}$"
 
 SootopolisCity_Gym_1F_Text_JuanPreRematch:
