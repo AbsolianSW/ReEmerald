@@ -1,4 +1,6 @@
-mapscripts Island3_Port_MapScripts {}
+mapscripts Island3_Port_MapScripts {
+    
+}
 
 
 script Island3_Port_Woman{

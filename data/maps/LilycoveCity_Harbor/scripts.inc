@@ -88,7 +88,7 @@ LilycoveCity_Harbor_EventScript_GoToFarawayIsland::
 	
 LilycoveCity_Harbor_EventScript_GoToOneIsland::
 	call LilycoveCity_Harbor_EventScript_BoardFerry
-	warp MAP_ISLAND1_HARBOR, 8, 6
+	warp MAP_ISLAND1_HARBOR, 8, 4
 	waitstate
 	release
 	end
@@ -447,6 +447,7 @@ LilycoveCity_Harbor_EventScript_BoardFerry::
 	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_PlayerBoardFerryEast
 	delay 30
 	hideobjectat OBJ_EVENT_ID_PLAYER, 0
+	hideobjectat OBJ_EVENT_ID_FOLLOWER, 0
 	setvar VAR_0x8004, LOCALID_SS_TIDAL
 	call Common_EventScript_FerryDepart
 	return

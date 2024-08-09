@@ -27,7 +27,7 @@ Route108_EventScript_Carolina::
 	end
 
 Route108_EventScript_Cory::
-	trainerbattle_single TRAINER_CORY_1, Route108_Text_CoryIntro, Route108_Text_CoryDefeated
+	trainerbattle_single TRAINER_CORY, Route108_Text_CoryIntro, Route108_Text_CoryDefeated
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, Route108_EventScript_CoryRematch
 	msgbox Route108_Text_CoryPostBattle, MSGBOX_DEFAULT
@@ -35,6 +35,6 @@ Route108_EventScript_Cory::
 	end
 
 Route108_EventScript_CoryRematch::
-	trainerbattle_rematch TRAINER_CORY_1, Route108_Text_CoryRematchIntro, Route108_Text_CoryRematchDefeated
+	trainerbattle_rematch TRAINER_CORY, Route108_Text_CoryRematchIntro, Route108_Text_CoryRematchDefeated
 	msgbox Route108_Text_CoryRematchPostBattle, MSGBOX_AUTOCLOSE
 	end

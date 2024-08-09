@@ -1971,7 +1971,6 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
         return 0;
 
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER
-                                                                        | BATTLE_TYPE_EREADER_TRAINER
                                                                         | BATTLE_TYPE_TRAINER_HILL)))
     {
         if (firstTrainer == TRUE)
@@ -3520,8 +3519,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
                 MarkBattlerForControllerExec(gActiveBattler);
             }
             if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT
-             && !(gBattleTypeFlags & (BATTLE_TYPE_EREADER_TRAINER
-                                      | BATTLE_TYPE_FRONTIER
+             && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER
                                       | BATTLE_TYPE_LINK
                                       | BATTLE_TYPE_RECORDED_LINK
                                       | BATTLE_TYPE_TRAINER_HILL)))
@@ -3533,8 +3531,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
         {
             if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT)
             {
-                if (!(gBattleTypeFlags & (BATTLE_TYPE_EREADER_TRAINER
-                                      | BATTLE_TYPE_FRONTIER
+                if (!(gBattleTypeFlags & ( BATTLE_TYPE_FRONTIER
                                       | BATTLE_TYPE_LINK
                                       | BATTLE_TYPE_RECORDED_LINK
                                       | BATTLE_TYPE_TRAINER_HILL)))
@@ -3758,8 +3755,7 @@ static void BattleIntroRecordMonsToDex(void)
         for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
         {
             if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT
-             && !(gBattleTypeFlags & (BATTLE_TYPE_EREADER_TRAINER
-                                      | BATTLE_TYPE_FRONTIER
+             && !(gBattleTypeFlags & ( BATTLE_TYPE_FRONTIER
                                       | BATTLE_TYPE_LINK
                                       | BATTLE_TYPE_RECORDED_LINK
                                       | BATTLE_TYPE_TRAINER_HILL)))
@@ -4278,7 +4274,6 @@ static void HandleTurnActionSelectionState(void)
                 case B_ACTION_USE_ITEM:
                     if (gBattleTypeFlags & (BATTLE_TYPE_LINK
                                             | BATTLE_TYPE_FRONTIER_NO_PYRAMID
-                                            | BATTLE_TYPE_EREADER_TRAINER
                                             | BATTLE_TYPE_RECORDED_LINK))
                     {
                         RecordedBattle_ClearBattlerAction(gActiveBattler, 1);
@@ -5052,7 +5047,7 @@ static void HandleEndTurn_BattleWon(void)
         gBattleOutcome &= ~B_OUTCOME_LINK_BATTLE_RAN;
     }
     else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
-            && gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL | BATTLE_TYPE_EREADER_TRAINER))
+            && gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL))
     {
         BattleStopLowHpSound();
         gBattlescriptCurrInstr = BattleScript_FrontierTrainerBattleWon;
@@ -5185,7 +5180,6 @@ static void HandleEndTurn_FinishBattle(void)
                                   | BATTLE_TYPE_RECORDED_LINK
                                   | BATTLE_TYPE_FIRST_BATTLE
                                   | BATTLE_TYPE_SAFARI
-                                  | BATTLE_TYPE_EREADER_TRAINER
                                   | BATTLE_TYPE_WALLY_TUTORIAL
                                   | BATTLE_TYPE_FRONTIER)))
         {
@@ -5214,7 +5208,6 @@ static void HandleEndTurn_FinishBattle(void)
                                   | BATTLE_TYPE_FIRST_BATTLE
                                   | BATTLE_TYPE_SAFARI
                                   | BATTLE_TYPE_FRONTIER
-                                  | BATTLE_TYPE_EREADER_TRAINER
                                   | BATTLE_TYPE_WALLY_TUTORIAL))
             && gBattleResults.shinyWildMon)
         {

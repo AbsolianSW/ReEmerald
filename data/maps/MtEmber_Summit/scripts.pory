@@ -58,7 +58,8 @@ script MtEmber_Summit_CourtneyDefeat{
 	playmoncry(SPECIES_MOLTRES, CRY_MODE_WEAK)
 	applymovement(5, MtEmber_Summit_MoltresFlyAway)
 	waitmovement(0)
-	msgbox(format("Wow! These legendaries are really hard to control...well it was ineffective against you anyways, but I won't give up!"))
+	removeobject(5)
+	msgbox(format("Wow! These legendaries are really hard to control...well, it was ineffective against you anyways, but I won't give up!"))
 	closemessage
 	fadescreen(FADE_TO_BLACK)
 	removeobject(6)
@@ -72,6 +73,11 @@ movement MtEmber_Summit_MoltresFlyAway {
 	delay_16
 	delay_16
 	fly_up
+}
+
+script MtEmber_Summit_Moltres {
+	bufferspeciesname(0, SPECIES_MOLTRES)
+	end
 }
 
 text MtEmber_Summit_Text_CourtneyIntro{

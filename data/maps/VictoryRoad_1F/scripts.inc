@@ -1,4 +1,5 @@
 .set LOCALID_WALLY_ENTRANCE, 4
+.set LOCALID_GARDEVOIR_ENTRANCE, 10
 
 VictoryRoad_1F_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, VictoryRoad_1F_OnTransition
@@ -11,11 +12,13 @@ VictoryRoad_1F_OnTransition:
 
 VictoryRoad_1F_EventScript_SetEntranceWallyPos1::
 	setobjectxyperm LOCALID_WALLY_ENTRANCE, 2, 24
+	setobjectxyperm LOCALID_GARDEVOIR_ENTRANCE, 3, 24
 	setobjectmovementtype LOCALID_WALLY_ENTRANCE, MOVEMENT_TYPE_FACE_DOWN
 	return
 
 VictoryRoad_1F_EventScript_SetEntranceWallyPos2::
 	setobjectxyperm LOCALID_WALLY_ENTRANCE, 3, 24
+	setobjectxyperm LOCALID_GARDEVOIR_ENTRANCE, 4, 24
 	setobjectmovementtype LOCALID_WALLY_ENTRANCE, MOVEMENT_TYPE_FACE_DOWN
 	return
 
@@ -23,7 +26,9 @@ VictoryRoad_1F_EventScript_WallyBattleTrigger1::
 	lockall
 	setvar VAR_0x8008, 1
 	addobject LOCALID_WALLY_ENTRANCE
+	addobject LOCALID_GARDEVOIR_ENTRANCE
 	applymovement LOCALID_WALLY_ENTRANCE, VictoryRoad_1F_Movement_WallyApproachPlayer1
+	applymovement LOCALID_GARDEVOIR_ENTRANCE, VictoryRoad_1F_Movement_GardevoirApproachPlayer1
 	applymovement OBJ_EVENT_ID_FOLLOWER, VictoryRoad_1F_Movement_FollowerWallyApproach1
 	waitmovement 0
 	goto VictoryRoad_1F_EventScript_WallyEntranceBattle
@@ -40,7 +45,9 @@ VictoryRoad_1F_EventScript_WallyBattleTrigger2::
 	lockall
 	setvar VAR_0x8008, 2
 	addobject LOCALID_WALLY_ENTRANCE
+	addobject LOCALID_GARDEVOIR_ENTRANCE
 	applymovement LOCALID_WALLY_ENTRANCE, VictoryRoad_1F_Movement_WallyApproachPlayer2
+	applymovement LOCALID_GARDEVOIR_ENTRANCE, VictoryRoad_1F_Movement_GardevoirApproachPlayer2
 	applymovement OBJ_EVENT_ID_FOLLOWER, VictoryRoad_1F_Movement_FollowerWallyApproach2
 	waitmovement 0
 	goto VictoryRoad_1F_EventScript_WallyEntranceBattle
@@ -56,7 +63,7 @@ VictoryRoad_1F_EventScript_WallyEntranceBattle::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	msgbox VictoryRoad_1F_Text_WallyNotGoingToLoseAnymore, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_WALLY_VR_1, VictoryRoad_1F_Text_WallyEntranceDefeat
+	trainerbattle_no_intro TRAINER_WALLY_VR, VictoryRoad_1F_Text_WallyEntranceDefeat
 	msgbox VictoryRoad_1F_Text_Wally_Give_Hyper_Beam, MSGBOX_DEFAULT
 	giveitem ITEM_TM_HYPER_BEAM
 	msgbox VictoryRoad_1F_Text_WallyPostEntranceBattle, MSGBOX_DEFAULT
@@ -94,6 +101,35 @@ VictoryRoad_1F_Movement_WallyApproachPlayer2:
 	walk_up
 	step_end
 
+VictoryRoad_1F_Movement_GardevoirApproachPlayer1:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	face_up
+	step_end
+
+VictoryRoad_1F_Movement_GardevoirApproachPlayer2:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	face_up
+	step_end
+
 @ This Wally appears near the entrance once his battle is triggered and remains there until the Hall of Fame is entered
 VictoryRoad_1F_EventScript_EntranceWally::
 	msgbox VictoryRoad_1F_Text_WallyPostEntranceBattle, MSGBOX_NPC
@@ -101,15 +137,19 @@ VictoryRoad_1F_EventScript_EntranceWally::
 
 @ This Wally appears and remains at the exit after the Hall of Fame is entered
 VictoryRoad_1F_EventScript_ExitWally::
-	trainerbattle_single TRAINER_WALLY_VR_2, VictoryRoad_1F_Text_WallyIntro, VictoryRoad_1F_Text_WallyDefeat
+	trainerbattle_single TRAINER_WALLY_VR, VictoryRoad_1F_Text_WallyIntro, VictoryRoad_1F_Text_WallyDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, VictoryRoad_1F_EventScript_RematchWally
 	msgbox VictoryRoad_1F_Text_WallyPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 VictoryRoad_1F_EventScript_RematchWally::
-	trainerbattle_rematch TRAINER_WALLY_VR_2, VictoryRoad_1F_Text_WallyIntro, VictoryRoad_1F_Text_WallyDefeat
+	trainerbattle_rematch TRAINER_WALLY_VR, VictoryRoad_1F_Text_WallyIntro, VictoryRoad_1F_Text_WallyDefeat
 	msgbox VictoryRoad_1F_Text_WallyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+VictoryRoad_1F_EventScript_Gardevoir::
+	bufferspeciesname 0, SPECIES_GARDEVOIR
 	end
 
 VictoryRoad_1F_EventScript_Lukas::
@@ -118,7 +158,7 @@ VictoryRoad_1F_EventScript_Lukas::
 	end
 
 VictoryRoad_1F_EventScript_Mike::
-	trainerbattle_single TRAINER_MIKE, VictoryRoad_1F_Text_AlbertIntro, VictoryRoad_1F_Text_AlbertDefeat
+	trainerbattle_single TRAINER_MIKE_VR, VictoryRoad_1F_Text_AlbertIntro, VictoryRoad_1F_Text_AlbertDefeat
 	msgbox VictoryRoad_1F_Text_AlbertPostBattle, MSGBOX_AUTOCLOSE
 	end
 

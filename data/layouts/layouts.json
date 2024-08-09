@@ -5321,7 +5321,7 @@
       "id": "LAYOUT_ISLAND1_HARBOR",
       "name": "Island1_Harbor_Layout",
       "width": 17,
-      "height": 13,
+      "height": 12,
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_General",

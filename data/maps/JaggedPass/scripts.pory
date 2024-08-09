@@ -101,7 +101,7 @@ JaggedPass_EventScript_Eric::
 	end
 
 JaggedPass_EventScript_Diana::
-	trainerbattle_single TRAINER_DIANA_1, JaggedPass_Text_DianaIntro, JaggedPass_Text_DianaDefeat
+	trainerbattle_single TRAINER_DIANA, JaggedPass_Text_DianaIntro, JaggedPass_Text_DianaDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, JaggedPass_EventScript_DianaRematch
 	msgbox JaggedPass_Text_DianaPostBattle, MSGBOX_DEFAULT
@@ -109,12 +109,12 @@ JaggedPass_EventScript_Diana::
 	end
 
 JaggedPass_EventScript_DianaRematch::
-	trainerbattle_rematch TRAINER_DIANA_1, JaggedPass_Text_DianaRematchIntro, JaggedPass_Text_DianaRematchDefeat
+	trainerbattle_rematch TRAINER_DIANA, JaggedPass_Text_DianaRematchIntro, JaggedPass_Text_DianaRematchDefeat
 	msgbox JaggedPass_Text_DianaPostRematch, MSGBOX_AUTOCLOSE
 	end
 
 JaggedPass_EventScript_Ethan::
-	trainerbattle_single TRAINER_ETHAN_1, JaggedPass_Text_EthanIntro, JaggedPass_Text_EthanDefeat
+	trainerbattle_single TRAINER_ETHAN, JaggedPass_Text_EthanIntro, JaggedPass_Text_EthanDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, JaggedPass_EventScript_EthanRematch
 	msgbox JaggedPass_Text_EthanPostBattle, MSGBOX_DEFAULT
@@ -122,7 +122,7 @@ JaggedPass_EventScript_Ethan::
 	end
 
 JaggedPass_EventScript_EthanRematch::
-	trainerbattle_rematch TRAINER_ETHAN_1, JaggedPass_Text_EthanRematchIntro, JaggedPass_Text_EthanRematchDefeat
+	trainerbattle_rematch TRAINER_ETHAN, JaggedPass_Text_EthanRematchIntro, JaggedPass_Text_EthanRematchDefeat
 	msgbox JaggedPass_Text_EthanPostRematch, MSGBOX_AUTOCLOSE
 	end
 

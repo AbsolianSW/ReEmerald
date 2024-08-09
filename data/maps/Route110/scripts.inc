@@ -179,7 +179,7 @@ Route110_EventScript_Jaclyn::
 	end
 
 Route110_EventScript_Edwin::
-	trainerbattle_single TRAINER_EDWIN_1, Route110_Text_EdwinIntro, Route110_Text_EdwinDefeated
+	trainerbattle_single TRAINER_EDWIN, Route110_Text_EdwinIntro, Route110_Text_EdwinDefeated
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, Route110_EventScript_EdwinRematch
 	msgbox Route110_Text_EdwinPostBattle, MSGBOX_DEFAULT
@@ -187,7 +187,7 @@ Route110_EventScript_Edwin::
 	end
 
 Route110_EventScript_EdwinRematch::
-	trainerbattle_rematch TRAINER_EDWIN_1, Route110_Text_EdwinRematchIntro, Route110_Text_EdwinRematchDefeated
+	trainerbattle_rematch TRAINER_EDWIN, Route110_Text_EdwinRematchIntro, Route110_Text_EdwinRematchDefeated
 	msgbox Route110_Text_EdwinRematchPostBattle, MSGBOX_AUTOCLOSE
 	end
 
@@ -207,7 +207,7 @@ Route110_EventScript_Anthony::
 	end
 
 Route110_EventScript_Benjamin::
-	trainerbattle_single TRAINER_BENJAMIN_1, Route110_Text_BenjaminIntro, Route110_Text_BenjaminDefeated
+	trainerbattle_single TRAINER_BENJAMIN, Route110_Text_BenjaminIntro, Route110_Text_BenjaminDefeated
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, Route110_EventScript_BenjaminRematch
 	msgbox Route110_Text_BenjaminPostBattle, MSGBOX_DEFAULT
@@ -215,7 +215,7 @@ Route110_EventScript_Benjamin::
 	end
 
 Route110_EventScript_BenjaminRematch::
-	trainerbattle_rematch TRAINER_BENJAMIN_1, Route110_Text_BenjaminRematchIntro, Route110_Text_BenjaminRematchDefeated
+	trainerbattle_rematch TRAINER_BENJAMIN, Route110_Text_BenjaminRematchIntro, Route110_Text_BenjaminRematchDefeated
 	msgbox Route110_Text_BenjaminRematchPostBattle, MSGBOX_AUTOCLOSE
 	end
 
@@ -225,7 +225,7 @@ Route110_EventScript_Jasmine::
 	end
 
 Route110_EventScript_Abigail::
-	trainerbattle_single TRAINER_ABIGAIL_1, Route110_Text_AbigailIntro, Route110_Text_AbigailDefeated
+	trainerbattle_single TRAINER_ABIGAIL, Route110_Text_AbigailIntro, Route110_Text_AbigailDefeated
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, Route110_EventScript_AbigailRematch
 	msgbox Route110_Text_AbigailPostBattle, MSGBOX_DEFAULT
@@ -233,12 +233,12 @@ Route110_EventScript_Abigail::
 	end
 
 Route110_EventScript_AbigailRematch::
-	trainerbattle_rematch TRAINER_ABIGAIL_1, Route110_Text_AbigailRematchIntro, Route110_Text_AbigailRematchDefeated
+	trainerbattle_rematch TRAINER_ABIGAIL, Route110_Text_AbigailRematchIntro, Route110_Text_AbigailRematchDefeated
 	msgbox Route110_Text_AbigailRematchPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route110_EventScript_Isabel::
-	trainerbattle_single TRAINER_ISABEL_1, Route110_Text_IsabelIntro, Route110_Text_IsabelDefeated
+	trainerbattle_single TRAINER_ISABEL, Route110_Text_IsabelIntro, Route110_Text_IsabelDefeated
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, Route110_EventScript_IsabelRematch
 	msgbox Route110_Text_IsabelPostBattle, MSGBOX_DEFAULT
@@ -246,7 +246,7 @@ Route110_EventScript_Isabel::
 	end
 
 Route110_EventScript_IsabelRematch::
-	trainerbattle_rematch TRAINER_ISABEL_1, Route110_Text_IsabelRematchIntro, Route110_Text_IsabelRematchDefeated
+	trainerbattle_rematch TRAINER_ISABEL, Route110_Text_IsabelRematchIntro, Route110_Text_IsabelRematchDefeated
 	msgbox Route110_Text_IsabelRematchPostBattle, MSGBOX_AUTOCLOSE
 	end
 

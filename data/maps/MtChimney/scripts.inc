@@ -514,7 +514,7 @@ MtChimney_EventScript_RouteSign::
 	end
 
 MtChimney_EventScript_Shelby::
-	trainerbattle_single TRAINER_SHELBY_1, MtChimney_Text_ShelbyIntro, MtChimney_Text_ShelbyDefeat
+	trainerbattle_single TRAINER_SHELBY, MtChimney_Text_ShelbyIntro, MtChimney_Text_ShelbyDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, MtChimney_EventScript_RematchShelby
 	msgbox MtChimney_Text_ShelbyPostBattle, MSGBOX_DEFAULT
@@ -522,7 +522,7 @@ MtChimney_EventScript_Shelby::
 	end
 
 MtChimney_EventScript_RematchShelby::
-	trainerbattle_rematch TRAINER_SHELBY_1, MtChimney_Text_ShelbyRematchIntro, MtChimney_Text_ShelbyRematchDefeat
+	trainerbattle_rematch TRAINER_SHELBY, MtChimney_Text_ShelbyRematchIntro, MtChimney_Text_ShelbyRematchDefeat
 	msgbox MtChimney_Text_ShelbyPostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -547,7 +547,7 @@ MtChimney_EventScript_Grunt1::
 	end
 
 MtChimney_EventScript_Sawyer::
-	trainerbattle_single TRAINER_SAWYER_1, MtChimney_Text_SawyerIntro, MtChimney_Text_SawyerDefeat
+	trainerbattle_single TRAINER_SAWYER, MtChimney_Text_SawyerIntro, MtChimney_Text_SawyerDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, MtChimney_EventScript_SawyerRematch
 	msgbox MtChimney_Text_SawyerPostBattle, MSGBOX_DEFAULT
@@ -555,7 +555,7 @@ MtChimney_EventScript_Sawyer::
 	end
 
 MtChimney_EventScript_SawyerRematch::
-	trainerbattle_rematch TRAINER_SAWYER_1, MtChimney_Text_SawyerRematchIntro, MtChimney_Text_SawyerRematchDefeat
+	trainerbattle_rematch TRAINER_SAWYER, MtChimney_Text_SawyerRematchIntro, MtChimney_Text_SawyerRematchDefeat
 	msgbox MtChimney_Text_SawyerPostRematch, MSGBOX_AUTOCLOSE
 	end
 

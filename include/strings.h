@@ -48,7 +48,10 @@ extern const u8 gText_Cute2[];
 extern const u8 gText_Smart2[];
 extern const u8 gText_Tough2[];
 
-extern const u8 gText_Items[];
+extern const u8 gText_Medicine[];
+extern const u8 gText_PowerUp[];
+extern const u8 gText_Battle[];
+extern const u8 gText_Misc[];
 extern const u8 gText_Key_Items[];
 extern const u8 gText_Poke_Balls[];
 extern const u8 gText_TMs_Hms[];
@@ -364,12 +367,7 @@ extern const u8 gText_BatteryRunDry[];
 extern const u8 gText_MainMenuNewGame[];
 extern const u8 gText_MainMenuOption[];
 extern const u8 gText_MainMenuContinue[];
-extern const u8 gText_MainMenuMysteryGift2[];
-extern const u8 gText_MainMenuMysteryEvents[];
-extern const u8 gText_MainMenuMysteryGift[];
 extern const u8 gText_WirelessNotConnected[];
-extern const u8 gText_MysteryGiftCantUse[];
-extern const u8 gText_MysteryEventsCantUse[];
 extern const u8 gText_Birch_Welcome[];
 extern const u8 gText_ThisIsAPokemon[];
 extern const u8 gText_Birch_MainSpeech[];
@@ -429,14 +427,6 @@ extern const u8 gText_DefaultNameHalie[];
 
 extern const u8 gText_BirchInTrouble[];
 extern const u8 gText_ConfirmStarterChoice[];
-
-// mystery event menu text
-extern const u8 gText_EventSafelyLoaded[];
-extern const u8 gText_LoadErrorEndingSession[];
-extern const u8 gText_PressAToLoadEvent[];
-extern const u8 gText_LoadingEvent[];
-extern const u8 gText_DontRemoveCableTurnOff[];
-extern const u8 gText_LinkStandby2[];
 
 // berry tag screen text
 extern const u8 gBerryFirmnessString_VerySoft[];
@@ -2790,21 +2780,6 @@ extern const u8 gText_UnionRoomChatKeyboard_Emoji7[];
 extern const u8 gText_UnionRoomChatKeyboard_Emoji8[];
 extern const u8 gText_UnionRoomChatKeyboard_Emoji9[];
 extern const u8 gText_UnionRoomChatKeyboard_Emoji10[];
-
-// E-Reader
-extern const u8 gJPText_ReceiveMysteryGiftWithEReader[];
-extern const u8 gJPText_SelectConnectFromEReaderMenu[];
-extern const u8 gJPText_SelectConnectWithGBA[];
-extern const u8 gJPText_LinkIsIncorrect[];
-extern const u8 gJPText_CardReadingHasBeenHalted[];
-extern const u8 gJPText_Connecting[];
-extern const u8 gJPText_ConnectionErrorCheckLink[];
-extern const u8 gJPText_ConnectionErrorTryAgain[];
-extern const u8 gJPText_AllowEReaderToLoadCard[];
-extern const u8 gJPText_ConnectionComplete[];
-extern const u8 gJPText_NewTrainerHasComeToHoenn[];
-extern const u8 gJPText_PleaseWaitAMoment[];
-extern const u8 gJPText_WriteErrorUnableToSaveData[];
 
 // Berry Powder Menu
 extern const u8 gText_Powder[];

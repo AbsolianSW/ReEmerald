@@ -59,7 +59,7 @@ Route123_EventScript_Violet::
 	end
 
 Route123_EventScript_Cameron::
-	trainerbattle_single TRAINER_CAMERON_1, Route123_Text_CameronIntro, Route123_Text_CameronDefeat
+	trainerbattle_single TRAINER_CAMERON, Route123_Text_CameronIntro, Route123_Text_CameronDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, Route123_EventScript_RematchCameron
 	msgbox Route123_Text_CameronPostBattle, MSGBOX_DEFAULT
@@ -67,12 +67,12 @@ Route123_EventScript_Cameron::
 	end
 
 Route123_EventScript_RematchCameron::
-	trainerbattle_rematch TRAINER_CAMERON_1, Route123_Text_CameronRematchIntro, Route123_Text_CameronRematchDefeat
+	trainerbattle_rematch TRAINER_CAMERON, Route123_Text_CameronRematchIntro, Route123_Text_CameronRematchDefeat
 	msgbox Route123_Text_CameronPostRematch, MSGBOX_AUTOCLOSE
 	end
 
 Route123_EventScript_Jacki::
-	trainerbattle_single TRAINER_JACKI_1, Route123_Text_JackiIntro, Route123_Text_JackiDefeat
+	trainerbattle_single TRAINER_JACKI, Route123_Text_JackiIntro, Route123_Text_JackiDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, Route123_EventScript_RematchJacki
 	msgbox Route123_Text_JackiPostBattle, MSGBOX_DEFAULT
@@ -80,7 +80,7 @@ Route123_EventScript_Jacki::
 	end
 
 Route123_EventScript_RematchJacki::
-	trainerbattle_rematch TRAINER_JACKI_1, Route123_Text_JackiRematchIntro, Route123_Text_JackiRematchDefeat
+	trainerbattle_rematch TRAINER_JACKI, Route123_Text_JackiRematchIntro, Route123_Text_JackiRematchDefeat
 	msgbox Route123_Text_JackiPostRematch, MSGBOX_AUTOCLOSE
 	end
 
@@ -135,7 +135,7 @@ Route123_EventScript_Davis::
 	end
 
 Route123_EventScript_Fernando::
-	trainerbattle_single TRAINER_FERNANDO_1, Route123_Text_FernandoIntro, Route123_Text_FernandoDefeat
+	trainerbattle_single TRAINER_FERNANDO, Route123_Text_FernandoIntro, Route123_Text_FernandoDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, Route123_EventScript_RematchFernando
 	msgbox Route123_Text_FernandoPostBattle, MSGBOX_DEFAULT
@@ -143,7 +143,7 @@ Route123_EventScript_Fernando::
 	end
 
 Route123_EventScript_RematchFernando::
-	trainerbattle_rematch TRAINER_FERNANDO_1, Route123_Text_FernandoRematchIntro, Route123_Text_FernandoRematchDefeat
+	trainerbattle_rematch TRAINER_FERNANDO, Route123_Text_FernandoRematchIntro, Route123_Text_FernandoRematchDefeat
 	msgbox Route123_Text_FernandoPostRematch, MSGBOX_AUTOCLOSE
 	end
 

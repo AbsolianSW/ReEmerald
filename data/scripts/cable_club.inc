@@ -5,8 +5,7 @@ CableClub_OnTransition:
 CableClub_EventScript_HideOrShowMysteryGiftMan::
 	specialvar VAR_RESULT, ShouldDistributeEonTicket
 	goto_if_eq VAR_RESULT, TRUE, CableClub_EventScript_ShowMysteryGiftMan
-	specialvar VAR_RESULT, ValidateSavedWonderCard
-	goto_if_eq VAR_RESULT, FALSE, CableClub_EventScript_HideMysteryGiftMan
+	goto CableClub_EventScript_HideMysteryGiftMan
 	goto CableClub_EventScript_ShowMysteryGiftMan
 	end
 
@@ -954,7 +953,7 @@ CableClub_EventScript_DontAskAboutLinking::
 CableClub_EventScript_DirectCornerAttendant::
 	lock
 	faceplayer
-	setvar VAR_FRONTIER_FACILITY, FACILITY_MULTI_OR_EREADER  @ Set preemptively for Multi Battles, ignored otherwise
+	setvar VAR_FRONTIER_FACILITY, FACILITY_MULTI  @ Set preemptively for Multi Battles, ignored otherwise
 	goto_if_unset FLAG_SYS_POKEDEX_GET, CableClub_EventScript_WirelessClubAdjustements
 	specialvar VAR_RESULT, IsBadEggInParty
 	goto_if_eq VAR_RESULT, TRUE, CableClub_EventScript_AbortLinkPlayerHasBadEgg

@@ -467,15 +467,15 @@
 // these flags were originally used for move tutors, but with our reuseable ones they are
 // now unnecessary and used for something else
 #define FLAG_SHOWN_RAINBOW_PASS              0x1B1
-//#define FLAG_MOVE_TUTOR_TAUGHT_ROLLOUT       0x1B2
-//#define FLAG_MOVE_TUTOR_TAUGHT_FURY_CUTTER   0x1B3
-//#define FLAG_MOVE_TUTOR_TAUGHT_MIMIC         0x1B4
-//#define FLAG_MOVE_TUTOR_TAUGHT_METRONOME     0x1B5
-//#define FLAG_MOVE_TUTOR_TAUGHT_SLEEP_TALK    0x1B6
-//#define FLAG_MOVE_TUTOR_TAUGHT_SUBSTITUTE    0x1B7
-//#define FLAG_MOVE_TUTOR_TAUGHT_DYNAMICPUNCH  0x1B8
-//#define FLAG_MOVE_TUTOR_TAUGHT_DOUBLE_EDGE   0x1B9
-//#define FLAG_MOVE_TUTOR_TAUGHT_EXPLOSION     0x1BA
+#define FLAG_MOVE_TUTOR_TAUGHT_ROLLOUT       0x1B2
+#define FLAG_MOVE_TUTOR_TAUGHT_FURY_CUTTER   0x1B3
+#define FLAG_MOVE_TUTOR_TAUGHT_MIMIC         0x1B4
+#define FLAG_MOVE_TUTOR_TAUGHT_METRONOME     0x1B5
+#define FLAG_MOVE_TUTOR_TAUGHT_SLEEP_TALK    0x1B6
+#define FLAG_MOVE_TUTOR_TAUGHT_SUBSTITUTE    0x1B7
+#define FLAG_MOVE_TUTOR_TAUGHT_DYNAMICPUNCH  0x1B8
+#define FLAG_MOVE_TUTOR_TAUGHT_DOUBLE_EDGE   0x1B9
+#define FLAG_MOVE_TUTOR_TAUGHT_EXPLOSION     0x1BA
 #define FLAG_DEFEATED_REGIROCK               0x1BB
 #define FLAG_DEFEATED_REGICE                 0x1BC
 #define FLAG_DEFEATED_REGISTEEL              0x1BD
@@ -521,7 +521,7 @@
 #define FLAG_UNUSED_0x1E2                    0x1E2 // Unused Flag
 #define FLAG_UNUSED_0x1E3                    0x1E3 // Unused Flag
 
-// Mystery Gift Flags (Unknown)
+// Mystery Gift Flags (Unknown) Unused
 #define FLAG_MYSTERY_GIFT_DONE               0x1E4
 #define FLAG_MYSTERY_GIFT_1                  0x1E5
 #define FLAG_MYSTERY_GIFT_2                  0x1E6
@@ -1248,10 +1248,10 @@
 #define FLAG_TWO_ISLAND_HIDE_LOSTELLE                               0x4AA
 #define FLAG_TWO_ISLAND_HIDE_SHELLY                                 0x4AB
 #define FLAG_CAPE_BRINK_HIDE_AQUA                                   0x4AC 
-#define FLAG_UNUSED_0x4AD                                           0x4AD // Unused Flag
-#define FLAG_UNUSED_0x4AE                                           0x4AE // Unused Flag
-#define FLAG_UNUSED_0x4AF                                           0x4AF // Unused Flag
-#define FLAG_UNUSED_0x4B0                                           0x4B0 // Unused Flag
+#define FLAG_TWO_ISLAND_HIDE_SUICUNE                                0x4AD 
+#define FLAG_TWO_ISLAND_HIDE_SHELLY_HARBOR                          0x4AE 
+#define FLAG_THREE_ISLAND_HIDE_AQUA_BLOCKADE                        0x4AF 
+#define FLAG_THREE_ISLAND_HIDE_AQUA                                 0x4B0 
 #define FLAG_UNUSED_0x4B1                                           0x4B1 // Unused Flag
 #define FLAG_UNUSED_0x4B2                                           0x4B2 // Unused Flag
 #define FLAG_UNUSED_0x4B3                                           0x4B3 // Unused Flag
@@ -1337,17 +1337,18 @@
 #define FLAG_UNUSED_0x4FF                                           0x4FF // Unused Flag
 
 // Trainer Flags
-// Trainer flags occupy 0x500 - 0x85F, the last 9 of which are unused
 // See constants/opponents.h. The values there + FLAG_TRAINER_FLAG_START are the flag IDs
 
 #define TRAINER_FLAGS_START                                         0x500
 #define TRAINER_FLAGS_END                                           (TRAINER_FLAGS_START + MAX_TRAINERS_COUNT - 1) // 0x85F
+#define TRAINER_REMATCH_FLAGS_START                                 (TRAINER_FLAGS_END + 1)
+#define TRAINER_REMATCH_FLAGS_END                                   (TRAINER_REMATCH_FLAGS_START + MAX_TRAINERS_COUNT - 1) // 0x85F
 
 // System Flags
 
-#define SYSTEM_FLAGS                                   (TRAINER_FLAGS_END + 1) // 0x860
+#define SYSTEM_FLAGS                                   (TRAINER_REMATCH_FLAGS_END + 1) 
 
-#define FLAG_SYS_POKEMON_GET                         (SYSTEM_FLAGS + 0x0) // FLAG_0x860
+#define FLAG_SYS_POKEMON_GET                         (SYSTEM_FLAGS + 0x0) 
 #define FLAG_SYS_POKEDEX_GET                         (SYSTEM_FLAGS + 0x1)
 #define FLAG_SYS_POKENAV_GET                         (SYSTEM_FLAGS + 0x2)
 #define FLAG_UNUSED_0x863                            (SYSTEM_FLAGS + 0x3) // Unused Flag

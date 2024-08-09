@@ -17,8 +17,7 @@
 // VAR_FRONTIER_FACILITY is re-used for the below facilities as well
 #define FACILITY_LINK_CONTEST      7
 #define FACILITY_UNION_ROOM        8
-#define FACILITY_MULTI_OR_EREADER  9  // Direct Corner multi battles, multi battle with Steven, and e-Reader battles
-
+#define FACILITY_MULTI  9
 // Battle Frontier battle modes.
 #define FRONTIER_MODE_SINGLES      0
 #define FRONTIER_MODE_DOUBLES      1
@@ -35,7 +34,6 @@
 // Special trainer battles.
 #define SPECIAL_BATTLE_TOWER 0
 #define SPECIAL_BATTLE_SECRET_BASE 1
-#define SPECIAL_BATTLE_EREADER 2
 #define SPECIAL_BATTLE_DOME 3
 #define SPECIAL_BATTLE_PALACE 4
 #define SPECIAL_BATTLE_ARENA 5

@@ -4,7 +4,6 @@
 #include "event_data.h"
 #include "string_util.h"
 #include "battle.h"
-#include "gym_leader_rematch.h"
 #include "match_call.h"
 #include "pokenav.h"
 #include "strings.h"
@@ -197,12 +196,11 @@ static const match_call_text_data_t sNormanTextScripts[] = {
     { NULL,                   0xFFFF,                        0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sNormanMatchCallHeader =
+static const struct MatchCallStructNPC sNormanMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_PETALBURG_CITY,
     .flag = FLAG_ENABLE_NORMAN_MATCH_CALL,
-    .rematchTableIdx = REMATCH_NORMAN,
     .desc = gText_NormanMatchCallDesc,
     .name = gText_NormanMatchCallName,
     .textData = sNormanTextScripts
@@ -331,15 +329,13 @@ static const struct MatchCallLocationOverride sWallyLocationData[] = {
     { 0xFFFF,                                 MAPSEC_NONE }
 };
 
-static const struct MatchCallWally sWallyMatchCallHeader =
+static const struct MatchCallStructNPC sWallyMatchCallHeader =
 {
     .type = MC_TYPE_WALLY,
     .mapSec = 0,
     .flag = FLAG_ENABLE_WALLY_MATCH_CALL,
-    .rematchTableIdx = REMATCH_WALLY_VR,
     .desc = gText_WallyMatchCallDesc,
     .textData = sWallyTextScripts,
-    .locationData = sWallyLocationData
 };
 
 static const match_call_text_data_t sScottTextScripts[] = {
@@ -372,12 +368,11 @@ static const match_call_text_data_t sRoxanneTextScripts[] = {
     { NULL,                    0xFFFF,              0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sRoxanneMatchCallHeader =
+static const struct MatchCallStructNPC sRoxanneMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_RUSTBORO_CITY,
     .flag = FLAG_ENABLE_ROXANNE_MATCH_CALL,
-    .rematchTableIdx = REMATCH_ROXANNE,
     .desc = gText_RoxanneMatchCallDesc,
     .name = NULL,
     .textData = sRoxanneTextScripts
@@ -391,12 +386,11 @@ static const match_call_text_data_t sBrawlyTextScripts[] = {
     { NULL,                   0xFFFF,              0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sBrawlyMatchCallHeader =
+static const struct MatchCallStructNPC sBrawlyMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_DEWFORD_TOWN,
     .flag = FLAG_ENABLE_BRAWLY_MATCH_CALL,
-    .rematchTableIdx = REMATCH_BRAWLY,
     .desc = gText_BrawlyMatchCallDesc,
     .name = NULL,
     .textData = sBrawlyTextScripts
@@ -410,12 +404,11 @@ static const match_call_text_data_t sWattsonTextScripts[] = {
     { NULL,                    0xFFFF,              0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sWattsonMatchCallHeader =
+static const struct MatchCallStructNPC sWattsonMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_MAUVILLE_CITY,
     .flag = FLAG_ENABLE_WATTSON_MATCH_CALL,
-    .rematchTableIdx = REMATCH_WATTSON,
     .desc = gText_WattsonMatchCallDesc,
     .name = NULL,
     .textData = sWattsonTextScripts
@@ -429,12 +422,11 @@ static const match_call_text_data_t sFlanneryTextScripts[] = {
     { NULL,                     0xFFFF,              0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sFlanneryMatchCallHeader =
+static const struct MatchCallStructNPC sFlanneryMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_LAVARIDGE_TOWN,
     .flag = FLAG_ENABLE_FLANNERY_MATCH_CALL,
-    .rematchTableIdx = REMATCH_FLANNERY,
     .desc = gText_FlanneryMatchCallDesc,
     .name = NULL,
     .textData = sFlanneryTextScripts
@@ -448,12 +440,11 @@ static const match_call_text_data_t sWinonaTextScripts[] = {
     { NULL,                   0xFFFF,              0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sWinonaMatchCallHeader =
+static const struct MatchCallStructNPC sWinonaMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_FORTREE_CITY,
     .flag = FLAG_ENABLE_WINONA_MATCH_CALL,
-    .rematchTableIdx = REMATCH_WINONA,
     .desc = gText_WinonaMatchCallDesc,
     .name = NULL,
     .textData = sWinonaTextScripts
@@ -467,12 +458,11 @@ static const match_call_text_data_t sTateLizaTextScripts[] = {
     { NULL,                     0xFFFF,              0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sTateLizaMatchCallHeader =
+static const struct MatchCallStructNPC sTateLizaMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_MOSSDEEP_CITY,
     .flag = FLAG_ENABLE_TATE_AND_LIZA_MATCH_CALL,
-    .rematchTableIdx = REMATCH_TATE_AND_LIZA,
     .desc = gText_TateLizaMatchCallDesc,
     .name = NULL,
     .textData = sTateLizaTextScripts
@@ -486,12 +476,11 @@ static const match_call_text_data_t sJuanTextScripts[] = {
     { NULL,                 0xFFFF,              0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sJuanMatchCallHeader =
+static const struct MatchCallStructNPC sJuanMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_SOOTOPOLIS_CITY,
     .flag = FLAG_ENABLE_JUAN_MATCH_CALL,
-    .rematchTableIdx = REMATCH_JUAN,
     .desc = gText_JuanMatchCallDesc,
     .name = NULL,
     .textData = sJuanTextScripts
@@ -502,12 +491,11 @@ static const match_call_text_data_t sSidneyTextScripts[] = {
     { NULL,                  0xFFFF, 0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sSidneyMatchCallHeader =
+static const struct MatchCallStructNPC sSidneyMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_EVER_GRANDE_CITY,
     .flag = FLAG_REMATCH_SIDNEY,
-    .rematchTableIdx = REMATCH_SIDNEY,
     .desc = gText_EliteFourMatchCallDesc,
     .name = NULL,
     .textData = sSidneyTextScripts
@@ -518,12 +506,11 @@ static const match_call_text_data_t sPhoebeTextScripts[] = {
     { NULL,                  0xFFFF, 0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sPhoebeMatchCallHeader =
+static const struct MatchCallStructNPC sPhoebeMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_EVER_GRANDE_CITY,
     .flag = FLAG_REMATCH_PHOEBE,
-    .rematchTableIdx = REMATCH_PHOEBE,
     .desc = gText_EliteFourMatchCallDesc,
     .name = NULL,
     .textData = sPhoebeTextScripts
@@ -534,12 +521,11 @@ static const match_call_text_data_t sGlaciaTextScripts[] = {
     { NULL,                  0xFFFF, 0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sGlaciaMatchCallHeader =
+static const struct MatchCallStructNPC sGlaciaMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_EVER_GRANDE_CITY,
     .flag = FLAG_REMATCH_GLACIA,
-    .rematchTableIdx = REMATCH_GLACIA,
     .desc = gText_EliteFourMatchCallDesc,
     .name = NULL,
     .textData = sGlaciaTextScripts
@@ -550,12 +536,11 @@ static const match_call_text_data_t sDrakeTextScripts[] = {
     { NULL,                 0xFFFF, 0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sDrakeMatchCallHeader =
+static const struct MatchCallStructNPC sDrakeMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_EVER_GRANDE_CITY,
     .flag = FLAG_REMATCH_DRAKE,
-    .rematchTableIdx = REMATCH_DRAKE,
     .desc = gText_EliteFourMatchCallDesc,
     .name = NULL,
     .textData = sDrakeTextScripts
@@ -566,12 +551,11 @@ static const match_call_text_data_t sWallaceTextScripts[] = {
     { NULL,                   0xFFFF, 0xFFFF }
 };
 
-static const struct MatchCallStructTrainer sWallaceMatchCallHeader =
+static const struct MatchCallStructNPC sWallaceMatchCallHeader =
 {
     .type = MC_TYPE_LEADER,
     .mapSec = MAPSEC_EVER_GRANDE_CITY,
     .flag = FLAG_REMATCH_WALLACE,
-    .rematchTableIdx = REMATCH_WALLACE,
     .desc = gText_ChampionMatchCallDesc,
     .name = NULL,
     .textData = sWallaceTextScripts
@@ -582,23 +566,23 @@ static const match_call_t sMatchCallHeaders[] = {
     [MC_HEADER_PROF_BIRCH] = {.birch  = &sProfBirchMatchCallHeader},
     [MC_HEADER_BRENDAN]    = {.rival  = &sBrendanMatchCallHeader},
     [MC_HEADER_MAY]        = {.rival  = &sMayMatchCallHeader},
-    [MC_HEADER_WALLY]      = {.wally  = &sWallyMatchCallHeader},
-    [MC_HEADER_NORMAN]     = {.leader = &sNormanMatchCallHeader},
+    [MC_HEADER_WALLY]      = {.npc  = &sWallyMatchCallHeader},
+    [MC_HEADER_NORMAN]     = {.npc = &sNormanMatchCallHeader},
     [MC_HEADER_MOM]        = {.npc    = &sMomMatchCallHeader},
     [MC_HEADER_STEVEN]     = {.npc    = &sStevenMatchCallHeader},
     [MC_HEADER_SCOTT]      = {.npc    = &sScottMatchCallHeader},
-    [MC_HEADER_ROXANNE]    = {.leader = &sRoxanneMatchCallHeader},
-    [MC_HEADER_BRAWLY]     = {.leader = &sBrawlyMatchCallHeader},
-    [MC_HEADER_WATTSON]    = {.leader = &sWattsonMatchCallHeader},
-    [MC_HEADER_FLANNERY]   = {.leader = &sFlanneryMatchCallHeader},
-    [MC_HEADER_WINONA]     = {.leader = &sWinonaMatchCallHeader},
-    [MC_HEADER_TATE_LIZA]  = {.leader = &sTateLizaMatchCallHeader},
-    [MC_HEADER_JUAN]       = {.leader = &sJuanMatchCallHeader},
-    [MC_HEADER_SIDNEY]     = {.leader = &sSidneyMatchCallHeader},
-    [MC_HEADER_PHOEBE]     = {.leader = &sPhoebeMatchCallHeader},
-    [MC_HEADER_GLACIA]     = {.leader = &sGlaciaMatchCallHeader},
-    [MC_HEADER_DRAKE]      = {.leader = &sDrakeMatchCallHeader},
-    [MC_HEADER_WALLACE]    = {.leader = &sWallaceMatchCallHeader}
+    [MC_HEADER_ROXANNE]    = {.npc = &sRoxanneMatchCallHeader},
+    [MC_HEADER_BRAWLY]     = {.npc = &sBrawlyMatchCallHeader},
+    [MC_HEADER_WATTSON]    = {.npc = &sWattsonMatchCallHeader},
+    [MC_HEADER_FLANNERY]   = {.npc = &sFlanneryMatchCallHeader},
+    [MC_HEADER_WINONA]     = {.npc = &sWinonaMatchCallHeader},
+    [MC_HEADER_TATE_LIZA]  = {.npc = &sTateLizaMatchCallHeader},
+    [MC_HEADER_JUAN]       = {.npc = &sJuanMatchCallHeader},
+    [MC_HEADER_SIDNEY]     = {.npc = &sSidneyMatchCallHeader},
+    [MC_HEADER_PHOEBE]     = {.npc = &sPhoebeMatchCallHeader},
+    [MC_HEADER_GLACIA]     = {.npc = &sGlaciaMatchCallHeader},
+    [MC_HEADER_DRAKE]      = {.npc = &sDrakeMatchCallHeader},
+    [MC_HEADER_WALLACE]    = {.npc = &sWallaceMatchCallHeader}
 };
 
 static bool32 (*const sMatchCallGetEnabledFuncs[])(match_call_t) = {
@@ -717,18 +701,19 @@ static u32 MatchCallGetFunctionIndex(match_call_t matchCall)
 
 u32 GetTrainerIdxByRematchIdx(u32 rematchIdx)
 {
-    return gRematchTable[rematchIdx].trainerIds[0];
+    //return gRematchTable[rematchIdx].trainerIds[0];
+    return 0;
 }
 
 s32 GetRematchIdxByTrainerIdx(s32 trainerIdx)
 {
     s32 rematchIdx;
 
-    for (rematchIdx = 0; rematchIdx < REMATCH_TABLE_ENTRIES; rematchIdx++)
+    /* for (rematchIdx = 0; rematchIdx < REMATCH_TABLE_ENTRIES; rematchIdx++)
     {
         if (gRematchTable[rematchIdx].trainerIds[0] == trainerIdx)
             return rematchIdx;
-    }
+    } */
     return -1;
 }
 
@@ -753,9 +738,10 @@ static bool32 MatchCall_GetEnabled_NPC(match_call_t matchCall)
 
 static bool32 MatchCall_GetEnabled_Trainer(match_call_t matchCall)
 {
-    if (matchCall.trainer->flag == 0xFFFF)
+    /* if (matchCall.trainer->flag == 0xFFFF)
         return TRUE;
-    return FlagGet(matchCall.trainer->flag);
+    return FlagGet(matchCall.trainer->flag); */
+    return FALSE;
 }
 
 static bool32 MatchCall_GetEnabled_Wally(match_call_t matchCall)
@@ -798,7 +784,8 @@ static u8 MatchCall_GetMapSec_NPC(match_call_t matchCall)
 
 static u8 MatchCall_GetMapSec_Trainer(match_call_t matchCall)
 {
-    return matchCall.trainer->mapSec;
+    //return matchCall.trainer->mapSec;
+    return 0;
 }
 
 static u8 MatchCall_GetMapSec_Wally(match_call_t matchCall)
@@ -842,14 +829,16 @@ static bool32 MatchCall_IsRematchable_NPC(match_call_t matchCall)
 
 static bool32 MatchCall_IsRematchable_Trainer(match_call_t matchCall)
 {
-    if (matchCall.trainer->rematchTableIdx >= REMATCH_ELITE_FOUR_ENTRIES)
+   /*  if (matchCall.trainer->rematchTableIdx >= REMATCH_ELITE_FOUR_ENTRIES)
         return FALSE;
-    return gSaveBlock1Ptr->trainerRematches[matchCall.trainer->rematchTableIdx] ? TRUE : FALSE;
+    return gSaveBlock1Ptr->trainerRematches[matchCall.trainer->rematchTableIdx] ? TRUE : FALSE; */
+    return 0;
 }
 
 static bool32 MatchCall_IsRematchable_Wally(match_call_t matchCall)
 {
-    return gSaveBlock1Ptr->trainerRematches[matchCall.wally->rematchTableIdx] ? TRUE : FALSE;
+    //return gSaveBlock1Ptr->trainerRematches[matchCall.wally->rematchTableIdx] ? TRUE : FALSE;
+    return 0;
 }
 
 static bool32 MatchCall_IsRematchable_Rival(match_call_t matchCall)
@@ -912,7 +901,7 @@ u32 MatchCall_GetRematchTableIdx(u32 idx)
     u32 i;
 
     if (idx >= ARRAY_COUNT(sMatchCallHeaders))
-        return REMATCH_TABLE_ENTRIES;
+        return 78;
     matchCall = sMatchCallHeaders[idx];
     i = MatchCallGetFunctionIndex(matchCall);
     return sMatchCall_GetRematchTableIdxFunctions[i](matchCall);
@@ -920,7 +909,7 @@ u32 MatchCall_GetRematchTableIdx(u32 idx)
 
 static u32 MatchCall_GetRematchTableIdx_NPC(match_call_t matchCall)
 {
-    return REMATCH_TABLE_ENTRIES;
+    return 78;
 }
 
 static u32 MatchCall_GetRematchTableIdx_Trainer(match_call_t matchCall)
@@ -935,12 +924,12 @@ static u32 MatchCall_GetRematchTableIdx_Wally(match_call_t matchCall)
 
 static u32 MatchCall_GetRematchTableIdx_Rival(match_call_t matchCall)
 {
-    return REMATCH_TABLE_ENTRIES;
+    return 78;
 }
 
 static u32 MatchCall_GetRematchTableIdx_Birch(match_call_t matchCall)
 {
-    return REMATCH_TABLE_ENTRIES;
+    return 78;
 }
 
 void MatchCall_GetMessage(u32 idx, u8 *dest)
@@ -1026,9 +1015,7 @@ static void MatchCall_BufferCallMessageTextByRematchTeam(const match_call_text_d
         {
             do
             {
-                if (gSaveBlock1Ptr->trainerRematches[idx])
-                    i += 2;
-                else if (CountBattledRematchTeams(idx) >= 2)
+                if (CountBattledRematchTeams(idx) >= 2)
                     i += 3;
                 else
                     i++;
@@ -1119,19 +1106,6 @@ int MatchCall_GetOverrideFacilityClass(u32 idx)
             return sCheckPageOverrides[i].facilityClass;
     }
     return -1;
-}
-
-bool32 MatchCall_HasRematchId(u32 idx)
-{
-    int i;
-
-    for (i = 0; i < (int)ARRAY_COUNT(sMatchCallHeaders); i++)
-    {
-        u32 id = MatchCall_GetRematchTableIdx(i);
-        if (id != REMATCH_TABLE_ENTRIES && id == idx)
-            return TRUE;
-    }
-    return FALSE;
 }
 
 void SetMatchCallRegisteredFlag(void)

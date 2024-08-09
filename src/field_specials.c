@@ -22,7 +22,6 @@
 #include "link.h"
 #include "list_menu.h"
 #include "main.h"
-#include "mystery_gift.h"
 #include "match_call.h"
 #include "menu.h"
 #include "overworld.h"
@@ -56,7 +55,6 @@
 #include "constants/items.h"
 #include "constants/heal_locations.h"
 #include "constants/map_types.h"
-#include "constants/mystery_gift.h"
 #include "constants/slot_machine.h"
 #include "constants/songs.h"
 #include "constants/moves.h"
@@ -1281,11 +1279,6 @@ u16 GetBattleTowerSinglesStreak(void)
     return GetGameStat(GAME_STAT_BATTLE_TOWER_SINGLES_STREAK);
 }
 
-void BufferEReaderTrainerName(void)
-{
-    GetEreaderTrainerName(gStringVar1);
-}
-
 u16 GetSlotMachineId(void)
 {
     static const u8 sSlotMachineRandomSeeds[SLOT_MACHINE_COUNT] = {12, 2, 4, 5, 1, 8, 7, 11, 3, 10, 9, 6};
@@ -1613,25 +1606,6 @@ void BufferLottoTicketNumber(void)
         gStringVar1[2] = CHAR_0;
         gStringVar1[3] = CHAR_0;
         ConvertIntToDecimalStringN(gStringVar1 + 4, gSpecialVar_Result, STR_CONV_MODE_LEFT_ALIGN, CountDigits(gSpecialVar_Result));
-    }
-}
-
-u16 GetMysteryGiftCardStat(void)
-{
-    switch (gSpecialVar_Result)
-    {
-    case GET_NUM_STAMPS:
-        return MysteryGift_GetCardStat(CARD_STAT_NUM_STAMPS);
-    case GET_MAX_STAMPS:
-        return MysteryGift_GetCardStat(CARD_STAT_MAX_STAMPS);
-    case GET_CARD_BATTLES_WON:
-        return MysteryGift_GetCardStat(CARD_STAT_BATTLES_WON);
-    case GET_CARD_BATTLES_LOST: // Never occurs
-        return MysteryGift_GetCardStat(CARD_STAT_BATTLES_LOST);
-    case GET_CARD_NUM_TRADES: // Never occurs
-        return MysteryGift_GetCardStat(CARD_STAT_NUM_TRADES);
-    default:
-        return 0;
     }
 }
 
@@ -2362,7 +2336,7 @@ void ShowScrollableMultichoice(void)
         break;
     case SCROLL_MULTI_SS_TIDAL_DESTINATION:
         task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
+        task->tNumItems = 8;
         task->tLeft = 19;
         task->tTop = 1;
         task->tWidth = 10;
@@ -2372,10 +2346,26 @@ void ShowScrollableMultichoice(void)
         break;
     case SCROLL_MULTI_BATTLE_TENT_RULES:
         task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
+        task->tNumItems = 8;
         task->tLeft = 17;
         task->tTop = 1;
         task->tWidth = 12;
+        task->tHeight = 12;
+        task->tKeepOpenAfterSelect = FALSE;
+        task->tTaskId = taskId;
+        break;
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_1:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_2:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_3:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_4:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_5:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_6:
+    case SCROLL_MULTI_SEVII_FERRY_DESTINATION_7:
+        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
+        task->tNumItems = 8;
+        task->tLeft = 19;
+        task->tTop = 1;
+        task->tWidth = 10;
         task->tHeight = 12;
         task->tKeepOpenAfterSelect = FALSE;
         task->tTaskId = taskId;
@@ -2529,6 +2519,7 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
         gText_NavelRock,
         gText_BirthIsland,
         gText_FarawayIsland,
+        gText_OneIsland,
         gText_Exit
     },
     [SCROLL_MULTI_BATTLE_TENT_RULES] =
@@ -2539,6 +2530,83 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
         gText_PokemonMoves,
         gText_Underpowered,
         gText_WhenInDanger,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_1] =
+    {
+        gText_LilycoveCity,
+        gText_TwoIsland,
+        gText_ThreeIsland,
+        gText_FourIsland,
+        gText_FiveIsland,
+        gText_SixIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_2] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_ThreeIsland,
+        gText_FourIsland,
+        gText_FiveIsland,
+        gText_SixIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_3] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_TwoIsland,
+        gText_FourIsland,
+        gText_FiveIsland,
+        gText_SixIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_4] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_TwoIsland,
+        gText_ThreeIsland,
+        gText_FiveIsland,
+        gText_SixIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_5] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_TwoIsland,
+        gText_ThreeIsland,
+        gText_FourIsland,
+        gText_SixIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_6] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_TwoIsland,
+        gText_ThreeIsland,
+        gText_FourIsland,
+        gText_FiveIsland,
+        gText_SevenIsland,
+        gText_Exit
+    },
+    [SCROLL_MULTI_SEVII_FERRY_DESTINATION_7] =
+    {
+        gText_LilycoveCity,
+        gText_OneIsland,
+        gText_TwoIsland,
+        gText_ThreeIsland,
+        gText_FourIsland,
+        gText_FiveIsland,
+        gText_SixIsland,
         gText_Exit
     }
 };

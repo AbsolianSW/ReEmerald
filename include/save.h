@@ -52,7 +52,6 @@ enum
 {
     SAVE_NORMAL,
     SAVE_LINK, // Link / Battle Frontier
-    SAVE_EREADER, // deprecated in Emerald
     SAVE_HALL_OF_FAME,
     SAVE_OVERWRITE_DIFFERENT_FILE,
     SAVE_HALL_OF_FAME_ERASE_BEFORE // unused

@@ -62,6 +62,7 @@ Island2_JoyfulGameCorner_EventScriptLostelleAbductionScene::
 	applymovement LOCALID_LOSTELLE Island2_JoyfulGameCorner_Movement_LostelleDraggedOut
 	waitmovement 0
 	setflag FLAG_TWO_ISLAND_HIDE_LOSTELLE
+	setflag FLAG_CAPE_BRINK_HIDE_AQUA
 	removeobject LOCALID_LOSTELLE, MAP_ISLAND2_JOYFUL_GAME_CORNER
 	playse SE_DOOR
 	setvar VAR_TWO_ISLAND_STATE, 1
@@ -82,7 +83,6 @@ Island2_JoyfulGameCorner_Movement_OutOfTheWay:
 	
 Island2_JoyfulGameCorner_Movement_OutOfTheWayFollower:
 	walk_faster_left
-	walk_faster_left
 	face_right
 	step_end
 	
@@ -94,12 +94,15 @@ Island2_JoyfulGameCorner_Movement_GruntApproachLostelle:
 	step_end
 	
 Island2_JoyfulGameCorner_Movement_GruntLeave:
+	delay_8
 	walk_down
 	walk_down
 	walk_down
 	step_end
 
 Island2_JoyfulGameCorner_Movement_LostelleLeave:
+	face_up
+	lock_facing_direction
 	walk_down
 	walk_down
 	walk_down
@@ -117,6 +120,7 @@ Island2_JoyfulGameCorner_Movement_Wait:
 	step_end
 
 Island2_JoyfulGameCorner_EventScriptWhyDoesThisKeepHappening::
+	faceplayer
 	msgbox Island2_JoyfulGameCorner_TextWhyDoesThisKeepHappening
 	waitmessage
 	release

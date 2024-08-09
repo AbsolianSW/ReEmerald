@@ -4,7 +4,6 @@ SootopolisCity_MysteryEventsHouse_B1F_MapScripts::
 	.byte 0
 
 SootopolisCity_MysteryEventsHouse_B1F_OnTransition:
-	special SetEReaderTrainerGfxId
 	end
 
 SootopolisCity_MysteryEventsHouse_B1F_OnFrame:
@@ -15,10 +14,8 @@ SootopolisCity_MysteryEventsHouse_B1F_EventScript_BattleVisitingTrainer::
 	lockall
 	applymovement OBJ_EVENT_ID_PLAYER, SootopolisCity_MysteryEventsHouse_B1F_Movement_PlayerEnterBasement
 	waitmovement 0
-	special CopyEReaderTrainerGreeting
 	msgbox gStringVar4, MSGBOX_DEFAULT
 	closemessage
-	setvar VAR_0x8004, SPECIAL_BATTLE_EREADER
 	setvar VAR_0x8005, 0
 	special DoSpecialTrainerBattle
 	waitstate

@@ -128,3 +128,7 @@ movement Island2_CapeBrink_CameraBack16{
     walk_right*4
 }
 
+script Island2_CapeBrink_Suicune {
+    bufferspeciesname(0, SPECIES_SUICUNE)
+    end
+}

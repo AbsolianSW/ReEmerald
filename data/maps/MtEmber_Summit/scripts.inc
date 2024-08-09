@@ -79,6 +79,7 @@ MtEmber_Summit_CourtneyDefeat::
 	playmoncry SPECIES_MOLTRES, CRY_MODE_WEAK
 	applymovement 5, MtEmber_Summit_MoltresFlyAway
 	waitmovement 0
+	removeobject 5
 	msgbox MtEmber_Summit_CourtneyDefeat_Text_0
 	closemessage
 	fadescreen FADE_TO_BLACK
@@ -95,6 +96,11 @@ MtEmber_Summit_MoltresFlyAway:
 	fly_up
 	step_end
 
+MtEmber_Summit_Moltres::
+	bufferspeciesname 0, SPECIES_MOLTRES
+	end
+
+
 MtEmber_Summit_Cutscene_Text_0:
 	.string "At last...I've found you, Moltres.\n"
 	.string "Together, we shall finally conquer this\l"
@@ -110,7 +116,7 @@ MtEmber_Summit_Cutscene_Text_2:
 
 MtEmber_Summit_CourtneyDefeat_Text_0:
 	.string "Wow! These legendaries are really hard\n"
-	.string "to control...well it was ineffective\l"
+	.string "to control...well, it was ineffective\l"
 	.string "against you anyways, but I won't give\l"
 	.string "up!$"
 

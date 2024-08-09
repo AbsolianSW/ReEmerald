@@ -5,7 +5,26 @@ Island2_Main_MapScripts::
 
 Island2_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION:
 	setflag FLAG_VISITED_TWO_ISLAND
+	compare VAR_TWO_ISLAND_STATE, 2
+	goto_if_eq Island2_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION_2
+Island2_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION_1:
 	end
+
+Island2_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION_2:
+	special StorePlayerCoordsInVars
+	switch VAR_0x8005
+	case 8, Island2_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION_5
+	case 10, Island2_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION_6
+	goto Island2_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+
+Island2_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION_5:
+	clearflag FLAG_TWO_ISLAND_HIDE_AQUA
+	clearflag FLAG_TWO_ISLAND_HIDE_SHELLY
+	goto Island2_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
+
+Island2_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION_6:
+	clearflag FLAG_TWO_ISLAND_HIDE_SHELLY_HARBOR
+	goto Island2_Main_MapScripts_MAP_SCRIPT_ON_TRANSITION_1
 
 Island2_Main_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 	map_script_2 VAR_TWO_ISLAND_STATE, 1, Island2_Main_CutsceneFromGameCorner
@@ -143,6 +162,7 @@ Island2_Main_CutsceneFromCapeBrink::
 	case 8, Island2_Main_CutsceneFromCapeBrink_4
 	case 10, Island2_Main_CutsceneFromCapeBrink_5
 Island2_Main_CutsceneFromCapeBrink_1:
+	setflag FLAG_TWO_ISLAND_HIDE_LOSTELLE
 	special RemoveCameraObject
 	setvar VAR_TWO_ISLAND_STATE, 3
 	clearflag FLAG_TWO_ISLAND_HIDE_SHELLY
@@ -158,21 +178,24 @@ Island2_Main_CutsceneFromCapeBrink_3:
 	case 40, Island2_Main_CutsceneFromCapeBrink_12
 Island2_Main_CutsceneFromCapeBrink_6:
 	waitmovement 0
+	opendoor 39, 9
 	playse SE_DOOR
+	waitdooranim
 	addobject 15
 	msgbox Island2_Main_CutsceneFromCapeBrink_Text_0
 	closemessage
 	applymovement 15, Island2Main_Movement_MattWalkOut
 	addobject 14
-	playse SE_DOOR
+	closedoor 39, 9
+	waitdooranim
 	msgbox Island2_Main_CutsceneFromCapeBrink_Text_1
 	closemessage
 	applymovement 15, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	msgbox Island2_Main_CutsceneFromCapeBrink_Text_2
 	closemessage
-	applymovement 15, Island2Main_Movement_MattLostelleWalkAway
-	applymovement 14, Island2Main_Movement_MattLostelleWalkAway
+	applymovement 15, Island2Main_Movement_MattWalkAway
+	applymovement 14, Island2Main_Movement_LostelleWalkAway
 	waitmovement 0
 	removeobject 14
 	removeobject 15
@@ -188,9 +211,6 @@ Island2_Main_CutsceneFromCapeBrink_13:
 	goto Island2_Main_CutsceneFromCapeBrink_1
 
 Island2_Main_CutsceneFromCapeBrink_4:
-	addobject 16
-	addobject 17
-	addobject 12
 	applymovement 12, Common_Movement_WalkInPlaceFasterLeft
 	applymovement 17, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
@@ -199,6 +219,7 @@ Island2_Main_CutsceneFromCapeBrink_4:
 	applymovement 16, Common_Movement_WalkInPlaceFasterUp
 	applymovement 17, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
+	applymovement 12, Common_Movement_ExclamationMark
 	applymovement 16, Common_Movement_ExclamationMark
 	applymovement 17, Common_Movement_ExclamationMark
 	waitmovement 0
@@ -209,16 +230,15 @@ Island2_Main_CutsceneFromCapeBrink_4:
 	waitmovement 0
 	removeobject 16
 	removeobject 17
+	setflag FLAG_TWO_ISLAND_HIDE_AQUA
 	goto Island2_Main_CutsceneFromCapeBrink_1
 
 Island2_Main_CutsceneFromCapeBrink_5:
-	addobject 19
 	applymovement 19, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	applymovement 19, Common_Movement_ExclamationMark
 	waitmovement 0
-	msgbox Island2_Main_CutsceneFromCapeBrink_Text_5
-	trainerbattle_single TRAINER_SHELLY_ISLAND_2, Island2_Main_CutsceneFromCapeBrink_Text_6, Island2_Main_CutsceneFromCapeBrink_Text_7, Island2_Main_ShellyDefeat2
+	trainerbattle_single TRAINER_SHELLY_ISLAND_2, Island2_Main_CutsceneFromCapeBrink_Text_5, Island2_Main_CutsceneFromCapeBrink_Text_6, Island2_Main_ShellyDefeat2
 	goto Island2_Main_CutsceneFromCapeBrink_1
 
 Island2_Main_CutsceneFromCapeBrink_8:
@@ -267,7 +287,7 @@ Island2_Main_Shelly::
 	applymovement 12, Common_Movement_ExclamationMark
 	waitmovement 0
 	applymovement 12, Common_Movement_FacePlayer
-	trainerbattle_single TRAINER_SHELLY_ISLAND_2, Island2_Main_CutsceneFromCapeBrink_Text_6, Island2_Main_CutsceneFromCapeBrink_Text_7, Island2_Main_ShellyDefeat
+	trainerbattle_single TRAINER_SHELLY_ISLAND_2, Island2_Main_Shelly_Text_0, Island2_Main_CutsceneFromCapeBrink_Text_6, Island2_Main_ShellyDefeat
 	return
 
 
@@ -278,7 +298,6 @@ Island2_Main_ShellyDefeat::
 	waitmovement 0
 	msgbox Island2_Main_ShellyDefeat_Text_0
 	closemessage
-	applymovement 12, Island2Main_Movement_ShellyRunAway
 	setvar VAR_TWO_ISLAND_STATE, 4
 	setflag FLAG_TWO_ISLAND_HIDE_SHELLY
 	fadescreen FADE_TO_BLACK
@@ -292,14 +311,18 @@ Island2_Main_ShellyDefeat::
 Island2_Main_ShellyDefeat2::
 	addobject 18
 	playmoncry SPECIES_SUICUNE, CRY_MODE_WEAK
+	applymovement 19, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
 	applymovement 18, Island2Main_Movement_SuicuneRunAway2
+	waitmovement 0
+	applymovement 19, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	msgbox Island2_Main_ShellyDefeat_Text_0
 	closemessage
-	applymovement 19, Island2Main_Movement_ShellyRunAway2
 	setvar VAR_TWO_ISLAND_STATE, 4
 	setflag FLAG_TWO_ISLAND_HIDE_SHELLY
 	fadescreen FADE_TO_BLACK
+	setflag FLAG_TWO_ISLAND_HIDE_LOSTELLE
 	removeobject 19
 	removeobject 18
 	fadescreen FADE_FROM_BLACK
@@ -510,7 +533,22 @@ Island2Main_Movement_MattWalkOut:
 	walk_left
 	step_end
 
-Island2Main_Movement_MattLostelleWalkAway:
+Island2Main_Movement_MattWalkAway:
+	delay_8
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+Island2Main_Movement_LostelleWalkAway:
+	face_right
+	lock_facing_direction
 	walk_left
 	walk_left
 	walk_left
@@ -616,6 +654,11 @@ Island2Main_Movement_ShellyRunAway2:
 	walk_right
 	step_end
 
+Island2_Main_Suicune::
+	bufferspeciesname 0, SPECIES_SUICUNE
+	end
+
+
 Island2_Main_Merchant_Text_0:
 	.string "Salutations traveler! I sell only the\n"
 	.string "most exclusive of items, come have a\l"
@@ -712,11 +755,11 @@ Island2_Main_CutsceneFromCapeBrink_Text_5:
 	.string "time I will finally be able to end you!$"
 
 Island2_Main_CutsceneFromCapeBrink_Text_6:
+	.string "Arrgh! How does this keep happening...$"
+
+Island2_Main_Shelly_Text_0:
 	.string "You! Stop right there! You're not going\n"
 	.string "anywhere, I'm taking you down!$"
-
-Island2_Main_CutsceneFromCapeBrink_Text_7:
-	.string "Arrgh! How does this keep happening...$"
 
 Island2_Main_ShellyDefeat_Text_0:
 	.string "And now this thing just ran away...why\n"

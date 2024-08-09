@@ -41,7 +41,7 @@ Route125_EventScript_Sharon::
 	end
 
 Route125_EventScript_Ernest::
-	trainerbattle_single TRAINER_ERNEST_1, Route125_Text_ErnestIntro, Route125_Text_ErnestDefeat
+	trainerbattle_single TRAINER_ERNEST, Route125_Text_ErnestIntro, Route125_Text_ErnestDefeat
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, Route125_EventScript_RematchErnest
 	msgbox Route125_Text_ErnestPostBattle, MSGBOX_DEFAULT
@@ -49,7 +49,7 @@ Route125_EventScript_Ernest::
 	end
 
 Route125_EventScript_RematchErnest::
-	trainerbattle_rematch TRAINER_ERNEST_1, Route125_Text_ErnestRematchIntro, Route125_Text_ErnestRematchDefeat
+	trainerbattle_rematch TRAINER_ERNEST, Route125_Text_ErnestRematchIntro, Route125_Text_ErnestRematchDefeat
 	msgbox Route125_Text_ErnestRematchPostBattle, MSGBOX_AUTOCLOSE
 	end
 

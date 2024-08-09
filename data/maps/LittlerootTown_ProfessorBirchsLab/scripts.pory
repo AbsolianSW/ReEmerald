@@ -560,7 +560,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_ReceivePokedex::
 	message LittlerootTown_ProfessorBirchsLab_Text_ReceivedPokedex
 	waitfanfare
 	setflag FLAG_SYS_POKEDEX_GET
-	special SetUnlockedPokedexFlags
 	setflag FLAG_RECEIVED_POKEDEX_FROM_BIRCH
 	setvar VAR_CABLE_CLUB_TUTORIAL_STATE, 1
 	return
@@ -849,7 +848,7 @@ LittlerootTown_ProfessorBirchsLab_Text_OtherRegionsUpgradeToNational:
 	.string "happen to be.\p"
 	.string "That's why I think it's necessary for\n"
 	.string "me to upgrade your Pokédex to\l"
-	.string "the national Mode.\p"
+	.string "the national mode.\p"
 	.string "Here, let me see your Pokédex units.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_MayUpgradeSoCool:
@@ -863,7 +862,7 @@ LittlerootTown_ProfessorBirchsLab_Text_BrendanYouCanThankMe:
 	.string "Brendan: I went out all over Hoenn\n"
 	.string "and checked out Pokémon.\p"
 	.string "You can thank me for getting\n"
-	.string "the national Mode Pokédex.\p"
+	.string "the national mode Pokédex.\p"
 	.string "Yep, you're lucky, {Player}!$"
 
 LittlerootTown_ProfessorBirchsLab_Text_OkayAllDone:
@@ -871,7 +870,7 @@ LittlerootTown_ProfessorBirchsLab_Text_OkayAllDone:
 
 LittlerootTown_ProfessorBirchsLab_Text_PokedexUpgradedToNational:
 	.string "{Player}'s Pokédex was upgraded\n"
-	.string "to the national Mode!$"
+	.string "to the national mode!$"
 
 LittlerootTown_ProfessorBirchsLab_Text_GrassyPatchWaiting2:
 	.string "Prof. Birch: But listen.\n"

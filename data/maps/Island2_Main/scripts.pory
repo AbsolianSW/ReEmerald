@@ -5,6 +5,17 @@ mapscripts Island2_Main_MapScripts {
 	]
 	MAP_SCRIPT_ON_TRANSITION {
 		setflag(FLAG_VISITED_TWO_ISLAND)
+		if(var(VAR_TWO_ISLAND_STATE) == 2)
+		{
+			special(StorePlayerCoordsInVars)
+			switch(var(VAR_0x8005)) {
+				case 8:
+					clearflag(FLAG_TWO_ISLAND_HIDE_AQUA)
+					clearflag(FLAG_TWO_ISLAND_HIDE_SHELLY)
+				case 10:
+					clearflag(FLAG_TWO_ISLAND_HIDE_SHELLY_HARBOR)
+			}
+		}
 		end
 	}
 }
@@ -150,21 +161,24 @@ script Island2_Main_CutsceneFromCapeBrink{
 					applymovement(OBJ_EVENT_ID_CAMERA,Island2Main_Movement_CameraToCutsceneCB40)
 			}
 			waitmovement(0)
+			opendoor(39,9)
 			playse(SE_DOOR)
+			waitdooranim
 			addobject(15)
 			msgbox(format("Shelly come in!...I've got the girl, let's go!"))
 			closemessage
 			applymovement(15,Island2Main_Movement_MattWalkOut)
 			addobject(14)
-			playse(SE_DOOR)
+			closedoor(39,9)
+			waitdooranim
 			msgbox(format("Waaaaaaaaaah! Somebody help meeeee!"))
 			closemessage
 			applymovement(15, Common_Movement_WalkInPlaceFasterRight)
 			waitmovement(0)
 			msgbox(format("Shut up you little brat! You're going to show us where your friend lives in that Berry Forest."))
 			closemessage
-			applymovement(15,Island2Main_Movement_MattLostelleWalkAway)
-			applymovement(14,Island2Main_Movement_MattLostelleWalkAway)
+			applymovement(15,Island2Main_Movement_MattWalkAway)
+			applymovement(14,Island2Main_Movement_LostelleWalkAway)
 			waitmovement(0)
 			removeobject(14)
 			removeobject(15)
@@ -184,9 +198,6 @@ script Island2_Main_CutsceneFromCapeBrink{
 			waitmovement(0)
 		case 8:
 			//fly or teleport
-			addobject(16)
-			addobject(17)
-			addobject(12)
 			applymovement(12,Common_Movement_WalkInPlaceFasterLeft)
 			applymovement(17,Common_Movement_WalkInPlaceFasterRight)
 			waitmovement(0)
@@ -195,6 +206,7 @@ script Island2_Main_CutsceneFromCapeBrink{
 			applymovement(16, Common_Movement_WalkInPlaceFasterUp)
 			applymovement(17, Common_Movement_WalkInPlaceFasterUp)
 			waitmovement(0)
+			applymovement(12, Common_Movement_ExclamationMark)
 			applymovement(16, Common_Movement_ExclamationMark)
 			applymovement(17, Common_Movement_ExclamationMark)
 			waitmovement(0)
@@ -205,16 +217,16 @@ script Island2_Main_CutsceneFromCapeBrink{
 			waitmovement(0)
 			removeobject(16)
 			removeobject(17)
+			setflag(FLAG_TWO_ISLAND_HIDE_AQUA)
 		case 10:
 			//harbor
-			addobject(19)
 			applymovement(19, Common_Movement_WalkInPlaceFasterDown)
 			waitmovement(0)
 			applymovement(19, Common_Movement_ExclamationMark)
 			waitmovement(0)
-			msgbox(format("Where did you come from? Anyways, this time I will finally be able to end you!"))
-			trainerbattle_single(TRAINER_SHELLY_ISLAND_2, format("You! Stop right there! You're not going anywhere, I'm taking you down!"), format("Arrgh! How does this keep happening..."), Island2_Main_ShellyDefeat2)
+			trainerbattle_single(TRAINER_SHELLY_ISLAND_2, format("Where did you come from? Anyways, this time I will finally be able to end you!"), format("Arrgh! How does this keep happening..."), Island2_Main_ShellyDefeat2)
 	}
+	setflag(FLAG_TWO_ISLAND_HIDE_LOSTELLE)
 	special(RemoveCameraObject)
 	setvar(VAR_TWO_ISLAND_STATE,3)
 	clearflag(FLAG_TWO_ISLAND_HIDE_SHELLY)
@@ -237,7 +249,6 @@ script Island2_Main_ShellyDefeat{
 	waitmovement(0)
 	msgbox(format("And now this thing just ran away...why are they so hard to control? Anyhow, I think I've bought enough time for the others, hehe...good luck trying to stop all of us!"))
 	closemessage
-	applymovement(12,Island2Main_Movement_ShellyRunAway)
 	setvar(VAR_TWO_ISLAND_STATE,4)
 	setflag(FLAG_TWO_ISLAND_HIDE_SHELLY)
 	fadescreen(FADE_TO_BLACK)
@@ -251,14 +262,18 @@ script Island2_Main_ShellyDefeat{
 script Island2_Main_ShellyDefeat2{
 	addobject(18)
 	playmoncry(SPECIES_SUICUNE,CRY_MODE_WEAK)
+	applymovement(19, Common_Movement_WalkInPlaceFasterLeft)
+	waitmovement(0)
 	applymovement(18,Island2Main_Movement_SuicuneRunAway2)
+	waitmovement(0)
+	applymovement(19, Common_Movement_WalkInPlaceFasterDown)
 	waitmovement(0)
 	msgbox(format("And now this thing just ran away...why are they so hard to control? Anyhow, I think I've bought enough time for the others, hehe...good luck trying to stop all of us!"))
 	closemessage
-	applymovement(19,Island2Main_Movement_ShellyRunAway2)
 	setvar(VAR_TWO_ISLAND_STATE,4)
 	setflag(FLAG_TWO_ISLAND_HIDE_SHELLY)
 	fadescreen(FADE_TO_BLACK)
+	setflag(FLAG_TWO_ISLAND_HIDE_LOSTELLE)
 	removeobject(19)
 	removeobject(18)
 	fadescreen(FADE_FROM_BLACK)
@@ -339,9 +354,17 @@ movement Island2Main_Movement_MattWalkOut{
 	walk_left
 }
 
-movement Island2Main_Movement_MattLostelleWalkAway{
+movement Island2Main_Movement_MattWalkAway{
+	delay_8
 	walk_left*9
 }
+
+movement Island2Main_Movement_LostelleWalkAway{
+	face_right
+	lock_facing_direction
+	walk_left*9
+}
+
 
 movement Island2Main_Movement_MattWalkAwayPC{
 	walk_down
@@ -381,4 +404,9 @@ movement Island2Main_Movement_ShellyRunAway{
 movement Island2Main_Movement_ShellyRunAway2{
 	walk_up
 	walk_right*6
+}
+
+script Island2_Main_Suicune{
+	bufferspeciesname(0, SPECIES_SUICUNE)
+	end
 }

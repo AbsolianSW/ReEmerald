@@ -44,7 +44,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Island3_Port_Aqua2",
-      "flag": "0"
+      "flag": "FLAG_THREE_ISLAND_HIDE_AQUA"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_F",
@@ -57,7 +57,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Island3_Port_Aqua1",
-      "flag": "0"
+      "flag": "FLAG_THREE_ISLAND_HIDE_AQUA"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
@@ -70,7 +70,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Island3_Port_AquaBlockade",
-      "flag": "0"
+      "flag": "FLAG_THREE_ISLAND_HIDE_AQUA_BLOCKADE"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_F",
@@ -83,7 +83,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Island3_Port_AquaBlockade",
-      "flag": "0"
+      "flag": "FLAG_THREE_ISLAND_HIDE_AQUA_BLOCKADE"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
@@ -96,7 +96,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Island3_Port_AquaBlockade",
-      "flag": "0"
+      "flag": "FLAG_THREE_ISLAND_HIDE_AQUA_BLOCKADE"
     }
   ],
   "warp_events": [

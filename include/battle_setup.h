@@ -1,7 +1,6 @@
 #ifndef GUARD_BATTLE_SETUP_H
 #define GUARD_BATTLE_SETUP_H
 
-#include "gym_leader_rematch.h"
 
 #define REMATCHES_COUNT 5
 
@@ -11,8 +10,6 @@ struct RematchTrainer
     u16 mapGroup;
     u16 mapNum;
 };
-
-extern const struct RematchTrainer gRematchTable[REMATCH_TABLE_ENTRIES];
 
 extern u16 gTrainerBattleOpponent_A;
 extern u16 gTrainerBattleOpponent_B;
@@ -67,6 +64,5 @@ u16 CountBattledRematchTeams(u16 trainerId);
 u8 HasWildPokmnOnThisRouteBeenSeen(u8 currLocation, bool8 setVarForThisEnc);
 s32 TrainerIdToRematchTableId(const struct RematchTrainer *table, u16 trainerId);
 s32 FirstBattleTrainerIdToRematchTableId(const struct RematchTrainer *table, u16 trainerId);
-u16 GetRematchTrainerIdFromTable(const struct RematchTrainer *table, u16 firstBattleTrainerId);
 
 #endif // GUARD_BATTLE_SETUP_H

@@ -755,14 +755,14 @@ static void PrintMatchCallFlavorText(struct PokenavListWindowState *windowState,
     };
 
     u32 r6 = (list->listWindow.unkA + lineOffsets[checkPageEntry]) & 0xF;
-    const u8 *str = GetMatchCallFlavorText(windowState->windowTopIndex, checkPageEntry);
+    //const u8 *str = GetMatchCallFlavorText(windowState->windowTopIndex, checkPageEntry);
 
-    if (str != NULL)
+    /* if (str != NULL)
     {
         FillWindowTilesByRow(list->listWindow.windowId, 1, r6 * 2, list->listWindow.width - 1, 2);
         AddTextPrinterParameterized(list->listWindow.windowId, FONT_NARROW, str, 2, (r6 << 4) + 1, TEXT_SKIP_DRAW, NULL);
         CopyWindowRectToVram(list->listWindow.windowId, COPYWIN_GFX, 0, r6 * 2, list->listWindow.width, 2);
-    }
+    } */
 }
 
 static const struct CompressedSpriteSheet sListArrowSpriteSheets[] =

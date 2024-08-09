@@ -68,16 +68,9 @@ SECTIONS {
         src/link_rfu_3.o(.text);
         src/link_rfu_2.o(.text);
         src/union_room.o(.text);
-        src/mystery_gift_menu.o(.text);
         src/union_room_player_avatar.o(.text);
         src/wireless_communication_status_screen.o(.text);
         src/union_room_battle.o(.text);
-        src/mystery_gift.o(.text);
-        src/mystery_gift_view.o(.text);
-        src/mystery_gift_server.o(.text);
-        src/mystery_gift_client.o(.text);
-        src/mystery_gift_link.o(.text);
-        src/wonder_news.o(.text);
         src/union_room_chat.o(.text);
         src/berry_crush.o(.text);
         src/berry_powder.o(.text);
@@ -246,7 +239,6 @@ SECTIONS {
         src/palette_util.o(.text);
         src/confetti_util.o(.text);
         src/save.o(.text);
-        src/mystery_event_script.o(.text);
         src/field_effect_helpers.o(.text);
         src/contest_ai.o(.text);
         src/battle_anim_sound_tasks.o(.text);
@@ -270,7 +262,6 @@ SECTIONS {
         src/lottery_corner.o(.text);
         src/diploma.o(.text);
         src/berry_tag_screen.o(.text);
-        src/mystery_event_menu.o(.text);
         src/save_failed_screen.o(.text);
         src/braille_puzzles.o(.text);
         src/pokeblock_feed.o(.text);
@@ -329,14 +320,11 @@ SECTIONS {
         src/pokenav_ribbons_summary.o(.text);
         src/pokenav_match_call_data.o(.text);
         src/menu_specialized.o(.text);
-        src/ereader_helpers.o(.text);
         src/faraway_island.o(.text);
-        src/ereader_screen.o(.text);
         src/trainer_hill.o(.text);
         src/rayquaza_scene.o(.text);
         src/walda_phrase.o(.text);
         src/contest_link_util.o(.text);
-        src/gym_leader_rematch.o(.text);
         src/battle_transition_frontier.o(.text);
         src/international_string_util.o(.text);
     } > ROM =0
@@ -351,7 +339,6 @@ SECTIONS {
         data/battle_scripts_2.o(script_data);
         data/battle_ai_scripts.o(script_data);
         data/contest_ai_scripts.o(script_data);
-        data/mystery_event_script_cmd_table.o(script_data);
     } > ROM =0
 
     lib_text :
@@ -457,16 +444,9 @@ SECTIONS {
         src/link_rfu_2.o(.rodata);
         src/link_rfu_2.o(.rodata.str1.4);
         src/union_room.o(.rodata);
-        src/mystery_gift_menu.o(.rodata);
         src/union_room_player_avatar.o(.rodata);
         src/wireless_communication_status_screen.o(.rodata);
         src/union_room_battle.o(.rodata);
-        src/mystery_gift.o(.rodata);
-        src/mystery_gift_view.o(.rodata);
-        src/mystery_gift_server.o(.rodata);
-        src/mystery_gift_client.o(.rodata);
-        src/mystery_gift_scripts.o(.rodata);
-        src/wonder_news.o(.rodata);
         src/union_room_chat.o(.rodata);
         src/berry_crush.o(.rodata);
         src/berry_powder.o(.rodata);
@@ -632,7 +612,6 @@ SECTIONS {
         src/diploma.o(.rodata);
         src/strings.o(.rodata);
         src/berry_tag_screen.o(.rodata);
-        src/mystery_event_menu.o(.rodata);
         src/save_failed_screen.o(.rodata);
         src/braille_puzzles.o(.rodata);
         src/pokeblock_feed.o(.rodata);
@@ -687,19 +666,14 @@ SECTIONS {
         src/pokenav_ribbons_summary.o(.rodata);
         src/pokenav_match_call_data.o(.rodata);
         src/menu_specialized.o(.rodata);
-        src/ereader_helpers.o(.rodata);
         src/faraway_island.o(.rodata);
-        src/ereader_screen.o(.rodata);
         src/trainer_hill.o(.rodata);
         src/rayquaza_scene.o(.rodata);
         src/walda_phrase.o(.rodata);
-        src/gym_leader_rematch.o(.rodata);
         src/battle_transition_frontier.o(.rodata);
         src/text_input_strings.o(.rodata);
         src/fonts.o(.rodata);
         src/international_string_util.o(.rodata);
-        src/mystery_event_msg.o(.rodata);
-        data/mystery_gift.o(.rodata);
         src/m4a_tables.o(.rodata);
         data/sound_data.o(.rodata);
     } > ROM =0
@@ -1295,7 +1269,6 @@ SECTIONS {
     multiboot_data :
     ALIGN(4)
     {
-        data/multiboot_ereader.o(.rodata);
         data/multiboot_berry_glitch_fix.o(.rodata);
         data/multiboot_pokemon_colosseum.o(.rodata);
     } > ROM =0

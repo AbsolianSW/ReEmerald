@@ -243,6 +243,11 @@ Island2_CapeBrink_CameraBack16:
 	walk_right
 	step_end
 
+Island2_CapeBrink_Suicune::
+	bufferspeciesname 0, SPECIES_SUICUNE
+	end
+
+
 Island2_CapeBrink_SuicuneCatchingScene_Text_0:
 	.string "Holy moly boss, you've actually found\n"
 	.string "it! It looks so majestic!$"

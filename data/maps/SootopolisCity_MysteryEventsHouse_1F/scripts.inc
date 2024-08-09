@@ -6,9 +6,6 @@ SootopolisCity_MysteryEventsHouse_1F_MapScripts::
 	.byte 0
 
 SootopolisCity_MysteryEventsHouse_1F_OnTransition:
-	frontier_checkvisittrainer
-	call_if_eq VAR_RESULT, 0, SootopolisCity_MysteryEventsHouse_1F_EventScript_SetTrainerVisitingLayout
-	call_if_ne VAR_SOOTOPOLIS_MYSTERY_EVENTS_STATE, 0, SootopolisCity_MysteryEventsHouse_1F_EventScript_MoveOldManToDoor
 	end
 
 SootopolisCity_MysteryEventsHouse_1F_EventScript_SetTrainerVisitingLayout::
@@ -70,9 +67,6 @@ SootopolisCity_MysteryEventsHouse_1F_Movement_OldManWalkBehindPlayer:
 SootopolisCity_MysteryEventsHouse_1F_EventScript_OldMan::
 	lock
 	faceplayer
-	frontier_checkvisittrainer
-	goto_if_eq VAR_RESULT, 1, SootopolisCity_MysteryEventsHouse_1F_EventScript_InvalidVisitingTrainer
-	goto_if_eq VAR_TEMP_1, 1, SootopolisCity_MysteryEventsHouse_1F_EventScript_TrainerVisiting
 	msgbox SootopolisCity_MysteryEventsHouse_1F_Text_OnlyAmusementWatchingBattles, MSGBOX_DEFAULT
 	release
 	end
@@ -84,7 +78,6 @@ SootopolisCity_MysteryEventsHouse_1F_EventScript_InvalidVisitingTrainer::
 
 SootopolisCity_MysteryEventsHouse_1F_EventScript_TrainerVisiting::
 	special SavePlayerParty
-	special BufferEReaderTrainerName
 	msgbox SootopolisCity_MysteryEventsHouse_1F_Text_ChallengeVisitingTrainer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, SootopolisCity_MysteryEventsHouse_1F_EventScript_DeclineBattle
 	call SootopolisCity_MysteryEventsHouse_1F_EventScript_ChooseParty

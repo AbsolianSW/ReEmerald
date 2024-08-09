@@ -5679,7 +5679,7 @@ static bool8 GetBattleEntryEligibility(struct Pokemon *mon)
 
     switch (VarGet(VAR_FRONTIER_FACILITY))
     {
-    case FACILITY_MULTI_OR_EREADER:
+    case FACILITY_MULTI:
         if (GetMonData(mon, MON_DATA_HP) != 0)
             return TRUE;
         return FALSE;
@@ -5714,7 +5714,7 @@ static u8 CheckBattleEntriesAndGetMessage(void)
     }
 
     facility = VarGet(VAR_FRONTIER_FACILITY);
-    if (facility == FACILITY_UNION_ROOM || facility == FACILITY_MULTI_OR_EREADER)
+    if (facility == FACILITY_UNION_ROOM || facility == FACILITY_MULTI)
         return 0xFF;
 
     maxBattlers = GetMaxBattleEntries();
@@ -5777,7 +5777,7 @@ static u8 GetMaxBattleEntries(void)
 {
     switch (VarGet(VAR_FRONTIER_FACILITY))
     {
-    case FACILITY_MULTI_OR_EREADER:
+    case FACILITY_MULTI:
         return MULTI_PARTY_SIZE;
     case FACILITY_UNION_ROOM:
         return UNION_ROOM_PARTY_SIZE;
@@ -5790,7 +5790,7 @@ static u8 GetMinBattleEntries(void)
 {
     switch (VarGet(VAR_FRONTIER_FACILITY))
     {
-    case FACILITY_MULTI_OR_EREADER:
+    case FACILITY_MULTI:
         return 1;
     case FACILITY_UNION_ROOM:
         return UNION_ROOM_PARTY_SIZE;
@@ -5803,7 +5803,7 @@ static u8 GetBattleEntryLevelCap(void)
 {
     switch (VarGet(VAR_FRONTIER_FACILITY))
     {
-    case FACILITY_MULTI_OR_EREADER:
+    case FACILITY_MULTI:
         return MAX_LEVEL;
     case FACILITY_UNION_ROOM:
         return UNION_ROOM_MAX_LEVEL;
@@ -5818,7 +5818,7 @@ static const u8 *GetFacilityCancelString(void)
 {
     u8 facilityNum = VarGet(VAR_FRONTIER_FACILITY);
 
-    if (!(facilityNum != FACILITY_UNION_ROOM && facilityNum != FACILITY_MULTI_OR_EREADER))
+    if (!(facilityNum != FACILITY_UNION_ROOM && facilityNum != FACILITY_MULTI))
         return gText_CancelBattle;
     else if (facilityNum == FRONTIER_FACILITY_DOME && gSpecialVar_0x8005 == 2)
         return gText_ReturnToWaitingRoom;

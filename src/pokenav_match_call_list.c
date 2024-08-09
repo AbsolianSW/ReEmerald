@@ -2,7 +2,6 @@
 #include "battle_setup.h"
 #include "data.h"
 #include "event_data.h"
-#include "gym_leader_rematch.h"
 #include "international_string_util.h"
 #include "main.h"
 #include "match_call.h"
@@ -25,7 +24,7 @@ struct Pokenav_MatchCallMenu
     bool32 initFinished;
     u32 loopedTaskId;
     u32 (*callback)(struct Pokenav_MatchCallMenu *);
-    struct PokenavMatchCallEntry matchCallEntries[MAX_REMATCH_ENTRIES - 1];
+    struct PokenavMatchCallEntry matchCallEntries[78 - 1];
 };
 
 static u32 CB2_HandleMatchCallInput(struct Pokenav_MatchCallMenu *);
@@ -234,20 +233,6 @@ static u32 LoopedTask_BuildMatchCallList(s32 taskState)
 
         return LT_CONTINUE;
     case 2:
-        // Load normal trainers
-        for (i = 0, j = state->headerId; i < 30; i++, j++)
-        {
-            if (!MatchCall_HasRematchId(state->headerId) && IsRematchEntryRegistered(state->headerId))
-            {
-                state->matchCallEntries[state->numRegistered].headerId = state->headerId;
-                state->matchCallEntries[state->numRegistered].isSpecialTrainer = FALSE;
-                state->matchCallEntries[state->numRegistered].mapSec = GetMatchTableMapSectionId(j);
-                state->numRegistered++;
-            }
-
-            if (++state->headerId > REMATCH_TABLE_ENTRIES - 1)
-                return LT_INC_AND_CONTINUE;
-        }
 
         return LT_CONTINUE;
     case 3:
@@ -260,9 +245,6 @@ static u32 LoopedTask_BuildMatchCallList(s32 taskState)
 
 bool32 IsRematchEntryRegistered(int rematchIndex)
 {
-    if (rematchIndex < REMATCH_TABLE_ENTRIES)
-        return FlagGet(FLAG_MATCH_CALL_REGISTERED + rematchIndex);
-
     return FALSE;
 }
 
@@ -278,28 +260,6 @@ int GetNumberRegistered(void)
     return state->numRegistered;
 }
 
-static int UNUSED GetNumSpecialTrainers(void)
-{
-    struct Pokenav_MatchCallMenu *state = GetSubstructPtr(POKENAV_SUBSTRUCT_MATCH_CALL_MAIN);
-    return state->numSpecialTrainers;
-}
-
-static int UNUSED GetNumNormalTrainers(void)
-{
-    struct Pokenav_MatchCallMenu *state = GetSubstructPtr(POKENAV_SUBSTRUCT_MATCH_CALL_MAIN);
-    return state->numRegistered - state->numSpecialTrainers;
-}
-
-static int UNUSED GetNormalTrainerHeaderId(int index)
-{
-    struct Pokenav_MatchCallMenu *state = GetSubstructPtr(POKENAV_SUBSTRUCT_MATCH_CALL_MAIN);
-    index += state->numSpecialTrainers;
-    if (index >= state->numRegistered)
-        return REMATCH_TABLE_ENTRIES;
-
-    return state->matchCallEntries[index].headerId;
-}
-
 struct PokenavMatchCallEntry *GetMatchCallList(void)
 {
     struct Pokenav_MatchCallMenu *state = GetSubstructPtr(POKENAV_SUBSTRUCT_MATCH_CALL_MAIN);
@@ -310,20 +270,6 @@ u16 GetMatchCallMapSec(int index)
 {
     struct Pokenav_MatchCallMenu *state = GetSubstructPtr(POKENAV_SUBSTRUCT_MATCH_CALL_MAIN);
     return state->matchCallEntries[index].mapSec;
-}
-
-bool32 ShouldDrawRematchPokeballIcon(int index)
-{
-    struct Pokenav_MatchCallMenu *state = GetSubstructPtr(POKENAV_SUBSTRUCT_MATCH_CALL_MAIN);
-    if (!state->matchCallEntries[index].isSpecialTrainer)
-        index = state->matchCallEntries[index].headerId;
-    else
-        index = MatchCall_GetRematchTableIdx(state->matchCallEntries[index].headerId);
-
-    if (index == REMATCH_TABLE_ENTRIES)
-        return FALSE;
-
-    return gSaveBlock1Ptr->trainerRematches[index] != 0;
 }
 
 int GetMatchCallTrainerPic(int index)
@@ -338,11 +284,6 @@ int GetMatchCallTrainerPic(int index)
 
     headerId = state->matchCallEntries[index].headerId;
     index = MatchCall_GetRematchTableIdx(headerId);
-    if (index != REMATCH_TABLE_ENTRIES)
-    {
-        index = GetTrainerIdxByRematchIdx(index);
-        return gTrainers[index].trainerPic;
-    }
 
     index = MatchCall_GetOverrideFacilityClass(headerId);
     return gFacilityClassToPicIndex[index];
@@ -363,23 +304,6 @@ const u8 *GetMatchCallMessageText(int index, bool8 *newRematchRequest)
     return gStringVar4;
 }
 
-const u8 *GetMatchCallFlavorText(int index, int checkPageEntry)
-{
-    int rematchId;
-    struct Pokenav_MatchCallMenu *state = GetSubstructPtr(POKENAV_SUBSTRUCT_MATCH_CALL_MAIN);
-    if (state->matchCallEntries[index].isSpecialTrainer)
-    {
-        rematchId = MatchCall_GetRematchTableIdx(state->matchCallEntries[index].headerId);
-        if (rematchId == REMATCH_TABLE_ENTRIES)
-            return MatchCall_GetOverrideFlavorText(state->matchCallEntries[index].headerId, checkPageEntry);
-    }
-    else
-    {
-        rematchId = state->matchCallEntries[index].headerId;
-    }
-
-    return gMatchCallFlavorTexts[rematchId][checkPageEntry];
-}
 
 u16 GetMatchCallOptionCursorPos(void)
 {
@@ -424,12 +348,6 @@ void BufferMatchCallNameAndDesc(struct PokenavMatchCallEntry *matchCallEntry, u8
     }
 }
 
-u8 GetMatchTableMapSectionId(int rematchIndex)
-{
-    int mapGroup = gRematchTable[rematchIndex].mapGroup;
-    int mapNum = gRematchTable[rematchIndex].mapNum;
-    return Overworld_GetMapHeaderByGroupAndId(mapGroup, mapNum)->regionMapSectionId;
-}
 
 int GetIndexDeltaOfNextCheckPageDown(int index)
 {
@@ -465,29 +383,6 @@ int GetIndexDeltaOfNextCheckPageUp(int index)
     return 0;
 }
 
-static bool32 UNUSED HasRematchEntry(void)
-{
-    int i;
-
-    for (i = 0; i < REMATCH_TABLE_ENTRIES; i++)
-    {
-        if (IsRematchEntryRegistered(i) && gSaveBlock1Ptr->trainerRematches[i])
-            return TRUE;
-    }
-
-    for (i = 0; i < MC_HEADER_COUNT; i++)
-    {
-        if (MatchCall_GetEnabled(i))
-        {
-            int index = MatchCall_GetRematchTableIdx(i);
-            if (gSaveBlock1Ptr->trainerRematches[index])
-                return TRUE;
-        }
-    }
-
-    return FALSE;
-}
-
 static bool32 ShouldDoNearbyMessage(void)
 {
     struct Pokenav_MatchCallMenu *state = GetSubstructPtr(POKENAV_SUBSTRUCT_MATCH_CALL_MAIN);
@@ -496,7 +391,7 @@ static bool32 ShouldDoNearbyMessage(void)
     {
         if (GetMatchCallMapSec(selection) == gMapHeader.regionMapSectionId)
         {
-            if (!gSaveBlock1Ptr->trainerRematches[state->matchCallEntries[selection].headerId])
+            //if (!gSaveBlock1Ptr->trainerRematches[state->matchCallEntries[selection].headerId])
                 return TRUE;
         }
     }

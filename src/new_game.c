@@ -42,7 +42,6 @@
 #include "player_pc.h"
 #include "field_specials.h"
 #include "berry_powder.h"
-#include "mystery_gift.h"
 #include "union_room_chat.h"
 #include "constants/items.h"
 
@@ -192,7 +191,6 @@ void NewGameInitData(void)
         RtcReset();
 
     gDifferentSaveFile = TRUE;
-    gSaveBlock2Ptr->encryptionKey = 0;
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
     ResetPokedex();
@@ -200,7 +198,6 @@ void NewGameInitData(void)
     ClearSav1();
     ClearAllMail();
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;
-    gSaveBlock2Ptr->gcnLinkFlags = 0;
     InitPlayerTrainerId();
     PlayTimeCounter_Reset();
     ClearPokedexFlags();
@@ -240,7 +237,6 @@ void NewGameInitData(void)
     ResetAllApprenticeData();
     ClearRankingHallRecords();
     InitMatchCallCounters();
-    ClearMysteryGift();
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();

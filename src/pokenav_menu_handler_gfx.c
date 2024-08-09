@@ -10,7 +10,6 @@
 #include "pokenav.h"
 #include "graphics.h"
 #include "sound.h"
-#include "gym_leader_rematch.h"
 #include "window.h"
 #include "strings.h"
 #include "scanline_effect.h"
@@ -362,21 +361,6 @@ static const struct ScanlineEffectParams sPokenavMainMenuScanlineEffectParams =
     1,
     0
 };
-
-static bool32 AreAnyTrainerRematchesNearby(void)
-{
-    s32 i;
-
-    for (i = 0; i < REMATCH_TABLE_ENTRIES; i++)
-    {
-        if (GetMatchTableMapSectionId(i) == gMapHeader.regionMapSectionId
-            && IsRematchEntryRegistered(i)
-            && gSaveBlock1Ptr->trainerRematches[i])
-            return TRUE;
-    }
-
-    return FALSE;
-}
 
 bool32 OpenPokenavMenuInitial(void)
 {
@@ -1186,9 +1170,9 @@ static void CreateMatchCallBlueLightSprite(void)
     struct Pokenav_MenuGfx * gfx = GetSubstructPtr(POKENAV_SUBSTRUCT_MENU_GFX);
     u8 spriteId = CreateSprite(&sMatchCallBlueLightSpriteTemplate, 0x10, 0x60, 4);
     gfx->blueLightSprite = &gSprites[spriteId];
-    if (AreAnyTrainerRematchesNearby())
-        gfx->blueLightSprite->callback = SpriteCB_BlinkingBlueLight;
-    else
+    //if (AreAnyTrainerRematchesNearby())
+    //    gfx->blueLightSprite->callback = SpriteCB_BlinkingBlueLight;
+    //else
         gfx->blueLightSprite->invisible = TRUE;
 }
 

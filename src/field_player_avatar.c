@@ -711,7 +711,7 @@ static bool8 CanStopSurfing(s16 x, s16 y, u8 direction)
 {
     if ((gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_SURFING)
      && MapGridGetElevationAt(x, y) == 3
-     && (GetObjectEventIdByPosition(x, y, 3) == OBJECT_EVENTS_COUNT || GetObjectEventIdByPosition(x, y, 3) == gSaveBlock2Ptr->follower.objId))
+     && (GetObjectEventIdByPosition(x, y, 3) == OBJECT_EVENTS_COUNT))
     {
         CreateStopSurfingTask(direction);
         return TRUE;
@@ -1643,7 +1643,6 @@ static void CreateStopSurfingTask(u8 direction)
 static void Task_StopSurfingInit(u8 taskId)
 {
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
-    struct ObjectEvent *followerObjEvent = &gObjectEvents[gSaveBlock2Ptr->follower.objId];
 
     if (ObjectEventIsMovementOverridden(playerObjEvent))
     {
