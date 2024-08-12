@@ -77,7 +77,7 @@ Route116_EventScript_DevonEmployeeExit::
 
 Route116_EventScript_DevonEmployeeExitEast::
 	getfollowercardinaldirection
-	call_if_eq VAR_UNUSED_0x8014, 2, Route116_EventScript_MoveFollowerOutOfTheWay
+	call_if_eq VAR_0x800B, 2, Route116_EventScript_MoveFollowerOutOfTheWay
 	releaseall
 	lock
 	applymovement VAR_LAST_TALKED, Route116_Movement_DevonEmployeeExitEast
@@ -215,7 +215,7 @@ Route116_EventScript_GlassesManExitNormal::
 
 Route116_EventScript_GlassesManExitEast::
 	getfollowercardinaldirection
-	call_if_eq VAR_UNUSED_0x8014, 0, Route116_EventScript_FollowerMoveOutOfTheWay
+	call_if_eq VAR_0x800B, 0, Route116_EventScript_FollowerMoveOutOfTheWay
 	applymovement VAR_LAST_TALKED, Route116_Movement_GlassesManExitEast
 	waitmovement 0
 	return

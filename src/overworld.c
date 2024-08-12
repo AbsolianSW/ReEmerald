@@ -3965,16 +3965,16 @@ void GetFollowerCardinalDirection(void)
     if(followerX == playerX)
     {
         if(followerY > playerY)
-            gSpecialVar_Unused_0x8014 = 2;
+            gSpecialVar_0x800B = 2;
         else
-            gSpecialVar_Unused_0x8014 = 0;
+            gSpecialVar_0x800B = 0;
     }
     if(followerY == playerY)
     {
         if(followerX > playerX)
-            gSpecialVar_Unused_0x8014 = 1;
+            gSpecialVar_0x800B = 1;
         else
-            gSpecialVar_Unused_0x8014 = 3;
+            gSpecialVar_0x800B = 3;
     }
     return;
 }

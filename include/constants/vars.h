@@ -135,10 +135,10 @@
 #define VAR_ROUTE120_STATE                               0x4073 // Unused Var
 #define VAR_ROUTE121_STATE                               0x4074
 //used for challenge setting, previously unused state variables
-#define VAR_CUSTOM_STARTER_FIRE                          0x4075 // Unused Var
-#define VAR_CUSTOM_STARTER_WATER                         0x4076 // Unused Var
-#define VAR_CUSTOM_STARTER_GRASS                         0x4077 // Unused Var
-#define VAR_XP_MULTIPLIER                                0x4078 // Unused Var
+#define VAR_CUSTOM_STARTER_FIRE                          0x4075 
+#define VAR_CUSTOM_STARTER_WATER                         0x4076 
+#define VAR_CUSTOM_STARTER_GRASS                         0x4077 
+#define VAR_XP_MULTIPLIER                                0x4078 
 #define VAR_ROUTE126_STATE                               0x4079 // Unused Var
 #define VAR_ROUTE127_STATE                               0x407A // Unused Var
 #define VAR_ROUTE128_STATE                               0x407B
@@ -157,7 +157,7 @@
 #define VAR_CONTEST_TYPE                                 0x4088
 #define VAR_SECRET_BASE_INITIALIZED                      0x4089
 #define VAR_CONTEST_PRIZE_PICKUP                         0x408A
-#define VAR_UNUSED_0x408B                                0x408B // Unused Var
+#define VAR_ACTIVE_GAUNTLET                              0x408B //0:gauntlet mode on, 1:gauntlet begins, 2: gauntlet active, 3:gauntlet mode off
 #define VAR_LITTLEROOT_HOUSES_STATE_BRENDAN              0x408C
 #define VAR_LITTLEROOT_RIVAL_STATE                       0x408D
 #define VAR_BOARD_BRINEY_BOAT_STATE                      0x408E
@@ -303,7 +303,7 @@
 #define VAR_CONTEST_CATEGORY          0x8011
 #define VAR_MON_BOX_ID                0x8012
 #define VAR_MON_BOX_POS               0x8013
-#define VAR_UNUSED_0x8014             0x8014
+#define VAR_GAUNTLET_ID               0x8014
 #define VAR_TRAINER_BATTLE_OPPONENT_A 0x8015 // Alias of gTrainerBattleOpponent_A
 
 #define SPECIAL_VARS_END              0x8015

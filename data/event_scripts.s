@@ -83,7 +83,7 @@ gSpecialVars::
 	.4byte gSpecialVar_ContestCategory
 	.4byte gSpecialVar_MonBoxId
 	.4byte gSpecialVar_MonBoxPos
-	.4byte gSpecialVar_Unused_0x8014
+	.4byte gSpecialVar_GauntletId
 	.4byte gTrainerBattleOpponent_A
 
 	.include "data/specials.inc"
@@ -1042,6 +1042,7 @@ Common_Event_Script_ChooseMonToSendToPCReturn:
 	.include "data/text/trick_house_mechadolls.inc"
 	.include "data/scripts/tv.inc"
 	.include "data/text/tv.inc"
+	.include "data/scripts/gauntlets.inc"
 	.include "data/scripts/interview.inc"
 	.include "data/scripts/island_harbors.inc"
 	.include "data/scripts/gabby_and_ty.inc"

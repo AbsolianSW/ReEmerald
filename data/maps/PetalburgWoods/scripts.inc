@@ -97,8 +97,13 @@ PetalburgWoods_EventScript_DevonResearcherPostBattle::
 	msgbox PetalburgWoods_Text_ThatWasAwfullyClose, MSGBOX_DEFAULT
 	giveitem ITEM_GREAT_BALL
 	goto_if_eq VAR_RESULT, FALSE, PetalburgWoods_EventScript_BagFull
+	call_if_eq VAR_ACTIVE_GAUNTLET, 2, PetalburgWoods_EventScript_DevonResearcherHeal
 	goto PetalburgWoods_EventScript_DevonResearcherFinish
 	end
+
+PetalburgWoods_EventScript_DevonResearcherHeal::
+	special HealPlayerParty
+	return
 
 PetalburgWoods_EventScript_BagFull::
 	msgbox PetalburgWoods_Text_YoureLoadedWithItems, MSGBOX_DEFAULT

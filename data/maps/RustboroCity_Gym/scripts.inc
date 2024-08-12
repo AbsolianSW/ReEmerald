@@ -1,5 +1,25 @@
 RustboroCity_Gym_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, RustboroCity_Gym_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE RustboroCity_Gym_OnFrame
 	.byte 0
+
+RustboroCity_Gym_OnTransition::
+	goto_if_eq VAR_ACTIVE_GAUNTLET, 3, RustboroCity_Gym_OnTransitionEnd
+	goto_if_defeated TRAINER_JOSH, RustboroCity_Gym_OnTransitionEnd
+	setvar VAR_ACTIVE_GAUNTLET, 1
+RustboroCity_Gym_OnTransitionEnd::
+	end
+
+RustboroCity_Gym_OnFrame::
+	map_script_2 VAR_ACTIVE_GAUNTLET, 1 RustboroCity_Gym_EventScript_BeginGauntlet
+	.2byte 0
+
+RustboroCity_Gym_EventScript_BeginGauntlet::
+	setvar VAR_GAUNTLET_ID, GAUNTLET_RUSTBORO_GYM
+	setvar VAR_0x8004, DIR_SOUTH
+	setvar VAR_0x8005, GAUNTLET_WARP_RUSTBORO
+	goto EventScript_GauntletBeginsWarp
+	end
 
 RustboroCity_Gym_EventScript_Roxanne::
 	trainerbattle_single TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxanneIntro, RustboroCity_Gym_Text_RoxanneDefeat, RustboroCity_Gym_EventScript_RoxanneDefeated, NO_MUSIC

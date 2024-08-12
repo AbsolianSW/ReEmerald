@@ -129,7 +129,7 @@ MauvilleCity_EventScript_WallyAndUncleExitNorth::
 	applymovement LOCALID_WALLY, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	getfollowercardinaldirection
-	call_if_eq VAR_UNUSED_0x8014, 2, MauvilleCity_EventScript_FollowerMoveOutOfTheWay
+	call_if_eq VAR_0x800B, 2, MauvilleCity_EventScript_FollowerMoveOutOfTheWay
 	applymovement LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleApproachPlayerNorth
 	applymovement OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerFaceUncleNorth
 	waitmovement 0
@@ -164,7 +164,7 @@ MauvilleCity_EventScript_WallyAndUncleExitEast::
 	waitmovement 0
 	delay 30
 	getfollowercardinaldirection
-	goto_if_eq VAR_UNUSED_0x8014, 2, MauvilleCity_EventScript_FollowerMoveOutOfTheWay
+	goto_if_eq VAR_0x800B, 2, MauvilleCity_EventScript_FollowerMoveOutOfTheWay
 	applymovement LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleApproachPlayerEast
 	waitmovement 0
 	msgbox MauvilleCity_Text_UncleVisitUsSometime, MSGBOX_DEFAULT

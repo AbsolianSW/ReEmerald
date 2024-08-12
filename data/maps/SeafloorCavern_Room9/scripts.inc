@@ -23,7 +23,7 @@ SeafloorCavern_Room9_EventScript_ArchieAwakenKyogre::
 	closemessage
 	addobject VAR_0x8004
 	getfollowercardinaldirection
-	call_if_eq VAR_UNUSED_0x8014, 3, SeafloorCavern_Room9_EventScript_MoveFollowerOutOfTheWay
+	call_if_eq VAR_0x800B, 3, SeafloorCavern_Room9_EventScript_MoveFollowerOutOfTheWay
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	applymovement VAR_0x8004, SeafloorCavern_Room9_Movement_ArchieApproachPlayer

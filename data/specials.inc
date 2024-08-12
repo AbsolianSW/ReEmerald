@@ -534,3 +534,6 @@ gSpecials::
 	def_special VsSeekerResetObjectMovementAfterChargeComplete
 	def_special VsSeekerFreezeObjectsAfterChargeComplete
 	def_special BufferRivalFollowerSpecies
+	def_special BufferGauntletInfo
+	def_special SaveActiveGauntlet
+	def_special BufferMidGauntletInfo

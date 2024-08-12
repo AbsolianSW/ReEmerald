@@ -732,7 +732,7 @@ SlateportCity_EventScript_CaptStern::
 	waitmovement 0
 	delay 25
 	getfollowercardinaldirection
-	call_if_eq VAR_UNUSED_0x8014, 2, SlateportCity_EventScript_MoveFollowerOutOfTheWay
+	call_if_eq VAR_0x800B, 2, SlateportCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_CAPT_STERN, SlateportCity_Movement_SternWatchGabbyAndTyExit
 	applymovement OBJ_EVENT_ID_PLAYER, SlateportCity_Movement_PlayerFaceStern
 	applymovement LOCALID_GABBY, SlateportCity_Movement_GabbyExit

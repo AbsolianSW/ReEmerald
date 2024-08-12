@@ -1518,7 +1518,7 @@
 #define FLAG_CHALLENGES_REPELLANT_ACTIVE            (SYSTEM_FLAGS + 0x8D)
 #define FLAG_CHALLENGES_LEVEL_CAP_EXTREME           (SYSTEM_FLAGS + 0x8E)
 #define FLAG_CHALLENGES_STARTERAFFECTSRIVAL         (SYSTEM_FLAGS + 0x8F) 
-#define FLAG_CHALLENGES_GAUNTLET_MODE               (SYSTEM_FLAGS + 0x90)
+#define FLAG_CHALLENGES_GAUNTLET_MODE               (SYSTEM_FLAGS + 0x90) // unused
 #define FLAG_UNUSED_0x8F1                           (SYSTEM_FLAGS + 0x91) // Unused Flag
 #define FLAG_UNUSED_0x8F2                           (SYSTEM_FLAGS + 0x92) // Unused Flag
 #define FLAG_UNUSED_0x8F3                           (SYSTEM_FLAGS + 0x93) // Unused Flag

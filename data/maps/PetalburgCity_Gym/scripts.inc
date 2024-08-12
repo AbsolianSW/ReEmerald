@@ -161,10 +161,7 @@ PetalburgCity_Gym_EventScript_BeginWallyTutorial::
 	getfollowercardinaldirection
 	addobject LOCALID_WALLY
 	playse SE_DOOR
-	call_if_eq VAR_UNUSED_0x8014, 1, PetalburgCity_Gym_EventScript_FollowerMoveFromWest
-	call_if_eq VAR_UNUSED_0x8014, 3, PetalburgCity_Gym_EventScript_FollowerMoveFromEast
-	releaseall
-	lock
+	call_if_eq VAR_0x800B, 1, PetalburgCity_Gym_EventScript_FollowerMoveOutOfTheWay
 	call_if_eq VAR_0x8008, 0, PetalburgCity_Gym_EventScript_WallyArriveSouth
 	call_if_eq VAR_0x8008, 1, PetalburgCity_Gym_EventScript_WallyArriveNorth
 	call_if_eq VAR_0x8008, 2, PetalburgCity_Gym_EventScript_WallyArriveWestEast
@@ -214,14 +211,10 @@ PetalburgCity_Gym_EventScript_BeginWallyTutorial::
 	release
 	end
 
-PetalburgCity_Gym_EventScript_FollowerMoveFromWest::
+PetalburgCity_Gym_EventScript_FollowerMoveOutOfTheWay::
+	goto_if_ne VAR_0x8008, 1, PetalburgCity_Gym_EventScript_FollowerMoveReturn
 	applymovement OBJ_EVENT_ID_FOLLOWER, PetalburgCity_Gym_Movement_FollowerFromWest
-	waitmovement 0
-	return
-
-PetalburgCity_Gym_EventScript_FollowerMoveFromEast::
-	applymovement OBJ_EVENT_ID_FOLLOWER, PetalburgCity_Gym_Movement_FollowerFromEast
-	waitmovement 0
+PetalburgCity_Gym_EventScript_FollowerMoveReturn::
 	return
 	
 PetalburgCity_Gym_EventScript_WallyArriveSouth::
@@ -512,7 +505,7 @@ PetalburgCity_Gym_EventScript_WallysDadFaceNormanWest::
 PetalburgCity_Gym_EventScript_WallysDadApproachPlayerNorth::
 	applymovement LOCALID_WALLYS_DAD, PetalburgCity_Gym_Movement_WallysDadApproachPlayerNorth
 	getfollowercardinaldirection
-	call_if_eq VAR_UNUSED_0x8014, 3, PetalburgCity_Gym_EventScript_FollowerMoveOutOfTheWayNorth
+	call_if_eq VAR_0x800B, 3, PetalburgCity_Gym_EventScript_FollowerMoveOutOfTheWayNorth
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	applymovement LOCALID_NORMAN, Common_Movement_WalkInPlaceFasterLeft
@@ -701,12 +694,6 @@ PetalburgCity_Gym_Movement_Unused:
 PetalburgCity_Gym_Movement_FollowerFromWest:
 	walk_down
 	walk_left
-	face_down
-	step_end
-
-PetalburgCity_Gym_Movement_FollowerFromEast:
-	walk_down
-	walk_right
 	face_down
 	step_end
 

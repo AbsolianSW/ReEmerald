@@ -93,7 +93,7 @@ SlateportCity_OceanicMuseum_2F_EventScript_CaptStern::
 	
 SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay::
 	getfollowercardinaldirection
-	call_if_eq VAR_UNUSED_0x8014, 3, SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay2
+	call_if_eq VAR_0x800B, 3, SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay2
 	return
 	
 SlateportCity_OceanicMuseum_2F_EventScript_FollowerOutOfTheWay2::

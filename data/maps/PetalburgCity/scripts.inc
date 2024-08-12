@@ -160,8 +160,6 @@ PetalburgCity_Movement_WalkInsideHouseWallysDad:
 PetalburgCity_Movement_WallyTutorialPlayer:
 	delay_8
 	walk_down
-	delay_16
-	delay_16
 	walk_down
 	walk_down
 	walk_down
@@ -197,8 +195,6 @@ PetalburgCity_Movement_WallyTutorialPlayer:
 PetalburgCity_Movement_WallyTutorialWally:
 	delay_8
 	walk_down
-	delay_16
-	delay_16
 	walk_down
 	walk_down
 	walk_down
@@ -549,7 +545,7 @@ PetalburgCity_EventScript_Scott3::
 
 PetalburgCity_EventScript_Scott::
 	getfollowercardinaldirection
-	call_if_eq VAR_UNUSED_0x8014, 1, PetalburgCity_EventScript_MoveFollowerOutOfTheWay
+	call_if_eq VAR_0x800B, 1, PetalburgCity_EventScript_MoveFollowerOutOfTheWay
 	applymovement LOCALID_SCOTT, PetalburgCity_Movement_ScottStartWalkLeft
 	waitmovement 0
 	releaseall
