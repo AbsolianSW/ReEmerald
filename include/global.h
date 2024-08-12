@@ -298,6 +298,7 @@ struct BattleTowerPokemon
     u32 personality;
     u8 nickname[POKEMON_NAME_LENGTH + 1];
     u8 friendship;
+    u8 nature;
 };
 
 struct EmeraldBattleTowerRecord
@@ -337,7 +338,6 @@ struct DomeMonData
 struct RentalMon
 {
     u16 monId;
-    //u8 padding1[2];
     u32 personality;
     u8 ivs;
     u8 abilityNum;
@@ -520,7 +520,7 @@ struct SaveBlock2
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
              struct Challenges challenges;
-             u8 unused[384]; // to keep track of unused saveblock space
+             u8 unused[288]; // to keep track of unused saveblock space
              
 }; // sizeof=0xF2C
 
@@ -531,6 +531,7 @@ extern u8 UpdateSpritePaletteWithTime(u8);
 struct SecretBaseParty
 {
     u32 personality[PARTY_SIZE];
+    u8 nature[PARTY_SIZE];
     u16 moves[PARTY_SIZE * MAX_MON_MOVES];
     u16 species[PARTY_SIZE];
     u16 heldItems[PARTY_SIZE];
@@ -940,7 +941,8 @@ struct SaveBlock1
     /*0x3D64*/ struct TrainerHillSave trainerHill;
     /*0x3D70*/ struct WaldaPhrase waldaPhrase;
                u16 registeredItems[MAX_REGISTERED_ITEMS];
-    /*0x3D89*/ u8 unused[1452]; //added this to keep track of saveblock space available TODO update
+               u8 currentGauntletId;
+    /*0x3D89*/ u8 unused[1291]; //added this to keep track of saveblock space available TODO update
     // sizeof: 3DF0
 };
 

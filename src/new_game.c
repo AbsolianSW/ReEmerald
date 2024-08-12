@@ -275,8 +275,8 @@ static void HandleChallenges(void)
         FlagSet(FLAG_CHALLENGES_REPELLANT);
     if(gSaveBlock2Ptr -> challenges.starterAffectsRival)
         FlagSet(FLAG_CHALLENGES_STARTERAFFECTSRIVAL);
-    if(gSaveBlock2Ptr -> challenges.gauntletMode)
-        FlagSet(FLAG_CHALLENGES_GAUNTLET_MODE);
+    if(!gSaveBlock2Ptr -> challenges.gauntletMode)
+        VarSet(VAR_ACTIVE_GAUNTLET, 3);
 
     
     VarSet(VAR_XP_MULTIPLIER, gSaveBlock2Ptr->challenges.xpMultiplier);

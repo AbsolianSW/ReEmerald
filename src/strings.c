@@ -1904,4 +1904,5 @@ const u8 gText_1EggGroup[] = _("Egg group:{Str_Var_1}");
 const u8 gText_2EggGroups[] = _("Egg groups:{Str_Var_1}/{Str_Var_2}");
 const u8 gText_M[] = _("M");
 const u8 gText_F[] = _("F");
+const u8 gText_Boss[] = _("boss ");
 

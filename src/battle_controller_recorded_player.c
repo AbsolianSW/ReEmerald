@@ -551,6 +551,7 @@ static u32 CopyRecordedPlayerMonData(u8 monId, u8 *dst)
         battleMon.spAttackIV = GetMonData(&gPlayerParty[monId], MON_DATA_SPATK_IV);
         battleMon.spDefenseIV = GetMonData(&gPlayerParty[monId], MON_DATA_SPDEF_IV);
         battleMon.personality = GetMonData(&gPlayerParty[monId], MON_DATA_PERSONALITY);
+        battleMon.nature = GetMonData(&gEnemyParty[monId], MON_DATA_NATURE);
         battleMon.status1 = GetMonData(&gPlayerParty[monId], MON_DATA_STATUS);
         battleMon.level = GetMonData(&gPlayerParty[monId], MON_DATA_LEVEL);
         battleMon.hp = GetMonData(&gPlayerParty[monId], MON_DATA_HP);
@@ -708,6 +709,10 @@ static u32 CopyRecordedPlayerMonData(u8 monId, u8 *dst)
         break;
     case REQUEST_SPDEF_IV_BATTLE:
         dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_SPDEF_IV);
+        size = 1;
+        break;
+    case REQUEST_NATURE_BATTLE:
+        dst[0] = GetMonData(&gEnemyParty[monId], MON_DATA_NATURE);
         size = 1;
         break;
     case REQUEST_PERSONALITY_BATTLE:
@@ -889,6 +894,7 @@ static void SetRecordedPlayerMonData(u8 monId)
             iv = battlePokemon->spDefenseIV;
             SetMonData(&gPlayerParty[monId], MON_DATA_SPDEF_IV, &iv);
             SetMonData(&gPlayerParty[monId], MON_DATA_PERSONALITY, &battlePokemon->personality);
+            SetMonData(&gPlayerParty[monId], MON_DATA_NATURE, &battlePokemon->nature);
             SetMonData(&gPlayerParty[monId], MON_DATA_STATUS, &battlePokemon->status1);
             SetMonData(&gPlayerParty[monId], MON_DATA_LEVEL, &battlePokemon->level);
             SetMonData(&gPlayerParty[monId], MON_DATA_HP, &battlePokemon->hp);
@@ -1003,6 +1009,9 @@ static void SetRecordedPlayerMonData(u8 monId)
         break;
     case REQUEST_PERSONALITY_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_PERSONALITY, &gBattleBufferA[gActiveBattler][3]);
+        break;
+    case REQUEST_NATURE_BATTLE:
+        SetMonData(&gPlayerParty[monId], MON_DATA_NATURE, &gBattleBufferA[gActiveBattler][3]);
         break;
     case REQUEST_CHECKSUM_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_CHECKSUM, &gBattleBufferA[gActiveBattler][3]);

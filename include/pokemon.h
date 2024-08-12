@@ -95,6 +95,7 @@ enum {
     MON_DATA_SPATK2,
     MON_DATA_SPDEF2,
     MON_DATA_IS_DEAD,
+    MON_DATA_NATURE
 };
 
 struct PokemonSubstruct0
@@ -203,12 +204,11 @@ struct BoxPokemon
     u8 isBadEgg:1;
     u8 hasSpecies:1;
     u8 isEgg:1;
-    u8 blockBoxRS:1; // Unused, but Pokémon Box Ruby & Sapphire will refuse to deposit a Pokémon with this flag set
-    u8 isDead:4;
+    u8 nature:5;
+    u8 isDead:1;
     u8 otName[PLAYER_NAME_LENGTH];
     u8 markings;
     u16 checksum;
-    u16 unknown;
 
     union
     {
@@ -279,7 +279,7 @@ struct BattlePokemon
     /*0x20*/ u8 ability;
     /*0x21*/ u8 type1;
     /*0x22*/ u8 type2;
-    /*0x23*/ u8 unknown;
+    /*0x23*/ u8 nature;
     /*0x24*/ u8 pp[MAX_MON_MOVES];
     /*0x28*/ u16 hp;
     /*0x2A*/ u8 level;
@@ -523,7 +523,7 @@ const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u
 bool32 IsHMMove2(u16 move);
 bool8 IsMonSpriteNotFlipped(u16 species);
 s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor);
-s8 GetFlavorRelationByPersonality(u32 personality, u8 flavor);
+s8 GetFlavorRelationByNature(u8 nature, u8 flavor);
 bool8 IsTradedMon(struct Pokemon *mon);
 bool8 IsOtherTrainer(u32 otId, u8 *otName);
 void MonRestorePP(struct Pokemon *mon);

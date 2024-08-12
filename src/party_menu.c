@@ -4529,6 +4529,7 @@ static void Task_DisplayHPRestoredMessage(u8 taskId)
     DisplayPartyMenuMessage(gStringVar4, FALSE);
     ScheduleBgCopyTilemapToVram(2);
     HandleBattleLowHpMusicChange();
+    DebugPrintf("party menu type is %d", gPartyMenu.menuType);
     if (gPartyMenu.menuType == PARTY_MENU_TYPE_FIELD && CheckBagHasItem(gSpecialVar_ItemId, 1))
         gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
     else

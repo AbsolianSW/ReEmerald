@@ -92,6 +92,13 @@ static EWRAM_DATA u32 sBattleTowerMultiBattleTypeFlags = 0;
 
 struct ListMenuTemplate gScrollableMultichoice_ListMenuTemplate;
 
+static const struct GauntletInfo sGauntletInfo[GAUNTLET_AMOUNT] =
+{
+    [GAUNTLET_ROUTE102] = {.numTrainers = 4, .numHeals = 0, .isBossGauntlet = FALSE, .trainerIds = {TRAINER_CALVIN, TRAINER_RICK, TRAINER_ALLEN, TRAINER_TIANA}},
+    [GAUNTLET_ROUTE104] = {.numTrainers = 10, .numHeals = 1, .isBossGauntlet = FALSE, .trainerIds = {TRAINER_BILLY, TRAINER_DARIAN, TRAINER_CINDY, TRAINER_LYLE, TRAINER_GRUNT_PETALBURG_WOODS, TRAINER_JAMES, TRAINER_WINSTON, TRAINER_HALEY, TRAINER_GINA_AND_MIA, TRAINER_IVAN}},
+    [GAUNTLET_RUSTBORO_GYM] = {.numTrainers = 4, .numHeals = 0, .isBossGauntlet = TRUE, .trainerIds = {TRAINER_JOSH, TRAINER_TOMMY, TRAINER_MARK, TRAINER_ROXANNE_1}},
+};
+
 void TryLoseFansFromPlayTime(void);
 void SetPlayerGotFirstFans(void);
 u16 GetNumFansOfPlayerInTrainerFanClub(void);
@@ -4464,4 +4471,43 @@ void bufferChallengeInfoForNotebook(void)
 void BufferRivalFollowerSpecies(void)
 {
     VarSet(VAR_TEMP_4,GetRivalStarterSpecies(gSpecialVar_0x8003+SPECIES_RIVAL_GRASS_STARTER,gSpecialVar_0x8004));
+}
+
+void BufferGauntletInfo(void)
+{
+    if(sGauntletInfo[gSpecialVar_GauntletId].isBossGauntlet)
+        StringCopy(gStringVar1, gText_Boss);
+    else
+        StringCopy(gStringVar1,gText_EmptyString2);
+    ConvertUIntToDecimalStringN(gStringVar2, sGauntletInfo[gSpecialVar_GauntletId].numTrainers, STR_CONV_MODE_LEFT_ALIGN, 2);
+    ConvertUIntToDecimalStringN(gStringVar3, sGauntletInfo[gSpecialVar_GauntletId].numHeals, STR_CONV_MODE_LEFT_ALIGN, 2);
+}
+
+void SaveActiveGauntlet(void)
+{
+    gSaveBlock1Ptr->currentGauntletId = gSpecialVar_GauntletId;
+}
+
+void BufferMidGauntletInfo(void)
+{
+    u8 gauntletId = gSaveBlock1Ptr->currentGauntletId;
+    u8 count = sGauntletInfo[gauntletId].numTrainers;
+    u8 i;
+    for(i=0; i< sGauntletInfo[gauntletId].numTrainers; i++)
+    {
+        if(FlagGet(TRAINER_FLAGS_START + sGauntletInfo[gauntletId].trainerIds[i]))
+            count--;
+    }
+    DebugPrintf("count is %d", count);
+    VarSet(VAR_RESULT, 0);
+    if(!count)
+    {
+        VarSet(VAR_RESULT, 1);
+        return;
+    }
+    if(sGauntletInfo[gauntletId].isBossGauntlet)
+        StringCopy(gStringVar1, gText_Boss);
+    else
+        StringCopy(gStringVar1,gText_EmptyString2);
+    ConvertUIntToDecimalStringN(gStringVar2, count, STR_CONV_MODE_LEFT_ALIGN, 2);
 }

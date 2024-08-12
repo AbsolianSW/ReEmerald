@@ -1964,7 +1964,6 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     u8 fixedIV;
     s32 i, j;
     u8 monsCount;
-    s8 natureOffset;
     u16 species;
 
     if (trainerNum == TRAINER_SECRET_BASE)
@@ -2087,22 +2086,9 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                     nameHash += gSpeciesNames[species][j];
 
                 personalityValue += nameHash << 8;
-                //ensure nature but keep gender intact
-                natureOffset = partyData[i].nature - personalityValue%NUM_NATURES;
-                if (gTrainers[trainerNum].encounterMusic_gender & F_TRAINER_FEMALE) {
-                    if(natureOffset < 0)
-                        personalityValue += natureOffset;
-                    else 
-                        personalityValue += (natureOffset -= NUM_NATURES);
-                } else {
-                    if(natureOffset < 0)
-                        personalityValue += (natureOffset += NUM_NATURES);
-                    else 
-                        personalityValue += natureOffset;
-                }
                 CreateMon(&party[i], species, partyData[i].lvl, USE_RANDOM_IVS, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+                SetMonData(&party[i], MON_DATA_NATURE, &partyData[i].nature);
 
                 for (j = 0; j < MAX_MON_MOVES; j++)
                 {

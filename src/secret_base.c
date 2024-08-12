@@ -788,6 +788,7 @@ void SetPlayerSecretBaseParty(void)
             party->heldItems[i] = ITEM_NONE;
             party->levels[i] = 0;
             party->personality[i] = 0;
+            party->nature[i] = 0;
             party->EVs[i] = 0;
 
             if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE
@@ -800,6 +801,7 @@ void SetPlayerSecretBaseParty(void)
                 party->heldItems[partyId] = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
                 party->levels[partyId] = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
                 party->personality[partyId] = GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY);
+                party->nature[partyId] = GetMonData(&gPlayerParty[i], MON_DATA_NATURE);
                 party->EVs[partyId] = GetAverageEVs(&gPlayerParty[i]);
                 partyId++;
             }

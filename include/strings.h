@@ -3099,5 +3099,6 @@ extern const u8 gText_2EggGroups[];
 extern const u8 gText_1EggGroup[];
 extern const u8 gText_M[];
 extern const u8 gText_F[];
+extern const u8 gText_Boss[];
 
 #endif // GUARD_STRINGS_H

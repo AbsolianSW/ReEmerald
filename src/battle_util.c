@@ -3292,7 +3292,7 @@ enum
         if (gBattleMons[battlerId].hp + gBattleMoveDamage > gBattleMons[battlerId].maxHP)   \
             gBattleMoveDamage = gBattleMons[battlerId].maxHP - gBattleMons[battlerId].hp;   \
         gBattleMoveDamage *= -1;                                                            \
-        if (GetFlavorRelationByPersonality(gBattleMons[battlerId].personality, flavor) < 0) \
+        if (GetFlavorRelationByNature(gBattleMons[battlerId].nature, flavor) < 0) \
             BattleScriptExecute(BattleScript_BerryConfuseHealEnd2);                         \
         else                                                                                \
             BattleScriptExecute(BattleScript_ItemHealHP_RemoveItem);                        \
