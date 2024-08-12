@@ -225,9 +225,9 @@ static const u16 maxValue[PAGE_COUNT*(ROWS_OPTIONS-1)] =
     [MENUITEM_REPELLANT] = 1,
     [MENUITEM_STARTINGMONEY] = 72,
     [MENUITEM_SHINYODDS] = 16,
-    [MENUITEM_GRASSSTARTER] = 386,
-    [MENUITEM_WATERSTARTER] = 386,
-    [MENUITEM_FIRESTARTER] = 386,
+    [MENUITEM_GRASSSTARTER] = 385,
+    [MENUITEM_WATERSTARTER] = 385,
+    [MENUITEM_FIRESTARTER] = 385,
     [MENUITEM_STARTERAFFECTSRIVAL] = 1,
     [MENUITEM_LEVELCAP] = 2,
     [MENUITEM_GAUNTLETMODE] = 1,
@@ -265,9 +265,9 @@ static void ReadAllCurrentSettings()
     tStartingMoney = gSaveBlock2Ptr->challenges.startingMoney;
     tRepellant = gSaveBlock2Ptr->challenges.repellant;
     tShinyOdds = gSaveBlock2Ptr->challenges.shinyOdds;
-    tGrassStarter = gSaveBlock2Ptr->challenges.grassStarter;
-    tWaterStarter = gSaveBlock2Ptr->challenges.waterStarter;
-    tFireStarter = gSaveBlock2Ptr->challenges.fireStarter;
+    tGrassStarter = gSaveBlock2Ptr->challenges.grassStarter -1;
+    tWaterStarter = gSaveBlock2Ptr->challenges.waterStarter -1;
+    tFireStarter = gSaveBlock2Ptr->challenges.fireStarter -1;
     tStarterAffectsRival = gSaveBlock2Ptr->challenges.starterAffectsRival;
     tLevelCap = gSaveBlock2Ptr->challenges.levelCap;
     tGauntletMode = gSaveBlock2Ptr->challenges.gauntletMode;
@@ -466,9 +466,9 @@ static void save()
     gSaveBlock2Ptr->challenges.repellant = tRepellant;
     gSaveBlock2Ptr->challenges.startingMoney = tStartingMoney;
     gSaveBlock2Ptr->challenges.shinyOdds = tShinyOdds;
-    gSaveBlock2Ptr->challenges.grassStarter = tGrassStarter;
-    gSaveBlock2Ptr->challenges.waterStarter = tWaterStarter;
-    gSaveBlock2Ptr->challenges.fireStarter = tFireStarter;
+    gSaveBlock2Ptr->challenges.grassStarter = tGrassStarter +1;
+    gSaveBlock2Ptr->challenges.waterStarter = tWaterStarter +1;
+    gSaveBlock2Ptr->challenges.fireStarter = tFireStarter +1;
     gSaveBlock2Ptr->challenges.starterAffectsRival = tStarterAffectsRival;
     gSaveBlock2Ptr->challenges.levelCap = tLevelCap;
     gSaveBlock2Ptr->challenges.gauntletMode = tGauntletMode;
@@ -639,7 +639,7 @@ static void HighlightChallengeMenuItem(u8 index)
 
 static void DrawChallengeMenuChoice(const u8 *text, u8 x, u8 y, u8 style)
 {
-    u8 dst[21];
+    u8 dst[22];
     u16 i;
     for (i = 0; *text != EOS && i < ARRAY_COUNT(dst) - 1; i++)
         dst[i] = *(text++);
@@ -790,93 +790,96 @@ static void Shinyodds_DrawChoices(u16 selection)
 
 static void GrassStarter_DrawChoices(u16 selection)
 {
-    u8 text[21];
-    u8 speciesName[POKEMON_NAME_LENGTH + 1];
-    u8 speciesNameDst[POKEMON_NAME_LENGTH + 1];
+    u8 text[22];
+    u8 speciesName[POKEMON_NAME_LENGTH + 2];
+    u8 speciesNameDst[POKEMON_NAME_LENGTH + 2];
+    u16 index = selection +1;
     u8 i = 0;
     for (i = 0; gText_FrameTypeNumber[i] != EOS && i <= 5; i++)
         text[i] = gText_FrameTypeNumber[i];
-    if(selection / 100)
+    if(index / 100)
     {
-        text[i++] = selection / 100 + CHAR_0;
+        text[i++] = index / 100 + CHAR_0;
     } else
     {
        text[i++] = CHAR_0; 
     }
-    if(selection / 10)
+    if(index / 10)
     {
-        text[i++] = (selection / 10)%10 + CHAR_0;
+        text[i++] = (index / 10)%10 + CHAR_0;
     }else
     {
        text[i++] = CHAR_0; 
     }
-    text[i++] = selection % 10 + CHAR_0;
+    text[i++] = index % 10 + CHAR_0;
     text[i++] = CHAR_COLON;
     text[i] = EOS;
-    GetSpeciesName(speciesName,NationalPokedexNumToSpecies(selection));
-    StringCopyPadded(speciesNameDst,speciesName,CHAR_SPACER,10);
+    GetSpeciesName(speciesName,NationalPokedexNumToSpecies(index));
+    StringCopyPadded(speciesNameDst,speciesName,CHAR_SPACER,11);
     StringAppend(text,speciesNameDst);
     DrawChallengeMenuChoice(text, 104, YPOS(MENUITEM_GRASSSTARTER), 1);
 }
 
 static void WaterStarter_DrawChoices(u16 selection)
 {
-    u8 text[19];
-    u8 speciesName[POKEMON_NAME_LENGTH + 1];
-    u8 speciesNameDst[POKEMON_NAME_LENGTH + 1];
+    u8 text[22];
+    u8 speciesName[POKEMON_NAME_LENGTH + 2];
+    u8 speciesNameDst[POKEMON_NAME_LENGTH + 2];
+    u16 index = selection +1;
     u8 i = 0;
     for (i = 0; gText_FrameTypeNumber[i] != EOS && i <= 5; i++)
         text[i] = gText_FrameTypeNumber[i];
-    if(selection / 100)
+    if(index / 100)
     {
-        text[i++] = selection / 100 + CHAR_0;
+        text[i++] = index / 100 + CHAR_0;
     } else
     {
        text[i++] = CHAR_0; 
     }
-    if(selection / 10)
+    if(index / 10)
     {
-        text[i++] = (selection / 10)%10 + CHAR_0;
+        text[i++] = (index / 10)%10 + CHAR_0;
     }else
     {
        text[i++] = CHAR_0; 
     }
-    text[i++] = selection % 10 + CHAR_0;
+    text[i++] = index % 10 + CHAR_0;
     text[i++] = CHAR_COLON;
     text[i] = EOS;
-    GetSpeciesName(speciesName,NationalPokedexNumToSpecies(selection));
-    StringCopyPadded(speciesNameDst,speciesName,CHAR_SPACER,10);
+    GetSpeciesName(speciesName,NationalPokedexNumToSpecies(index));
+    StringCopyPadded(speciesNameDst,speciesName,CHAR_SPACER,11);
     StringAppend(text,speciesNameDst);
     DrawChallengeMenuChoice(text, 104, YPOS(MENUITEM_WATERSTARTER), 1);
 }
 
 static void FireStarter_DrawChoices(u16 selection)
 {
-    u8 text[19];
-    u8 speciesName[POKEMON_NAME_LENGTH + 1];
-    u8 speciesNameDst[POKEMON_NAME_LENGTH + 1];
+    u8 text[22];
+    u8 speciesName[POKEMON_NAME_LENGTH + 2];
+    u8 speciesNameDst[POKEMON_NAME_LENGTH + 2];
+    u16 index = selection +1;
     u8 i = 0;
     for (i = 0; gText_FrameTypeNumber[i] != EOS && i <= 5; i++)
         text[i] = gText_FrameTypeNumber[i];
-    if(selection / 100)
+    if(index / 100)
     {
-        text[i++] = selection / 100 + CHAR_0;
+        text[i++] = index / 100 + CHAR_0;
     } else
     {
        text[i++] = CHAR_0; 
     }
-    if(selection / 10)
+    if(index / 10)
     {
-        text[i++] = (selection / 10)%10 + CHAR_0;
+        text[i++] = (index / 10)%10 + CHAR_0;
     }else
     {
        text[i++] = CHAR_0; 
     }
-    text[i++] = selection % 10 + CHAR_0;
+    text[i++] = index % 10 + CHAR_0;
     text[i++] = CHAR_COLON;
     text[i] = EOS;
-    GetSpeciesName(speciesName,NationalPokedexNumToSpecies(selection));
-    StringCopyPadded(speciesNameDst,speciesName,CHAR_SPACER,10);
+    GetSpeciesName(speciesName,NationalPokedexNumToSpecies(index));
+    StringCopyPadded(speciesNameDst,speciesName,CHAR_SPACER,11);
     StringAppend(text,speciesNameDst);
     DrawChallengeMenuChoice(text, 104, YPOS(MENUITEM_FIRESTARTER), 1);
 }
@@ -970,7 +973,8 @@ static void DrawHeaderText(u8 taskId)
     }
     else
     {
-        AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, sChallengeDetailTexts[(sCurrPage * 4) + tMenuSelection], 8, 1, TEXT_SKIP_DRAW, NULL);
+        if(tMenuSelection != CONFIRM_INDEX)
+            AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, sChallengeDetailTexts[(sCurrPage * 4) + tMenuSelection], 8, 1, TEXT_SKIP_DRAW, NULL);
         CopyWindowToVram(WIN_HEADER, COPYWIN_FULL);
     }
 }
