@@ -4498,7 +4498,6 @@ void BufferMidGauntletInfo(void)
         if(FlagGet(TRAINER_FLAGS_START + sGauntletInfo[gauntletId].trainerIds[i]))
             count--;
     }
-    DebugPrintf("count is %d", count);
     VarSet(VAR_RESULT, 0);
     if(!count)
     {

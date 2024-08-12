@@ -145,7 +145,7 @@ static EWRAM_DATA struct PokemonSummaryScreenData
         u8 abilityNum; // 0x8
         u8 metLocation; // 0x9
         u8 metLevel; // 0xA
-        u8 metGame; // 0xB
+        //u8 metGame; // 0xB
         u32 pid; // 0xC
         u32 exp; // 0x10
         u16 moves[MAX_MON_MOVES]; // 0x14
@@ -262,7 +262,6 @@ static void PrintMonTrainerMemo(void);
 static void BufferNatureString(void);
 static void GetMetLevelString(u8 *);
 static bool8 DoesMonOTMatchOwner(void);
-static bool8 DidMonComeFromGBAGames(void);
 static bool8 IsInGamePartnerMon(void);
 static void PrintEggOTName(void);
 static void PrintEggOTID(void);
@@ -311,7 +310,7 @@ static void SpriteCB_MoveSelector(struct Sprite *);
 static void DestroyMoveSelectorSprites(u8);
 static void SetMainMoveSelectorColor(u8);
 static void KeepMoveSelectorVisible(u8);
-static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n);
+static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n, bool8 handleHP);
 static void SummaryScreen_DestroyAnimDelayTask(void);
 
 // const rom data
@@ -1444,7 +1443,6 @@ static bool8 ExtractMonDataToSummaryStruct(struct Pokemon *mon)
         sum->OTID = GetMonData(mon, MON_DATA_OT_ID);
         sum->metLocation = GetMonData(mon, MON_DATA_MET_LOCATION);
         sum->metLevel = GetMonData(mon, MON_DATA_MET_LEVEL);
-        sum->metGame = GetMonData(mon, MON_DATA_MET_GAME);
         sum->friendship = GetMonData(mon, MON_DATA_FRIENDSHIP);
         break;
     default:
@@ -3189,7 +3187,7 @@ static void BufferMonTrainerMemo(void)
         {
             text = gText_XNatureFatefulEncounter;
         }
-        else if (sum->metLocation != METLOC_IN_GAME_TRADE && DidMonComeFromGBAGames())
+        else if (sum->metLocation != METLOC_IN_GAME_TRADE)
         {
             text = (sum->metLocation >= MAPSEC_NONE) ? gText_XNatureObtainedInTrade : gText_XNatureProbablyMetAt;
         }
@@ -3251,22 +3249,6 @@ static bool8 DoesMonOTMatchOwner(void)
         return TRUE;
 }
 
-static bool8 DidMonComeFromGBAGames(void)
-{
-    struct PokeSummary *sum = &sMonSummaryScreen->summary;
-    if (sum->metGame > 0 && sum->metGame <= VERSION_LEAF_GREEN)
-        return TRUE;
-    return FALSE;
-}
-
-bool8 DidMonComeFromRSE(void)
-{
-    struct PokeSummary *sum = &sMonSummaryScreen->summary;
-    if (sum->metGame > 0 && sum->metGame <= VERSION_EMERALD)
-        return TRUE;
-    return FALSE;
-}
-
 static bool8 IsInGamePartnerMon(void)
 {
     if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) && gMain.inBattle)
@@ -3322,10 +3304,10 @@ static void PrintEggMemo(void)
     {
         if (sum->metLocation == METLOC_FATEFUL_ENCOUNTER)
             text = gText_PeculiarEggNicePlace;
-        else if (DidMonComeFromGBAGames() == FALSE || DoesMonOTMatchOwner() == FALSE)
+        else if (DoesMonOTMatchOwner() == FALSE)
             text = gText_PeculiarEggTrade;
         else if (sum->metLocation == METLOC_SPECIAL_EGG)
-            text = (DidMonComeFromRSE() == TRUE) ? gText_EggFromHotSprings : gText_EggFromTraveler;
+            text =  gText_EggFromHotSprings;
         else
             text = gText_OddEggFoundByCouple;
     }
@@ -3453,7 +3435,7 @@ static void PrintRibbonCount(void)
     PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_RIBBON_COUNT), text, x, 1, 0, 0);
 }
 
-static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n)
+static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n, bool8 handleHP)
 {
     static const u8 sTextNatureDown[] = _("{COLOR}{08}");
     static const u8 sTextNatureUp[] = _("{COLOR}{05}");
@@ -3469,10 +3451,10 @@ static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n)
     else
         txtPtr = StringCopy(dst, sTextNatureDown);
 
-    if(stat == sMonSummaryScreen->summary.currentHP)
+    if (handleHP)
     {
         switch (sMonSummaryScreen->skillPageState)
-    {
+        {
         case 0:
             ConvertIntToDecimalStringN(txtPtr, sMonSummaryScreen->summary.currentHP, STR_CONV_MODE_RIGHT_ALIGN, 3);
             break;
@@ -3484,9 +3466,9 @@ static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n)
             break;
         default:
             break;
+        }
     }
-    CHAR_SPACER;
-    } else
+    else
     {
         ConvertIntToDecimalStringN(txtPtr, stat, STR_CONV_MODE_RIGHT_ALIGN, n);
     }
@@ -3502,10 +3484,10 @@ static void BufferLeftColumnStats(void)
     const s8 *natureMod = gNatureStatTable[sMonSummaryScreen->summary.nature];
 
     DynamicPlaceholderTextUtil_Reset();
-    BufferStat(currentHPString, 0, sMonSummaryScreen->summary.currentHP, 0, 3);
-    BufferStat(maxHPString, 0, sMonSummaryScreen->summary.maxHP, 1, 3);
-    BufferStat(attackString, natureMod[STAT_ATK - 1], sMonSummaryScreen->summary.atk, 2, 7);
-    BufferStat(defenseString, natureMod[STAT_DEF - 1], sMonSummaryScreen->summary.def, 3, 7);
+    BufferStat(currentHPString, 0, sMonSummaryScreen->summary.currentHP, 0, 3, TRUE);
+    BufferStat(maxHPString, 0, sMonSummaryScreen->summary.maxHP, 1, 3, FALSE);
+    BufferStat(attackString, natureMod[STAT_ATK - 1], sMonSummaryScreen->summary.atk, 2, 7, FALSE);
+    BufferStat(defenseString, natureMod[STAT_DEF - 1], sMonSummaryScreen->summary.def, 3, 7, FALSE);
     if(sMonSummaryScreen->skillPageState)
         DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayout2);
     else
@@ -3526,9 +3508,9 @@ static void BufferRightColumnStats(void)
     const s8 *natureMod = gNatureStatTable[sMonSummaryScreen->summary.nature];
 
     DynamicPlaceholderTextUtil_Reset();
-    BufferStat(gStringVar1, natureMod[STAT_SPATK - 1], sMonSummaryScreen->summary.spatk, 0, 3);
-    BufferStat(gStringVar2, natureMod[STAT_SPDEF - 1], sMonSummaryScreen->summary.spdef, 1, 3);
-    BufferStat(gStringVar3, natureMod[STAT_SPEED - 1], sMonSummaryScreen->summary.speed, 2, 3);
+    BufferStat(gStringVar1, natureMod[STAT_SPATK - 1], sMonSummaryScreen->summary.spatk, 0, 3, FALSE);
+    BufferStat(gStringVar2, natureMod[STAT_SPDEF - 1], sMonSummaryScreen->summary.spdef, 1, 3, FALSE);
+    BufferStat(gStringVar3, natureMod[STAT_SPEED - 1], sMonSummaryScreen->summary.speed, 2, 3, FALSE);
     DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
 }
 

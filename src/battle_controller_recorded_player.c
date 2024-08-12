@@ -670,10 +670,6 @@ static u32 CopyRecordedPlayerMonData(u8 monId, u8 *dst)
         dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_MET_LEVEL);
         size = 1;
         break;
-    case REQUEST_MET_GAME_BATTLE:
-        dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_MET_GAME);
-        size = 1;
-        break;
     case REQUEST_POKEBALL_BATTLE:
         dst[0] = GetMonData(&gPlayerParty[monId], MON_DATA_POKEBALL);
         size = 1;
@@ -722,12 +718,6 @@ static u32 CopyRecordedPlayerMonData(u8 monId, u8 *dst)
         dst[2] = (data32 & 0x00FF0000) >> 16;
         dst[3] = (data32 & 0xFF000000) >> 24;
         size = 4;
-        break;
-    case REQUEST_CHECKSUM_BATTLE:
-        data16 = GetMonData(&gPlayerParty[monId], MON_DATA_CHECKSUM);
-        dst[0] = data16;
-        dst[1] = data16 >> 8;
-        size = 2;
         break;
     case REQUEST_STATUS_BATTLE:
         data32 = GetMonData(&gPlayerParty[monId], MON_DATA_STATUS);
@@ -975,9 +965,6 @@ static void SetRecordedPlayerMonData(u8 monId)
     case REQUEST_MET_LEVEL_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_MET_LEVEL, &gBattleBufferA[gActiveBattler][3]);
         break;
-    case REQUEST_MET_GAME_BATTLE:
-        SetMonData(&gPlayerParty[monId], MON_DATA_MET_GAME, &gBattleBufferA[gActiveBattler][3]);
-        break;
     case REQUEST_POKEBALL_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_POKEBALL, &gBattleBufferA[gActiveBattler][3]);
         break;
@@ -1012,9 +999,6 @@ static void SetRecordedPlayerMonData(u8 monId)
         break;
     case REQUEST_NATURE_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_NATURE, &gBattleBufferA[gActiveBattler][3]);
-        break;
-    case REQUEST_CHECKSUM_BATTLE:
-        SetMonData(&gPlayerParty[monId], MON_DATA_CHECKSUM, &gBattleBufferA[gActiveBattler][3]);
         break;
     case REQUEST_STATUS_BATTLE:
         SetMonData(&gPlayerParty[monId], MON_DATA_STATUS, &gBattleBufferA[gActiveBattler][3]);

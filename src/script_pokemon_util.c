@@ -92,6 +92,7 @@ u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 i
         SetMonData(&mon,MON_DATA_HP_IV+maxIV2,&ivs[0]);
         SetMonData(&mon,MON_DATA_HP_IV+maxIV3,&ivs[0]);
     }
+    CalculateMonStats(&mon);
     sentToPc = GiveMonToPlayer(&mon);
     nationalDexNum = SpeciesToNationalPokedexNum(species);
 

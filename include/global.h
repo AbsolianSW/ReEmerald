@@ -942,7 +942,7 @@ struct SaveBlock1
     /*0x3D70*/ struct WaldaPhrase waldaPhrase;
                u16 registeredItems[MAX_REGISTERED_ITEMS];
                u8 currentGauntletId;
-    /*0x3D89*/ u8 unused[1291]; //added this to keep track of saveblock space available TODO update
+    /*0x3D89*/ u8 unused[1417]; //added this to keep track of saveblock space available TODO update
     // sizeof: 3DF0
 };
 
