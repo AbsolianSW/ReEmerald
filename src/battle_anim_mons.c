@@ -2086,7 +2086,7 @@ u8 GetBattlerSpriteBGPriorityRank(u8 battlerId)
 }
 
 // Create pokemon sprite to be used for a move animation effect (e.g. Role Play / Snatch)
-u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16 x, s16 y, u8 subpriority, u32 personality, u32 trainerId, u32 battlerId, bool32 ignoreDeoxysForm)
+u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16 x, s16 y, u8 subpriority, u32 personality, u32 trainerId, u32 battlerId, bool32 ignoreDeoxysForm, bool8 shinyBlock)
 {
     u8 spriteId;
     u16 sheet = LoadSpriteSheet(&sSpriteSheets_MoveEffectMons[id]);
@@ -2096,7 +2096,7 @@ u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16
         gMonSpritesGfxPtr->buffer = AllocZeroed(MON_PIC_SIZE * MAX_MON_PIC_FRAMES);
     if (!isBackpic)
     {
-        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, trainerId, personality), OBJ_PLTT_ID(palette), PLTT_SIZE_4BPP);
+        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, trainerId, personality, shinyBlock), OBJ_PLTT_ID(palette), PLTT_SIZE_4BPP);
         if (ignoreDeoxysForm == TRUE || ShouldIgnoreDeoxysForm(5, battlerId) == TRUE || gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies != 0)
             LoadSpecialPokePic_DontHandleDeoxys(&gMonFrontPicTable[species],
                                                 gMonSpritesGfxPtr->buffer,
@@ -2112,7 +2112,7 @@ u8 CreateAdditionalMonSpriteForMoveAnim(u16 species, bool8 isBackpic, u8 id, s16
     }
     else
     {
-        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, trainerId, personality), OBJ_PLTT_ID(palette), PLTT_SIZE_4BPP);
+        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, trainerId, personality, shinyBlock), OBJ_PLTT_ID(palette), PLTT_SIZE_4BPP);
         if (ignoreDeoxysForm == TRUE || ShouldIgnoreDeoxysForm(5, battlerId) == TRUE || gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies != 0)
             LoadSpecialPokePic_DontHandleDeoxys(&gMonBackPicTable[species],
                                                 gMonSpritesGfxPtr->buffer,

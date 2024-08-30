@@ -674,6 +674,7 @@ static const u8 *const sMoveEffectBS_Ptrs[] =
     [MOVE_EFFECT_REMOVE_PARALYSIS] = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_ATK_DEF_DOWN]     = BattleScript_MoveEffectSleep,
     [MOVE_EFFECT_RECOIL_33]        = BattleScript_MoveEffectRecoil,
+    [MOVE_EFFECT_CRIT_UP]          = BattleScript_MoveEffectSleep,
 };
 
 static const struct WindowTemplate sUnusedWinTemplate =
@@ -2977,6 +2978,20 @@ void SetMoveEffect(bool8 primary, u8 certain)
                 BattleScriptPush(gBattlescriptCurrInstr + 1);
                 gBattlescriptCurrInstr = BattleScript_SAtkDown2;
                 break;
+            case MOVE_EFFECT_CRIT_UP:
+                if (gBattleMons[gBattlerAttacker].status2 & STATUS2_FOCUS_ENERGY)
+                {
+                    gMoveResultFlags |= MOVE_RESULT_FAILED;
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_FOCUS_ENERGY_FAILED;
+                    gBattlescriptCurrInstr++;
+                }
+                else
+                {
+                    gBattleMons[gBattlerAttacker].status2 |= STATUS2_FOCUS_ENERGY;
+                    gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_GETTING_PUMPED;
+                    BattleScriptPush(gBattlescriptCurrInstr + 1);
+                    gBattlescriptCurrInstr = BattleScript_SharpenedClaws;
+                }
             }
         }
     }

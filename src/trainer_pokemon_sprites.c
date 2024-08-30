@@ -98,12 +98,12 @@ static void LoadPicPaletteByTagOrSlot(u16 species, u32 otId, u32 personality, u8
         if (paletteTag == TAG_NONE)
         {
             sCreatingSpriteTemplate.paletteTag = TAG_NONE;
-            LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, otId, personality), OBJ_PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
+            LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, otId, personality, isTrainer), OBJ_PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
         }
         else
         {
             sCreatingSpriteTemplate.paletteTag = paletteTag;
-            LoadCompressedSpritePalette(GetMonSpritePalStructFromOtIdPersonality(species, otId, personality));
+            LoadCompressedSpritePalette(GetMonSpritePalStructFromOtIdPersonality(species, otId, personality, isTrainer));
         }
     }
     else
@@ -124,7 +124,7 @@ static void LoadPicPaletteByTagOrSlot(u16 species, u32 otId, u32 personality, u8
 static void LoadPicPaletteBySlot(u16 species, u32 otId, u32 personality, u8 paletteSlot, bool8 isTrainer)
 {
     if (!isTrainer)
-        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, otId, personality), PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
+        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, otId, personality, isTrainer), PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
     else
         LoadCompressedPalette(gTrainerFrontPicPaletteTable[species].data, PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
 }

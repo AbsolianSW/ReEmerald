@@ -952,7 +952,7 @@ static void ItemUseOnFieldCB_EscapeRope(u8 taskId)
 
 bool8 CanUseDigOrEscapeRopeOnCurMap(void)
 {
-    if (gMapHeader.allowEscaping)
+    if (gMapHeader.allowEscaping && !(VarGet(VAR_ACTIVE_GAUNTLET) == 2))//don't allow escape roping/digging out of active gauntlets.
         return TRUE;
     else
         return FALSE;

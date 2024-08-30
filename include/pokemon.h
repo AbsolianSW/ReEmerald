@@ -42,7 +42,7 @@ enum {
     MON_DATA_POKERUS,
     MON_DATA_MET_LOCATION,
     MON_DATA_MET_LEVEL,
-    MON_DATA_MET_GAME,
+    MON_DATA_SHINYBLOCK,
     MON_DATA_POKEBALL,
     MON_DATA_HP_IV,
     MON_DATA_ATK_IV,
@@ -164,7 +164,8 @@ struct BoxPokemon
     u32 experience:21;
     u32 heldItem:9;
     u32 otGender : 1;
-    //31
+    u32 blockShiny: 1;
+    //32
 };
 
 struct Pokemon
@@ -467,9 +468,9 @@ void PlayBattleBGM(void);
 void PlayMapChosenOrBattleBGM(u16 songId);
 void CreateTask_PlayMapChosenOrBattleBGM(u16 songId);
 const u32 *GetMonFrontSpritePal(struct Pokemon *mon);
-const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 personality);
+const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 personality, u8 shinyBlock);
 const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon);
-const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality);
+const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality, u8 shinyBlock);
 bool32 IsHMMove2(u16 move);
 bool8 IsMonSpriteNotFlipped(u16 species);
 s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor);

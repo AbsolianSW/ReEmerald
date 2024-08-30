@@ -537,3 +537,4 @@ gSpecials::
 	def_special BufferGauntletInfo
 	def_special SaveActiveGauntlet
 	def_special BufferMidGauntletInfo
+	def_special CheckGauntletReadyForBoss

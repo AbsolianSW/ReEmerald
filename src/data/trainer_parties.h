@@ -3653,8 +3653,8 @@ static const struct TrainerMonItemCustomMoves sParty_Flannery1[] = {
     },
     {
     .iv = 200,
-    .lvl = 24,
-    .species = SPECIES_SLUGMA,
+    .lvl = 25,
+    .species = SPECIES_MAGCARGO,
     .heldItem = ITEM_WHITE_HERB,
     .moves = {MOVE_OVERHEAT, MOVE_ACID_ARMOR, MOVE_ROCK_SLIDE, MOVE_SUNNY_DAY}
     },
@@ -7066,7 +7066,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute119Mudkip[] 
     {
     .iv = 100,
     .lvl = 29,
-    .species = SPECIES_SLUGMA,
+    .species = SPECIES_MAGCARGO,
     },
     {
     .iv = 100,
@@ -7140,7 +7140,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute119Treecko[]
     {
     .iv = 100,
     .lvl = 29,
-    .species = SPECIES_SLUGMA,
+    .species = SPECIES_MAGCARGO,
     },
     {
     .iv = 150,
@@ -7199,7 +7199,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_BrendanRoute119Torchic[]
     {
     .iv = 100,
     .lvl = 29,
-    .species = SPECIES_SLUGMA,
+    .species = SPECIES_MAGCARGO,
     },
     {
     .iv = 100,
@@ -7253,7 +7253,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute119Mudkip[] = {
     {
     .iv = 100,
     .lvl = 29,
-    .species = SPECIES_SLUGMA,
+    .species = SPECIES_MAGCARGO,
     },
     {
     .iv = 100,
@@ -7332,7 +7332,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute119Treecko[] = {
     {
     .iv = 100,
     .lvl = 29,
-    .species = SPECIES_SLUGMA,
+    .species = SPECIES_MAGCARGO,
     },
     {
     .iv = 150,
@@ -7391,7 +7391,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute119Torchic[] = {
     {
     .iv = 100,
     .lvl = 29,
-    .species = SPECIES_SLUGMA,
+    .species = SPECIES_MAGCARGO,
     },
     {
     .iv = 100,
@@ -10658,7 +10658,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Dayton[] = {
     {
     .iv = 0,
     .lvl = 25,
-    .species = SPECIES_SLUGMA,
+    .species = SPECIES_MAGCARGO,
     },
     {
     .iv = 0,

@@ -3930,7 +3930,7 @@ static void DisplayCantUseSurfMessage(void)
 
 static bool8 SetUpFieldMove_Fly(void)
 {
-    if (Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
+    if (Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE && !(VarGet(VAR_ACTIVE_GAUNTLET) == 2))//don't allow flying out of active gauntlets.
         return TRUE;
     else
         return FALSE;

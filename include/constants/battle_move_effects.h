@@ -97,7 +97,7 @@
 #define EFFECT_CONVERSION_2 93
 #define EFFECT_LOCK_ON 94
 #define EFFECT_SKETCH 95
-#define EFFECT_UNUSED_60 96  // thaw
+#define EFFECT_CRIT_UP_HIT 96  // previously unused
 #define EFFECT_SLEEP_TALK 97
 #define EFFECT_DESTINY_BOND 98
 #define EFFECT_FLAIL 99

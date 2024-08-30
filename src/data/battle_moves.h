@@ -4526,12 +4526,12 @@ const struct BattleMove gBattleMoves[MOVES_COUNT] =
 
     [MOVE_LEAF_BLADE] =
     {
-        .effect = EFFECT_POISON_HIT,
+        .effect = EFFECT_CRIT_UP_HIT,
         .power = 95,
         .type = TYPE_GRASS,
         .accuracy = 100,
         .pp = 15,
-        .secondaryEffectChance = 10,
+        .secondaryEffectChance = 30,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,

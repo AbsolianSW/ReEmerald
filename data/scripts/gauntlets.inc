@@ -101,6 +101,17 @@ EventScript_GauntletMoveDown::
     waitmovement 0
     end
 
+EventScript_CheckGauntletBossfight::
+    lock
+    special CheckGauntletReadyForBoss
+    goto_if_eq VAR_RESULT, 1, EventScript_CheckGauntletBossfightReturn
+    msgbox Gauntlets_Text_GauntletBossNotReady, MSGBOX_DEFAULT
+    release
+    end
+
+EventScript_CheckGauntletBossfightReturn::
+    special HealPlayerParty
+    return
 
 Gauntlets_Movement_MoveRight::
     walk_right
@@ -119,13 +130,17 @@ Gauntlets_Movement_MoveDown::
     step_end
 
 Gauntlets_Text_GauntletBegins::
-    .string "A {Str_Var_1}gauntlet with {Str_Var_2} trainers and\n"
-    .string "{Str_Var_3} heals is about to begin. Are you ready?$"
+    .string "A {Str_Var_1}gauntlet with {Str_Var_2} trainer(s) and {Str_Var_3}\n"
+    .string "heal(s) is about to begin. Are you ready?$"
 
 Gauntlets_Text_GauntletNotFinished::
     .string "You have not yet completed the {Str_Var_1}\n"
-    .string "gauntlet, there are {Str_Var_2} trainers left!$"
+    .string "gauntlet, there are {Str_Var_2} trainer(s) left!$"
 
 Gauntlets_Text_GauntletFinished::
     .string "You have completed the gauntlet. Well\n"
     .string "done, trainer!$"
+
+Gauntlets_Text_GauntletBossNotReady::
+    .string "You can't fight the boss yet, there are\n"
+    .string "{Str_Var_1} trainers left to fight!$"

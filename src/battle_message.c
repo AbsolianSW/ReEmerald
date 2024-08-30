@@ -514,6 +514,7 @@ static const u8 sText_Trainer2WinText[];
 static const u8 sText_TwoInGameTrainersDefeated[];
 static const u8 sText_Trainer2LoseText[];
 static const u8 sText_ProtectedBySandveil[];
+static const u8 sText_SharpenedBlades[];
 
 const u8 * const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_START] =
 {
@@ -887,6 +888,7 @@ const u8 * const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_S
     [STRINGID_TRAINER1WINTEXT - BATTLESTRINGS_TABLE_START] = sText_Trainer1WinText,
     [STRINGID_TRAINER2WINTEXT - BATTLESTRINGS_TABLE_START] = sText_Trainer2WinText,
     [STRINGID_PROTECTEDBYSANDVEIL - BATTLESTRINGS_TABLE_START] = sText_ProtectedBySandveil,
+    [STRINGID_PKMNSHARPENEDBLADES - BATTLESTRINGS_TABLE_START] = sText_SharpenedBlades,
 };
 
 const u16 gMissStringIds[] =
@@ -1056,6 +1058,12 @@ const u16 gMistUsedStringIds[] =
 const u16 gFocusEnergyUsedStringIds[] =
 {
     [B_MSG_GETTING_PUMPED]      = STRINGID_PKMNGETTINGPUMPED,
+    [B_MSG_FOCUS_ENERGY_FAILED] = STRINGID_BUTITFAILED
+};
+
+const u16 gSharpenedBladeStringIds[] =
+{
+    [B_MSG_GETTING_PUMPED]      = STRINGID_PKMNSHARPENEDBLADES,
     [B_MSG_FOCUS_ENERGY_FAILED] = STRINGID_BUTITFAILED
 };
 
@@ -1436,6 +1444,8 @@ const u8 gText_BattleRecordedOnPass[] = _("{B_PLAYER_NAME}'s battle result was r
 static const u8 sText_LinkTrainerWantsToBattlePause[] = _("{B_LINK_OPPONENT1_NAME}\nwants to battle!{PAUSE 49}");
 static const u8 sText_TwoLinkTrainersWantToBattlePause[] = _("{B_LINK_OPPONENT1_NAME} and {B_LINK_OPPONENT2_NAME}\nwant to battle!{PAUSE 49}");
 static const u8 sText_ProtectedBySandveil[] = _("{B_DEF_NAME_WITH_PREFIX} is veiled in the Sandstorm!");
+static const u8 sText_SharpenedBlades[] = _("{B_ATK_NAME_WITH_PREFIX} sharpened its blades!");
+
 
 // This is four lists of moves which use a different attack string in Japanese
 // to the default. See the documentation for ChooseTypeOfMoveUsedString for more detail.

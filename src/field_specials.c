@@ -96,7 +96,8 @@ static const struct GauntletInfo sGauntletInfo[GAUNTLET_AMOUNT] =
 {
     [GAUNTLET_ROUTE102] = {.numTrainers = 4, .numHeals = 0, .isBossGauntlet = FALSE, .trainerIds = {TRAINER_CALVIN, TRAINER_RICK, TRAINER_ALLEN, TRAINER_TIANA}},
     [GAUNTLET_ROUTE104] = {.numTrainers = 10, .numHeals = 1, .isBossGauntlet = FALSE, .trainerIds = {TRAINER_BILLY, TRAINER_DARIAN, TRAINER_CINDY, TRAINER_LYLE, TRAINER_GRUNT_PETALBURG_WOODS, TRAINER_JAMES, TRAINER_WINSTON, TRAINER_HALEY, TRAINER_GINA_AND_MIA, TRAINER_IVAN}},
-    [GAUNTLET_RUSTBORO_GYM] = {.numTrainers = 4, .numHeals = 0, .isBossGauntlet = TRUE, .trainerIds = {TRAINER_JOSH, TRAINER_TOMMY, TRAINER_MARK, TRAINER_ROXANNE_1}},
+    [GAUNTLET_RUSTBORO_GYM] = {.numTrainers = 4, .numHeals = 0, .isBossGauntlet = TRUE, .trainerIds = {TRAINER_JOSH, TRAINER_TOMMY, TRAINER_MARC, TRAINER_ROXANNE_1}},
+    [GAUNTLET_ROUTE116] = {.numTrainers = 11, .numHeals = 0, .isBossGauntlet = FALSE, .trainerIds = {TRAINER_JOEY, TRAINER_JOSE, TRAINER_KAREN, TRAINER_CLARK, TRAINER_JOHNSON, TRAINER_DEVAN, TRAINER_SARAH, TRAINER_DAWSON, TRAINER_JERRY, TRAINER_JANICE, TRAINER_GRUNT_RUSTURF_TUNNEL}},
 };
 
 void TryLoseFansFromPlayTime(void);
@@ -4465,9 +4466,9 @@ void bufferChallengeInfoForNotebook(void)
     StringCopy(gStringVar3 , text3);
 }
 
-//var 2 is buffer
 //var 3 is type 0=grass,1=water,2=fire
 //var 4 is level
+//VAR_TEMP_4 is used to set dynamic graphics to the correct Pokemon sprite.
 void BufferRivalFollowerSpecies(void)
 {
     VarSet(VAR_TEMP_4,GetRivalStarterSpecies(gSpecialVar_0x8003+SPECIES_RIVAL_GRASS_STARTER,gSpecialVar_0x8004));
@@ -4492,7 +4493,7 @@ void BufferMidGauntletInfo(void)
 {
     u8 gauntletId = gSaveBlock1Ptr->currentGauntletId;
     u8 count = sGauntletInfo[gauntletId].numTrainers;
-    u8 i;
+    u32 i;
     for(i=0; i< sGauntletInfo[gauntletId].numTrainers; i++)
     {
         if(FlagGet(TRAINER_FLAGS_START + sGauntletInfo[gauntletId].trainerIds[i]))
@@ -4509,4 +4510,33 @@ void BufferMidGauntletInfo(void)
     else
         StringCopy(gStringVar1,gText_EmptyString2);
     ConvertUIntToDecimalStringN(gStringVar2, count, STR_CONV_MODE_LEFT_ALIGN, 2);
+}
+
+void ResetActiveGauntlet(void)
+{
+    u32 i;
+    for(i=0;i<sGauntletInfo[gSaveBlock1Ptr->currentGauntletId].numTrainers;i++)
+    {
+        FlagClear(TRAINER_FLAGS_START + sGauntletInfo[gSaveBlock1Ptr->currentGauntletId].trainerIds[i]);
+    }
+    VarSet(VAR_ACTIVE_GAUNTLET,0);
+}
+
+void CheckGauntletReadyForBoss(void)
+{
+    u8 gauntletId = gSaveBlock1Ptr->currentGauntletId;
+    u8 count = sGauntletInfo[gauntletId].numTrainers;
+    u32 i;
+    for(i=0; i< sGauntletInfo[gauntletId].numTrainers; i++)
+    {
+        if(FlagGet(TRAINER_FLAGS_START + sGauntletInfo[gauntletId].trainerIds[i]))
+            count--;
+    }
+    VarSet(VAR_RESULT, 0);
+    if(!(--count)) //one trainer is supposed to be left, the boss
+    {
+        VarSet(VAR_RESULT, 1);
+        return;
+    }
+    ConvertUIntToDecimalStringN(gStringVar1, count, STR_CONV_MODE_LEFT_ALIGN, 2);
 }

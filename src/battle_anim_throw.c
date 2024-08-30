@@ -2228,7 +2228,7 @@ void TryShinyAnimation(u8 battler, struct Pokemon *mon)
     if (IsBattlerSpriteVisible(battler))
     {
         shinyValue = GET_SHINY_VALUE(otId, personality);
-        if (shinyValue < GetShinyOdds())
+        if (shinyValue < GetShinyOdds() && !GetMonData(mon, MON_DATA_SHINYBLOCK))
             isShiny = TRUE;
 
         if (isShiny)

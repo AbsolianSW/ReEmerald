@@ -1,4 +1,5 @@
 #include "global.h"
+#include "event_data.h"
 #include "field_effect.h"
 #include "field_player_avatar.h"
 #include "fldeff.h"
@@ -12,7 +13,7 @@ static void StartTeleportFieldEffect(void);
 
 bool8 SetUpFieldMove_Teleport(void)
 {
-    if (Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE)
+    if (Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType) == TRUE && !(VarGet(VAR_ACTIVE_GAUNTLET) == 2))//don't allow teleporting out of active gauntlets.
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInForTeleport;
         gPostMenuFieldCallback = FieldCallback_Teleport;

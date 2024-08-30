@@ -13,6 +13,10 @@ Route116_OnTransition:
 	call_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_HideMapNamePopup
 	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_116_NORTH, AbnormalWeather_StartGroudonWeather
 	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_116_SOUTH, AbnormalWeather_StartGroudonWeather
+	goto_if_eq VAR_ACTIVE_GAUNTLET, 3, Route116_OnTransitionEnd
+	goto_if_defeated TRAINER_JOEY, Route116_OnTransitionEnd
+	setvar VAR_ACTIVE_GAUNTLET, 1
+Route116_OnTransitionEnd::
 	end
 
 Route116_EventScript_SetWandasBoyfriendPos::
@@ -26,7 +30,14 @@ Route116_OnLoad:
 
 Route116_OnFrame:
 	map_script_2 VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_EndEventAndCleanup_1
+	map_script_2 VAR_ACTIVE_GAUNTLET, 1 Route116_EventScript_BeginGauntlet 
 	.2byte 0
+
+Route116_EventScript_BeginGauntlet::
+	setvar VAR_GAUNTLET_ID, GAUNTLET_ROUTE116
+	setvar VAR_0x8004, DIR_WEST
+	goto EventScript_GauntletBegins
+	end
 
 Route116_EventScript_WandasBoyfriend::
 	lock

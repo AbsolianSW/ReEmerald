@@ -910,7 +910,7 @@ static void Task_ShowWinnerMonBanner(u8 taskId)
                 personality);
         }
 
-        pokePal = GetMonSpritePalStructFromOtIdPersonality(species, otId, personality);
+        pokePal = GetMonSpritePalStructFromOtIdPersonality(species, otId, personality, FALSE);
         LoadCompressedSpritePalette(pokePal);
         SetMultiuseSpriteTemplateToPokemon(species, B_POSITION_OPPONENT_LEFT);
         gMultiuseSpriteTemplate.paletteTag = pokePal->tag;
@@ -2600,7 +2600,7 @@ void ShowContestEntryMonPic(void)
         else
             HandleLoadSpecialPokePic_DontHandleDeoxys(&gMonFrontPicTable[species], gMonSpritesGfxPtr->sprites.ptr[B_POSITION_OPPONENT_LEFT], species, personality);
 
-        palette = GetMonSpritePalStructFromOtIdPersonality(species, otId, personality);
+        palette = GetMonSpritePalStructFromOtIdPersonality(species, otId, personality, FALSE);
         LoadCompressedSpritePalette(palette);
         SetMultiuseSpriteTemplateToPokemon(species, B_POSITION_OPPONENT_LEFT);
         gMultiuseSpriteTemplate.paletteTag = palette->tag;

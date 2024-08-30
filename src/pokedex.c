@@ -137,6 +137,8 @@ enum {
 #define TAG_MOVE_TYPES 30002
 #define TAG_MON_MARKINGS 30003
 
+#define MAX_MOVES_PER_MON 103
+
 static EWRAM_DATA struct PokedexView *sPokedexView = NULL;
 static EWRAM_DATA u16 sLastSelectedPokemon = 0;
 static EWRAM_DATA u8 sPokeBallRotation = 0;
@@ -144,6 +146,11 @@ static EWRAM_DATA struct PokedexListItem *sPokedexListItem = NULL;
 static EWRAM_DATA u8 selectBarState = 0;
 static EWRAM_DATA u8 moveScrollOffset = 0;
 static EWRAM_DATA u8 moveScrollOffsetMax = 0;
+static EWRAM_DATA u16 pokedexMoves[MAX_MOVES_PER_MON];
+static EWRAM_DATA u8 pokedexMovesTMHMOffset = 0;
+static EWRAM_DATA u8 pokedexMovesTutorOffset = 0;
+static EWRAM_DATA u8 pokedexMovesEggOffset = 0;
+static EWRAM_DATA u8 pokedexMovesPreOffset = 0;
 
 extern const struct Evolution gEvolutionTable[NUM_SPECIES][EVOS_PER_MON];
 // This is written to, but never read.
@@ -315,6 +322,7 @@ static u8 PrintCryScreenSpeciesName(u8, u16, u8, u8);
 static void PrintEvoData(u8, u16, u8, u8);
 static void PrintStats(u16,u8);
 static void PrintEvos(u16, u8);
+static void LoadMoves(u16);
 static void PrintMoves(u16, u8, u8);
 static void PrintInfoSubMenuText(u8, const u8 *str , u8, u8);
 static void PrintDecimalNum(u8 windowId, u16 num, u8 left, u8 top);
@@ -4375,6 +4383,7 @@ static void Task_LoadMoveScreen(u8 taskId)
         gMain.state++;
         break;
     case 4:
+        LoadMoves(sPokedexListItem->dexNum);
         PrintMoves(sPokedexListItem->dexNum, moveScrollOffset, taskId);
         gSprites[gTasks[taskId].tMonSpriteId].oam.priority = 0;
         gDexCryScreenState = 0;
@@ -4690,7 +4699,7 @@ static void Task_ExitCaughtMonPage(u8 taskId)
         otId = ((u16)gTasks[taskId].tOtIdHi << 16) | (u16)gTasks[taskId].tOtIdLo;
         personality = ((u16)gTasks[taskId].tPersonalityHi << 16) | (u16)gTasks[taskId].tPersonalityLo;
         paletteNum = gSprites[gTasks[taskId].tMonSpriteId].oam.paletteNum;
-        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, otId, personality);
+        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, otId, personality, FALSE);
         LoadCompressedPalette(lzPaletteData, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
         DestroyTask(taskId);
     }
@@ -5703,54 +5712,46 @@ static void PrintEvos(u16 dexNum, u8 taskId)
     }
 }
 
-static void PrintMoves(u16 dexNum, u8 offset, u8 taskId)
+static void LoadMoves(u16 dexNum)
 {
     u16 species = NationalPokedexNumToSpecies(dexNum);
-    u16 moves[MOVES_COUNT];
     u16 eggMoves[EGG_MOVES_ARRAY_COUNT] = {0,0,0,0,0,0,0,0,0,0};
     u8 numEggMoves;
-    u16 offsetTMHM = 0;
-    u16 offsetTutor = 0;
-    u16 offsetEgg = 0;
-    u16 offsetPre = 0;
     u16 index = 0;
     u16 i = 0;
-    u8 yPos = 44;
-    u8 type;
     u8 j = 0;
     u8 skip = 0;
     u16 moveToCheck;
-    struct Sprite *sprite;
     u16 originalSpecies;
-    while(i < MOVES_COUNT)
+    while(i < MAX_MON_MOVES)
     {
-        moves[i++] = MOVE_NONE;
+        pokedexMoves[i++] = MOVE_NONE;
     }
     i=0;
     while(gLevelUpLearnsets[species][i] != LEVEL_UP_END)
     {
-        moves[index++] = gLevelUpLearnsets[species][i++] & LEVEL_UP_MOVE_ID;
+        pokedexMoves[index++] = gLevelUpLearnsets[species][i++] & LEVEL_UP_MOVE_ID;
     }
-    offsetTMHM = index;
+    pokedexMovesTMHMOffset = index;
     for(i = 0; i < NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES; i++)
     {
         if(CanSpeciesLearnTMHM(species,i))
-            moves[index++] = ItemIdToBattleMoveId(ITEM_TM01 +i);
+            pokedexMoves[index++] = ItemIdToBattleMoveId(ITEM_TM01 +i);
     }
-    offsetTutor = index;
+    pokedexMovesTutorOffset = index;
     for(i = 0; i < TUTOR_MOVE_COUNT; i++)
     {
         if(CanLearnTutorMove(species, i))
-            moves[index++] = gTutorMoves[i];
+            pokedexMoves[index++] = gTutorMoves[i];
     }
-    offsetEgg = index;
+    pokedexMovesEggOffset = index;
     numEggMoves = GetEggMovesSpecies(species, eggMoves);
     i = 0;
     while(eggMoves[i])
     {
-        moves[index++] = eggMoves[i++];
+        pokedexMoves[index++] = eggMoves[i++];
     }
-    offsetPre = index;
+    pokedexMovesPreOffset = index;
     i=0;
     originalSpecies = species;
     while(GetPreEvolution(species))
@@ -5759,9 +5760,9 @@ static void PrintMoves(u16 dexNum, u8 offset, u8 taskId)
         while(gLevelUpLearnsets[species][i] != LEVEL_UP_END)
         {
             moveToCheck = gLevelUpLearnsets[species][i++] & LEVEL_UP_MOVE_ID;
-            while(moves[j])
+            while(pokedexMoves[j])
             {
-                if(moves[j++] == moveToCheck)
+                if(pokedexMoves[j++] == moveToCheck)
                 {
                     skip = TRUE;
                     break;
@@ -5770,26 +5771,35 @@ static void PrintMoves(u16 dexNum, u8 offset, u8 taskId)
             j=0;
             if(!skip)
             {
-                moves[index++] = moveToCheck;
+                pokedexMoves[index++] = moveToCheck;
             }
             skip = FALSE;
         }
     }
-    
     moveScrollOffsetMax = index -7;
-    i=offset;
+    Free(eggMoves);
+}
+
+static void PrintMoves(u16 dexNum, u8 offset, u8 taskId)
+{
+    u8 yPos = 44;
+    u8 type;
+    struct Sprite *sprite;
+    u8 i=offset;
+    u8 j=0;
+    u16 species = NationalPokedexNumToSpecies(dexNum);
     LoadCompressedSpriteSheet(&sSpriteSheet_MoveTypes);
     LoadCompressedPalette(gMoveTypes_Pal, 0x1D0, 0x60);
     for(i;i<offset + 7;i++)
     {
-        type = gBattleMoves[moves[i]].type;
+        type = gBattleMoves[pokedexMoves[i]].type;
         gTasks[taskId].data[4+ i -offset] = CreateSprite(&sSpriteTemplate_MoveTypes, 25, yPos+7, 2);
         sprite = &gSprites[gTasks[taskId].data[4+ i -offset]];
         StartSpriteAnim(sprite, type);
         sprite->oam.paletteNum = sMoveTypeToOamPaletteNum[type];
-        PrintInfoSubMenuTextNarrow(0, gMoveNames[moves[i]],45,yPos);
-        if(gBattleMoves[moves[i]].power)
-            ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[moves[i]].power,STR_CONV_MODE_RIGHT_ALIGN,3);
+        PrintInfoSubMenuTextNarrow(0, gMoveNames[pokedexMoves[i]],45,yPos);
+        if(gBattleMoves[pokedexMoves[i]].power)
+            ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[pokedexMoves[i]].power,STR_CONV_MODE_RIGHT_ALIGN,3);
         else
         {
             gStringVar2[0] = CHAR_HYPHEN;
@@ -5798,8 +5808,8 @@ static void PrintMoves(u16 dexNum, u8 offset, u8 taskId)
             gStringVar2[3] = EOS;
         }
         PrintInfoSubMenuText(0,gStringVar2,112,yPos);
-        if(gBattleMoves[moves[i]].accuracy)
-            ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[moves[i]].accuracy,STR_CONV_MODE_RIGHT_ALIGN,3);
+        if(gBattleMoves[pokedexMoves[i]].accuracy)
+            ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[pokedexMoves[i]].accuracy,STR_CONV_MODE_RIGHT_ALIGN,3);
         else
         {
             gStringVar2[0] = CHAR_HYPHEN;
@@ -5808,19 +5818,19 @@ static void PrintMoves(u16 dexNum, u8 offset, u8 taskId)
             gStringVar2[3] = EOS;
         }
         PrintInfoSubMenuText(0,gStringVar2,136,yPos);
-        ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[moves[i]].pp,STR_CONV_MODE_RIGHT_ALIGN,2);
+        ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[pokedexMoves[i]].pp,STR_CONV_MODE_RIGHT_ALIGN,2);
         PrintInfoSubMenuText(0,gStringVar2,160,yPos);
-        if(i < offsetTMHM)
+        if(i < pokedexMovesTMHMOffset)
         {
-            ConvertUIntToDecimalStringN(gStringVar1, (gLevelUpLearnsets[originalSpecies][i] & LEVEL_UP_MOVE_LV) >> 9,STR_CONV_MODE_RIGHT_ALIGN,2);
+            ConvertUIntToDecimalStringN(gStringVar1, (gLevelUpLearnsets[species][i] & LEVEL_UP_MOVE_LV) >> 9,STR_CONV_MODE_RIGHT_ALIGN,2);
             StringExpandPlaceholders(gStringVar4, gText_LevelVar1);
             PrintInfoSubMenuText(0,gStringVar4,194,yPos);
         }
-        if(i >= offsetTMHM && i < offsetTutor)
+        if(i >= pokedexMovesTMHMOffset && i < pokedexMovesTutorOffset)
         {
             for(j=0;j<NUM_TECHNICAL_MACHINES+NUM_HIDDEN_MACHINES;j++)
             {
-                if(ItemIdToBattleMoveId(ITEM_TM01 + j) == moves[i])
+                if(ItemIdToBattleMoveId(ITEM_TM01 + j) == pokedexMoves[i])
                 {
                     if(j < 50)
                     {
@@ -5837,11 +5847,11 @@ static void PrintMoves(u16 dexNum, u8 offset, u8 taskId)
                 }
             }
         }
-        if(i >= offsetTutor && i < offsetEgg)
+        if(i >= pokedexMovesTutorOffset && i < pokedexMovesEggOffset)
             PrintInfoSubMenuText(0,gText_Tutor,194,yPos);
-        if(i >= offsetEgg && i < offsetPre)
+        if(i >= pokedexMovesEggOffset && i < pokedexMovesPreOffset)
             PrintInfoSubMenuText(0,gText_EggNickname,194,yPos);
-        if(i >= offsetPre)
+        if(i >= pokedexMovesPreOffset)
             PrintInfoSubMenuTextNarrow(0,gText_PreEvo,194,yPos);
         yPos += 15;
     }

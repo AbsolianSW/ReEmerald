@@ -1,5 +1,6 @@
 #include "global.h"
 #include "braille_puzzles.h"
+#include "event_data.h"
 #include "field_effect.h"
 #include "field_player_avatar.h"
 #include "fldeff.h"

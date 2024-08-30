@@ -1,3 +1,7 @@
+const LOCALID_CAPEBRINK_GRUNT = 10 
+const LOCALID_CAPEBRINK_SHELLY = 11 
+const LOCALID__SHELLY = 12 
+
 mapscripts Island2_Main_MapScripts {
 	MAP_SCRIPT_ON_FRAME_TABLE [
 		VAR_TWO_ISLAND_STATE, 1: Island2_Main_CutsceneFromGameCorner
@@ -113,19 +117,19 @@ script Island2_Main_GameCornerSign{
 script Island2_Main_CutsceneFromGameCorner{
 	lockall
 	special(SpawnCameraObject)
-	addobject(10)
-	addobject(11) 
+	addobject(LOCALID_CAPEBRINK_GRUNT)
+	addobject(LOCALID_CAPEBRINK_SHELLY) 
 	applymovement(OBJ_EVENT_ID_CAMERA, Island2Main_Movement_CameraToCutsceneGC)
 	waitmovement(0)
 	special(RemoveCameraObject)
-	applymovement(11, Common_Movement_WalkInPlaceFasterLeft)
+	applymovement(LOCALID_CAPEBRINK_SHELLY, Common_Movement_WalkInPlaceFasterLeft)
 	msgbox(format("Ok! We've got Suicune, and Matt has radioded me that he's got the girl as well. You go and follow Matt...apparently the brat has followed us all the way here so I'm going to stay behind to hold them off!"))
 	closemessage
-	applymovement(10, Common_Movement_WalkInPlaceFasterRight)
+	applymovement(LOCALID_CAPEBRINK_GRUNT, Common_Movement_WalkInPlaceFasterRight)
 	msgbox(format("You got it boss! We'll get to Three Island as fast as possible."))
 	closemessage
-	applymovement(10, Island2Main_Movement_GruntWalkAwayGCCutscene)
-	applymovement(11, Island2Main_Movement_ShellyWalkAwayGCCutscene)
+	applymovement(LOCALID_CAPEBRINK_GRUNT, Island2Main_Movement_GruntWalkAwayGCCutscene)
+	applymovement(LOCALID_CAPEBRINK_SHELLY, Island2Main_Movement_ShellyWalkAwayGCCutscene)
 	waitmovement(0)
 	special(SpawnCameraObject)
 	applymovement(OBJ_EVENT_ID_CAMERA, Island2Main_Movement_CameraBackFromCutsceneGC)
@@ -133,9 +137,9 @@ script Island2_Main_CutsceneFromGameCorner{
 	special(RemoveCameraObject)
 	setvar(VAR_TWO_ISLAND_STATE, 3)
 	clearflag(FLAG_TWO_ISLAND_HIDE_SHELLY)
-	addobject(12)
-	removeobject(10)
-	removeobject(11)
+	addobject(LOCALID__SHELLY)
+	removeobject(LOCALID_CAPEBRINK_GRUNT)
+	removeobject(LOCALID_CAPEBRINK_SHELLY)
 	releaseall
 	end
 }
@@ -182,7 +186,7 @@ script Island2_Main_CutsceneFromCapeBrink{
 			waitmovement(0)
 			removeobject(14)
 			removeobject(15)
-			addobject(12)
+			addobject(LOCALID__SHELLY)
 			switch(var(VAR_0x8004)) {
 				case 36:
 					applymovement(OBJ_EVENT_ID_CAMERA,Island2Main_Movement_CameraBackFromCutsceneCB36)
@@ -198,15 +202,15 @@ script Island2_Main_CutsceneFromCapeBrink{
 			waitmovement(0)
 		case 8:
 			//fly or teleport
-			applymovement(12,Common_Movement_WalkInPlaceFasterLeft)
+			applymovement(LOCALID__SHELLY,Common_Movement_WalkInPlaceFasterLeft)
 			applymovement(17,Common_Movement_WalkInPlaceFasterRight)
 			waitmovement(0)
 			msgbox(format("Alright, let's head to Three Island..."))
-			applymovement(12, Common_Movement_WalkInPlaceFasterUp)
+			applymovement(LOCALID__SHELLY, Common_Movement_WalkInPlaceFasterUp)
 			applymovement(16, Common_Movement_WalkInPlaceFasterUp)
 			applymovement(17, Common_Movement_WalkInPlaceFasterUp)
 			waitmovement(0)
-			applymovement(12, Common_Movement_ExclamationMark)
+			applymovement(LOCALID__SHELLY, Common_Movement_ExclamationMark)
 			applymovement(16, Common_Movement_ExclamationMark)
 			applymovement(17, Common_Movement_ExclamationMark)
 			waitmovement(0)
@@ -236,9 +240,9 @@ script Island2_Main_CutsceneFromCapeBrink{
 
 script Island2_Main_Shelly{
 	lockall
-	applymovement(12, Common_Movement_ExclamationMark)
+	applymovement(LOCALID__SHELLY, Common_Movement_ExclamationMark)
 	waitmovement(0)
-	applymovement(12, Common_Movement_FacePlayer)
+	applymovement(LOCALID__SHELLY, Common_Movement_FacePlayer)
 	trainerbattle_single(TRAINER_SHELLY_ISLAND_2, format("You! Stop right there! You're not going anywhere, I'm taking you down!"), format("Arrgh! How does this keep happening..."), Island2_Main_ShellyDefeat)
 }
 
@@ -252,7 +256,7 @@ script Island2_Main_ShellyDefeat{
 	setvar(VAR_TWO_ISLAND_STATE,4)
 	setflag(FLAG_TWO_ISLAND_HIDE_SHELLY)
 	fadescreen(FADE_TO_BLACK)
-	removeobject(12)
+	removeobject(LOCALID__SHELLY)
 	removeobject(13)
 	fadescreen(FADE_FROM_BLACK)
 	releaseall

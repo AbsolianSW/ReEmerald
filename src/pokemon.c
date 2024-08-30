@@ -2236,6 +2236,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 speciesName[POKEMON_NAME_LENGTH + 1];
     u32 personality;
     u32 value;
+    bool8 shinyBlock = 0;
     u16 checksum;
     u8 nature;
 
@@ -2250,16 +2251,19 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
     SetBoxMonData(boxMon, MON_DATA_NATURE, &nature);
 
+
     // Determine original trainer ID
     if (otIdType == OT_ID_RANDOM_NO_SHINY)
     {
-        u32 shinyValue;
-        do
-        {
+        //u32 shinyValue;
+        //do
+        //{
             // Choose random OT IDs until one that results in a non-shiny Pokémon
             value = Random32();
-            shinyValue = GET_SHINY_VALUE(value, personality);
-        } while (shinyValue < GetShinyOdds());
+            shinyBlock = 1;
+            SetBoxMonData(boxMon, MON_DATA_SHINYBLOCK, &shinyBlock);
+            //shinyValue = GET_SHINY_VALUE(value, personality);
+        //} while (shinyValue < GetShinyOdds());
     }
     else if (otIdType == OT_ID_PRESET)
     {
@@ -3983,8 +3987,13 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         break;
     case MON_DATA_IS_DEAD:
         retVal = boxMon->isDead;
+        break;
     case MON_DATA_NATURE:
         retVal = boxMon->nature;
+        break;
+    case MON_DATA_SHINYBLOCK:
+        retVal = boxMon->blockShiny;
+        break;
     default:
         break;
     }
@@ -4288,6 +4297,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         break;
     case MON_DATA_NATURE:
         SET8(boxMon->nature);
+        break;
+    case MON_DATA_SHINYBLOCK:
+        SET8(boxMon->blockShiny);
         break;
     default:
         break;
@@ -6432,10 +6444,11 @@ const u32 *GetMonFrontSpritePal(struct Pokemon *mon)
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
-    return GetMonSpritePalFromSpeciesAndPersonality(species, otId, personality);
+    u8 shinyBlock = GetMonData(mon, MON_DATA_SHINYBLOCK, 0);
+    return GetMonSpritePalFromSpeciesAndPersonality(species, otId, personality, shinyBlock);
 }
 
-const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 personality)
+const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 personality, u8 shinyBlock)
 {
     u32 shinyValue;
 
@@ -6443,7 +6456,7 @@ const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 p
         return gMonPaletteTable[SPECIES_NONE].data;
 
     shinyValue = GET_SHINY_VALUE(otId, personality);
-    if (shinyValue < GetShinyOdds())
+    if (shinyValue < GetShinyOdds() && !shinyBlock)
         return gMonShinyPaletteTable[species].data;
     else
         return gMonPaletteTable[species].data;
@@ -6454,15 +6467,16 @@ const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon)
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
-    return GetMonSpritePalStructFromOtIdPersonality(species, otId, personality);
+    u8 shinyBlock = GetMonData(mon, MON_DATA_SHINYBLOCK, 0);
+    return GetMonSpritePalStructFromOtIdPersonality(species, otId, personality, shinyBlock);
 }
 
-const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality)
+const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u16 species, u32 otId , u32 personality, u8 shinyBlock)
 {
     u32 shinyValue;
 
     shinyValue = GET_SHINY_VALUE(otId, personality);
-    if (shinyValue < GetShinyOdds())
+    if (shinyValue < GetShinyOdds() && !shinyBlock)
         return &gMonShinyPaletteTable[species];
     else
         return &gMonPaletteTable[species];
@@ -7933,44 +7947,45 @@ u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl)
             finalSpecies = SPECIES_TORCHIC;
         break;
     }
-    if (gEvolutionTable[finalSpecies][1].method)
-    {
-        switch (finalSpecies)
-        {
-        case SPECIES_GLOOM:
-        case SPECIES_POLIWHIRL:
-        case SPECIES_WURMPLE:
-        case SPECIES_CLAMPERL:
-            if (gSaveBlock2Ptr->playerGender)
-                i = 1;
-            break;
-        case SPECIES_TYROGUE:
-        case SPECIES_SLOWPOKE:
-            if (!gSaveBlock2Ptr->playerGender)
-                i = 1;
-            break;
-        case SPECIES_EEVEE:
-            switch (placeholderIndex)
-            {
-            case SPECIES_RIVAL_GRASS_STARTER:
-                break;
-            case SPECIES_RIVAL_WATER_STARTER:
-                i = 1;
-                break;
-            case SPECIES_RIVAL_FIRE_STARTER:
-                i = 2;
-                break;
-            }
-            break;
-        case SPECIES_NINCADA:
-            if (lvl > 30)
-                i = 1;
-            break;
-        }
-    }
     while (!isFinishedEvolving)
     {
+        i=0;
         isFinishedEvolving = TRUE;
+        if (gEvolutionTable[finalSpecies][1].method)
+        {
+            switch (finalSpecies)
+            {
+            case SPECIES_GLOOM:
+            case SPECIES_POLIWHIRL:
+            case SPECIES_WURMPLE:
+            case SPECIES_CLAMPERL:
+                if (gSaveBlock2Ptr->playerGender)
+                    i = 1;
+                break;
+            case SPECIES_TYROGUE:
+            case SPECIES_SLOWPOKE:
+                if (!gSaveBlock2Ptr->playerGender)
+                    i = 1;
+                break;
+            case SPECIES_EEVEE:
+                switch (placeholderIndex)
+                {
+                case SPECIES_RIVAL_GRASS_STARTER:
+                    break;
+                case SPECIES_RIVAL_WATER_STARTER:
+                    i = 1;
+                    break;
+                case SPECIES_RIVAL_FIRE_STARTER:
+                    i = 2;
+                    break;
+                }
+                break;
+            case SPECIES_NINCADA:
+                if (lvl > 30)
+                    i = 1;
+                break;
+            }
+        }
         switch (gEvolutionTable[finalSpecies][i].method)
         {
         case EVO_LEVEL:
@@ -8022,33 +8037,36 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                 gPrintPersonalityValue = 0x78; // Use personality more likely to result in a female Pokémon
             else
                 gPrintPersonalityValue = 0x88; // Use personality more likely to result in a male Pokémon
-            for (j = 0; gTrainers[trainerNum].trainerName[j] != EOS; j++) {
+            for (j = 0; gTrainers[trainerNum].trainerName[j] != EOS; j++)
+            {
                 gPrintNameHash += gTrainers[trainerNum].trainerName[j];
             }
-            //NEW: Scramble least significant bit of pv so that trainer Pokemon can have both abilities of species
-            if(gTrainers[trainerNum].trainerName[i%(ARRAY_COUNT(gTrainers[trainerNum].trainerName))]%2) 
-                gPrintPersonalityValue+=1;
+            // NEW: Scramble least significant bit of pv so that trainer Pokemon can have both abilities of species
+            if (gTrainers[trainerNum].trainerName[i % (ARRAY_COUNT(gTrainers[trainerNum].trainerName))] % 2)
+                gPrintPersonalityValue += 1;
             switch (gTrainers[trainerNum].partyFlags)
             {
             case 0:
             {
                 const struct TrainerMonNoItemDefaultMoves *partyData = gTrainers[trainerNum].party.NoItemDefaultMoves;
                 gPrintSpecies = partyData[i].species;
-                if(partyData[i].species > NUM_SPECIES)
-                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species,partyData[i].lvl);
-                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++) {
+                if (partyData[i].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species, partyData[i].lvl);
+                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
+                {
                     gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
                 }
                 gPrintPersonalityValue += gPrintNameHash << 8;
                 CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                Free(partyData);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
             {
                 const struct TrainerMonNoItemCustomMoves *partyData = gTrainers[trainerNum].party.NoItemCustomMoves;
                 gPrintSpecies = partyData[i].species;
-                if(partyData[i].species > NUM_SPECIES)
-                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species,partyData[i].lvl);
+                if (partyData[i].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species, partyData[i].lvl);
                 for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
                     gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
 
@@ -8060,14 +8078,15 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
+                Free(partyData);
                 break;
             }
             case F_TRAINER_PARTY_HELD_ITEM:
             {
                 const struct TrainerMonItemDefaultMoves *partyData = gTrainers[trainerNum].party.ItemDefaultMoves;
                 gPrintSpecies = partyData[i].species;
-                if(partyData[i].species > NUM_SPECIES)
-                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species,partyData[i].lvl);
+                if (partyData[i].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species, partyData[i].lvl);
                 for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
                     gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
 
@@ -8075,14 +8094,15 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                 CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+                Free(partyData);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
             {
                 const struct TrainerMonItemCustomMoves *partyData = gTrainers[trainerNum].party.ItemCustomMoves;
                 gPrintSpecies = partyData[i].species;
-                if(partyData[i].species > NUM_SPECIES)
-                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species,partyData[i].lvl);
+                if (partyData[i].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species, partyData[i].lvl);
                 for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
                     gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
 
@@ -8096,14 +8116,15 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
+                Free(partyData);
                 break;
             }
             case F_TRAINER_EVERYTHING:
             {
                 const struct TrainerMonEverything *partyData = gTrainers[trainerNum].party.Everything;
                 gPrintSpecies = partyData[i].species;
-                if(partyData[i].species > NUM_SPECIES)
-                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species,partyData[i].lvl);
+                if (partyData[i].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species, partyData[i].lvl);
                 for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
                     gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
 
@@ -8118,15 +8139,18 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
-                //ivs
-                for(j=0; j < 6;j++) {
+                // ivs
+                for (j = 0; j < 6; j++)
+                {
                     SetMonData(&party[i], MON_DATA_HP_IV + j, &partyData[i].iv[j]);
                 }
-                //evs
-                for(j=0; j < 6;j++) {
+                // evs
+                for (j = 0; j < 6; j++)
+                {
                     SetMonData(&party[i], MON_DATA_HP_EV + j, &partyData[i].ev[j]);
                 }
                 SetMonData(&party[i], MON_DATA_ABILITY_NUM, &partyData[i].ability);
+                Free(partyData);
                 break;
             }
             }
@@ -8137,16 +8161,16 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
     return gTrainers[trainerNum].partySize;
 }
 
-//Species @ Item Name With Spaces
+//Species @ Item Name
 //Level: 100
 //Naturename Nature
-//Ability: Snow Warning
+//Ability: Ability Name
 //EVs: 4 Def / 252 SpA / 252 Spe etc
 //IVS: 4 Def / 4 SpA etc
-//- Move Name With Spaces 1
-//- Move Name With Spaces 2
-//- Move Name With Spaces 3
-//- Move Name With Spaces 4
+//- Move Name 1
+//- Move Name 2
+//- Move Name 3
+//- Move Name 4
 static void PrintMonShowdownData(struct Pokemon mon, u16 trainerNum)
 {
     DebugPrintf("\n%S(%S)(%S) @ %S\nLevel: %d\n%S Nature\nAbility: %S\nEVs: %d HP / %d Atk / %d Def / %d SpA / %d SpD / %d Spe\nIVs: %d HP / %d Atk / %d Def / %d SpA / %d SpD / %d Spe\n- %S\n- %S\n- %S\n- %S"
@@ -8270,7 +8294,6 @@ static void PrintTrainersShowdownData()
             if(gTrainers[i].trainerClass == gTrainers[j].trainerClass && !StringCompare(gTrainers[j].trainerName,gTrainers[i].trainerName))
                 n++;
         }
-        StringCompare(gTrainers[j].trainerName,gTrainers[i].trainerName);
         PrintTrainerShowdownData(i,(n?n+1:n));
     }
     Free(&i);

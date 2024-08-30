@@ -2734,7 +2734,7 @@ static void CreateJumpMonSprite(struct PokemonJumpGfx *jumpGfx, struct PokemonJu
         spriteSheet.size = MON_PIC_SIZE;
         LoadSpriteSheet(&spriteSheet);
 
-        spritePalette.data = GetMonSpritePalFromSpeciesAndPersonality(monInfo->species, monInfo->otId, monInfo->personality);
+        spritePalette.data = GetMonSpritePalFromSpeciesAndPersonality(monInfo->species, monInfo->otId, monInfo->personality, FALSE);
         spritePalette.tag = multiplayerId;
         LoadCompressedSpritePalette(&spritePalette);
 

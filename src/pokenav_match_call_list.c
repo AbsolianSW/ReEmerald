@@ -233,9 +233,6 @@ static u32 LoopedTask_BuildMatchCallList(s32 taskState)
 
         return LT_CONTINUE;
     case 2:
-
-        return LT_CONTINUE;
-    case 3:
         state->initFinished = TRUE;
         break;
     }

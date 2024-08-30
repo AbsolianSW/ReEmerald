@@ -114,7 +114,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectConversion2            @ EFFECT_CONVERSION_2
 	.4byte BattleScript_EffectLockOn                 @ EFFECT_LOCK_ON
 	.4byte BattleScript_EffectSketch                 @ EFFECT_SKETCH
-	.4byte BattleScript_EffectHit                    @ EFFECT_UNUSED_60
+	.4byte BattleScript_EffectCritUpHit              @ EFFECT_CRIT_UP_HIT
 	.4byte BattleScript_EffectSleepTalk              @ EFFECT_SLEEP_TALK
 	.4byte BattleScript_EffectDestinyBond            @ EFFECT_DESTINY_BOND
 	.4byte BattleScript_EffectFlail                  @ EFFECT_FLAIL
@@ -1780,6 +1780,16 @@ BattleScript_EffectDefenseUpHit::
 BattleScript_EffectAttackUpHit::
 	setmoveeffect MOVE_EFFECT_ATK_PLUS_1 | MOVE_EFFECT_AFFECTS_USER
 	goto BattleScript_EffectHit
+
+BattleScript_EffectCritUpHit::
+	setmoveeffect MOVE_EFFECT_CRIT_UP | MOVE_EFFECT_AFFECTS_USER
+	goto BattleScript_EffectHit
+
+BattleScript_SharpenedClaws::
+	playanimation BS_ATTACKER, B_ANIM_FOCUS_PUNCH_SETUP
+	printfromtable gSharpenedBladeStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
 
 BattleScript_EffectAllStatsUpHit::
 	setmoveeffect MOVE_EFFECT_ALL_STATS_UP | MOVE_EFFECT_AFFECTS_USER

@@ -580,9 +580,11 @@ void BattleLoadOpponentMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
     u16 species;
     u8 position;
     u16 paletteOffset;
+    bool8 shinyBlock;
     const void *lzPaletteData;
 
     monsPersonality = GetMonData(mon, MON_DATA_PERSONALITY);
+    shinyBlock = GetMonData(mon, MON_DATA_SHINYBLOCK);
 
     if (gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies == SPECIES_NONE)
     {
@@ -606,7 +608,7 @@ void BattleLoadOpponentMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
     if (gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies == SPECIES_NONE)
         lzPaletteData = GetMonFrontSpritePal(mon);
     else
-        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, otId, monsPersonality);
+        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, otId, monsPersonality, shinyBlock);
 
     LZDecompressWram(lzPaletteData, gDecompressionBuffer);
     LoadPalette(gDecompressionBuffer, paletteOffset, PLTT_SIZE_4BPP);
@@ -669,7 +671,7 @@ void BattleLoadPlayerMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
     if (gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies == SPECIES_NONE)
         lzPaletteData = GetMonFrontSpritePal(mon);
     else
-        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, otId, monsPersonality);
+        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(species, otId, monsPersonality, FALSE);
 
     LZDecompressWram(lzPaletteData, gDecompressionBuffer);
     LoadPalette(gDecompressionBuffer, paletteOffset, PLTT_SIZE_4BPP);
@@ -922,6 +924,7 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, bool8 castform)
     u32 personalityValue;
     u32 otId;
     u8 position;
+    bool8 shinyBlock;
     const u32 *lzPaletteData;
 
     if (castform)
@@ -948,6 +951,7 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, bool8 castform)
             position = B_POSITION_PLAYER_LEFT;
             targetSpecies = gContestResources->moveAnim->targetSpecies;
             personalityValue = gContestResources->moveAnim->personality;
+            shinyBlock = FALSE;
             otId = gContestResources->moveAnim->otId;
 
             HandleLoadSpecialPokePic_DontHandleDeoxys(&gMonBackPicTable[targetSpecies],
@@ -967,6 +971,7 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, bool8 castform)
             if (GetBattlerSide(battlerAtk) == B_SIDE_PLAYER)
             {
                 personalityValue = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
+                shinyBlock = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_SHINYBLOCK);
                 otId = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_ID);
 
                 HandleLoadSpecialPokePic_DontHandleDeoxys(&gMonBackPicTable[targetSpecies],
@@ -977,6 +982,7 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, bool8 castform)
             else
             {
                 personalityValue = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
+                shinyBlock = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_SHINYBLOCK);
                 otId = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_ID);
 
                 HandleLoadSpecialPokePic_DontHandleDeoxys(&gMonFrontPicTable[targetSpecies],
@@ -990,7 +996,7 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, bool8 castform)
         dst = (void *)(OBJ_VRAM0 + gSprites[gBattlerSpriteIds[battlerAtk]].oam.tileNum * 32);
         DmaCopy32(3, src, dst, MON_PIC_SIZE);
         paletteOffset = OBJ_PLTT_ID(battlerAtk);
-        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(targetSpecies, otId, personalityValue);
+        lzPaletteData = GetMonSpritePalFromSpeciesAndPersonality(targetSpecies, otId, personalityValue, shinyBlock);
         LZDecompressWram(lzPaletteData, gDecompressionBuffer);
         LoadPalette(gDecompressionBuffer, paletteOffset, PLTT_SIZE_4BPP);
 
