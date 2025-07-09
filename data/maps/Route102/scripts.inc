@@ -1,24 +1,5 @@
 Route102_MapScripts::
-	map_script MAP_SCRIPT_ON_TRANSITION, Route102_OnTransition
-	map_script MAP_SCRIPT_ON_FRAME_TABLE Route102_OnFrame
 	.byte 0
-
-Route102_OnTransition::
-	goto_if_eq VAR_ACTIVE_GAUNTLET, 3, Route102_OnTransitionEnd
-	goto_if_defeated TRAINER_CALVIN, Route102_OnTransitionEnd
-	setvar VAR_ACTIVE_GAUNTLET, 1
-Route102_OnTransitionEnd::
-	end
-
-Route102_OnFrame::
-	map_script_2 VAR_ACTIVE_GAUNTLET, 1 Route102_EventScript_BeginGauntlet
-	.2byte 0
-
-Route102_EventScript_BeginGauntlet::
-	setvar VAR_GAUNTLET_ID, GAUNTLET_ROUTE102
-	setvar VAR_0x8004, DIR_EAST
-	goto EventScript_GauntletBegins
-	end
 
 Route102_EventScript_LittleBoy::
 	msgbox Route102_Text_ImNotVeryTall, MSGBOX_NPC

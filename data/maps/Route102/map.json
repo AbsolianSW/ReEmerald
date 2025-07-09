@@ -147,60 +147,7 @@
 
   ],
   "coord_events": [
-    {
-      "type": "trigger",
-      "x": 0,
-      "y": 9,
-      "elevation": 0,
-      "var": "VAR_ACTIVE_GAUNTLET",
-      "var_value": "2",
-      "script": "EventScript_GauntletTriggerRight"
-    },
-    {
-      "type": "trigger",
-      "x": 0,
-      "y": 8,
-      "elevation": 0,
-      "var": "VAR_ACTIVE_GAUNTLET",
-      "var_value": "2",
-      "script": "EventScript_GauntletTriggerRight"
-    },
-    {
-      "type": "trigger",
-      "x": 0,
-      "y": 7,
-      "elevation": 0,
-      "var": "VAR_ACTIVE_GAUNTLET",
-      "var_value": "2",
-      "script": "EventScript_GauntletTriggerRight"
-    },
-    {
-      "type": "trigger",
-      "x": 0,
-      "y": 6,
-      "elevation": 0,
-      "var": "VAR_ACTIVE_GAUNTLET",
-      "var_value": "2",
-      "script": "EventScript_GauntletTriggerRight"
-    },
-    {
-      "type": "trigger",
-      "x": 49,
-      "y": 11,
-      "elevation": 0,
-      "var": "VAR_ACTIVE_GAUNTLET",
-      "var_value": "2",
-      "script": "EventScript_GauntletTriggerLeft"
-    },
-    {
-      "type": "trigger",
-      "x": 49,
-      "y": 10,
-      "elevation": 0,
-      "var": "VAR_ACTIVE_GAUNTLET",
-      "var_value": "2",
-      "script": "EventScript_GauntletTriggerLeft"
-    }
+
   ],
   "bg_events": [
     {

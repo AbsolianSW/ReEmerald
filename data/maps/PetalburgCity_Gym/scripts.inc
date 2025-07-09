@@ -17,6 +17,7 @@ PetalburgCity_Gym_OnLoad:
 
 @ NOTE: Strength and OHKO rooms are misleading. Both are more accurately Critical-Hit
 PetalburgCity_Gym_EventScript_OpenUnlockedDoors::
+	setflag FLAG_PETALBURG_GAUNTLET_READY
 	setvar VAR_0x8005, 1
 	call PetalburgCity_Gym_EventScript_OpenGymEntranceDoors
 	call_if_defeated TRAINER_RANDALL, PetalburgCity_Gym_EventScript_OpenSpeedRoomDoors

@@ -29,7 +29,9 @@
       "direction": "emerge"
     }
   ],
-  "object_events": [],
+  "object_events": [
+
+  ],
   "warp_events": [
     {
       "x": 45,
@@ -39,7 +41,17 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 45,
+      "y": 66,
+      "elevation": 0,
+      "var": "VAR_ACTIVE_GAUNTLET",
+      "var_value": "2",
+      "script": "EventScript_GauntletTriggerDown"
+    }
+  ],
   "bg_events": [
     {
       "type": "hidden_item",

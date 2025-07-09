@@ -9,15 +9,9 @@ Route104_MapScripts::
 	.byte 0
 
 Route104_OnFrame:
-	map_script_2 VAR_ACTIVE_GAUNTLET, 1 Route104_EventScript_BeginGauntlet
 	map_script_2 VAR_BOARD_BRINEY_BOAT_STATE, 1, Route104_EventScript_StartSailToDewford
 	.2byte 0
 
-Route104_EventScript_BeginGauntlet::
-	setvar VAR_GAUNTLET_ID, GAUNTLET_ROUTE104
-	setvar VAR_0x8004, DIR_EAST
-	goto EventScript_GauntletBegins
-	end
 
 Route104_EventScript_StartSailToDewford::
 	lockall
@@ -30,10 +24,6 @@ Route104_OnTransition:
 	call Common_EventScript_SetupRivalFollowerId
 	call Route104_EventScript_TrySetRivalPos
 	call Route104_EventScript_ShowOrHideWhiteHerbFlorist
-	goto_if_eq VAR_ACTIVE_GAUNTLET, 3, Route104_OnTransitionEnd
-	goto_if_defeated TRAINER_BILLY, Route104_OnTransitionEnd
-	setvar VAR_ACTIVE_GAUNTLET, 1
-Route104_OnTransitionEnd:
 	end
 
 Route104_EventScript_ShowOrHideWhiteHerbFlorist::

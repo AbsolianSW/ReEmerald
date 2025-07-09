@@ -4,16 +4,6 @@
 extern bool8 gBikeCyclingChallenge;
 extern u8 gBikeCollisions;
 
-#define MAX_GAUNTLET_TRAINERS 19
-
-struct GauntletInfo
-{
-    u8 numTrainers:5;
-    u8 numHeals:2;
-    u8 isBossGauntlet:1;
-    u16 trainerIds[MAX_GAUNTLET_TRAINERS];
-};
-
 u8 GetLeadMonIndex(void);
 u8 IsDestinationBoxFull(void);
 u16 GetPCBoxToSendMon(void);

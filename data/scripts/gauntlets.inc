@@ -2,6 +2,7 @@ EventScript_GauntletTriggerRight::
     special BufferMidGauntletInfo
     goto_if_eq VAR_RESULT, 1, EventScript_GauntletEnd
     msgbox Gauntlets_Text_GauntletNotFinished, MSGBOX_DEFAULT
+    closemessage
     applymovement OBJ_EVENT_ID_PLAYER, Gauntlets_Movement_MoveRight
     waitmovement 0
     release
@@ -11,6 +12,7 @@ EventScript_GauntletTriggerLeft::
     special BufferMidGauntletInfo
     goto_if_eq VAR_RESULT, 1, EventScript_GauntletEnd
     msgbox Gauntlets_Text_GauntletNotFinished, MSGBOX_DEFAULT
+    closemessage
     applymovement OBJ_EVENT_ID_PLAYER, Gauntlets_Movement_MoveLeft
     waitmovement 0
     release
@@ -20,6 +22,7 @@ EventScript_GauntletTriggerUp::
     special BufferMidGauntletInfo
     goto_if_eq VAR_RESULT, 1, EventScript_GauntletEnd
     msgbox Gauntlets_Text_GauntletNotFinished, MSGBOX_DEFAULT
+    closemessage
     applymovement OBJ_EVENT_ID_PLAYER, Gauntlets_Movement_MoveUp
     waitmovement 0
     release
@@ -29,6 +32,7 @@ EventScript_GauntletTriggerDown::
     special BufferMidGauntletInfo
     goto_if_eq VAR_RESULT, 1, EventScript_GauntletEnd
     msgbox Gauntlets_Text_GauntletNotFinished, MSGBOX_DEFAULT
+    closemessage
     applymovement OBJ_EVENT_ID_PLAYER, Gauntlets_Movement_MoveDown
     waitmovement 0
     release
@@ -64,10 +68,11 @@ EventScript_GauntletBeginsWarp::
     goto_if_eq VAR_0x8004, DIR_WEST, EventScript_GauntletMoveRight
     goto_if_eq VAR_0x8004, DIR_NORTH, EventScript_GauntletMoveDown
     goto_if_eq VAR_0x8004, DIR_SOUTH, EventScript_GauntletMoveUp
+    msgbox Gauntlets_Text_GauntletFinished, MSGBOX_DEFAULT
     end
 
 EventScript_GauntletWarpNo::
-    goto_if_eq VAR_0x8005, GAUNTLET_WARP_RUSTBORO, EventScript_GauntletWarpRustboro
+    goto_if_eq VAR_0x8005, 0, EventScript_GauntletWarpRustboro
     end
 
 EventScript_GauntletWarpRustboro:
@@ -75,11 +80,15 @@ EventScript_GauntletWarpRustboro:
 
 EventScript_GauntletNo::
     setvar VAR_ACTIVE_GAUNTLET, 0
+    special BufferGauntletInfo
     goto_if_eq VAR_0x8004, DIR_EAST, EventScript_GauntletMoveRight
     goto_if_eq VAR_0x8004, DIR_WEST, EventScript_GauntletMoveLeft
     goto_if_eq VAR_0x8004, DIR_NORTH, EventScript_GauntletMoveUp
     goto_if_eq VAR_0x8004, DIR_SOUTH, EventScript_GauntletMoveDown
     end
+
+test:
+    .string "test$"
 
 EventScript_GauntletMoveRight::
     applymovement OBJ_EVENT_ID_PLAYER, Gauntlets_Movement_MoveRight

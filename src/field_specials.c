@@ -92,14 +92,6 @@ static EWRAM_DATA u32 sBattleTowerMultiBattleTypeFlags = 0;
 
 struct ListMenuTemplate gScrollableMultichoice_ListMenuTemplate;
 
-static const struct GauntletInfo sGauntletInfo[GAUNTLET_AMOUNT] =
-{
-    [GAUNTLET_ROUTE102] = {.numTrainers = 4, .numHeals = 0, .isBossGauntlet = FALSE, .trainerIds = {TRAINER_CALVIN, TRAINER_RICK, TRAINER_ALLEN, TRAINER_TIANA}},
-    [GAUNTLET_ROUTE104] = {.numTrainers = 10, .numHeals = 1, .isBossGauntlet = FALSE, .trainerIds = {TRAINER_BILLY, TRAINER_DARIAN, TRAINER_CINDY, TRAINER_LYLE, TRAINER_GRUNT_PETALBURG_WOODS, TRAINER_JAMES, TRAINER_WINSTON, TRAINER_HALEY, TRAINER_GINA_AND_MIA, TRAINER_IVAN}},
-    [GAUNTLET_RUSTBORO_GYM] = {.numTrainers = 4, .numHeals = 0, .isBossGauntlet = TRUE, .trainerIds = {TRAINER_JOSH, TRAINER_TOMMY, TRAINER_MARC, TRAINER_ROXANNE_1}},
-    [GAUNTLET_ROUTE116] = {.numTrainers = 11, .numHeals = 0, .isBossGauntlet = FALSE, .trainerIds = {TRAINER_JOEY, TRAINER_JOSE, TRAINER_KAREN, TRAINER_CLARK, TRAINER_JOHNSON, TRAINER_DEVAN, TRAINER_SARAH, TRAINER_DAWSON, TRAINER_JERRY, TRAINER_JANICE, TRAINER_GRUNT_RUSTURF_TUNNEL}},
-};
-
 void TryLoseFansFromPlayTime(void);
 void SetPlayerGotFirstFans(void);
 u16 GetNumFansOfPlayerInTrainerFanClub(void);
@@ -143,6 +135,8 @@ static u8 DidPlayerGetFirstFans(void);
 static void SetInitialFansOfPlayer(void);
 static u16 PlayerGainRandomTrainerFan(void);
 static void BufferFanClubTrainerName_(struct LinkBattleRecords *, u8, u8);
+
+extern struct GauntletInfo gGauntletInfo[GAUNTLET_AMOUNT];
 
 void Special_ShowDiploma(void)
 {
@@ -4476,12 +4470,13 @@ void BufferRivalFollowerSpecies(void)
 
 void BufferGauntletInfo(void)
 {
-    if(sGauntletInfo[gSpecialVar_GauntletId].isBossGauntlet)
+    DebugPrintf("var is %d", VarGet(VAR_0x8004));
+    if(gGauntletInfo[gSpecialVar_GauntletId].isBossGauntlet)
         StringCopy(gStringVar1, gText_Boss);
     else
         StringCopy(gStringVar1,gText_EmptyString2);
-    ConvertUIntToDecimalStringN(gStringVar2, sGauntletInfo[gSpecialVar_GauntletId].numTrainers, STR_CONV_MODE_LEFT_ALIGN, 2);
-    ConvertUIntToDecimalStringN(gStringVar3, sGauntletInfo[gSpecialVar_GauntletId].numHeals, STR_CONV_MODE_LEFT_ALIGN, 2);
+    ConvertUIntToDecimalStringN(gStringVar2, gGauntletInfo[gSpecialVar_GauntletId].numTrainers, STR_CONV_MODE_LEFT_ALIGN, 2);
+    ConvertUIntToDecimalStringN(gStringVar3, gGauntletInfo[gSpecialVar_GauntletId].numHeals, STR_CONV_MODE_LEFT_ALIGN, 2);
 }
 
 void SaveActiveGauntlet(void)
@@ -4492,11 +4487,11 @@ void SaveActiveGauntlet(void)
 void BufferMidGauntletInfo(void)
 {
     u8 gauntletId = gSaveBlock1Ptr->currentGauntletId;
-    u8 count = sGauntletInfo[gauntletId].numTrainers;
+    u8 count = gGauntletInfo[gauntletId].numTrainers;
     u32 i;
-    for(i=0; i< sGauntletInfo[gauntletId].numTrainers; i++)
+    for(i=0; i< gGauntletInfo[gauntletId].numTrainers; i++)
     {
-        if(FlagGet(TRAINER_FLAGS_START + sGauntletInfo[gauntletId].trainerIds[i]))
+        if(FlagGet(TRAINER_FLAGS_START + gGauntletInfo[gauntletId].trainerIds[i]))
             count--;
     }
     VarSet(VAR_RESULT, 0);
@@ -4505,7 +4500,7 @@ void BufferMidGauntletInfo(void)
         VarSet(VAR_RESULT, 1);
         return;
     }
-    if(sGauntletInfo[gauntletId].isBossGauntlet)
+    if(gGauntletInfo[gauntletId].isBossGauntlet)
         StringCopy(gStringVar1, gText_Boss);
     else
         StringCopy(gStringVar1,gText_EmptyString2);
@@ -4515,9 +4510,9 @@ void BufferMidGauntletInfo(void)
 void ResetActiveGauntlet(void)
 {
     u32 i;
-    for(i=0;i<sGauntletInfo[gSaveBlock1Ptr->currentGauntletId].numTrainers;i++)
+    for(i=0;i<gGauntletInfo[gSaveBlock1Ptr->currentGauntletId].numTrainers;i++)
     {
-        FlagClear(TRAINER_FLAGS_START + sGauntletInfo[gSaveBlock1Ptr->currentGauntletId].trainerIds[i]);
+        FlagClear(TRAINER_FLAGS_START + gGauntletInfo[gSaveBlock1Ptr->currentGauntletId].trainerIds[i]);
     }
     VarSet(VAR_ACTIVE_GAUNTLET,0);
 }
@@ -4525,11 +4520,11 @@ void ResetActiveGauntlet(void)
 void CheckGauntletReadyForBoss(void)
 {
     u8 gauntletId = gSaveBlock1Ptr->currentGauntletId;
-    u8 count = sGauntletInfo[gauntletId].numTrainers;
+    u8 count = gGauntletInfo[gauntletId].numTrainers;
     u32 i;
-    for(i=0; i< sGauntletInfo[gauntletId].numTrainers; i++)
+    for(i=0; i< gGauntletInfo[gauntletId].numTrainers; i++)
     {
-        if(FlagGet(TRAINER_FLAGS_START + sGauntletInfo[gauntletId].trainerIds[i]))
+        if(FlagGet(TRAINER_FLAGS_START + gGauntletInfo[gauntletId].trainerIds[i]))
             count--;
     }
     VarSet(VAR_RESULT, 0);

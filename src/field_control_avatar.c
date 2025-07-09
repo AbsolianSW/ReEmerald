@@ -39,6 +39,8 @@
 static EWRAM_DATA u8 sWildEncounterImmunitySteps = 0;
 static EWRAM_DATA u16 sPrevMetatileBehavior = 0;
 
+extern struct GauntletInfo gGauntletInfo[GAUNTLET_AMOUNT];
+
 u8 gSelectedObjectEvent;
 
 static void GetPlayerPosition(struct MapPosition *);
@@ -132,6 +134,48 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
         input->dpadDirection = DIR_EAST;
 }
 
+static bool8 TryRunGauntletInitiationScript(void)
+{
+    if(VarGet(VAR_ACTIVE_GAUNTLET) != 1)
+        return FALSE;
+    ScriptContext_SetupScript(EventScript_GauntletBegins);
+    return TRUE;
+}
+
+static bool8 IsMapPartOfGauntlet(void)
+{
+    u32 i;
+    for (i = 0; i < MAX_GAUNTLET_MAPS; i++)
+        if(gGauntletInfo[VarGet(VAR_GAUNTLET_ID)].mapIds[i] == gMapHeader.mapLayoutId)
+            return TRUE;
+    return FALSE;
+}
+
+static bool8 TryPreventPrematureGauntletExit(u8 direction)
+{
+    if (VarGet(VAR_ACTIVE_GAUNTLET) != 2 || IsMapPartOfGauntlet())
+        return FALSE;
+    switch (direction)
+    {
+    case DIR_SOUTH:
+        ScriptContext_SetupScript(EventScript_GauntletTriggerUp);
+        break;
+    case DIR_NORTH:
+        ScriptContext_SetupScript(EventScript_GauntletTriggerDown);
+        break;
+    case DIR_WEST:
+        ScriptContext_SetupScript(EventScript_GauntletTriggerRight);
+        break;
+    case DIR_EAST:
+        ScriptContext_SetupScript(EventScript_GauntletTriggerLeft);
+        break;
+    case DIR_NONE:
+    default:
+        return FALSE;
+    }
+    return TRUE;
+}
+
 int ProcessPlayerFieldInput(struct FieldInput *input)
 {
     struct MapPosition position;
@@ -146,6 +190,12 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     metatileBehavior = MapGridGetMetatileBehaviorAt(position.x, position.y);
 
     if (CheckForTrainersWantingBattle() == TRUE)
+        return TRUE;
+
+    if(TryPreventPrematureGauntletExit(playerDirection) == TRUE)
+        return TRUE;
+
+    if(TryRunGauntletInitiationScript() == TRUE)
         return TRUE;
 
     if (TryRunOnFrameMapScript() == TRUE)

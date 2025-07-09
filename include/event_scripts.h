@@ -29,6 +29,13 @@ extern const u8 EventScript_FollowerFaceUp[];
 extern const u8 EventScript_FollowerFaceResult[];
 extern const u8 EnterPokeballMovement[];
 
+extern const u8 EventScript_GauntletTriggerRight[];
+extern const u8 EventScript_GauntletTriggerLeft[];
+extern const u8 EventScript_GauntletTriggerDown[];
+extern const u8 EventScript_GauntletTriggerUp[];
+
+extern const u8 EventScript_GauntletBegins[];
+extern const u8 EventScript_GauntletBeginsWarp[];
 
 extern const u8 EventScript_TestSignpostMsg[];
 extern const u8 EventScript_TryGetTrainerScript[];

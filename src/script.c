@@ -1,6 +1,7 @@
 #include "global.h"
 #include "script.h"
 #include "event_data.h"
+#include "event_scripts.h"
 #include "util.h"
 #include "constants/event_objects.h"
 #include "constants/map_scripts.h"

@@ -203,6 +203,8 @@ EWRAM_DATA static u16 sAmbientCrySpecies = 0;
 EWRAM_DATA static bool8 sIsAmbientCryWaterMon = FALSE;
 EWRAM_DATA struct LinkPlayerObjectEvent gLinkPlayerObjectEvents[4] = {0};
 
+#include "data/gauntlets.h"
+
 static const u8 sMapsecToRegion[] = {
     [MAPSEC_LITTLEROOT_TOWN]            = REGION_HOENN,
     [MAPSEC_OLDALE_TOWN]                = REGION_HOENN,
@@ -1505,6 +1507,32 @@ bool8 SetDiveWarpDive(u16 x, u16 y)
     return SetDiveWarp(CONNECTION_DIVE, x, y);
 }
 
+static void TryToSetupGauntlet()
+{
+    u8 gauntletId = 255;
+    u32 i, j;
+    if (VarGet(VAR_ACTIVE_GAUNTLET)) // setup only needs to happen if this is 0
+        return;
+    for (i = 0; i < GAUNTLET_AMOUNT; i++)
+    {
+        for (j = 0; j < MAX_GAUNTLET_MAPS; j++)
+        {
+            if (gGauntletInfo[i].mapIds[j] == gMapHeader.mapLayoutId)
+            {
+                gauntletId = i;
+                break;
+            }
+        }
+    }
+    if (gauntletId == 255) // no gauntlet to start on this map
+        return;
+    if (FlagGet(TRAINER_FLAGS_START + gGauntletInfo[gauntletId].trainerIds[0])) // gauntlet already defeated
+        return;
+    VarSet(VAR_ACTIVE_GAUNTLET, 1); // set necessary variables
+    VarSet(VAR_GAUNTLET_ID, gauntletId);
+    VarSet(VAR_0x8004, GetOppositeDirection(GetPlayerFacingDirection()));
+}
+
 void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
 {
     s32 paletteIndex;
@@ -1514,7 +1542,10 @@ void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
     // Dont transition map music between BF Outside West/East
     if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER)
         TransitionMapMusic();
-
+    DebugPrintf("current map num is %d", gSaveBlock1Ptr->location.mapNum);
+    DebugPrintf("current map group is %d", gSaveBlock1Ptr->location.mapGroup);
+    DebugPrintf("arg map num is %d",mapNum);
+    DebugPrintf("arg map group is %d", mapGroup);
     ApplyCurrentWarp();
     LoadCurrentMapData();
     LoadObjEventTemplatesFromHeader();
@@ -1530,6 +1561,7 @@ void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
     SetDefaultFlashLevel();
     Overworld_ClearSavedMusic();
     RunOnTransitionMapScript();
+    TryToSetupGauntlet();
     InitMap();
     CopySecondaryTilesetToVramUsingHeap(gMapHeader.mapLayout);
     LoadSecondaryTilesetPalette(gMapHeader.mapLayout);
@@ -1553,8 +1585,11 @@ static void LoadMapFromWarp(bool32 a1)
 {
     bool8 isOutdoors;
     bool8 isIndoors;
-
     LoadCurrentMapData();
+    DebugPrintf("current map num is %d", gSaveBlock1Ptr->location.mapNum);
+    DebugPrintf("current map group is %d", gSaveBlock1Ptr->location.mapGroup);
+    DebugPrintf("testing this number %d",(gSaveBlock1Ptr->location.mapNum + (gSaveBlock1Ptr->location.mapGroup<<8)));
+    DebugPrintf("petalburg pokemon center is %d", MAP_PETALBURG_CITY_POKEMON_CENTER_1F);
     if (!(sObjectEventLoadFlag & SKIP_OBJECT_EVENT_LOAD))
     {
         if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
@@ -1584,6 +1619,7 @@ static void LoadMapFromWarp(bool32 a1)
     SetDefaultFlashLevel();
     Overworld_ClearSavedMusic();
     RunOnTransitionMapScript();
+    TryToSetupGauntlet();
     UpdateLocationHistoryForRoamer();
     RoamerMoveToOtherLocationSet();
     if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)

@@ -8020,10 +8020,15 @@ u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl)
     return finalSpecies;
 }
 
+//EWRAM_DATA s32 i,j;
+
 static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
 {
     s32 i, j;
+    i=0;
+    j=0;
     gPrintNameHash = 0;
+    DebugPrintf("address of party is %d", &party);
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
     {
@@ -8058,7 +8063,6 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                 }
                 gPrintPersonalityValue += gPrintNameHash << 8;
                 CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
-                Free(partyData);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
@@ -8078,7 +8082,6 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
-                Free(partyData);
                 break;
             }
             case F_TRAINER_PARTY_HELD_ITEM:
@@ -8094,7 +8097,6 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                 CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
-                Free(partyData);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
@@ -8116,7 +8118,6 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
                 }
-                Free(partyData);
                 break;
             }
             case F_TRAINER_EVERYTHING:
@@ -8150,14 +8151,13 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                     SetMonData(&party[i], MON_DATA_HP_EV + j, &partyData[i].ev[j]);
                 }
                 SetMonData(&party[i], MON_DATA_ABILITY_NUM, &partyData[i].ability);
-                Free(partyData);
                 break;
             }
             }
         }
     }
-    Free(&i);
-    Free(&j);
+    //Free(&i);
+    //Free(&j);
     return gTrainers[trainerNum].partySize;
 }
 
