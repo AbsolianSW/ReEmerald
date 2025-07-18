@@ -111,6 +111,51 @@ u8 *StringAppendN(u8 *dest, const u8 *src, u8 n)
     return StringCopyN(dest, src, n);
 }
 
+u8 *StringLineBreakN(u8 *dest, const u8 *src, u8 n)
+{
+    u8 current;
+    u8 index = 0;
+    u8 counter = 0;
+    u8 lastSpace = 0;
+    u8 offset = 0;
+    StringCopy(dest,src);
+    current = dest[0];
+    //remove old newlines
+    while(current !=EOS) 
+    {
+        if(current == CHAR_NEWLINE)
+        {
+            dest[index] = CHAR_SPACE;
+        }
+        current = dest[++index];
+    }
+    //readd newlines according to specified character per line limit
+    current = dest[0];
+    index = 0;
+    while(current != EOS)
+    {
+        for(counter;counter<n+1;counter++)
+        {
+            if(current == EOS)
+            break;
+            if(current == CHAR_SPACE)
+            {
+                lastSpace = counter;
+            }
+            current = dest[++index];
+        }
+        if(current == EOS)
+            break;
+        if(!lastSpace)//single word longer than character limit, break up the word
+            lastSpace = n;
+        dest[offset+lastSpace] = CHAR_NEWLINE;
+        offset+=lastSpace+1;
+        index = offset;
+        counter = 0;
+    }
+    return dest;
+}
+
 u16 StringLength(const u8 *str)
 {
     u16 length = 0;

@@ -20,6 +20,7 @@
 #include "pokedex_cry_screen.h"
 #include "pokemon.h"
 #include "pokemon_icon.h"
+#include "pokemon_summary_screen.h"
 #include "scanline_effect.h"
 #include "sound.h"
 #include "sprite.h"
@@ -144,8 +145,9 @@ static EWRAM_DATA u16 sLastSelectedPokemon = 0;
 static EWRAM_DATA u8 sPokeBallRotation = 0;
 static EWRAM_DATA struct PokedexListItem *sPokedexListItem = NULL;
 static EWRAM_DATA u8 selectBarState = 0;
-static EWRAM_DATA u8 moveScrollOffset = 0;
-static EWRAM_DATA u8 moveScrollOffsetMax = 0;
+static EWRAM_DATA u8 moveIndex = 0;
+static EWRAM_DATA u8 moveOffset = 0;
+static EWRAM_DATA u8 numMoves = 0;
 static EWRAM_DATA u16 pokedexMoves[MAX_MOVES_PER_MON];
 static EWRAM_DATA u8 pokedexMovesTMHMOffset = 0;
 static EWRAM_DATA u8 pokedexMovesTutorOffset = 0;
@@ -323,7 +325,7 @@ static void PrintEvoData(u8, u16, u8, u8);
 static void PrintStats(u16,u8);
 static void PrintEvos(u16, u8);
 static void LoadMoves(u16);
-static void PrintMoves(u16, u8, u8);
+static void PrintMoves(u16, u8);
 static void PrintInfoSubMenuText(u8, const u8 *str , u8, u8);
 static void PrintDecimalNum(u8 windowId, u16 num, u8 left, u8 top);
 static void DrawFootprint(u8 windowId, u16 dexNum);
@@ -3487,7 +3489,7 @@ static void Task_LoadInfoScreen(u8 taskId)
             if (gTasks[taskId].tBgLoaded)
                 r2 |= DISPCNT_BG1_ON;
             ResetOtherVideoRegisters(r2);
-            moveScrollOffset = 0;
+            moveIndex = 0;
             gMain.state = 1;
         }
         break;
@@ -4384,7 +4386,7 @@ static void Task_LoadMoveScreen(u8 taskId)
         break;
     case 4:
         LoadMoves(sPokedexListItem->dexNum);
-        PrintMoves(sPokedexListItem->dexNum, moveScrollOffset, taskId);
+        PrintMoves(sPokedexListItem->dexNum, taskId);
         gSprites[gTasks[taskId].tMonSpriteId].oam.priority = 0;
         gDexCryScreenState = 0;
         gMain.state++;
@@ -4440,26 +4442,42 @@ static void Task_HandleMoveScreenInput(u8 taskId)
     }
     else if (JOY_REPEAT(DPAD_DOWN))
     {
-        if(moveScrollOffset < moveScrollOffsetMax)
+        if(moveIndex < 8 && 9*moveOffset+moveIndex < numMoves-1)
         {
-            moveScrollOffset++;
-            for(i;i<7;i++)
-                 DestroySprite(&gSprites[gTasks[taskId].data[4+ i]]);
+            moveIndex++;
+            DestroySprite(&gSprites[gTasks[taskId].data[5]]);
             FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(0));
-            PrintMoves(sPokedexListItem->dexNum, moveScrollOffset, taskId);
+            PrintMoves(sPokedexListItem->dexNum, taskId);
             CopyWindowToVram(WIN_INFO, COPYWIN_FULL);
+        }
+        else if(moveOffset<(numMoves-1)/9)
+        {
+            moveIndex = 0;
+            moveOffset++;
+            DestroySprite(&gSprites[gTasks[taskId].data[5]]);
+            FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(0));
+            PrintMoves(sPokedexListItem->dexNum, taskId);
+            CopyWindowToVram(WIN_INFO, COPYWIN_FULL);    
         }
     }
     else if (JOY_REPEAT(DPAD_UP))
     {
-        if(moveScrollOffset)
+        if(moveIndex)
         {
-            moveScrollOffset--;
-            for(i;i<7;i++)
-                 DestroySprite(&gSprites[gTasks[taskId].data[4+ i]]);
+            moveIndex--;
+            DestroySprite(&gSprites[gTasks[taskId].data[5]]);
             FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(0));
-            PrintMoves(sPokedexListItem->dexNum, moveScrollOffset, taskId);
+            PrintMoves(sPokedexListItem->dexNum, taskId);
             CopyWindowToVram(WIN_INFO, COPYWIN_FULL);
+        }
+        else if(moveOffset)
+        {
+            moveIndex = 8;
+            moveOffset--;
+            DestroySprite(&gSprites[gTasks[taskId].data[5]]);
+            FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(0));
+            PrintMoves(sPokedexListItem->dexNum, taskId);
+            CopyWindowToVram(WIN_INFO, COPYWIN_FULL);    
         }
     }
 }
@@ -5185,6 +5203,7 @@ static void PrintInfoSubMenuTextNarrow(u8 windowId, const u8 *str, u8 left, u8 t
     AddTextPrinterParameterized4(windowId, FONT_NARROW, left, top, 0, 0, color, TEXT_SKIP_DRAW, str);
 }
 
+
 static void UNUSED UnusedPrintNum(u8 windowId, u16 num, u8 left, u8 top)
 {
     u8 str[4];
@@ -5723,7 +5742,7 @@ static void LoadMoves(u16 dexNum)
     u8 skip = 0;
     u16 moveToCheck;
     u16 originalSpecies;
-    while(i < MAX_MON_MOVES)
+    while(i < MAX_MOVES_PER_MON)
     {
         pokedexMoves[i++] = MOVE_NONE;
     }
@@ -5776,55 +5795,31 @@ static void LoadMoves(u16 dexNum)
             skip = FALSE;
         }
     }
-    moveScrollOffsetMax = index -7;
+    numMoves = index;
     Free(eggMoves);
 }
 
-static void PrintMoves(u16 dexNum, u8 offset, u8 taskId)
+
+static void PrintMoves(u16 dexNum, u8 taskId)
 {
-    u8 yPos = 44;
-    u8 type;
+    u8 yPos = 23;
+    u8 move = (9*moveOffset) + moveIndex;
+    u8 type = gBattleMoves[pokedexMoves[move]].type;
     struct Sprite *sprite;
-    u8 i=offset;
+    u8 i=9*moveOffset;
     u8 j=0;
     u16 species = NationalPokedexNumToSpecies(dexNum);
-    LoadCompressedSpriteSheet(&sSpriteSheet_MoveTypes);
-    LoadCompressedPalette(gMoveTypes_Pal, 0x1D0, 0x60);
-    for(i;i<offset + 7;i++)
-    {
-        type = gBattleMoves[pokedexMoves[i]].type;
-        gTasks[taskId].data[4+ i -offset] = CreateSprite(&sSpriteTemplate_MoveTypes, 25, yPos+7, 2);
-        sprite = &gSprites[gTasks[taskId].data[4+ i -offset]];
-        StartSpriteAnim(sprite, type);
-        sprite->oam.paletteNum = sMoveTypeToOamPaletteNum[type];
-        PrintInfoSubMenuTextNarrow(0, gMoveNames[pokedexMoves[i]],45,yPos);
-        if(gBattleMoves[pokedexMoves[i]].power)
-            ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[pokedexMoves[i]].power,STR_CONV_MODE_RIGHT_ALIGN,3);
-        else
-        {
-            gStringVar2[0] = CHAR_HYPHEN;
-            gStringVar2[1] = CHAR_HYPHEN;
-            gStringVar2[2] = CHAR_HYPHEN;
-            gStringVar2[3] = EOS;
-        }
-        PrintInfoSubMenuText(0,gStringVar2,112,yPos);
-        if(gBattleMoves[pokedexMoves[i]].accuracy)
-            ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[pokedexMoves[i]].accuracy,STR_CONV_MODE_RIGHT_ALIGN,3);
-        else
-        {
-            gStringVar2[0] = CHAR_HYPHEN;
-            gStringVar2[1] = CHAR_HYPHEN;
-            gStringVar2[2] = CHAR_HYPHEN;
-            gStringVar2[3] = EOS;
-        }
-        PrintInfoSubMenuText(0,gStringVar2,136,yPos);
-        ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[pokedexMoves[i]].pp,STR_CONV_MODE_RIGHT_ALIGN,2);
-        PrintInfoSubMenuText(0,gStringVar2,160,yPos);
+    u8 str[60] = {0};
+    StringLineBreakN(str,gMoveDescriptionPointers[pokedexMoves[move]-1],21);
+    for(i;i<9*moveOffset+9;i++)
+    {   
+        if(pokedexMoves[i] == MOVE_NONE)
+            continue; 
         if(i < pokedexMovesTMHMOffset)
         {
             ConvertUIntToDecimalStringN(gStringVar1, (gLevelUpLearnsets[species][i] & LEVEL_UP_MOVE_LV) >> 9,STR_CONV_MODE_RIGHT_ALIGN,2);
             StringExpandPlaceholders(gStringVar4, gText_LevelVar1);
-            PrintInfoSubMenuText(0,gStringVar4,194,yPos);
+            PrintInfoSubMenuText(0,gStringVar4,15,yPos);
         }
         if(i >= pokedexMovesTMHMOffset && i < pokedexMovesTutorOffset)
         {
@@ -5836,26 +5831,63 @@ static void PrintMoves(u16 dexNum, u8 offset, u8 taskId)
                     {
                         ConvertUIntToDecimalStringN(gStringVar1, j+1,STR_CONV_MODE_LEADING_ZEROS,2);
                         StringExpandPlaceholders(gStringVar4, gText_TMVar1);
-                        PrintInfoSubMenuText(0,gStringVar4,194,yPos);
+                        PrintInfoSubMenuText(0,gStringVar4,15,yPos);
                     }
                     else
                     {
                         ConvertUIntToDecimalStringN(gStringVar1, j-49,STR_CONV_MODE_LEADING_ZEROS,2);
                         StringExpandPlaceholders(gStringVar4, gText_HMVar1);
-                        PrintInfoSubMenuText(0,gStringVar4,194,yPos);
+                        PrintInfoSubMenuText(0,gStringVar4,15,yPos);
                     }
                 }
             }
         }
         if(i >= pokedexMovesTutorOffset && i < pokedexMovesEggOffset)
-            PrintInfoSubMenuText(0,gText_Tutor,194,yPos);
+        PrintInfoSubMenuText(0,gText_Tutor,15,yPos);
         if(i >= pokedexMovesEggOffset && i < pokedexMovesPreOffset)
-            PrintInfoSubMenuText(0,gText_EggNickname,194,yPos);
+        PrintInfoSubMenuText(0,gText_Egg,15,yPos);
         if(i >= pokedexMovesPreOffset)
-            PrintInfoSubMenuTextNarrow(0,gText_PreEvo,194,yPos);
-        yPos += 15;
+        PrintInfoSubMenuTextNarrow(0,gText_PreEvo,15,yPos);
+        if(i%9==moveIndex)
+        {
+            PrintInfoSubMenuTextNarrow(0, gText_SelectorArrow3,8,yPos); 
+        }
+        PrintInfoSubMenuTextNarrow(0, gMoveNames[pokedexMoves[i]],48,yPos);
+        yPos += 14;
     }
-    PrintInfoSubMenuText(0, gText_MoveHeader, 10, 23); 
+    LoadCompressedSpriteSheet(&sSpriteSheet_MoveTypes);
+    LoadCompressedPalette(gMoveTypes_Pal, 0x1D0, 0x60);
+    gTasks[taskId].data[5] = CreateSprite(&sSpriteTemplate_MoveTypes, 145, 31, 2);
+    sprite = &gSprites[gTasks[taskId].data[5]];
+    StartSpriteAnim(sprite, type);
+    sprite->oam.paletteNum = sMoveTypeToOamPaletteNum[type];
+    PrintInfoSubMenuTextNarrow(0, gMoveNames[pokedexMoves[move]],166,23);
+    PrintInfoSubMenuText(0,gText_Power,129,39);
+    PrintInfoSubMenuText(0,gText_Accuracy2,129,53);
+    PrintInfoSubMenuText(0,gText_PP,129,67);
+    if(gBattleMoves[pokedexMoves[move]].power)
+    ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[pokedexMoves[move]].power,STR_CONV_MODE_RIGHT_ALIGN,3);
+    else
+    {
+        gStringVar2[0] = CHAR_HYPHEN;
+        gStringVar2[1] = CHAR_HYPHEN;
+        gStringVar2[2] = CHAR_HYPHEN;
+        gStringVar2[3] = EOS;
+    }
+    PrintInfoSubMenuText(0,gStringVar2,213,39);
+    if(gBattleMoves[pokedexMoves[move]].accuracy)
+    ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[pokedexMoves[move]].accuracy,STR_CONV_MODE_RIGHT_ALIGN,3);
+    else
+    {
+        gStringVar2[0] = CHAR_HYPHEN;
+        gStringVar2[1] = CHAR_HYPHEN;
+        gStringVar2[2] = CHAR_HYPHEN;
+        gStringVar2[3] = EOS;
+    }
+    PrintInfoSubMenuText(0,gStringVar2,213,53);
+    ConvertUIntToDecimalStringN(gStringVar2, gBattleMoves[pokedexMoves[move]].pp,STR_CONV_MODE_RIGHT_ALIGN,3);
+    PrintInfoSubMenuText(0,gStringVar2,213,67);
+    PrintInfoSubMenuTextNarrow(0,str,129,104);
 }
 
 static void UNUSED UnusedPrintMonName(u8 windowId, const u8 *name, u8 left, u8 top)
