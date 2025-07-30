@@ -4035,6 +4035,7 @@ BattleScript_AbilityPopUpScripting:
 	return
 
 BattleScript_SpeedBoostActivates::
+	call BattleScript_AbilityPopUp
 	playanimation BS_ATTACKER, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
 	printstring STRINGID_PKMNRAISEDSPEED
 	waitmessage B_WAIT_TIME_LONG
@@ -4273,6 +4274,7 @@ BattleScript_AbilityNoSpecificStatLoss::
 
 BattleScript_StickyHoldActivates::
 	pause B_WAIT_TIME_SHORT
+	call BattleScript_AbilityPopUpTarget
 	printstring STRINGID_PKMNSXMADEYINEFFECTIVE
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
