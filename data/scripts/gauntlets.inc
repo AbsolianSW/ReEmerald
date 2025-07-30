@@ -45,6 +45,8 @@ EventScript_GauntletEnd::
     end
 
 EventScript_GauntletBegins::
+    goto_if_eq VAR_0x8005, 0, EventScript_GauntletNotReady
+    goto_if_ne VAR_0x8005, 255, EventScript_GauntletBeginsWarp
     special BufferGauntletInfo
 	msgbox Gauntlets_Text_GauntletBegins, MSGBOX_YESNO
     closemessage
@@ -72,12 +74,25 @@ EventScript_GauntletBeginsWarp::
     end
 
 EventScript_GauntletWarpNo::
-    goto_if_eq VAR_0x8005, 0, EventScript_GauntletWarpRustboro
+    setvar VAR_ACTIVE_GAUNTLET, 0
+    goto_if_eq VAR_0x8005, 1, EventScript_GauntletWarpRustboro
+    goto_if_eq VAR_0x8005, 2, EventScript_GauntletWarpDewford
+    goto_if_eq VAR_0x8005, 3, EventScript_GauntletWarpBeach
     end
 
 EventScript_GauntletWarpRustboro:
     warp MAP_RUSTBORO_CITY, 0
 
+EventScript_GauntletWarpDewford:
+    warp MAP_DEWFORD_TOWN, 2
+
+EventScript_GauntletWarpBeach:
+    setvar VAR_FACING, DIR_SOUTH
+    call Route109_EventScript_StartDepartForDewford
+
+EventScript_GauntletNotReady::
+    msgbox Gauntlets_Text_GauntletNotReady, MSGBOX_DEFAULT
+    closemessage
 EventScript_GauntletNo::
     setvar VAR_ACTIVE_GAUNTLET, 0
     special BufferGauntletInfo
@@ -153,3 +168,7 @@ Gauntlets_Text_GauntletFinished::
 Gauntlets_Text_GauntletBossNotReady::
     .string "You can't fight the boss yet, there are\n"
     .string "{Str_Var_1} trainers left to fight!$"
+
+Gauntlets_Text_GauntletNotReady::
+    .string "You can't fight this gauntlet yet, you\n"
+    .string "need to progress elsewhere!$"

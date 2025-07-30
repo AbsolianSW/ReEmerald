@@ -604,5 +604,6 @@
 
 #define TRAINERS_COUNT                      597
 #define MAX_TRAINERS_COUNT                  800
+#define TRAINER_RIVAL_GAUNTLET              999
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

@@ -145,9 +145,11 @@ static bool8 TryRunGauntletInitiationScript(void)
 static bool8 IsMapPartOfGauntlet(void)
 {
     u32 i;
-    for (i = 0; i < MAX_GAUNTLET_MAPS; i++)
-        if(gGauntletInfo[VarGet(VAR_GAUNTLET_ID)].mapIds[i] == gMapHeader.mapLayoutId)
-            return TRUE;
+    for (i = 0; i < MAX_GAUNTLET_MAPS; i++) {
+        if((gSaveBlock1Ptr->location.mapNum | gSaveBlock1Ptr->location.mapGroup << 8) && gGauntletInfo[gSaveBlock1Ptr->currentGauntletId].mapIds[i] == (gSaveBlock1Ptr->location.mapNum | gSaveBlock1Ptr->location.mapGroup << 8))
+        //Petalburg is map 0
+        return TRUE;
+    }
     return FALSE;
 }
 

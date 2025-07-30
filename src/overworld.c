@@ -1512,12 +1512,13 @@ static void TryToSetupGauntlet()
     u8 gauntletId = 255;
     u32 i, j;
     if (VarGet(VAR_ACTIVE_GAUNTLET)) // setup only needs to happen if this is 0
-        return;
+    return;
     for (i = 0; i < GAUNTLET_AMOUNT; i++)
     {
         for (j = 0; j < MAX_GAUNTLET_MAPS; j++)
         {
-            if (gGauntletInfo[i].mapIds[j] == gMapHeader.mapLayoutId)
+            if ((gSaveBlock1Ptr->location.mapNum | gSaveBlock1Ptr->location.mapGroup << 8) && gGauntletInfo[i].mapIds[j] == (gSaveBlock1Ptr->location.mapNum | gSaveBlock1Ptr->location.mapGroup << 8))
+            //Petalburg has mapID 0, so we have to special case 0 out since the arrays are autofilled with 0s if there are less than MAX_GAUNTLET_MAPS maps in the gauntlet
             {
                 gauntletId = i;
                 break;
@@ -1525,12 +1526,29 @@ static void TryToSetupGauntlet()
         }
     }
     if (gauntletId == 255) // no gauntlet to start on this map
-        return;
+    return;
     if (FlagGet(TRAINER_FLAGS_START + gGauntletInfo[gauntletId].trainerIds[0])) // gauntlet already defeated
-        return;
-    VarSet(VAR_ACTIVE_GAUNTLET, 1); // set necessary variables
-    VarSet(VAR_GAUNTLET_ID, gauntletId);
+    return;
+    VarSet(VAR_0x8005,255);
+    if(gGauntletInfo[gauntletId].readyFlag && !FlagGet(gGauntletInfo[gauntletId].readyFlag)) //don't start gauntlet if it's too early in the story.
+    {
+        if((gSaveBlock1Ptr->location.mapNum | gSaveBlock1Ptr->location.mapGroup << 8) == MAP_ROUTE103)
+        {
+            return;//special case this out because the player needs to be able to enter route 103 at an earlier point
+        }
+        else 
+        {
+            VarSet(VAR_ACTIVE_GAUNTLET, 1);
+            VarSet(VAR_0x8004, GetOppositeDirection(GetPlayerFacingDirection()));
+            VarSet(VAR_0x8005,0);//this tells the gauntlet script to tell the player it's not ready yet
+            return;
+        }
+    }
+    if(gGauntletInfo[gauntletId].warpId)
+        VarSet(VAR_0x8005,gGauntletInfo[gauntletId].warpId);    
+    VarSet(VAR_ACTIVE_GAUNTLET, 1); 
     VarSet(VAR_0x8004, GetOppositeDirection(GetPlayerFacingDirection()));
+    VarSet(VAR_GAUNTLET_ID, gauntletId);
 }
 
 void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
@@ -1542,10 +1560,6 @@ void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
     // Dont transition map music between BF Outside West/East
     if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER)
         TransitionMapMusic();
-    DebugPrintf("current map num is %d", gSaveBlock1Ptr->location.mapNum);
-    DebugPrintf("current map group is %d", gSaveBlock1Ptr->location.mapGroup);
-    DebugPrintf("arg map num is %d",mapNum);
-    DebugPrintf("arg map group is %d", mapGroup);
     ApplyCurrentWarp();
     LoadCurrentMapData();
     LoadObjEventTemplatesFromHeader();
@@ -1586,10 +1600,6 @@ static void LoadMapFromWarp(bool32 a1)
     bool8 isOutdoors;
     bool8 isIndoors;
     LoadCurrentMapData();
-    DebugPrintf("current map num is %d", gSaveBlock1Ptr->location.mapNum);
-    DebugPrintf("current map group is %d", gSaveBlock1Ptr->location.mapGroup);
-    DebugPrintf("testing this number %d",(gSaveBlock1Ptr->location.mapNum + (gSaveBlock1Ptr->location.mapGroup<<8)));
-    DebugPrintf("petalburg pokemon center is %d", MAP_PETALBURG_CITY_POKEMON_CENTER_1F);
     if (!(sObjectEventLoadFlag & SKIP_OBJECT_EVENT_LOAD))
     {
         if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)

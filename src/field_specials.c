@@ -4470,7 +4470,6 @@ void BufferRivalFollowerSpecies(void)
 
 void BufferGauntletInfo(void)
 {
-    DebugPrintf("var is %d", VarGet(VAR_0x8004));
     if(gGauntletInfo[gSpecialVar_GauntletId].isBossGauntlet)
         StringCopy(gStringVar1, gText_Boss);
     else
@@ -4491,8 +4490,24 @@ void BufferMidGauntletInfo(void)
     u32 i;
     for(i=0; i< gGauntletInfo[gauntletId].numTrainers; i++)
     {
-        if(FlagGet(TRAINER_FLAGS_START + gGauntletInfo[gauntletId].trainerIds[i]))
+        if(gGauntletInfo[gauntletId].trainerIds[i] == TRAINER_RIVAL_GAUNTLET)
+        {
+            switch(gauntletId)
+            {
+                case GAUNTLET_ROUTE_110_AND_103:
+                if(VarGet(VAR_ROUTE110_STATE) == 1)//Rival defeated
+                {
+                    count--;
+                }
+                break;
+                default:
+                break;
+            }
+        } else 
+        {
+            if(FlagGet(TRAINER_FLAGS_START + gGauntletInfo[gauntletId].trainerIds[i]))
             count--;
+        }
     }
     VarSet(VAR_RESULT, 0);
     if(!count)
@@ -4501,9 +4516,9 @@ void BufferMidGauntletInfo(void)
         return;
     }
     if(gGauntletInfo[gauntletId].isBossGauntlet)
-        StringCopy(gStringVar1, gText_Boss);
+    StringCopy(gStringVar1, gText_Boss);
     else
-        StringCopy(gStringVar1,gText_EmptyString2);
+    StringCopy(gStringVar1,gText_EmptyString2);
     ConvertUIntToDecimalStringN(gStringVar2, count, STR_CONV_MODE_LEFT_ALIGN, 2);
 }
 
@@ -4512,7 +4527,25 @@ void ResetActiveGauntlet(void)
     u32 i;
     for(i=0;i<gGauntletInfo[gSaveBlock1Ptr->currentGauntletId].numTrainers;i++)
     {
-        FlagClear(TRAINER_FLAGS_START + gGauntletInfo[gSaveBlock1Ptr->currentGauntletId].trainerIds[i]);
+        if(gGauntletInfo[gauntletId].trainerIds[i] == TRAINER_RIVAL_GAUNTLET)
+        {
+            switch(gauntletId)
+            {
+                case GAUNTLET_ROUTE_110_AND_103:
+                FlagClear(TRAINER_FLAGS_START + TRAINER_MAY_ROUTE_110_MUDKIP);
+                FlagClear(TRAINER_FLAGS_START + TRAINER_MAY_ROUTE_110_TREECKO);
+                FlagClear(TRAINER_FLAGS_START + TRAINER_MAY_ROUTE_110_TORCHIC);
+                FlagClear(TRAINER_FLAGS_START + TRAINER_BRENDAN_ROUTE_110_MUDKIP);
+                FlagClear(TRAINER_FLAGS_START + TRAINER_BRENDAN_ROUTE_110_TREECKO);
+                FlagClear(TRAINER_FLAGS_START + TRAINER_BRENDAN_ROUTE_110_TORCHIC);
+                break;
+                default:
+                break;
+            }
+        } else 
+        {
+            FlagClear(TRAINER_FLAGS_START + gGauntletInfo[gauntletId].trainerIds[i]);
+        }
     }
     VarSet(VAR_ACTIVE_GAUNTLET,0);
 }
