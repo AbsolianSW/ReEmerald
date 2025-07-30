@@ -22,6 +22,15 @@ Route103_EventScript_OpenAlteringCave::
 	setmetatile 45, 6, METATILE_General_CaveEntrance_Bottom, FALSE
 	return
 
+Route103_EventScript_Rival_Follower::
+	lockall
+	faceplayer
+	bufferspeciesname 0, VAR_TEMP_4
+	playmoncry VAR_TEMP_4, CRY_MODE_NORMAL
+	msgbox Route103_Text_Follower, MSGBOX_NPC
+	releaseall
+	end
+
 Route103_EventScript_Rival::
 	lockall
 	checkplayergender
@@ -324,6 +333,10 @@ Route103_Text_MayLetsBattle:
 	.string "battle!\p"
 	.string "I'll give you a taste of what being\n"
 	.string "a Trainer is like.$"
+
+Route103_Text_Follower:
+	.string "{Str_Var_1} is looking around\n"
+	.string "curiously.$"
 
 Route103_Text_MayDefeated:
 	.string "Wow! That's great!\n"

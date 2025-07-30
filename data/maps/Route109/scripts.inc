@@ -310,6 +310,7 @@ Route109_Movement_BrineyExitBoat:
 	step_end
 
 Route109_EventScript_MrBriney::
+	goto_if_eq VAR_ACTIVE_GAUNTLET, 2, EventScript_GauntletTriggerUp
 	lock
 	faceplayer
 	goto_if_unset FLAG_DELIVERED_DEVON_GOODS, Route109_EventScript_HaveNotDeliveredDevonGood
@@ -394,6 +395,7 @@ Route109_EventScript_OldMan::
 	end
 
 Route109_EventScript_Zigzagoon::
+	bufferspeciesname 0, SPECIES_ZIGZAGOON
 	lock
 	faceplayer
 	waitse
@@ -496,6 +498,43 @@ Route109_EventScript_Elijah::
 	trainerbattle_single TRAINER_ELIJAH, Route109_Text_ElijahIntro, Route109_Text_ElijahDefeated
 	msgbox Route109_Text_ElijahPostBattle, MSGBOX_AUTOCLOSE
 	end
+
+Route109_EventScript_Spheal::
+	lock
+	goto_if_set FLAG_ROUTE109_NPC_TRADE_COMPLETED, Route109_EventScriptPoochyena
+	playmoncry SPECIES_SPHEAL, CRY_MODE_NORMAL
+	applymovement LOCALID_LORA_PET, Route109_MovementSpheal
+	waitmovement 0
+	msgbox Route109_Text_Spheal, MSGBOX_AUTOCLOSE
+	release
+	end
+
+Route109_EventScriptPoochyena::
+	playmoncry SPECIES_POOCHYENA, CRY_MODE_NORMAL
+	msgbox Route109_Text_Poochyena, MSGBOX_AUTOCLOSE
+	release
+	end
+
+Route109_MovementSpheal:
+	jump_in_place_right
+	face_down
+	face_left
+	face_up
+	face_right
+	face_down
+	face_left
+	face_up
+	face_right
+	face_down
+	face_left
+	face_up
+	face_right
+	face_down
+	face_left
+	face_up
+	face_right
+	jump_in_place_right
+	step_end
 
 Route109_EventScript_Trade::
 	lock
@@ -653,3 +692,9 @@ Route109_Text_TrainerTipsSign:
 	.string "always have identical stats.\p"
 	.string "Pokémon raised by Trainers are said\n"
 	.string "to grow stronger than wild Pokémon.$"
+
+Route109_Text_Spheal:
+	.string "Arf Arf!$"
+
+Route109_Text_Poochyena:
+	.string "Woof Woof!$"

@@ -74,6 +74,8 @@ RustboroCity_EventScript_ScientistAddMatchCall::
 	delay 20
 	applymovement LOCALID_SCIENTIST, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
+	msgbox RustboroCity_Text_NeedTutorial, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, RustboroCity_EventScript_MatchCallTutorialEnd
 	msgbox RustboroCity_Text_AddedMatchCallPleaseCallMrStone, MSGBOX_DEFAULT
 	closemessage
 	delay 20
@@ -101,6 +103,7 @@ RustboroCity_EventScript_MatchCallTutorial::
 	special OpenPokenavForTutorial
 	waitstate
 	delay 20
+RustboroCity_EventScript_MatchCallTutorialEnd::
 	msgbox RustboroCity_Text_IdBetterGetBackToWork, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_SCIENTIST, RustboroCity_Movement_ScientistLeave
@@ -646,6 +649,15 @@ RustboroCity_EventScript_EmployeeFacePlayerRight::
 	applymovement LOCALID_DEVON_EMPLOYEE, Common_Movement_Delay48
 	waitmovement 0
 	return
+
+RustboroCity_EventScript_Follower::
+	lockall
+	faceplayer
+	bufferspeciesname 0, VAR_TEMP_4
+	playmoncry VAR_TEMP_4, CRY_MODE_NORMAL
+	msgbox RustboroCity_Text_Follower, MSGBOX_NPC
+	releaseall
+	end
 
 RustboroCity_EventScript_Rival::
 	lockall
@@ -1383,3 +1395,9 @@ RustboroCity_Text_YouCanHave2On2Battle:
 	.string "they'll both challenge you.\p"
 	.string "Don't you think it'd be cool if you\n"
 	.string "could beat two trainers by yourself?$"
+
+RustboroCity_Text_NeedTutorial:
+	.string "Do you need a tutorial for the Pokénav?$"
+
+RustboroCity_Text_Follower:
+	.string "{Str_Var_1} looks excited for battle!$"

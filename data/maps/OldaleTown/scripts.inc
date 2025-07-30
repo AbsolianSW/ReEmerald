@@ -40,6 +40,15 @@ OldaleTown_EventScript_Girl::
 	msgbox OldaleTown_Text_SavingMyProgress, MSGBOX_NPC
 	end
 
+OldaleTown_EventScript_Follower::
+	lockall
+	faceplayer
+	bufferspeciesname 0, VAR_TEMP_4
+	playmoncry VAR_TEMP_4, CRY_MODE_NORMAL
+	msgbox OldaleTown_Text_Follower, MSGBOX_NPC
+	releaseall
+	end
+
 @add DrFrugal fix for broken edge case with full bag
 OldaleTown_EventScript_MartEmployee::
 	lock
@@ -440,3 +449,6 @@ OldaleTown_Text_BrendanLetsGoBack:
 OldaleTown_Text_TownSign:
 	.string "Oldale Town\n"
 	.string "“Where things start off scarce.”$"
+
+OldaleTown_Text_Follower:
+	.string "{Str_Var_1} is ready to go home!$"

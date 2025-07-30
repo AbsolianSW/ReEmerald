@@ -637,6 +637,15 @@
       "var": "VAR_REGISTER_BIRCH_STATE",
       "var_value": "1",
       "script": "Route110_EventScript_BirchScene4"
+    },
+    {
+      "type": "trigger",
+      "x": 11,
+      "y": 67,
+      "elevation": 0,
+      "var": "VAR_ACTIVE_GAUNTLET",
+      "var_value": "2",
+      "script": "EventScript_GauntletTriggerDown"
     }
   ],
   "bg_events": [
