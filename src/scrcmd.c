@@ -53,7 +53,6 @@
 typedef u16 (*SpecialFunc)(void);
 typedef void (*NativeFunc)(void);
 
-EWRAM_DATA const u8 *gRamScriptRetAddr = NULL;
 static EWRAM_DATA u32 sAddressOffset = 0; // For relative addressing in vgoto etc., used by saved scripts (e.g. Mystery Event)
 static EWRAM_DATA u16 sPauseCounter = 0;
 static EWRAM_DATA u16 sMovingNpcId = 0;
@@ -288,15 +287,12 @@ bool8 ScrCmd_callstd_if(struct ScriptContext *ctx)
 
 bool8 ScrCmd_returnram(struct ScriptContext *ctx)
 {
-    ScriptJump(ctx, gRamScriptRetAddr);
     return FALSE;
 }
 
 bool8 ScrCmd_endram(struct ScriptContext *ctx)
 {
     FlagClear(FLAG_SAFE_FOLLOWER_MOVEMENT);
-    ClearRamScript();
-    StopScript(ctx);
     return TRUE;
 }
 
@@ -2065,7 +2061,7 @@ bool8 ScrCmd_setrespawn(struct ScriptContext *ctx)
 
 bool8 ScrCmd_checkplayergender(struct ScriptContext *ctx)
 {
-    gSpecialVar_Result = gSaveBlock2Ptr->playerGender;
+    gSpecialVar_Result = gSaveBlock1Ptr->playerGender;
     return FALSE;
 }
 
@@ -2282,17 +2278,6 @@ bool8 ScrCmd_checkmonmodernfatefulencounter(struct ScriptContext *ctx)
     return FALSE;
 }
 
-bool8 ScrCmd_trywondercardscript(struct ScriptContext *ctx)
-{
-    const u8 *script = GetSavedRamScriptIfValid();
-
-    if (script)
-    {
-        gRamScriptRetAddr = ctx->scriptPtr;
-        ScriptJump(ctx, script);
-    }
-    return FALSE;
-}
 
 // This warp is only used by the Union Room.
 // For the warp used by the Aqua Hideout, see DoTeleportTileWarp

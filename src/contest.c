@@ -2783,11 +2783,11 @@ void CreateContestMonFromParty(u8 partyIndex)
     s16 smart;
     s16 tough;
 
-    StringCopy(name, gSaveBlock2Ptr->playerName);
+    StringCopy(name, gSaveBlock1Ptr->playerName);
     if (gLinkContestFlags & LINK_CONTEST_FLAG_IS_LINK)
         StripPlayerNameForLinkContest(name);
     memcpy(gContestMons[gContestPlayerMonIndex].trainerName, name, PLAYER_NAME_LENGTH + 1);
-    if (gSaveBlock2Ptr->playerGender == MALE)
+    if (gSaveBlock1Ptr->playerGender == MALE)
         gContestMons[gContestPlayerMonIndex].trainerGfxId = OBJ_EVENT_GFX_LINK_BRENDAN;
     else
         gContestMons[gContestPlayerMonIndex].trainerGfxId = OBJ_EVENT_GFX_LINK_MAY;
@@ -3632,9 +3632,9 @@ void SaveLinkContestResults(void)
 {
     if ((gLinkContestFlags & LINK_CONTEST_FLAG_IS_LINK))
     {
-        gSaveBlock2Ptr->contestLinkResults[gSpecialVar_ContestCategory][gContestFinalStandings[gContestPlayerMonIndex]] =
-        ((gSaveBlock2Ptr->contestLinkResults[gSpecialVar_ContestCategory][gContestFinalStandings[gContestPlayerMonIndex]] + 1) > 9999) ? 9999 :
-        (gSaveBlock2Ptr->contestLinkResults[gSpecialVar_ContestCategory][gContestFinalStandings[gContestPlayerMonIndex]] + 1);
+        gSaveBlock1Ptr->contestLinkResults[gSpecialVar_ContestCategory][gContestFinalStandings[gContestPlayerMonIndex]] =
+        ((gSaveBlock1Ptr->contestLinkResults[gSpecialVar_ContestCategory][gContestFinalStandings[gContestPlayerMonIndex]] + 1) > 9999) ? 9999 :
+        (gSaveBlock1Ptr->contestLinkResults[gSpecialVar_ContestCategory][gContestFinalStandings[gContestPlayerMonIndex]] + 1);
 
     }
 }
@@ -5512,7 +5512,7 @@ void ResetContestLinkResults(void)
 
     for(i = 0; i < CONTEST_CATEGORIES_COUNT; i++)
         for(j = 0; j < CONTESTANT_COUNT; j++)
-            gSaveBlock2Ptr->contestLinkResults[i][j] = 0;
+            gSaveBlock1Ptr->contestLinkResults[i][j] = 0;
 }
 
 bool8 SaveContestWinner(u8 rank)

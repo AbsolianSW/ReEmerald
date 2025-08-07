@@ -67,7 +67,6 @@ static EWRAM_DATA u16 sTileNum = 0;
 static EWRAM_DATA u8 sPaletteNum = 0;
 static EWRAM_DATA u8 sYesNoWindowId = 0;
 static EWRAM_DATA u8 sHofPCTopBarWindowId = 0;
-static EWRAM_DATA u16 sFiller = 0;  // needed to align
 static EWRAM_DATA bool8 sScheduledBgCopiesToVram[4] = {FALSE};
 static EWRAM_DATA u16 sTempTileDataBufferIdx = 0;
 static EWRAM_DATA void *sTempTileDataBuffer[0x20] = {NULL};
@@ -1981,7 +1980,7 @@ void AddTextPrinterParameterized5(u8 windowId, u8 fontId, const u8 *str, u8 left
 void PrintPlayerNameOnWindow(u8 windowId, const u8 *src, u16 x, u16 y)
 {
     int count = 0;
-    while (gSaveBlock2Ptr->playerName[count] != EOS)
+    while (gSaveBlock1Ptr->playerName[count] != EOS)
         count++;
 
     StringExpandPlaceholders(gStringVar4, src);
@@ -2117,7 +2116,7 @@ void BufferSaveMenuText(u8 textId, u8 *dest, u8 color)
     switch (textId)
     {
         case SAVE_MENU_NAME:
-            StringCopy(string, gSaveBlock2Ptr->playerName);
+            StringCopy(string, gSaveBlock1Ptr->playerName);
             break;
         case SAVE_MENU_CAUGHT:
             if (IsNationalPokedexEnabled())
@@ -2127,9 +2126,9 @@ void BufferSaveMenuText(u8 textId, u8 *dest, u8 color)
             *string = EOS;
             break;
         case SAVE_MENU_PLAY_TIME:
-            string = ConvertIntToDecimalStringN(string, gSaveBlock2Ptr->playTimeHours, STR_CONV_MODE_LEFT_ALIGN, 3);
+            string = ConvertIntToDecimalStringN(string, gSaveBlock1Ptr->playTimeHours, STR_CONV_MODE_LEFT_ALIGN, 3);
             *(string++) = CHAR_COLON;
-            ConvertIntToDecimalStringN(string, gSaveBlock2Ptr->playTimeMinutes, STR_CONV_MODE_LEADING_ZEROS, 2);
+            ConvertIntToDecimalStringN(string, gSaveBlock1Ptr->playTimeMinutes, STR_CONV_MODE_LEADING_ZEROS, 2);
             break;
         case SAVE_MENU_LOCATION:
             GetMapNameGeneric(string, gMapHeader.regionMapSectionId);

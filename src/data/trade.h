@@ -15,8 +15,8 @@
 // Exists unused in RS as well
 static const u32 sUnusedStructSizes[] =
 {
-    sizeof(struct SaveBlock2),
-    sizeof(struct SaveBlock1),
+    sizeof(struct SaveBlockGeneral),
+    sizeof(struct SaveBlockProfile),
     sizeof(struct MapHeader),
  // 0x00000530, in RS
     sizeof(struct Mail),        //or ObjectEvent / ObjectEventGraphicsInfo

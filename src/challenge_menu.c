@@ -257,22 +257,22 @@ static const u8 sChallengeDetailTexts[PAGE_COUNT*(ROWS_OPTIONS-1)][DETAIL_TEXT_L
 
 static void ReadAllCurrentSettings()
 {
-    tLimitedEncounters = gSaveBlock2Ptr->challenges.limitedEncounters;
-    tSpeciesClause = gSaveBlock2Ptr->challenges.speciesClause;
-    tPermaDeath = gSaveBlock2Ptr->challenges.permaDeath;
-    tForceSetMode = gSaveBlock2Ptr->challenges.forceSetMode;
-    tInfiniteCandy = gSaveBlock2Ptr->challenges.infiniteCandy;
-    tStartingMoney = gSaveBlock2Ptr->challenges.startingMoney;
-    tRepellant = gSaveBlock2Ptr->challenges.repellant;
-    tShinyOdds = gSaveBlock2Ptr->challenges.shinyOdds;
-    tGrassStarter = gSaveBlock2Ptr->challenges.grassStarter -1;
-    tWaterStarter = gSaveBlock2Ptr->challenges.waterStarter -1;
-    tFireStarter = gSaveBlock2Ptr->challenges.fireStarter -1;
-    tStarterAffectsRival = gSaveBlock2Ptr->challenges.starterAffectsRival;
-    tLevelCap = gSaveBlock2Ptr->challenges.levelCap;
-    tGauntletMode = gSaveBlock2Ptr->challenges.gauntletMode;
-    tNoBattleItems = gSaveBlock2Ptr->challenges.noBattleItems;
-    tXPMultiplier = gSaveBlock2Ptr-> challenges.xpMultiplier;
+    tLimitedEncounters = gSaveBlock1Ptr->challenges.limitedEncounters;
+    tSpeciesClause = gSaveBlock1Ptr->challenges.speciesClause;
+    tPermaDeath = gSaveBlock1Ptr->challenges.permaDeath;
+    tForceSetMode = gSaveBlock1Ptr->challenges.forceSetMode;
+    tInfiniteCandy = gSaveBlock1Ptr->challenges.infiniteCandy;
+    tStartingMoney = gSaveBlock1Ptr->challenges.startingMoney;
+    tRepellant = gSaveBlock1Ptr->challenges.repellant;
+    tShinyOdds = gSaveBlock1Ptr->challenges.shinyOdds;
+    tGrassStarter = gSaveBlock1Ptr->challenges.grassStarter -1;
+    tWaterStarter = gSaveBlock1Ptr->challenges.waterStarter -1;
+    tFireStarter = gSaveBlock1Ptr->challenges.fireStarter -1;
+    tStarterAffectsRival = gSaveBlock1Ptr->challenges.starterAffectsRival;
+    tLevelCap = gSaveBlock1Ptr->challenges.levelCap;
+    tGauntletMode = gSaveBlock1Ptr->challenges.gauntletMode;
+    tNoBattleItems = gSaveBlock1Ptr->challenges.noBattleItems;
+    tXPMultiplier = gSaveBlock1Ptr-> challenges.xpMultiplier;
 }
 
 static void DrawChallengesPg1()
@@ -458,22 +458,22 @@ static u8 Process_ChangePage(u8 CurrentPage)
 
 static void save()
 {
-    gSaveBlock2Ptr->challenges.limitedEncounters = tLimitedEncounters;
-    gSaveBlock2Ptr->challenges.speciesClause = tSpeciesClause;
-    gSaveBlock2Ptr->challenges.permaDeath = tPermaDeath;
-    gSaveBlock2Ptr->challenges.forceSetMode = tForceSetMode;
-    gSaveBlock2Ptr->challenges.infiniteCandy = tInfiniteCandy;
-    gSaveBlock2Ptr->challenges.repellant = tRepellant;
-    gSaveBlock2Ptr->challenges.startingMoney = tStartingMoney;
-    gSaveBlock2Ptr->challenges.shinyOdds = tShinyOdds;
-    gSaveBlock2Ptr->challenges.grassStarter = tGrassStarter +1;
-    gSaveBlock2Ptr->challenges.waterStarter = tWaterStarter +1;
-    gSaveBlock2Ptr->challenges.fireStarter = tFireStarter +1;
-    gSaveBlock2Ptr->challenges.starterAffectsRival = tStarterAffectsRival;
-    gSaveBlock2Ptr->challenges.levelCap = tLevelCap;
-    gSaveBlock2Ptr->challenges.gauntletMode = tGauntletMode;
-    gSaveBlock2Ptr->challenges.noBattleItems = tNoBattleItems;
-    gSaveBlock2Ptr->challenges.xpMultiplier = tXPMultiplier;
+    gSaveBlock1Ptr->challenges.limitedEncounters = tLimitedEncounters;
+    gSaveBlock1Ptr->challenges.speciesClause = tSpeciesClause;
+    gSaveBlock1Ptr->challenges.permaDeath = tPermaDeath;
+    gSaveBlock1Ptr->challenges.forceSetMode = tForceSetMode;
+    gSaveBlock1Ptr->challenges.infiniteCandy = tInfiniteCandy;
+    gSaveBlock1Ptr->challenges.repellant = tRepellant;
+    gSaveBlock1Ptr->challenges.startingMoney = tStartingMoney;
+    gSaveBlock1Ptr->challenges.shinyOdds = tShinyOdds;
+    gSaveBlock1Ptr->challenges.grassStarter = tGrassStarter +1;
+    gSaveBlock1Ptr->challenges.waterStarter = tWaterStarter +1;
+    gSaveBlock1Ptr->challenges.fireStarter = tFireStarter +1;
+    gSaveBlock1Ptr->challenges.starterAffectsRival = tStarterAffectsRival;
+    gSaveBlock1Ptr->challenges.levelCap = tLevelCap;
+    gSaveBlock1Ptr->challenges.gauntletMode = tGauntletMode;
+    gSaveBlock1Ptr->challenges.noBattleItems = tNoBattleItems;
+    gSaveBlock1Ptr->challenges.xpMultiplier = tXPMultiplier;
     return;
 }
 

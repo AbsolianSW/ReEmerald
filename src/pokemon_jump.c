@@ -4093,7 +4093,7 @@ static bool32 RecvPacket_MemberStateToMember(struct PokemonJump_Player *player, 
 
 static struct PokemonJumpRecords *GetPokeJumpRecords(void)
 {
-    return &gSaveBlock2Ptr->pokeJump;
+    return &gSaveBlock1Ptr->pokeJump;
 }
 
 void ResetPokemonJumpRecords(void)
@@ -4103,8 +4103,6 @@ void ResetPokemonJumpRecords(void)
     records->bestJumpScore = 0;
     records->excellentsInRow = 0;
     records->gamesWithMaxPlayers = 0;
-    records->unused2 = 0;
-    records->unused1 = 0;
 }
 
 static bool32 TryUpdateRecords(u32 jumpScore, u16 jumpsInRow, u16 excellentsInRow)

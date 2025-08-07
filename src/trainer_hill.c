@@ -277,7 +277,7 @@ void ResetTrainerHillResults(void)
 {
     s32 i;
 
-    gSaveBlock2Ptr->frontier.savedGame = 0;
+    gSaveBlock1Ptr->frontier.savedGame = 0;
     gSaveBlock1Ptr->trainerHill.bestTime = 0;
     for (i = 0; i < NUM_TRAINER_HILL_MODES; i++)
         SetTimerValue(&gSaveBlock1Ptr->trainerHillTimes[i], HILL_MAX_TIME);
@@ -398,7 +398,7 @@ static void TrainerHillStartChallenge(void)
     gSaveBlock1Ptr->trainerHill.spokeToOwner = 0;
     gSaveBlock1Ptr->trainerHill.checkedFinalTime = 0;
     gSaveBlock1Ptr->trainerHill.maybeECardScanDuringChallenge = 0;
-    gSaveBlock2Ptr->frontier.trainerFlags = 0;
+    gSaveBlock1Ptr->frontier.trainerFlags = 0;
     gBattleOutcome = 0;
     gSaveBlock1Ptr->trainerHill.receivedPrize = 0;
 }
@@ -619,7 +619,7 @@ void LoadTrainerHillObjectEventTemplates(void)
 
     SetUpDataStruct();
     for (i = 0; i < HILL_TRAINERS_PER_FLOOR; i++)
-        gSaveBlock2Ptr->frontier.trainerIds[i] = 0xFFFF;
+        gSaveBlock1Ptr->frontier.trainerIds[i] = 0xFFFF;
     CpuFill32(0, gSaveBlock1Ptr->objectEventTemplates, sizeof(gSaveBlock1Ptr->objectEventTemplates));
 
     floorId = GetFloorId();
@@ -636,7 +636,7 @@ void LoadTrainerHillObjectEventTemplates(void)
         eventTemplates[i].movementType = ((sHillData->floors[floorId].map.trainerDirections >> bits) & 0xF) + MOVEMENT_TYPE_FACE_UP;
         eventTemplates[i].trainerRange_berryTreeId = (sHillData->floors[floorId].map.trainerRanges >> bits) & 0xF;
         eventTemplates[i].script = TrainerHill_EventScript_TrainerBattle;
-        gSaveBlock2Ptr->frontier.trainerIds[i] = i + 1;
+        gSaveBlock1Ptr->frontier.trainerIds[i] = i + 1;
     }
 
     FreeDataStruct();
@@ -789,7 +789,7 @@ const struct WarpEvent* SetWarpDestinationTrainerHillFinalFloor(u8 warpEventId)
 
 u16 LocalIdToHillTrainerId(u8 localId)
 {
-    return gSaveBlock2Ptr->frontier.trainerIds[localId - 1];
+    return gSaveBlock1Ptr->frontier.trainerIds[localId - 1];
 }
 
 bool8 GetHillTrainerFlag(u8 objectEventId)
@@ -797,7 +797,7 @@ bool8 GetHillTrainerFlag(u8 objectEventId)
     u32 trainerIndexStart = GetFloorId() * HILL_TRAINERS_PER_FLOOR;
     u8 bitId = gObjectEvents[objectEventId].localId - 1 + trainerIndexStart;
 
-    return gSaveBlock2Ptr->frontier.trainerFlags & gBitTable[bitId];
+    return gSaveBlock1Ptr->frontier.trainerFlags & gBitTable[bitId];
 }
 
 void SetHillTrainerFlag(void)
@@ -807,9 +807,9 @@ void SetHillTrainerFlag(void)
 
     for (i = 0; i < HILL_TRAINERS_PER_FLOOR; i++)
     {
-        if (gSaveBlock2Ptr->frontier.trainerIds[i] == gTrainerBattleOpponent_A)
+        if (gSaveBlock1Ptr->frontier.trainerIds[i] == gTrainerBattleOpponent_A)
         {
-            gSaveBlock2Ptr->frontier.trainerFlags |= gBitTable[trainerIndexStart + i];
+            gSaveBlock1Ptr->frontier.trainerFlags |= gBitTable[trainerIndexStart + i];
             break;
         }
     }
@@ -818,9 +818,9 @@ void SetHillTrainerFlag(void)
     {
         for (i = 0; i < HILL_TRAINERS_PER_FLOOR; i++)
         {
-            if (gSaveBlock2Ptr->frontier.trainerIds[i] == gTrainerBattleOpponent_B)
+            if (gSaveBlock1Ptr->frontier.trainerIds[i] == gTrainerBattleOpponent_B)
             {
-                gSaveBlock2Ptr->frontier.trainerFlags |= gBitTable[trainerIndexStart + i];
+                gSaveBlock1Ptr->frontier.trainerFlags |= gBitTable[trainerIndexStart + i];
                 break;
             }
         }
@@ -925,22 +925,22 @@ u8 GetNumFloorsInTrainerHillChallenge(void)
 
 static void SetAllTrainerFlags(void)
 {
-    gSaveBlock2Ptr->frontier.trainerFlags = 0xFF;
+    gSaveBlock1Ptr->frontier.trainerFlags = 0xFF;
 }
 
 static void GetGameSaved(void)
 {
-    gSpecialVar_Result = gSaveBlock2Ptr->frontier.savedGame;
+    gSpecialVar_Result = gSaveBlock1Ptr->frontier.savedGame;
 }
 
 static void SetGameSaved(void)
 {
-    gSaveBlock2Ptr->frontier.savedGame = TRUE;
+    gSaveBlock1Ptr->frontier.savedGame = TRUE;
 }
 
 static void ClearGameSaved(void)
 {
-    gSaveBlock2Ptr->frontier.savedGame = FALSE;
+    gSaveBlock1Ptr->frontier.savedGame = FALSE;
 }
 
 static void GetChallengeWon(void)

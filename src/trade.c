@@ -594,7 +594,7 @@ static void CB2_CreateTradeMenu(void)
         gMain.state++;
         break;
     case 10:
-        DrawTextWindowAndBufferTiles(gSaveBlock2Ptr->playerName, sMenuTextTileBuffers[GFXTAG_PLAYER_NAME_L], 0, 0, 3);
+        DrawTextWindowAndBufferTiles(gSaveBlock1Ptr->playerName, sMenuTextTileBuffers[GFXTAG_PLAYER_NAME_L], 0, 0, 3);
         id = GetMultiplayerId();
         DrawTextWindowAndBufferTiles(gLinkPlayers[id ^ 1].name, sMenuTextTileBuffers[GFXTAG_PARTNER_NAME_L], 0, 0, 3);
         DrawTextWindowAndBufferTiles(sActionTexts[TEXT_CANCEL], sMenuTextTileBuffers[GFXTAG_CANCEL_L], 0, 0, 2);
@@ -608,7 +608,7 @@ static void CB2_CreateTradeMenu(void)
         break;
     case 12:
         // Create player's name text sprites
-        xPos = GetStringCenterAlignXOffset(FONT_NORMAL, gSaveBlock2Ptr->playerName, 120);
+        xPos = GetStringCenterAlignXOffset(FONT_NORMAL, gSaveBlock1Ptr->playerName, 120);
         for (i = 0; i < NUM_PLAYER_NAME_SPRITES; i++)
         {
             temp = sSpriteTemplate_MenuText;
@@ -785,7 +785,7 @@ static void CB2_ReturnToTradeMenu(void)
         gMain.state++;
         break;
     case 10:
-        DrawTextWindowAndBufferTiles(gSaveBlock2Ptr->playerName, sMenuTextTileBuffers[GFXTAG_PLAYER_NAME_L], 0, 0, 3);
+        DrawTextWindowAndBufferTiles(gSaveBlock1Ptr->playerName, sMenuTextTileBuffers[GFXTAG_PLAYER_NAME_L], 0, 0, 3);
         id = GetMultiplayerId();
         DrawTextWindowAndBufferTiles(gLinkPlayers[id ^ 1].name, sMenuTextTileBuffers[GFXTAG_PARTNER_NAME_L], 0, 0, 3);
         DrawTextWindowAndBufferTiles(sActionTexts[TEXT_CANCEL], sMenuTextTileBuffers[GFXTAG_CANCEL_L], 0, 0, 2);
@@ -799,7 +799,7 @@ static void CB2_ReturnToTradeMenu(void)
         break;
     case 12:
         // Create player's name text sprites
-        xPos = GetStringCenterAlignXOffset(FONT_NORMAL, gSaveBlock2Ptr->playerName, 120);
+        xPos = GetStringCenterAlignXOffset(FONT_NORMAL, gSaveBlock1Ptr->playerName, 120);
         for (i = 0; i < NUM_PLAYER_NAME_SPRITES; i++)
         {
             temp = sSpriteTemplate_MenuText;
@@ -2988,7 +2988,7 @@ static void CB2_InitInGameTrade(void)
     case 0:
         gSelectedTradeMonPositions[TRADE_PLAYER] = gSpecialVar_0x8005;
         gSelectedTradeMonPositions[TRADE_PARTNER] = PARTY_SIZE;
-        StringCopy(gLinkPlayers[0].name, gSaveBlock2Ptr->playerName);
+        StringCopy(gLinkPlayers[0].name, gSaveBlock1Ptr->playerName);
         GetMonData(&gEnemyParty[0], MON_DATA_OT_NAME, otName);
         StringCopy(gLinkPlayers[1].name, otName);
         gLinkPlayers[0].language = GAME_LANGUAGE;
@@ -4718,7 +4718,6 @@ static void CB2_SaveAndEndTrade(void)
         }
         break;
     case 4:
-        LinkFullSave_ReplaceLastSector();
         gMain.state = 40;
         sTradeAnim->timer = 0;
         break;
@@ -5013,7 +5012,6 @@ static void CB2_SaveAndEndWirelessTrade(void)
         }
         break;
     case 5:
-        LinkFullSave_ReplaceLastSector();
         gMain.state = 6;
         sTradeAnim->timer = 0;
         break;

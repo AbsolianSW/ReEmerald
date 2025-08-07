@@ -153,6 +153,9 @@
 // It looks like file.c:line: size of array `id' is negative
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
 
+
+#define NUM_PROFILES 4
+
 struct Coords8
 {
     s8 x;
@@ -205,7 +208,6 @@ struct Pokedex
     /*0x03*/ u8 unknown2;
     /*0x04*/ u32 unownPersonality; // set when you first see Unown
     /*0x08*/ u32 spindaPersonality; // set when you first see Spinda
-    /*0x0C*/ u32 unknown3;
     /*0x10*/ u8 owned[NUM_DEX_FLAG_BYTES];
     /*0x44*/ u8 seen[NUM_DEX_FLAG_BYTES];
 };
@@ -213,10 +215,8 @@ struct Pokedex
 struct PokemonJumpRecords
 {
     u16 jumpsInRow;
-    u16 unused1; // Set to 0, never read
     u16 excellentsInRow;
     u16 gamesWithMaxPlayers;
-    u32 unused2; // Set to 0, never read
     u32 bestJumpScore;
 };
 
@@ -225,14 +225,6 @@ struct BerryPickingResults
     u32 bestScore;
     u16 berriesPicked;
     u16 berriesPickedInRow;
-    u8 field_8;
-    u8 field_9;
-    u8 field_A;
-    u8 field_B;
-    u8 field_C;
-    u8 field_D;
-    u8 field_E;
-    u8 field_F;
 };
 
 struct PyramidBag
@@ -358,7 +350,6 @@ struct BattleDomeTrainer
 struct BattleFrontier
 {
     /*0x64C*/ struct EmeraldBattleTowerRecord towerPlayer;
-    /*0x738*/ struct EmeraldBattleTowerRecord towerRecords[BATTLE_TOWER_RECORD_COUNT]; // From record mixing.
     /*0xBEB*/ struct BattleTowerInterview towerInterview;
     /*0xCA8*/ u8 challengeStatus;
     /*0xCA9*/ u8 lvlMode:2;
@@ -372,8 +363,6 @@ struct BattleFrontier
     /*0xCE0*/ u16 towerWinStreaks[4][FRONTIER_LVL_MODE_COUNT];
     /*0xCF0*/ u16 towerRecordWinStreaks[4][FRONTIER_LVL_MODE_COUNT];
     /*0xD00*/ u16 battledBrainFlags;
-    /*0xD02*/ u16 towerSinglesStreak; // Never read
-    /*0xD04*/ u16 towerNumWins; // Increments to MAX_STREAK but never read otherwise
     /*0xD06*/ u8 towerBattleOutcome;
     /*0xD07*/ u8 towerLvlMode;
     /*0xD08*/ u8 domeAttemptedSingles50:1;
@@ -490,41 +479,35 @@ struct Challenges
     u8 gauntletMode;
 };
 
-struct SaveBlock2
+struct GeneralProfileData
 {
-    /*0x00*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
-    /*0x08*/ u8 playerGender; // MALE, FEMALE
-    /*0x09*/ u8 specialSaveWarpFlags;
-    /*0x0A*/ u8 playerTrainerId[TRAINER_ID_LENGTH];
-    /*0x0E*/ u16 playTimeHours;
-    /*0x10*/ u8 playTimeMinutes;
-    /*0x11*/ u8 playTimeSeconds;
-    /*0x12*/ u8 playTimeVBlanks;
+    u8 profileSaved;
+    u8 playerName[PLAYER_NAME_LENGTH];
+    u16 playerGender;
+    u16 partyCount;
+    u16 partySpecies[PARTY_SIZE];
+    u32 partyPersonalities[PARTY_SIZE];
+    u16 dexCount;
+    u16 playTimeHours;
+    u8 playTimeMinutes;
+    u8 badgeCount;
+    u8 regionMapSectionId;
+};
+
+struct SaveBlockGeneral
+{
     /*0x13*/ u8 optionsButtonMode;  // OPTIONS_BUTTON_MODE_[NORMAL/LR/L_EQUALS_A]
     /*0x14*/ u16 optionsTextSpeed:3; // OPTIONS_TEXT_SPEED_[SLOW/MID/FAST]
              u16 optionsWindowFrameType:5; // Specifies one of the 20 decorative borders for text boxes
              u16 optionsSound:1; // OPTIONS_SOUND_[MONO/STEREO]
              u16 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
              u16 optionsBattleSceneOff:1; // whether battle animations are disabled
-             u16 regionMapZoom:1; // whether the map is zoomed in
-    /*0x18*/ struct Pokedex pokedex;
-    /*0x98*/ struct Time localTimeOffset;
-    /*0xA0*/ struct Time lastBerryTreeUpdate;
-    /*0xB0*/ struct PlayersApprentice playerApprentice;
-    /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];
-    /*0x1EC*/ struct BerryCrush berryCrush;
-    /*0x1FC*/ struct PokemonJumpRecords pokeJump;
-    /*0x20C*/ struct BerryPickingResults berryPick;
-    /*0x21C*/ struct RankingHall1P hallRecords1P[HALL_FACILITIES_COUNT][FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
-    /*0x57C*/ struct RankingHall2P hallRecords2P[FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
-    /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
-    /*0x64C*/ struct BattleFrontier frontier;
-             struct Challenges challenges;
-             u8 unused[288]; // to keep track of unused saveblock space
+             struct GeneralProfileData profileData[NUM_PROFILES];
+             u8 currentProfile;
              
 }; // sizeof=0xF2C
 
-extern struct SaveBlock2 *gSaveBlock2Ptr;
+extern struct SaveBlockGeneral *gSaveBlock2Ptr;
 
 extern u8 UpdateSpritePaletteWithTime(u8);
 
@@ -604,20 +587,6 @@ struct Roamer
     /*0x13*/ bool8 active;
 };
 
-struct RamScriptData
-{
-    u8 magic;
-    u8 mapGroup;
-    u8 mapNum;
-    u8 objectId;
-    u8 script[995];
-};
-
-struct RamScript
-{
-    u32 checksum;
-    struct RamScriptData data;
-};
 
 // See dewford_trend.c
 struct DewfordTrend
@@ -859,7 +828,7 @@ struct WonderNews
 };
 
 //Note: Due to me moving stuff around, the save block offsets are wildly inaccurate. TODO fix
-struct SaveBlock1
+struct SaveBlockProfile
 {
     /*0x00*/ struct Coords16 pos;
     /*0x04*/ struct WarpData location;
@@ -932,7 +901,6 @@ struct SaveBlock1
     /*0x31DC*/ struct Roamer roamer;
     /*0x31F8*/ struct EnigmaBerry enigmaBerry;
     /*0x3718*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
-    /*0x3728*/ struct RamScript ramScript;
     /*0x3B14*/ struct RecordMixingGift recordMixingGift;
     /*0x3B24*/ u8 seen2[NUM_DEX_FLAG_BYTES];
     /*0x3B58*/ LilycoveLady lilycoveLady;
@@ -940,14 +908,33 @@ struct SaveBlock1
     /*0x3C88*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
     /*0x3D64*/ struct TrainerHillSave trainerHill;
     /*0x3D70*/ struct WaldaPhrase waldaPhrase;
-               u16 registeredItems[MAX_REGISTERED_ITEMS];
-               u8 currentGauntletId;
-    /*0x3D89*/ u8 unused[1417]; //added this to keep track of saveblock space available TODO update
+    u16 registeredItems[MAX_REGISTERED_ITEMS];
+    u8 currentGauntletId;
+    /*0x00*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
+    /*0x08*/ u8 playerGender; // MALE, FEMALE
+    /*0x09*/ u8 specialSaveWarpFlags;
+    /*0x0A*/ u8 playerTrainerId[TRAINER_ID_LENGTH];
+    /*0x0E*/ u16 playTimeHours;
+    /*0x10*/ u8 playTimeMinutes;
+    /*0x11*/ u8 playTimeSeconds;
+    /*0x12*/ u8 playTimeVBlanks;
+    u16 regionMapZoom:1; // whether the map is zoomed in
+    /*0x18*/ struct Pokedex pokedex;
+    /*0x98*/ struct Time localTimeOffset;
+    /*0xA0*/ struct Time lastBerryTreeUpdate;
+    /*0xB0*/ struct PlayersApprentice playerApprentice;
+    /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];
+    /*0x1EC*/ struct BerryCrush berryCrush;
+    /*0x1FC*/ struct PokemonJumpRecords pokeJump;
+    /*0x20C*/ struct BerryPickingResults berryPick;
+    /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
+    /*0x64C*/ struct BattleFrontier frontier;
+    struct Challenges challenges;
     // sizeof: 3DF0
 };
 
 
-extern struct SaveBlock1* gSaveBlock1Ptr;
+extern struct SaveBlockProfile* gSaveBlock1Ptr;
 
 struct MapPosition
 {

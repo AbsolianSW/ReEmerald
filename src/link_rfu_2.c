@@ -2046,7 +2046,7 @@ bool32 RfuMain2(void)
 
 static void SetHostRfuUsername(void)
 {
-    StringCopy(gHostRfuUsername, gSaveBlock2Ptr->playerName);
+    StringCopy(gHostRfuUsername, gSaveBlock1Ptr->playerName);
 }
 
 void ResetHostRfuGameData(void)
@@ -2574,7 +2574,7 @@ static void UNUSED Debug_RfuIdle(void)
         OpenLink();
         SeedRng(gMain.vblankCounter2);
         for (i = 0; i < TRAINER_ID_LENGTH; i++)
-            gSaveBlock2Ptr->playerTrainerId[i] = Random() % 256;
+            gSaveBlock1Ptr->playerTrainerId[i] = Random() % 256;
 
         SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_BG0_ON | DISPCNT_BG2_ON | DISPCNT_OBJ_1D_MAP);
         RunTasks();

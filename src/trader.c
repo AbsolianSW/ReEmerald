@@ -202,7 +202,7 @@ void TraderDoDecorationTrade(void)
 
     DecorationRemove(gSpecialVar_0x8006);
     DecorationAdd(gSpecialVar_0x8004);
-    StringCopy(trader->playerNames[gSpecialVar_0x8005], gSaveBlock2Ptr->playerName);
+    StringCopy(trader->playerNames[gSpecialVar_0x8005], gSaveBlock1Ptr->playerName);
     trader->decorations[gSpecialVar_0x8005] = gSpecialVar_0x8006;
     trader->language[gSpecialVar_0x8005] = GAME_LANGUAGE;
     trader->alreadyTraded = TRUE;

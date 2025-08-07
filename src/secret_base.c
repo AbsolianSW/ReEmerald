@@ -368,11 +368,11 @@ void SetPlayerSecretBase(void)
 
     gSaveBlock1Ptr->secretBases[0].secretBaseId = sCurSecretBaseId;
     for (i = 0; i < TRAINER_ID_LENGTH; i++)
-        gSaveBlock1Ptr->secretBases[0].trainerId[i] = gSaveBlock2Ptr->playerTrainerId[i];
+        gSaveBlock1Ptr->secretBases[0].trainerId[i] = gSaveBlock1Ptr->playerTrainerId[i];
 
     VarSet(VAR_CURRENT_SECRET_BASE, 0);
-    StringCopyN(gSaveBlock1Ptr->secretBases[0].trainerName, gSaveBlock2Ptr->playerName, GetNameLength(gSaveBlock2Ptr->playerName));
-    gSaveBlock1Ptr->secretBases[0].gender = gSaveBlock2Ptr->playerGender;
+    StringCopyN(gSaveBlock1Ptr->secretBases[0].trainerName, gSaveBlock1Ptr->playerName, GetNameLength(gSaveBlock1Ptr->playerName));
+    gSaveBlock1Ptr->secretBases[0].gender = gSaveBlock1Ptr->playerGender;
     gSaveBlock1Ptr->secretBases[0].language = GAME_LANGUAGE;
     VarSet(VAR_SECRET_BASE_MAP, gMapHeader.regionMapSectionId);
 }
@@ -1525,19 +1525,19 @@ static bool8 SecretBaseBelongsToPlayer(struct SecretBase *secretBase)
     if (secretBase->secretBaseId == 0)
         return FALSE;
 
-    if (secretBase->secretBaseId && secretBase->gender != gSaveBlock2Ptr->playerGender)
+    if (secretBase->secretBaseId && secretBase->gender != gSaveBlock1Ptr->playerGender)
         return FALSE;
 
     // Check if the player's trainer Id matches the secret base's id.
     for (i = 0; i < TRAINER_ID_LENGTH; i++)
     {
-        if (secretBase->trainerId[i] != gSaveBlock2Ptr->playerTrainerId[i])
+        if (secretBase->trainerId[i] != gSaveBlock1Ptr->playerTrainerId[i])
             return FALSE;
     }
 
-    for (i = 0; i < PLAYER_NAME_LENGTH && (secretBase->trainerName[i] != EOS || gSaveBlock2Ptr->playerName[i] != EOS); i++)
+    for (i = 0; i < PLAYER_NAME_LENGTH && (secretBase->trainerName[i] != EOS || gSaveBlock1Ptr->playerName[i] != EOS); i++)
     {
-        if (secretBase->trainerName[i] != gSaveBlock2Ptr->playerName[i])
+        if (secretBase->trainerName[i] != gSaveBlock1Ptr->playerName[i])
             return FALSE;
     }
 

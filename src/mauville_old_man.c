@@ -113,7 +113,7 @@ static void SetupTrader(void)
 
 void SetMauvilleOldMan(void)
 {
-    u16 trainerId = (gSaveBlock2Ptr->playerTrainerId[1] << 8) | gSaveBlock2Ptr->playerTrainerId[0];
+    u16 trainerId = (gSaveBlock1Ptr->playerTrainerId[1] << 8) | gSaveBlock1Ptr->playerTrainerId[0];
 
 
     // Determine man based on the last digit of the player's trainer ID.
@@ -158,10 +158,10 @@ void SaveBardSongLyrics(void)
     u16 i;
     struct MauvilleManBard *bard = &gSaveBlock1Ptr->oldMan.bard;
 
-    StringCopy(bard->playerName, gSaveBlock2Ptr->playerName);
+    StringCopy(bard->playerName, gSaveBlock1Ptr->playerName);
 
     for (i = 0; i < TRAINER_ID_LENGTH; i++)
-        bard->playerTrainerId[i] = gSaveBlock2Ptr->playerTrainerId[i];
+        bard->playerTrainerId[i] = gSaveBlock1Ptr->playerTrainerId[i];
 
     for (i = 0; i < BARD_SONG_LENGTH; i++)
         bard->songLyrics[i] = bard->temporaryLyrics[i];
@@ -1258,7 +1258,7 @@ static void StorytellerSetPlayerName(u32 player, const u8 * src)
 static void StorytellerRecordNewStat(u32 player, u32 stat)
 {
     sStorytellerPtr->gameStatIDs[player] = stat;
-    StorytellerSetPlayerName(player, gSaveBlock2Ptr->playerName);
+    StorytellerSetPlayerName(player, gSaveBlock1Ptr->playerName);
     StorytellerSetRecordedTrainerStat(player, StorytellerGetGameStat(stat));
     ConvertIntToDecimalStringN(gStringVar1, StorytellerGetGameStat(stat), STR_CONV_MODE_LEFT_ALIGN, 10);
     StringCopy(gStringVar2, GetStoryActionByStat(stat));

@@ -11,12 +11,12 @@
  * the wrong memory leading to various glitches.
  */
 struct SaveBlock2ASLR {
-    struct SaveBlock2 block;
+    struct SaveBlockGeneral block;
     u8 aslr[SAVEBLOCK_MOVE_RANGE];
 };
 
 struct SaveBlock1ASLR {
-    struct SaveBlock1 block;
+    struct SaveBlockProfile block;
     u8 aslr[SAVEBLOCK_MOVE_RANGE];
 };
 
@@ -30,8 +30,8 @@ extern struct SaveBlock2ASLR gSaveblock2;
 extern struct PokemonStorageASLR gPokemonStorage;
 
 extern bool32 gFlashMemoryPresent;
-extern struct SaveBlock1 *gSaveBlock1Ptr;
-extern struct SaveBlock2 *gSaveBlock2Ptr;
+extern struct SaveBlockProfile *gSaveBlock1Ptr;
+extern struct SaveBlockGeneral *gSaveBlock2Ptr;
 extern struct PokemonStorage *gPokemonStoragePtr;
 
 void CheckForFlashMemory(void);
@@ -46,7 +46,7 @@ void SetContinueGameWarpStatusToDynamicWarp(void);
 void ClearContinueGameWarpStatus2(void);
 void SavePlayerParty(void);
 void LoadPlayerParty(void);
-void SaveObjectEvents(void);
+void SaveRelevantData(void);
 void LoadObjectEvents(void);
 void CopyPartyAndObjectsToSave(void);
 void CopyPartyAndObjectsFromSave(void);

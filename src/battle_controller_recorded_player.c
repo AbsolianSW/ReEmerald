@@ -1217,7 +1217,7 @@ static void RecordedPlayerHandleDrawTrainerPic(void)
 
     if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
     {
-        trainerPicId = PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender);
+        trainerPicId = PlayerGenderToFrontTrainerPicId(gSaveBlock1Ptr->playerGender);
         DecompressTrainerFrontPic(trainerPicId, gActiveBattler);
         SetMultiuseSpriteTemplateToTrainerFront(trainerPicId, GetBattlerPosition(gActiveBattler));
         gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate, xPos, yPos, GetBattlerSpriteSubpriority(gActiveBattler));
@@ -1563,25 +1563,21 @@ static void RecordedPlayerHandleOneReturnValue_Duplicate(void)
 
 static void RecordedPlayerHandleClearUnkVar(void)
 {
-    gUnusedControllerStruct.unk = 0;
     RecordedPlayerBufferExecCompleted();
 }
 
 static void RecordedPlayerHandleSetUnkVar(void)
 {
-    gUnusedControllerStruct.unk = gBattleBufferA[gActiveBattler][1];
     RecordedPlayerBufferExecCompleted();
 }
 
 static void RecordedPlayerHandleClearUnkFlag(void)
 {
-    gUnusedControllerStruct.flag = 0;
     RecordedPlayerBufferExecCompleted();
 }
 
 static void RecordedPlayerHandleToggleUnkFlag(void)
 {
-    gUnusedControllerStruct.flag ^= 1;
     RecordedPlayerBufferExecCompleted();
 }
 
@@ -1669,7 +1665,7 @@ static void RecordedPlayerHandleIntroTrainerBallThrow(void)
     if (gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK)
         trainerPicId = gLinkPlayers[GetBattlerMultiplayerId(gActiveBattler)].gender;
     else
-        trainerPicId = gSaveBlock2Ptr->playerGender;
+        trainerPicId = gSaveBlock1Ptr->playerGender;
 
     LoadCompressedPalette(gTrainerBackPicPaletteTable[trainerPicId].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
 

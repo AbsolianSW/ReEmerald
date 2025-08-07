@@ -52,7 +52,7 @@ static void WarpToTruck(void);
 static void ResetMiniGamesRecords(void);
 static void HandleChallenges(void);
 
-EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
+EWRAM_DATA bool8 gDifferentSaveFile = 0;
 EWRAM_DATA bool8 gEnableContestDebugging = FALSE;
 
 static const struct ContestWinner sContestWinnerPicDummy =
@@ -84,7 +84,7 @@ void CopyTrainerId(u8 *dst, u8 *src)
 static void InitPlayerTrainerId(void)
 {
     u32 trainerId = (Random() << 16) | GetGeneratedTrainerIdLower();
-    SetTrainerId(trainerId, gSaveBlock2Ptr->playerTrainerId);
+    SetTrainerId(trainerId, gSaveBlock1Ptr->playerTrainerId);
 }
 
 // L=A isnt set here for some reason.
@@ -95,20 +95,23 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_MONO;
     gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SHIFT;
     gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
-    gSaveBlock2Ptr->regionMapZoom = FALSE;
-    gSaveBlock2Ptr->challenges.xpMultiplier=10;
-    gSaveBlock2Ptr->challenges.grassStarter=SpeciesToNationalPokedexNum(SPECIES_TREECKO);
-    gSaveBlock2Ptr->challenges.waterStarter=SpeciesToNationalPokedexNum(SPECIES_MUDKIP);
-    gSaveBlock2Ptr->challenges.fireStarter=SpeciesToNationalPokedexNum(SPECIES_TORCHIC);
-    gSaveBlock2Ptr->challenges.startingMoney=29;
-    gSaveBlock2Ptr->challenges.shinyOdds=13;
+}
+
+void SetDefaultChallenges(void)
+{
+    gSaveBlock1Ptr->challenges.xpMultiplier=10;
+    gSaveBlock1Ptr->challenges.grassStarter=SpeciesToNationalPokedexNum(SPECIES_TREECKO);
+    gSaveBlock1Ptr->challenges.waterStarter=SpeciesToNationalPokedexNum(SPECIES_MUDKIP);
+    gSaveBlock1Ptr->challenges.fireStarter=SpeciesToNationalPokedexNum(SPECIES_TORCHIC);
+    gSaveBlock1Ptr->challenges.startingMoney=29;
+    gSaveBlock1Ptr->challenges.shinyOdds=13;
 }
 
 static void ClearPokedexFlags(void)
 {
     gUnusedPokedexU8 = 0;
-    memset(&gSaveBlock2Ptr->pokedex.owned, 0, sizeof(gSaveBlock2Ptr->pokedex.owned));
-    memset(&gSaveBlock2Ptr->pokedex.seen, 0, sizeof(gSaveBlock2Ptr->pokedex.seen));
+    memset(&gSaveBlock1Ptr->pokedex.owned, 0, sizeof(gSaveBlock1Ptr->pokedex.owned));
+    memset(&gSaveBlock1Ptr->pokedex.seen, 0, sizeof(gSaveBlock1Ptr->pokedex.seen));
 }
 
 void ClearAllContestWinnerPics(void)
@@ -124,10 +127,10 @@ void ClearAllContestWinnerPics(void)
 
 static void ClearFrontierRecord(void)
 {
-    CpuFill32(0, &gSaveBlock2Ptr->frontier, sizeof(gSaveBlock2Ptr->frontier));
+    CpuFill32(0, &gSaveBlock1Ptr->frontier, sizeof(gSaveBlock1Ptr->frontier));
 
-    gSaveBlock2Ptr->frontier.opponentNames[0][0] = EOS;
-    gSaveBlock2Ptr->frontier.opponentNames[1][0] = EOS;
+    gSaveBlock1Ptr->frontier.opponentNames[0][0] = EOS;
+    gSaveBlock1Ptr->frontier.opponentNames[1][0] = EOS;
 }
 
 static void WarpToTruck(void)
@@ -172,9 +175,9 @@ static u32 GetStartingMoney()
     j=0;
     while (TRUE)
     {
-        if (gSaveBlock2Ptr->challenges.startingMoney < 9 * (i + 1))
+        if (gSaveBlock1Ptr->challenges.startingMoney < 9 * (i + 1))
         {
-            number = (gSaveBlock2Ptr->challenges.startingMoney - (9 * i)+1) * sPowersOfTen[j];
+            number = (gSaveBlock1Ptr->challenges.startingMoney - (9 * i)+1) * sPowersOfTen[j];
             break;
         }
         i++;
@@ -195,9 +198,9 @@ void NewGameInitData(void)
     ZeroEnemyPartyMons();
     ResetPokedex();
     ClearFrontierRecord();
-    ClearSav1();
+    //ClearSav1();
     ClearAllMail();
-    gSaveBlock2Ptr->specialSaveWarpFlags = 0;
+    gSaveBlock1Ptr->specialSaveWarpFlags = 0;
     InitPlayerTrainerId();
     PlayTimeCounter_Reset();
     ClearPokedexFlags();
@@ -245,39 +248,39 @@ void NewGameInitData(void)
 
 static void ResetMiniGamesRecords(void)
 {
-    CpuFill16(0, &gSaveBlock2Ptr->berryCrush, sizeof(struct BerryCrush));
-    SetBerryPowder(&gSaveBlock2Ptr->berryCrush.berryPowderAmount, 0);
+    CpuFill16(0, &gSaveBlock1Ptr->berryCrush, sizeof(struct BerryCrush));
+    SetBerryPowder(&gSaveBlock1Ptr->berryCrush.berryPowderAmount, 0);
     ResetPokemonJumpRecords();
-    CpuFill16(0, &gSaveBlock2Ptr->berryPick, sizeof(struct BerryPickingResults));
+    CpuFill16(0, &gSaveBlock1Ptr->berryPick, sizeof(struct BerryPickingResults));
 }
 
 static void HandleChallenges(void)
 {
-    if (gSaveBlock2Ptr->challenges.levelCap)
+    if (gSaveBlock1Ptr->challenges.levelCap)
     {
         FlagSet(FLAG_CHALLENGES_LEVEL_CAP);
-        if (gSaveBlock2Ptr->challenges.levelCap == 2)
+        if (gSaveBlock1Ptr->challenges.levelCap == 2)
             FlagSet(FLAG_CHALLENGES_LEVEL_CAP_EXTREME);
     }
-    if (gSaveBlock2Ptr->challenges.permaDeath)
+    if (gSaveBlock1Ptr->challenges.permaDeath)
         FlagSet(FLAG_CHALLENGES_PERMA_DEATH);
-    if (gSaveBlock2Ptr->challenges.limitedEncounters)
+    if (gSaveBlock1Ptr->challenges.limitedEncounters)
         FlagSet(FLAG_CHALLENGES_LIMITED_ENCOUNTERS);
-    if (gSaveBlock2Ptr->challenges.speciesClause)
+    if (gSaveBlock1Ptr->challenges.speciesClause)
         FlagSet(FLAG_CHALLENGES_SPECIES_CLAUSE);
-    if(gSaveBlock2Ptr -> challenges.noBattleItems)
+    if(gSaveBlock1Ptr -> challenges.noBattleItems)
         FlagSet(FLAG_CHALLENGES_NO_BATTLE_ITEMS);
-    if(gSaveBlock2Ptr -> challenges.forceSetMode)
+    if(gSaveBlock1Ptr -> challenges.forceSetMode)
         FlagSet(FLAG_CHALLENGES_FORCE_SET_MODE);
-    if(gSaveBlock2Ptr -> challenges.infiniteCandy)
+    if(gSaveBlock1Ptr -> challenges.infiniteCandy)
         FlagSet(FLAG_CHALLENGES_INFINITE_CANDY);
-    if(gSaveBlock2Ptr -> challenges.repellant)
+    if(gSaveBlock1Ptr -> challenges.repellant)
         FlagSet(FLAG_CHALLENGES_REPELLANT);
-    if(gSaveBlock2Ptr -> challenges.starterAffectsRival)
+    if(gSaveBlock1Ptr -> challenges.starterAffectsRival)
         FlagSet(FLAG_CHALLENGES_STARTERAFFECTSRIVAL);
-    if(!gSaveBlock2Ptr -> challenges.gauntletMode)
+    if(!gSaveBlock1Ptr -> challenges.gauntletMode)
         VarSet(VAR_ACTIVE_GAUNTLET, 3);
 
     
-    VarSet(VAR_XP_MULTIPLIER, gSaveBlock2Ptr->challenges.xpMultiplier);
+    VarSet(VAR_XP_MULTIPLIER, gSaveBlock1Ptr->challenges.xpMultiplier);
 }

@@ -1756,25 +1756,21 @@ static void OpponentHandleOneReturnValue_Duplicate(void)
 
 static void OpponentHandleClearUnkVar(void)
 {
-    gUnusedControllerStruct.unk = 0;
     OpponentBufferExecCompleted();
 }
 
 static void OpponentHandleSetUnkVar(void)
 {
-    gUnusedControllerStruct.unk = gBattleBufferA[gActiveBattler][1];
     OpponentBufferExecCompleted();
 }
 
 static void OpponentHandleClearUnkFlag(void)
 {
-    gUnusedControllerStruct.flag = 0;
     OpponentBufferExecCompleted();
 }
 
 static void OpponentHandleToggleUnkFlag(void)
 {
-    gUnusedControllerStruct.flag ^= 1;
     OpponentBufferExecCompleted();
 }
 

@@ -1525,7 +1525,7 @@ void ShowEasyChatScreen(void)
         words = &gSaveBlock1Ptr->lilycoveLady.quiz.correctAnswer;
         break;
     case EASY_CHAT_TYPE_APPRENTICE:
-        words = gSaveBlock2Ptr->apprentices[0].speechWon;
+        words = gSaveBlock1Ptr->apprentices[0].speechWon;
         break;
     default:
         return;
@@ -2882,7 +2882,7 @@ static bool32 IsCurrentPhraseFull(void)
 static int IsQuizQuestionEmpty(void)
 {
     int i;
-    struct SaveBlock1 *saveBlock1;
+    struct SaveBlockProfile *saveBlock1;
 
     if (sEasyChatScreen->type == EASY_CHAT_TYPE_QUIZ_SET_QUESTION)
         return IsCurrentPhraseEmpty();
@@ -2910,7 +2910,7 @@ static int IsQuizAnswerEmpty(void)
 static void GetQuizTitle(u8 *dst)
 {
     u8 name[32];
-    struct SaveBlock1 *saveBlock1 = gSaveBlock1Ptr;
+    struct SaveBlockProfile *saveBlock1 = gSaveBlock1Ptr;
     DynamicPlaceholderTextUtil_Reset();
 
     // Buffer author's name
@@ -5015,7 +5015,7 @@ static void TryAddInterviewObjectEvents(void)
 
     // Add object for player (facing right)
     spriteId = CreateObjectGraphicsSprite(
-        gSaveBlock2Ptr->playerGender == MALE ? OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL : OBJ_EVENT_GFX_RIVAL_MAY_NORMAL,
+        gSaveBlock1Ptr->playerGender == MALE ? OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL : OBJ_EVENT_GFX_RIVAL_MAY_NORMAL,
         SpriteCallbackDummy,
         52,
         40,
@@ -5415,7 +5415,7 @@ void BufferDeepLinkPhrase(void)
     or from the "Hipster" variety of the Mauville Old Man. The Hipster can unlock one word each
     time he is received via record mixing (and once if he is the player's default Old Man).
 
-    Which words have been unlocked is saved in the unlockedTrendySayings bitfield in SaveBlock1
+    Which words have been unlocked is saved in the unlockedTrendySayings bitfield in SaveBlockProfile
 
     Unlocked trendy saying words are only accessible if the flag FLAG_UNLOCKED_TRENDY_SAYINGS is set.
     It's set any time the player talks to the Hipster, but is not apparently set by Mystery Event,

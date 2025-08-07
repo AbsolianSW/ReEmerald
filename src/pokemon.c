@@ -2271,17 +2271,17 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     }
     else // Player is the OT
     {
-        value = gSaveBlock2Ptr->playerTrainerId[0]
-              | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
-              | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
-              | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
+        value = gSaveBlock1Ptr->playerTrainerId[0]
+              | (gSaveBlock1Ptr->playerTrainerId[1] << 8)
+              | (gSaveBlock1Ptr->playerTrainerId[2] << 16)
+              | (gSaveBlock1Ptr->playerTrainerId[3] << 24);
     }
 
     SetBoxMonData(boxMon, MON_DATA_OT_ID, &value);
     GetSpeciesName(speciesName, species);
     SetBoxMonData(boxMon, MON_DATA_NICKNAME, speciesName);
     SetBoxMonData(boxMon, MON_DATA_LANGUAGE, &gGameLanguage);
-    SetBoxMonData(boxMon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
+    SetBoxMonData(boxMon, MON_DATA_OT_NAME, gSaveBlock1Ptr->playerName);
     SetBoxMonData(boxMon, MON_DATA_SPECIES, &species);
     SetBoxMonData(boxMon, MON_DATA_EXP, &gExperienceTables[gSpeciesInfo[species].growthRate][level]);
     SetBoxMonData(boxMon, MON_DATA_FRIENDSHIP, &gSpeciesInfo[species].friendship);
@@ -2290,7 +2290,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_MET_LEVEL, &level);
     value = ITEM_POKE_BALL;
     SetBoxMonData(boxMon, MON_DATA_POKEBALL, &value);
-    SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
+    SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock1Ptr->playerGender);
 
     if (fixedIV < USE_RANDOM_IVS)
     {
@@ -2504,8 +2504,8 @@ void CreateBattleTowerMon_HandleLevel(struct Pokemon *mon, struct BattleTowerPok
     u8 language;
     u8 value;
 
-    if (gSaveBlock2Ptr->frontier.lvlMode != FRONTIER_LVL_50)
-        level = GetFrontierEnemyMonLevel(gSaveBlock2Ptr->frontier.lvlMode);
+    if (gSaveBlock1Ptr->frontier.lvlMode != FRONTIER_LVL_50)
+        level = GetFrontierEnemyMonLevel(gSaveBlock1Ptr->frontier.lvlMode);
     else if (lvl50)
         level = FRONTIER_MAX_LEVEL_50;
     else
@@ -4314,9 +4314,9 @@ void CopyMon(void *dest, void *src, size_t size)
 u8 GiveMonToPlayer(struct Pokemon *mon)
 {
     s32 i;
-    SetMonData(mon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
-    SetMonData(mon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
-    SetMonData(mon, MON_DATA_OT_ID, gSaveBlock2Ptr->playerTrainerId);
+    SetMonData(mon, MON_DATA_OT_NAME, gSaveBlock1Ptr->playerName);
+    SetMonData(mon, MON_DATA_OT_GENDER, &gSaveBlock1Ptr->playerGender);
+    SetMonData(mon, MON_DATA_OT_ID, gSaveBlock1Ptr->playerTrainerId);
     for (i = 0; i < PARTY_SIZE; i++)
     {
         if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL) == SPECIES_NONE)
@@ -6521,14 +6521,14 @@ bool8 IsTradedMon(struct Pokemon *mon)
 bool8 IsOtherTrainer(u32 otId, u8 *otName)
 {
     if (otId ==
-        (gSaveBlock2Ptr->playerTrainerId[0]
-      | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
-      | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
-      | (gSaveBlock2Ptr->playerTrainerId[3] << 24)))
+        (gSaveBlock1Ptr->playerTrainerId[0]
+      | (gSaveBlock1Ptr->playerTrainerId[1] << 8)
+      | (gSaveBlock1Ptr->playerTrainerId[2] << 16)
+      | (gSaveBlock1Ptr->playerTrainerId[3] << 24)))
     {
         int i;
         for (i = 0; otName[i] != EOS; i++)
-            if (otName[i] != gSaveBlock2Ptr->playerName[i])
+            if (otName[i] != gSaveBlock1Ptr->playerName[i])
                 return TRUE;
         return FALSE;
     }
@@ -6875,9 +6875,9 @@ void HandleSetPokedexFlag(u16 nationalNum, u8 caseId, u32 personality)
     {
         GetSetPokedexFlag(nationalNum, caseId);
         if (NationalPokedexNumToSpecies(nationalNum) == SPECIES_UNOWN)
-            gSaveBlock2Ptr->pokedex.unownPersonality = personality;
+            gSaveBlock1Ptr->pokedex.unownPersonality = personality;
         if (NationalPokedexNumToSpecies(nationalNum) == SPECIES_SPINDA)
-            gSaveBlock2Ptr->pokedex.spindaPersonality = personality;
+            gSaveBlock1Ptr->pokedex.spindaPersonality = personality;
     }
 }
 
@@ -7914,7 +7914,7 @@ u32 GetShinyOdds() {
     u32 number,i,j;
     i=0;
     number = 65536;
-    for(i;i<gSaveBlock2Ptr->challenges.shinyOdds;i++)
+    for(i;i<gSaveBlock1Ptr->challenges.shinyOdds;i++)
     {
         number/=2;
     }
@@ -7930,19 +7930,19 @@ u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl)
     {
     case SPECIES_RIVAL_GRASS_STARTER:
         if (FlagGet(FLAG_CHALLENGES_STARTERAFFECTSRIVAL))
-            finalSpecies = NationalPokedexNumToSpecies(gSaveBlock2Ptr->challenges.grassStarter);
+            finalSpecies = NationalPokedexNumToSpecies(gSaveBlock1Ptr->challenges.grassStarter);
         else
             finalSpecies = SPECIES_TREECKO;
         break;
     case SPECIES_RIVAL_WATER_STARTER:
         if (FlagGet(FLAG_CHALLENGES_STARTERAFFECTSRIVAL))
-            finalSpecies = NationalPokedexNumToSpecies(gSaveBlock2Ptr->challenges.waterStarter);
+            finalSpecies = NationalPokedexNumToSpecies(gSaveBlock1Ptr->challenges.waterStarter);
         else
             finalSpecies = SPECIES_MUDKIP;
         break;
     case SPECIES_RIVAL_FIRE_STARTER:
         if (FlagGet(FLAG_CHALLENGES_STARTERAFFECTSRIVAL))
-            finalSpecies = NationalPokedexNumToSpecies(gSaveBlock2Ptr->challenges.fireStarter);
+            finalSpecies = NationalPokedexNumToSpecies(gSaveBlock1Ptr->challenges.fireStarter);
         else
             finalSpecies = SPECIES_TORCHIC;
         break;
@@ -7959,12 +7959,12 @@ u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl)
             case SPECIES_POLIWHIRL:
             case SPECIES_WURMPLE:
             case SPECIES_CLAMPERL:
-                if (gSaveBlock2Ptr->playerGender)
+                if (gSaveBlock1Ptr->playerGender)
                     i = 1;
                 break;
             case SPECIES_TYROGUE:
             case SPECIES_SLOWPOKE:
-                if (!gSaveBlock2Ptr->playerGender)
+                if (!gSaveBlock1Ptr->playerGender)
                     i = 1;
                 break;
             case SPECIES_EEVEE:

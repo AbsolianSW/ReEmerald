@@ -1,14 +1,17 @@
 #include "global.h"
 #include "malloc.h"
 #include "berry_powder.h"
+#include "event_data.h"
 #include "item.h"
 #include "load_save.h"
 #include "main.h"
 #include "overworld.h"
+#include "pokedex.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
 #include "random.h"
 #include "save_location.h"
+#include "string_util.h"
 #include "trainer_hill.h"
 #include "gba/flash_internal.h"
 #include "decoration_inventory.h"
@@ -39,8 +42,8 @@ EWRAM_DATA struct LoadedSaveData gLoadedSaveData = {0};
 
 // IWRAM common
 bool32 gFlashMemoryPresent;
-struct SaveBlock1 *gSaveBlock1Ptr;
-struct SaveBlock2 *gSaveBlock2Ptr;
+struct SaveBlockProfile *gSaveBlock1Ptr;
+struct SaveBlockGeneral *gSaveBlock2Ptr;
 struct PokemonStorage *gPokemonStoragePtr;
 
 // code
@@ -70,7 +73,7 @@ void ClearSav1(void)
 // Offset is the sum of the trainer id bytes
 void SetSaveBlocksPointers(u16 offset)
 {
-    struct SaveBlock1** sav1_LocalVar = &gSaveBlock1Ptr;
+    struct SaveBlockProfile** sav1_LocalVar = &gSaveBlock1Ptr;
 
     offset = (offset + Random()) & (SAVEBLOCK_MOVE_RANGE - 4);
 
@@ -85,8 +88,8 @@ void SetSaveBlocksPointers(u16 offset)
 void MoveSaveBlocks_ResetHeap(void)
 {
     void *vblankCB, *hblankCB;
-    struct SaveBlock2 *saveBlock2Copy;
-    struct SaveBlock1 *saveBlock1Copy;
+    struct SaveBlockGeneral *saveBlock2Copy;
+    struct SaveBlockProfile *saveBlock1Copy;
     struct PokemonStorage *pokemonStorageCopy;
 
     // save interrupt functions and turn them off
@@ -96,9 +99,9 @@ void MoveSaveBlocks_ResetHeap(void)
     gMain.hblankCallback = NULL;
     gTrainerHillVBlankCounter = NULL;
 
-    saveBlock2Copy = (struct SaveBlock2 *)(gHeap);
-    saveBlock1Copy = (struct SaveBlock1 *)(gHeap + sizeof(struct SaveBlock2));
-    pokemonStorageCopy = (struct PokemonStorage *)(gHeap + sizeof(struct SaveBlock2) + sizeof(struct SaveBlock1));
+    saveBlock2Copy = (struct SaveBlockGeneral *)(gHeap);
+    saveBlock1Copy = (struct SaveBlockProfile *)(gHeap + sizeof(struct SaveBlockGeneral));
+    pokemonStorageCopy = (struct PokemonStorage *)(gHeap + sizeof(struct SaveBlockGeneral) + sizeof(struct SaveBlockProfile));
 
     // backup the saves.
     *saveBlock2Copy = *gSaveBlock2Ptr;
@@ -108,10 +111,10 @@ void MoveSaveBlocks_ResetHeap(void)
     // change saveblocks' pointers
     // argument is a sum of the individual trainerId bytes
     SetSaveBlocksPointers(
-      saveBlock2Copy->playerTrainerId[0] +
-      saveBlock2Copy->playerTrainerId[1] +
-      saveBlock2Copy->playerTrainerId[2] +
-      saveBlock2Copy->playerTrainerId[3]);
+      saveBlock1Copy->playerTrainerId[0] +
+      saveBlock1Copy->playerTrainerId[1] +
+      saveBlock1Copy->playerTrainerId[2] +
+      saveBlock1Copy->playerTrainerId[3]);
 
     // restore saveblock data since the pointers changed
     *gSaveBlock2Ptr = *saveBlock2Copy;
@@ -128,38 +131,42 @@ void MoveSaveBlocks_ResetHeap(void)
 
 u32 UseContinueGameWarp(void)
 {
-    return gSaveBlock2Ptr->specialSaveWarpFlags & CONTINUE_GAME_WARP;
+    return gSaveBlock1Ptr->specialSaveWarpFlags & CONTINUE_GAME_WARP;
 }
 
 void ClearContinueGameWarpStatus(void)
 {
-    gSaveBlock2Ptr->specialSaveWarpFlags &= ~CONTINUE_GAME_WARP;
+    gSaveBlock1Ptr->specialSaveWarpFlags &= ~CONTINUE_GAME_WARP;
 }
 
 void SetContinueGameWarpStatus(void)
 {
-    gSaveBlock2Ptr->specialSaveWarpFlags |= CONTINUE_GAME_WARP;
+    gSaveBlock1Ptr->specialSaveWarpFlags |= CONTINUE_GAME_WARP;
 }
 
 void SetContinueGameWarpStatusToDynamicWarp(void)
 {
     SetContinueGameWarpToDynamicWarp(0);
-    gSaveBlock2Ptr->specialSaveWarpFlags |= CONTINUE_GAME_WARP;
+    gSaveBlock1Ptr->specialSaveWarpFlags |= CONTINUE_GAME_WARP;
 }
 
 void ClearContinueGameWarpStatus2(void)
 {
-    gSaveBlock2Ptr->specialSaveWarpFlags &= ~CONTINUE_GAME_WARP;
+    gSaveBlock1Ptr->specialSaveWarpFlags &= ~CONTINUE_GAME_WARP;
 }
 
 void SavePlayerParty(void)
 {
     int i;
-
+    u16 species;
     gSaveBlock1Ptr->playerPartyCount = gPlayerPartyCount;
-
+    gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].partyCount = gPlayerPartyCount;
     for (i = 0; i < PARTY_SIZE; i++)
+    {
         gSaveBlock1Ptr->playerParty[i] = gPlayerParty[i];
+        gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].partySpecies[i] = GetMonData(&gPlayerParty[i],MON_DATA_SPECIES);
+        gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].partyPersonalities[i] = GetMonData(&gPlayerParty[i],MON_DATA_PERSONALITY);
+    }
 }
 
 void LoadPlayerParty(void)
@@ -172,7 +179,7 @@ void LoadPlayerParty(void)
         gPlayerParty[i] = gSaveBlock1Ptr->playerParty[i];
 }
 
-void SaveObjectEvents(void)
+void SaveRelevantData(void)
 {
     int i;
 
@@ -183,6 +190,23 @@ void SaveObjectEvents(void)
         if (gObjectEvents[i].localId == OBJ_EVENT_ID_FOLLOWER)
             gSaveBlock1Ptr->objectEvents[i].active = FALSE;
     }
+    gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].profileSaved = TRUE;
+    StringCopy_PlayerName(gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].playerName, gSaveBlock1Ptr->playerName);
+    gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].playerGender = gSaveBlock1Ptr->playerGender;
+    if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
+    {
+        if (IsNationalPokedexEnabled())
+            gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].dexCount = GetNationalPokedexCount(FLAG_GET_CAUGHT);
+        else
+            gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].dexCount = GetHoennPokedexCount(FLAG_GET_CAUGHT);
+    }
+    gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].badgeCount = 0;
+    for (i = FLAG_BADGE01_GET; i < FLAG_BADGE01_GET + NUM_BADGES; i++)
+    {
+        if (FlagGet(i))
+            gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].badgeCount++;
+    }
+    gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].regionMapSectionId = GetCurrentRegionMapSectionId();
 }
 
 void LoadObjectEvents(void)
@@ -201,7 +225,7 @@ void LoadObjectEvents(void)
 void CopyPartyAndObjectsToSave(void)
 {
     SavePlayerParty();
-    SaveObjectEvents();
+    SaveRelevantData();
 }
 
 void CopyPartyAndObjectsFromSave(void)

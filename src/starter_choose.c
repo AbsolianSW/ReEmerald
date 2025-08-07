@@ -355,13 +355,13 @@ u16 GetStarterPokemon(u16 chosenStarterId)
     switch (chosenStarterId)
     {
     case 0:
-        return NationalPokedexNumToSpecies(gSaveBlock2Ptr -> challenges.grassStarter);
+        return NationalPokedexNumToSpecies(gSaveBlock1Ptr -> challenges.grassStarter);
         break;
     case 1:
-        return NationalPokedexNumToSpecies(gSaveBlock2Ptr -> challenges.fireStarter);
+        return NationalPokedexNumToSpecies(gSaveBlock1Ptr -> challenges.fireStarter);
         break;
     case 2:
-        return NationalPokedexNumToSpecies(gSaveBlock2Ptr -> challenges.waterStarter);
+        return NationalPokedexNumToSpecies(gSaveBlock1Ptr -> challenges.waterStarter);
         break;
     default:
         break;

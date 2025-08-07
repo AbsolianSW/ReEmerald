@@ -1593,25 +1593,21 @@ static void LinkOpponentHandleOneReturnValue_Duplicate(void)
 
 static void LinkOpponentHandleClearUnkVar(void)
 {
-    gUnusedControllerStruct.unk = 0;
     LinkOpponentBufferExecCompleted();
 }
 
 static void LinkOpponentHandleSetUnkVar(void)
 {
-    gUnusedControllerStruct.unk = gBattleBufferA[gActiveBattler][1];
     LinkOpponentBufferExecCompleted();
 }
 
 static void LinkOpponentHandleClearUnkFlag(void)
 {
-    gUnusedControllerStruct.flag = 0;
     LinkOpponentBufferExecCompleted();
 }
 
 static void LinkOpponentHandleToggleUnkFlag(void)
 {
-    gUnusedControllerStruct.flag ^= 1;
     LinkOpponentBufferExecCompleted();
 }
 
@@ -1832,7 +1828,7 @@ static void LinkOpponentHandleEndLinkBattle(void)
     else
         gBattleOutcome = gBattleBufferA[gActiveBattler][1] ^ B_OUTCOME_DREW;
 
-    gSaveBlock2Ptr->frontier.disableRecordBattle = gBattleBufferA[gActiveBattler][2];
+    gSaveBlock1Ptr->frontier.disableRecordBattle = gBattleBufferA[gActiveBattler][2];
     FadeOutMapMusic(5);
     BeginFastPaletteFade(3);
     LinkOpponentBufferExecCompleted();

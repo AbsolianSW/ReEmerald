@@ -207,7 +207,7 @@ gScriptCmdTable::
 	.4byte ScrCmd_nop1                              @ 0xcc
 	.4byte ScrCmd_setmonmodernfatefulencounter      @ 0xcd
 	.4byte ScrCmd_checkmonmodernfatefulencounter    @ 0xce
-	.4byte ScrCmd_trywondercardscript               @ 0xcf
+	.4byte ScrCmd_nop1                              @ 0xcf
 	.4byte ScrCmd_nop1                              @ 0xd0
 	.4byte ScrCmd_warpspinenter                     @ 0xd1
 	.4byte ScrCmd_setmonmetlocation                 @ 0xd2

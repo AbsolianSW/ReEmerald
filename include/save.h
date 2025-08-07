@@ -7,27 +7,33 @@
 #define SECTOR_FOOTER_SIZE 12
 #define SECTOR_SIZE (SECTOR_DATA_SIZE + SECTOR_FOOTER_SIZE)
 
-#define NUM_SAVE_SLOTS 2
+#define NUM_SAVE_SLOTS 1
 
 // If the sector's signature field is not this value then the sector is either invalid or empty.
 #define SECTOR_SIGNATURE 0x8012025
 
 #define SPECIAL_SECTOR_SENTINEL 0xB39D
 
-#define SECTOR_ID_SAVEBLOCK2          0
+#define SECTOR_ID_SAVEBLOCKGENERAL    0
 #define SECTOR_ID_SAVEBLOCK1_START    1
 #define SECTOR_ID_SAVEBLOCK1_END      4
-#define SECTOR_ID_PKMN_STORAGE_START  5
-#define SECTOR_ID_PKMN_STORAGE_END   13
-#define NUM_SECTORS_PER_SLOT         14
-// Save Slot 1: 0-13;  Save Slot 2: 14-27
+#define SECTOR_ID_SAVEBLOCK2_START    5
+#define SECTOR_ID_SAVEBLOCK2_END      8
+#define SECTOR_ID_SAVEBLOCK3_START    9
+#define SECTOR_ID_SAVEBLOCK3_END     12
+#define SECTOR_ID_SAVEBLOCK4_START   13
+#define SECTOR_ID_SAVEBLOCK4_END     16
+#define SECTOR_ID_PKMN_STORAGE_START 17
+#define SECTOR_ID_PKMN_STORAGE_END   27
 #define SECTOR_ID_HOF_1              28
 #define SECTOR_ID_HOF_2              29
-#define SECTOR_ID_TRAINER_HILL       30
+#define SECTOR_ID_HOF_3              30
 #define SECTOR_ID_RECORDED_BATTLE    31
 #define SECTORS_COUNT                32
 
-#define NUM_HOF_SECTORS 2
+#define NUM_HOF_SECTORS 3
+#define NUM_RAM_SECTORS 16
+#define NUM_SECTORS_PER_PROFILE 4
 
 #define SAVE_STATUS_EMPTY    0
 #define SAVE_STATUS_OK       1
@@ -35,9 +41,7 @@
 #define SAVE_STATUS_NO_FLASH 4
 #define SAVE_STATUS_ERROR    0xFF
 
-// Special sector id value for certain save functions to
-// indicate that no specific sector should be used.
-#define FULL_SAVE_SLOT 0xFFFF
+// Special sector id values for certain save functions
 
 // SetDamagedSectorBits states
 enum
@@ -51,6 +55,7 @@ enum
 enum
 {
     SAVE_NORMAL,
+    SAVE_GENERAL,
     SAVE_LINK, // Link / Battle Frontier
     SAVE_HALL_OF_FAME,
     SAVE_OVERWRITE_DIFFERENT_FILE,
@@ -77,9 +82,7 @@ struct SaveSector
 #define SECTOR_SIGNATURE_OFFSET offsetof(struct SaveSector, signature)
 #define SECTOR_COUNTER_OFFSET   offsetof(struct SaveSector, counter)
 
-extern u16 gLastWrittenSector;
 extern u32 gLastSaveCounter;
-extern u16 gLastKnownGoodSector;
 extern u32 gDamagedSaveSectors;
 extern u32 gSaveCounter;
 extern struct SaveSector *gFastSaveSector;
@@ -96,7 +99,6 @@ u8 HandleSavingData(u8 saveType);
 u8 TrySavingData(u8 saveType);
 bool8 LinkFullSave_Init(void);
 bool8 LinkFullSave_WriteSector(void);
-bool8 LinkFullSave_ReplaceLastSector(void);
 bool8 LinkFullSave_SetLastSectorSignature(void);
 bool8 WriteSaveBlock2(void);
 bool8 WriteSaveBlock1Sector(void);

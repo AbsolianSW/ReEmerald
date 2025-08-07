@@ -201,7 +201,6 @@ static EWRAM_DATA union
     struct WirelessLink_Group *group;
     struct WirelessLink_URoom *uRoom;
 } sWirelessLinkMain = {};
-static EWRAM_DATA u32 sUnused = 0;
 EWRAM_DATA struct RfuGameCompatibilityData gRfuPartnerCompatibilityData = {};
 EWRAM_DATA u16 gUnionRoomOfferedSpecies = 0;
 EWRAM_DATA u8 gUnionRoomRequestedMonType = 0;
@@ -310,9 +309,9 @@ static void PrintPlayerNameAndIdOnWindow(u8 windowId)
     u8 text[30];
     u8 *txtPtr;
 
-    PrintUnionRoomText(windowId, FONT_NORMAL, gSaveBlock2Ptr->playerName, 0, 1, UR_COLOR_DEFAULT);
+    PrintUnionRoomText(windowId, FONT_NORMAL, gSaveBlock1Ptr->playerName, 0, 1, UR_COLOR_DEFAULT);
     txtPtr = StringCopy(text, sText_ID);
-    ConvertIntToDecimalStringN(txtPtr, ReadAsU16(gSaveBlock2Ptr->playerTrainerId), STR_CONV_MODE_LEADING_ZEROS, 5);
+    ConvertIntToDecimalStringN(txtPtr, ReadAsU16(gSaveBlock1Ptr->playerTrainerId), STR_CONV_MODE_LEADING_ZEROS, 5);
     PrintUnionRoomText(windowId, FONT_NORMAL, text, 0, 17, UR_COLOR_DEFAULT);
 }
 
@@ -391,7 +390,7 @@ static void Task_TryBecomeLinkLeader(u8 taskId)
     switch (data->state)
     {
     case LL_STATE_INIT:
-        if (gSpecialVar_0x8004 == LINK_GROUP_BATTLE_TOWER && gSaveBlock2Ptr->frontier.lvlMode == FRONTIER_LVL_OPEN)
+        if (gSpecialVar_0x8004 == LINK_GROUP_BATTLE_TOWER && gSaveBlock1Ptr->frontier.lvlMode == FRONTIER_LVL_OPEN)
             gSpecialVar_0x8004++;
         gPlayerCurrActivity = sLinkGroupToActivityAndCapacity[gSpecialVar_0x8004];
         sPlayerActivityGroupSize = sLinkGroupToActivityAndCapacity[gSpecialVar_0x8004] >> 8;
@@ -986,7 +985,7 @@ static void Task_TryJoinLinkGroup(u8 taskId)
     switch (data->state)
     {
     case LG_STATE_INIT:
-        if (gSpecialVar_0x8004 == LINK_GROUP_BATTLE_TOWER && gSaveBlock2Ptr->frontier.lvlMode == FRONTIER_LVL_OPEN)
+        if (gSpecialVar_0x8004 == LINK_GROUP_BATTLE_TOWER && gSaveBlock1Ptr->frontier.lvlMode == FRONTIER_LVL_OPEN)
             gSpecialVar_0x8004++;
         gPlayerCurrActivity = sLinkGroupToURoomActivity[gSpecialVar_0x8004];
         SetHostRfuGameData(gPlayerCurrActivity, 0, FALSE);
@@ -1266,7 +1265,7 @@ static u32 IsTryingToTradeAcrossVersionTooSoon(struct WirelessLink_Group *data, 
 
     if (gPlayerCurrActivity == ACTIVITY_TRADE && partner->rfu.data.compatibility.version != VERSION_EMERALD)
     {
-        if (!(gSaveBlock2Ptr->specialSaveWarpFlags & CHAMPION_SAVEWARP))
+        if (!(gSaveBlock1Ptr->specialSaveWarpFlags & CHAMPION_SAVEWARP))
             return UR_TRADE_PLAYER_NOT_READY;
         else if (partner->rfu.data.compatibility.canLinkNationally)
             return UR_TRADE_READY;
@@ -2284,7 +2283,7 @@ static void Task_RunUnionRoom(u8 taskId)
             {
                 UpdateGameData_SetActivity(ACTIVITY_PLYRTALK | IN_UNION_ROOM, 0, TRUE);
                 PlaySE(SE_PC_LOGIN);
-                StringCopy(gStringVar1, gSaveBlock2Ptr->playerName);
+                StringCopy(gStringVar1, gSaveBlock1Ptr->playerName);
                 uroom->state = UR_STATE_INTERACT_WITH_ATTENDANT;
                 gSpecialVar_Result = 0;
             }
@@ -2318,7 +2317,7 @@ static void Task_RunUnionRoom(u8 taskId)
                     UpdateGameData_SetActivity(ACTIVITY_PLYRTALK | IN_UNION_ROOM, 0, TRUE);
                     PlaySE(SE_PC_LOGIN);
                     StartScriptInteraction();
-                    StringCopy(gStringVar1, gSaveBlock2Ptr->playerName);
+                    StringCopy(gStringVar1, gSaveBlock1Ptr->playerName);
                     uroom->state = UR_STATE_CHECK_TRADING_BOARD;
                     break;
                 }
@@ -3837,7 +3836,7 @@ static void TradeBoardListMenuItemPrintFunc(u8 windowId, u32 itemId, u8 y)
     {
         gameData = GetHostRfuGameData();
         if (gameData->tradeSpecies != SPECIES_NONE)
-            TradeBoardPrintItemInfo(windowId, y, gameData, gSaveBlock2Ptr->playerName, UR_COLOR_TRADE_BOARD_SELF);
+            TradeBoardPrintItemInfo(windowId, y, gameData, gSaveBlock1Ptr->playerName, UR_COLOR_TRADE_BOARD_SELF);
     }
     else
     {

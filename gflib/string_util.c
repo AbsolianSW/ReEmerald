@@ -7,7 +7,6 @@ EWRAM_DATA u8 gStringVar1[0x100] = {0};
 EWRAM_DATA u8 gStringVar2[0x100] = {0};
 EWRAM_DATA u8 gStringVar3[0x100] = {0};
 EWRAM_DATA u8 gStringVar4[0x3E8] = {0};
-EWRAM_DATA static u8 sUnknownStringVar[16] = {0};
 
 static const u8 sDigits[] = __("0123456789ABCDEF");
 
@@ -467,12 +466,12 @@ u8 *StringBraille(u8 *dest, const u8 *src)
 
 static const u8 *ExpandPlaceholder_UnknownStringVar(void)
 {
-    return sUnknownStringVar;
+    return NULL;
 }
 
 static const u8 *ExpandPlaceholder_PlayerName(void)
 {
-    return gSaveBlock2Ptr->playerName;
+    return gSaveBlock1Ptr->playerName;
 }
 
 static const u8 *ExpandPlaceholder_StringVar1(void)
@@ -492,7 +491,7 @@ static const u8 *ExpandPlaceholder_StringVar3(void)
 
 static const u8 *ExpandPlaceholder_KunChan(void)
 {
-    if (gSaveBlock2Ptr->playerGender == MALE)
+    if (gSaveBlock1Ptr->playerGender == MALE)
         return gText_ExpandedPlaceholder_Kun;
     else
         return gText_ExpandedPlaceholder_Chan;
@@ -500,7 +499,7 @@ static const u8 *ExpandPlaceholder_KunChan(void)
 
 static const u8 *ExpandPlaceholder_RivalName(void)
 {
-    if (gSaveBlock2Ptr->playerGender == MALE)
+    if (gSaveBlock1Ptr->playerGender == MALE)
         return gText_ExpandedPlaceholder_May;
     else
         return gText_ExpandedPlaceholder_Brendan;

@@ -169,7 +169,6 @@ extern const struct SpriteTemplate gAncientPowerRockSpriteTemplate[];
 #define TIMER_START_LEGENDARIES          43
 
 static EWRAM_DATA u16 sIntroCharacterGender = 0;
-static EWRAM_DATA u16 UNUSED sUnusedVar = 0;
 static EWRAM_DATA u16 sFlygonYOffset = 0;
 
 u32 gIntroFrameCounter;
@@ -1145,7 +1144,7 @@ void CB2_InitCopyrightScreenAfterBootup(void)
         SetSaveBlocksPointers(GetSaveBlocksPointersBaseOffset());
         ResetMenuAndMonGlobals();
         Save_ResetSaveCounters();
-        LoadGameSave(SAVE_NORMAL);
+        LoadGameSave(SAVE_GENERAL); //only load general save for now
         if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
             Sav2_ClearSetDefault();
         SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);

@@ -15,8 +15,6 @@
 
 static EWRAM_DATA u8 sLinkSendTaskId = 0;
 static EWRAM_DATA u8 sLinkReceiveTaskId = 0;
-static EWRAM_DATA u8 sUnused = 0; // Debug? Never read
-EWRAM_DATA struct UnusedControllerStruct gUnusedControllerStruct = {}; // Debug? Unused code that writes to it, never read
 static EWRAM_DATA u8 sBattleBuffersTransferData[0x100] = {};
 
 static void CreateTasksForSendRecvLinkBuffers(void);
@@ -67,9 +65,6 @@ void SetUpBattleVarsAndBirchZigzagoon(void)
         SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, &i);
     }
 
-    // Below are never read
-    gUnusedFirstBattleVar1 = 0;
-    gUnusedFirstBattleVar2 = 0;
 }
 
 void InitBattleControllers(void)
@@ -686,7 +681,6 @@ static void CreateTasksForSendRecvLinkBuffers(void)
     gTasks[sLinkReceiveTaskId].data[14] = 0;
     gTasks[sLinkReceiveTaskId].data[15] = 0;
 
-    sUnused = 0;
 }
 
 enum
@@ -1508,8 +1502,8 @@ void BtlController_EmitEndLinkBattle(u8 bufferId, u8 battleOutcome)
 {
     sBattleBuffersTransferData[0] = CONTROLLER_ENDLINKBATTLE;
     sBattleBuffersTransferData[1] = battleOutcome;
-    sBattleBuffersTransferData[2] = gSaveBlock2Ptr->frontier.disableRecordBattle;
-    sBattleBuffersTransferData[3] = gSaveBlock2Ptr->frontier.disableRecordBattle;
+    sBattleBuffersTransferData[2] = gSaveBlock1Ptr->frontier.disableRecordBattle;
+    sBattleBuffersTransferData[3] = gSaveBlock1Ptr->frontier.disableRecordBattle;
     sBattleBuffersTransferData[5] = sBattleBuffersTransferData[4] = RecordedBattle_BufferNewBattlerData(&sBattleBuffersTransferData[6]);
     PrepareBufferDataTransfer(bufferId, sBattleBuffersTransferData, sBattleBuffersTransferData[4] + 6);
 }
