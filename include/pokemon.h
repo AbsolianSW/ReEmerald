@@ -101,35 +101,40 @@ enum {
 struct BoxPokemon
 {
     u32 personality;
+    //4
     u32 otId;
+    //8
     u8 nickname[POKEMON_NAME_LENGTH];
     u8 otName[PLAYER_NAME_LENGTH];
     u8 hpEV;
     u8 attackEV;
     u8 defenseEV;
+    //28
     u8 speedEV;
     u8 spAttackEV;
     u8 spDefenseEV;
     u8 cool;
+    //32
     u8 beauty;
     u8 cute;
     u8 smart;
     u8 tough;
+    //36
     u8 sheen;
     u8 metLocation;
     u8 ppBonuses;
     u8 friendship;
-    //bit packing
+    //40
     u32 move1:9;
     u32 move2:9;
     u32 pp1:7;
     u32 pp2:7;
-    //32
+    //44
     u32 move3:9;
     u32 move4:9;
     u32 pp3:7;
     u32 pp4:7;
-    //32
+    //48
     u32 hpIV : 5;
     u32 attackIV : 5;
     u32 defenseIV : 5;
@@ -138,7 +143,7 @@ struct BoxPokemon
     u32 spDefenseIV : 5;
     u32 isBadEgg : 1;
     u32 isEgg : 1;
-    //32
+    //52
     u32 species:9;
     u32 hasSpecies : 1;
     u32 isDead : 1;
@@ -147,7 +152,7 @@ struct BoxPokemon
     u32 abilityNum : 1;
     u32 markings : 4;
     u32 pokeball : 4;
-    //32
+    //56
     u32 coolRibbon : 3;
     u32 beautyRibbon : 3;
     u32 cuteRibbon : 3;
@@ -159,13 +164,14 @@ struct BoxPokemon
     u32 artistRibbon : 1;
     u32 effortRibbon : 1;
     u32 pokerus:8;
-    u32 language:4;
-    //32
+    u32 language:3;
+    u32 isAce:1;
+    //60
     u32 experience:21;
     u32 heldItem:9;
     u32 otGender : 1;
     u32 blockShiny: 1;
-    //32
+    //64
 };
 
 struct Pokemon
@@ -505,5 +511,6 @@ u16 GetPreEvolution(u16 species);
 u32 GetShinyOdds();
 u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl);
 void PrintShowdownData(u8 mode, u16 trainerNum);
+void IndexToEvSpread(u32 index);
 
 #endif // GUARD_POKEMON_H

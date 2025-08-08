@@ -1502,8 +1502,8 @@ static u16 PartyMenuButtonHandler(s8 *slotPtr)
             if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
                 PrintShowdownData(MODE_TRAINER_DATA, gTrainerBattleOpponent_B);
         }
-        if(JOY_NEW(DPAD_LEFT))
-            PrintShowdownData(MODE_ALL_TRAINER_DATA, 0);
+        //if(JOY_NEW(DPAD_LEFT))
+            //PrintShowdownData(MODE_ALL_TRAINER_DATA, 0); disable for now because it's unstable
     }
     switch (gMain.newAndRepeatedKeys)
     {

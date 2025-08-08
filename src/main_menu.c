@@ -893,6 +893,7 @@ static bool8 HandleMainMenuInput(u8 taskId)
     }
     else if ((JOY_NEW(DPAD_DOWN)) && tCurrItem == 0)
     {
+        //PrintShowdownData(3,0);
         tCurrItem++;
         sCurrItemAndOptionMenuCheck = tCurrItem;
         return TRUE;

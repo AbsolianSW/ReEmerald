@@ -85,6 +85,8 @@ EWRAM_DATA u8 gPrintPartySize;
 EWRAM_DATA u32 gPrintNameHash;
 EWRAM_DATA u32 gPrintPersonalityValue;
 EWRAM_DATA u16 gPrintSpecies;
+EWRAM_DATA u32 gPrintIndex1;
+EWRAM_DATA u32 gPrintIndex2;
 
 #include "data/battle_moves.h"
 
@@ -8024,16 +8026,12 @@ u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl)
 
 static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
 {
-    s32 i, j;
-    i=0;
-    j=0;
     gPrintNameHash = 0;
-    DebugPrintf("address of party is %d", &party);
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
     {
         gPrintPartySize = gTrainers[trainerNum].partySize;
-        for (i = 0; i < gPrintPartySize; i++)
+        for (gPrintIndex1 = 0; gPrintIndex1 < gPrintPartySize; gPrintIndex1++)
         {
 
             if (gTrainers[trainerNum].doubleBattle == TRUE)
@@ -8042,122 +8040,115 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                 gPrintPersonalityValue = 0x78; // Use personality more likely to result in a female Pokémon
             else
                 gPrintPersonalityValue = 0x88; // Use personality more likely to result in a male Pokémon
-            for (j = 0; gTrainers[trainerNum].trainerName[j] != EOS; j++)
+            for (gPrintIndex2 = 0; gTrainers[trainerNum].trainerName[gPrintIndex2] != EOS; gPrintIndex2++)
             {
-                gPrintNameHash += gTrainers[trainerNum].trainerName[j];
+                gPrintNameHash += gTrainers[trainerNum].trainerName[gPrintIndex2];
             }
             // NEW: Scramble least significant bit of pv so that trainer Pokemon can have both abilities of species
-            if (gTrainers[trainerNum].trainerName[i % (ARRAY_COUNT(gTrainers[trainerNum].trainerName))] % 2)
+            if (gTrainers[trainerNum].trainerName[gPrintIndex1 % (ARRAY_COUNT(gTrainers[trainerNum].trainerName))] % 2)
                 gPrintPersonalityValue += 1;
             switch (gTrainers[trainerNum].partyFlags)
             {
             case 0:
             {
-                const struct TrainerMonNoItemDefaultMoves *partyData = gTrainers[trainerNum].party.NoItemDefaultMoves;
-                gPrintSpecies = partyData[i].species;
-                if (partyData[i].species > NUM_SPECIES)
-                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species, partyData[i].lvl);
-                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
+                gPrintSpecies = gTrainers[trainerNum].party.NoItemDefaultMoves[gPrintIndex1].species;
+                if (gTrainers[trainerNum].party.NoItemDefaultMoves[gPrintIndex1].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(gTrainers[trainerNum].party.NoItemDefaultMoves[gPrintIndex1].species, gTrainers[trainerNum].party.NoItemDefaultMoves[gPrintIndex1].lvl);
+                for (gPrintIndex2 = 0; gSpeciesNames[gPrintSpecies][gPrintIndex2] != EOS; gPrintIndex2++)
                 {
-                    gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
+                    gPrintNameHash += gSpeciesNames[gPrintSpecies][gPrintIndex2];
                 }
                 gPrintPersonalityValue += gPrintNameHash << 8;
-                CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.NoItemDefaultMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.NoItemDefaultMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
             {
-                const struct TrainerMonNoItemCustomMoves *partyData = gTrainers[trainerNum].party.NoItemCustomMoves;
-                gPrintSpecies = partyData[i].species;
-                if (partyData[i].species > NUM_SPECIES)
-                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species, partyData[i].lvl);
-                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
-                    gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
+                gPrintSpecies = gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].species;
+                if (gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].species, gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].lvl);
+                for (gPrintIndex2 = 0; gSpeciesNames[gPrintSpecies][gPrintIndex2] != EOS; gPrintIndex2++)
+                    gPrintNameHash += gSpeciesNames[gPrintSpecies][gPrintIndex2];
 
                 gPrintPersonalityValue += gPrintNameHash << 8;
-                CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
-                for (j = 0; j < MAX_MON_MOVES; j++)
+                for (gPrintIndex2 = 0; gPrintIndex2 < MAX_MON_MOVES; gPrintIndex2++)
                 {
-                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
-                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                    SetMonData(&party[gPrintIndex1], MON_DATA_MOVE1 + gPrintIndex2, &gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].moves[gPrintIndex2]);
+                    SetMonData(&party[gPrintIndex1], MON_DATA_PP1 + gPrintIndex2, &gBattleMoves[gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].moves[gPrintIndex2]].pp);
                 }
                 break;
             }
             case F_TRAINER_PARTY_HELD_ITEM:
             {
-                const struct TrainerMonItemDefaultMoves *partyData = gTrainers[trainerNum].party.ItemDefaultMoves;
-                gPrintSpecies = partyData[i].species;
-                if (partyData[i].species > NUM_SPECIES)
-                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species, partyData[i].lvl);
-                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
-                    gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
+                gPrintSpecies = gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].species;
+                if (gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].species, gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].lvl);
+                for (gPrintIndex2 = 0; gSpeciesNames[gPrintSpecies][gPrintIndex2] != EOS; gPrintIndex2++)
+                    gPrintNameHash += gSpeciesNames[gPrintSpecies][gPrintIndex2];
 
                 gPrintPersonalityValue += gPrintNameHash << 8;
-                CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
-                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+                SetMonData(&party[gPrintIndex1], MON_DATA_HELD_ITEM, &gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].heldItem);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
             {
-                const struct TrainerMonItemCustomMoves *partyData = gTrainers[trainerNum].party.ItemCustomMoves;
-                gPrintSpecies = partyData[i].species;
-                if (partyData[i].species > NUM_SPECIES)
-                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species, partyData[i].lvl);
-                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
-                    gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
+                gPrintSpecies = gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].species;
+                if (gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].species, gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].lvl);
+                for (gPrintIndex2 = 0; gSpeciesNames[gPrintSpecies][gPrintIndex2] != EOS; gPrintIndex2++)
+                    gPrintNameHash += gSpeciesNames[gPrintSpecies][gPrintIndex2];
 
                 gPrintPersonalityValue += gPrintNameHash << 8;
-                CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, partyData[i].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
-                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+                SetMonData(&party[gPrintIndex1], MON_DATA_HELD_ITEM, &gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].heldItem);
 
-                for (j = 0; j < MAX_MON_MOVES; j++)
+                for (gPrintIndex2 = 0; gPrintIndex2 < MAX_MON_MOVES; gPrintIndex2++)
                 {
-                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
-                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                    SetMonData(&party[gPrintIndex1], MON_DATA_MOVE1 + gPrintIndex2, &gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].moves[gPrintIndex2]);
+                    SetMonData(&party[gPrintIndex1], MON_DATA_PP1 + gPrintIndex2, &gBattleMoves[gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].moves[gPrintIndex2]].pp);
                 }
                 break;
             }
             case F_TRAINER_EVERYTHING:
             {
-                const struct TrainerMonEverything *partyData = gTrainers[trainerNum].party.Everything;
-                gPrintSpecies = partyData[i].species;
-                if (partyData[i].species > NUM_SPECIES)
-                    gPrintSpecies = GetRivalStarterSpecies(partyData[i].species, partyData[i].lvl);
-                for (j = 0; gSpeciesNames[gPrintSpecies][j] != EOS; j++)
-                    gPrintNameHash += gSpeciesNames[gPrintSpecies][j];
+                gPrintSpecies = gTrainers[trainerNum].party.Everything[gPrintIndex1].species;
+                if (gTrainers[trainerNum].party.Everything[gPrintIndex1].species > NUM_SPECIES)
+                    gPrintSpecies = GetRivalStarterSpecies(gTrainers[trainerNum].party.Everything[gPrintIndex1].species, gTrainers[trainerNum].party.Everything[gPrintIndex1].lvl);
+                for (gPrintIndex2 = 0; gSpeciesNames[gPrintSpecies][gPrintIndex2] != EOS; gPrintIndex2++)
+                    gPrintNameHash += gSpeciesNames[gPrintSpecies][gPrintIndex2];
 
                 gPrintPersonalityValue += gPrintNameHash << 8;
-                CreateMon(&party[i], gPrintSpecies, partyData[i].lvl, USE_RANDOM_IVS, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.Everything[gPrintIndex1].lvl, USE_RANDOM_IVS, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
 
-                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
-                SetMonData(&party[i], MON_DATA_NATURE, &partyData[i].nature);
+                SetMonData(&party[gPrintIndex1], MON_DATA_HELD_ITEM, &gTrainers[trainerNum].party.Everything[gPrintIndex1].heldItem);
+                SetMonData(&party[gPrintIndex1], MON_DATA_NATURE, &gTrainers[trainerNum].party.Everything[gPrintIndex1].nature);
 
-                for (j = 0; j < MAX_MON_MOVES; j++)
+                for (gPrintIndex2 = 0; gPrintIndex2 < MAX_MON_MOVES; gPrintIndex2++)
                 {
-                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
-                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+                    SetMonData(&party[gPrintIndex1], MON_DATA_MOVE1 + gPrintIndex2, &gTrainers[trainerNum].party.Everything[gPrintIndex1].moves[gPrintIndex2]);
+                    SetMonData(&party[gPrintIndex1], MON_DATA_PP1 + gPrintIndex2, &gBattleMoves[gTrainers[trainerNum].party.Everything[gPrintIndex1].moves[gPrintIndex2]].pp);
                 }
                 // ivs
-                for (j = 0; j < 6; j++)
+                for (gPrintIndex2 = 0; gPrintIndex2 < 6; gPrintIndex2++)
                 {
-                    SetMonData(&party[i], MON_DATA_HP_IV + j, &partyData[i].iv[j]);
+                    SetMonData(&party[gPrintIndex1], MON_DATA_HP_IV + gPrintIndex2, &gTrainers[trainerNum].party.Everything[gPrintIndex1].iv[gPrintIndex2]);
                 }
                 // evs
-                for (j = 0; j < 6; j++)
+                for (gPrintIndex2 = 0; gPrintIndex2 < 6; gPrintIndex2++)
                 {
-                    SetMonData(&party[i], MON_DATA_HP_EV + j, &partyData[i].ev[j]);
+                    SetMonData(&party[gPrintIndex1], MON_DATA_HP_EV + gPrintIndex2, &gTrainers[trainerNum].party.Everything[gPrintIndex1].ev[gPrintIndex2]);
                 }
-                SetMonData(&party[i], MON_DATA_ABILITY_NUM, &partyData[i].ability);
+                SetMonData(&party[gPrintIndex1], MON_DATA_ABILITY_NUM, &gTrainers[trainerNum].party.Everything[gPrintIndex1].ability);
                 break;
             }
             }
         }
     }
-    //Free(&i);
-    //Free(&j);
     return gTrainers[trainerNum].partySize;
 }
 
@@ -8296,9 +8287,9 @@ static void PrintTrainersShowdownData()
         }
         PrintTrainerShowdownData(i,(n?n+1:n));
     }
-    Free(&i);
-    Free(&j);
-    Free(&n);
+    //Free(&i);
+    //Free(&j);
+    //Free(&n);
 }
 
 #define MODE_PARTY 0
