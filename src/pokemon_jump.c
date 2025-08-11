@@ -656,7 +656,7 @@ static s16 GetPokemonJumpSpeciesIdx(u16 species)
 static void InitJumpMonInfo(struct PokemonJump_MonInfo *monInfo, struct Pokemon *mon)
 {
     monInfo->species = GetMonData(mon, MON_DATA_SPECIES);
-    monInfo->otId = GetMonData(mon, MON_DATA_OT_ID);
+    monInfo->otId = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
     monInfo->personality = GetMonData(mon, MON_DATA_PERSONALITY);
 }
 

@@ -1383,6 +1383,7 @@ static void CopyMonToSummaryStruct(struct Pokemon *mon)
 static bool8 ExtractMonDataToSummaryStruct(struct Pokemon *mon)
 {
     u32 i;
+    u32 IdIndex;
     struct PokeSummary *sum = &sMonSummaryScreen->summary;
     // Spread the data extraction over multiple frames.
     switch (sMonSummaryScreen->switchCounter)
@@ -1436,11 +1437,17 @@ static bool8 ExtractMonDataToSummaryStruct(struct Pokemon *mon)
         }
         break;
     case 3:
-        GetMonData(mon, MON_DATA_OT_NAME, sum->OTName);
+        IdIndex = GetMonData(mon, MON_DATA_OT_INDEX);
+        i=0;
+        while(gSaveBlock2Ptr->otData[IdIndex].name[i] != EOS)
+        {
+            sum->OTName[i] = gSaveBlock2Ptr->otData[IdIndex].name[i++];
+        }
+        sum->OTName[i] = EOS;
         ConvertInternationalString(sum->OTName, GetMonData(mon, MON_DATA_LANGUAGE));
         sum->ailment = GetMonAilment(mon);
-        sum->OTGender = GetMonData(mon, MON_DATA_OT_GENDER);
-        sum->OTID = GetMonData(mon, MON_DATA_OT_ID);
+        sum->OTGender = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].gender;
+        sum->OTID = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
         sum->metLocation = GetMonData(mon, MON_DATA_MET_LOCATION);
         sum->metLevel = GetMonData(mon, MON_DATA_MET_LEVEL);
         sum->friendship = GetMonData(mon, MON_DATA_FRIENDSHIP);

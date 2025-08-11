@@ -515,7 +515,7 @@ const u8 gText_Switch[] = _("Switch");
 const u8 gText_PkmnInfo[] = _("Pokémon info");
 const u8 gText_PkmnSkills[] = _("Pokémon skills");
 const u8 gText_BattleMoves[] = _("Battle moves");
-const u8 gText_ContestMoves[] = _("C0ntest moves");
+const u8 gText_ContestMoves[] = _("Contest moves");
 const u8 gText_Info[] = _("Info");
 const u8 gText_EggWillTakeALongTime[] = _("It looks like this egg will\ntake a long time to hatch.");
 const u8 gText_EggWillTakeSomeTime[] = _("What will hatch from this?\nIt will take some time.");
@@ -1909,4 +1909,8 @@ const u8 gText_F[] = _("F");
 const u8 gText_Boss[] = _("boss ");
 const u8 gText_ProfileNewVar1[] = _("Profile {Str_Var_1}: New Game");
 const u8 gText_ProfileVar1[] = _("Profile {Str_Var_1}:");
+const u8 gText_LinkOpponentName[] = _("LNK-OPP");
+const u8 gText_AIOpponentName[] = _("AI-OPP");
+const u8 gText_Dummy[] = _("Dummy");
+const u8 gText_FBrain[] = _("F-BRAIN");
 

@@ -3320,7 +3320,7 @@ void BufferMonNickname(void)
 
 void IsMonOTIDNotPlayers(void)
 {
-    if (GetPlayerIDAsU32() == GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_OT_ID, NULL))
+    if (GetPlayerIDAsU32() == gSaveBlock2Ptr->otData[GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_OT_INDEX, NULL)].Id)
         gSpecialVar_Result = FALSE;
     else
         gSpecialVar_Result = TRUE;

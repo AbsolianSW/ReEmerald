@@ -83,7 +83,11 @@ void CopyTrainerId(u8 *dst, u8 *src)
 
 static void InitPlayerTrainerId(void)
 {
-    u32 trainerId = (Random() << 16) | GetGeneratedTrainerIdLower();
+    u32 trainerId = 0;
+    while(!trainerId)
+    {
+        trainerId = (Random() << 16) | GetGeneratedTrainerIdLower();//make sure the dummy ID of 0 isn't generated here
+    }
     SetTrainerId(trainerId, gSaveBlock1Ptr->playerTrainerId);
 }
 

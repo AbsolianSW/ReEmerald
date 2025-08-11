@@ -6889,7 +6889,7 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
         sStorage->displayMonSpecies = GetBoxMonData(pokemon, MON_DATA_SPECIES_OR_EGG);
         if (sStorage->displayMonSpecies != SPECIES_NONE)
         {
-            u32 otId = GetBoxMonData(boxMon, MON_DATA_OT_ID);
+            u32 otId = gSaveBlock2Ptr->otData[GetBoxMonData(boxMon, MON_DATA_OT_INDEX)].Id;
             sanityIsBadEgg = GetBoxMonData(boxMon, MON_DATA_SANITY_IS_BAD_EGG);
             if (sanityIsBadEgg)
                 sStorage->displayMonIsEgg = TRUE;
@@ -9492,7 +9492,7 @@ void CreateBoxMonAt(u8 boxId, u8 boxPosition, u16 species, u8 level, u8 fixedIV,
                      level,
                      fixedIV,
                      hasFixedPersonality, personality,
-                     otIDType, otID);
+                     otIDType, otID,gSaveBlock2Ptr->otData[GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][boxPosition],MON_DATA_OT_INDEX)].name,gSaveBlock2Ptr->otData[GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][boxPosition],MON_DATA_OT_INDEX)].gender);
     }
 }
 

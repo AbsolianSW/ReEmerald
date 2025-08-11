@@ -1418,7 +1418,7 @@ void SetShoalItemFlag(u16 unused)
 void LoadWallyZigzagoon(void)
 {
     u16 monData;
-    CreateMon(&gPlayerParty[0], SPECIES_ZIGZAGOON, 7, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
+    CreateMon(&gPlayerParty[0], SPECIES_ZIGZAGOON, 7, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0,gSaveBlock1Ptr->playerName,gSaveBlock1Ptr->playerGender);
     monData = TRUE;
     SetMonData(&gPlayerParty[0], MON_DATA_ABILITY_NUM, &monData);
     monData = MOVE_TACKLE;
@@ -1569,7 +1569,7 @@ bool8 MonOTNameNotPlayer(void)
     if (GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LANGUAGE) != GAME_LANGUAGE)
         return TRUE;
 
-    GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_OT_NAME, gStringVar1);
+    StringCopy(gStringVar1, gSaveBlock2Ptr->otData[GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_OT_INDEX)].name);
 
     if (!StringCompare(gSaveBlock1Ptr->playerName, gStringVar1))
         return FALSE;

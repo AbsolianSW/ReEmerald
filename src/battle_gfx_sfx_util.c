@@ -597,7 +597,7 @@ void BattleLoadOpponentMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
         currentPersonality = gTransformedPersonalities[battlerId];
     }
 
-    otId = GetMonData(mon, MON_DATA_OT_ID);
+    otId = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
     position = GetBattlerPosition(battlerId);
     HandleLoadSpecialPokePic_DontHandleDeoxys(&gMonFrontPicTable[species],
                                               gMonSpritesGfxPtr->sprites.ptr[position],
@@ -650,7 +650,7 @@ void BattleLoadPlayerMonSpriteGfx(struct Pokemon *mon, u8 battlerId)
         currentPersonality = gTransformedPersonalities[battlerId];
     }
 
-    otId = GetMonData(mon, MON_DATA_OT_ID);
+    otId = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
     position = GetBattlerPosition(battlerId);
 
     if (ShouldIgnoreDeoxysForm(1, battlerId) == TRUE || gBattleSpritesDataPtr->battlerData[battlerId].transformSpecies != SPECIES_NONE)
@@ -972,7 +972,7 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, bool8 castform)
             {
                 personalityValue = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
                 shinyBlock = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_SHINYBLOCK);
-                otId = GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_ID);
+                otId = gSaveBlock2Ptr->otData[GetMonData(&gPlayerParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_INDEX)].Id;
 
                 HandleLoadSpecialPokePic_DontHandleDeoxys(&gMonBackPicTable[targetSpecies],
                                                           gMonSpritesGfxPtr->sprites.ptr[position],
@@ -983,7 +983,7 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, bool8 castform)
             {
                 personalityValue = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_PERSONALITY);
                 shinyBlock = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_SHINYBLOCK);
-                otId = GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_ID);
+                otId = gSaveBlock2Ptr->otData[GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_OT_INDEX)].Id;
 
                 HandleLoadSpecialPokePic_DontHandleDeoxys(&gMonFrontPicTable[targetSpecies],
                                                           gMonSpritesGfxPtr->sprites.ptr[position],

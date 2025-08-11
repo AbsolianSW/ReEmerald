@@ -206,6 +206,8 @@ void SaveRelevantData(void)
         if (FlagGet(i))
             gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].badgeCount++;
     }
+    gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].playTimeHours = gSaveBlock1Ptr->playTimeHours;
+    gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].playTimeMinutes = gSaveBlock1Ptr->playTimeMinutes;
     gSaveBlock2Ptr->profileData[gSaveBlock2Ptr->currentProfile].regionMapSectionId = GetCurrentRegionMapSectionId();
 }
 

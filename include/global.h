@@ -494,6 +494,15 @@ struct GeneralProfileData
     u8 regionMapSectionId;
 };
 
+#define NUM_OT_ENTRIES 127
+
+struct OTData
+{
+    u32 Id;
+    u8 name[TRAINER_NAME_LENGTH];
+    u8 gender;
+};
+
 struct SaveBlockGeneral
 {
     /*0x13*/ u8 optionsButtonMode;  // OPTIONS_BUTTON_MODE_[NORMAL/LR/L_EQUALS_A]
@@ -504,6 +513,8 @@ struct SaveBlockGeneral
              u16 optionsBattleSceneOff:1; // whether battle animations are disabled
              struct GeneralProfileData profileData[NUM_PROFILES];
              u8 currentProfile;
+             struct OTData otData[NUM_OT_ENTRIES];
+             u8 savedOTs;
              
 }; // sizeof=0xF2C
 

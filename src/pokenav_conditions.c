@@ -532,7 +532,7 @@ static void ConditionGraphDrawMonPic(s16 listId, u8 loadId)
     boxId = monListPtr->monData[listId].boxId;
     monId = monListPtr->monData[listId].monId;
     species = GetBoxOrPartyMonData(boxId, monId, MON_DATA_SPECIES_OR_EGG, NULL);
-    tid = GetBoxOrPartyMonData(boxId, monId, MON_DATA_OT_ID, NULL);
+    tid = gSaveBlock2Ptr->otData[GetBoxOrPartyMonData(boxId, monId, MON_DATA_OT_INDEX, NULL)].Id;
     personality = GetBoxOrPartyMonData(boxId, monId, MON_DATA_PERSONALITY, NULL);
     LoadSpecialPokePic(&gMonFrontPicTable[species], menu->monPicGfx[loadId], species, personality, TRUE);
     LZ77UnCompWram(GetMonSpritePalFromSpeciesAndPersonality(species, tid, personality, FALSE), menu->monPal[loadId]);

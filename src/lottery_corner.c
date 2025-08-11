@@ -64,7 +64,7 @@ void PickLotteryCornerTicket(void)
             // do not calculate ticket values for eggs.
             if (!GetMonData(mon, MON_DATA_IS_EGG))
             {
-                u32 otId = GetMonData(mon, MON_DATA_OT_ID);
+                u32 otId = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
                 u8 numMatchingDigits = GetMatchingDigits(gSpecialVar_Result, otId);
 
                 if (numMatchingDigits > gSpecialVar_0x8004 && numMatchingDigits > 1)
@@ -86,7 +86,7 @@ void PickLotteryCornerTicket(void)
             if (GetBoxMonData(&gPokemonStoragePtr->boxes[i][j], MON_DATA_SPECIES) != SPECIES_NONE &&
             !GetBoxMonData(&gPokemonStoragePtr->boxes[i][j], MON_DATA_IS_EGG))
             {
-                u32 otId = GetBoxMonData(&gPokemonStoragePtr->boxes[i][j], MON_DATA_OT_ID);
+                u32 otId = gSaveBlock2Ptr->otData[GetBoxMonData(&gPokemonStoragePtr->boxes[i][j], MON_DATA_OT_INDEX)].Id;
                 u8 numMatchingDigits = GetMatchingDigits(gSpecialVar_Result, otId);
 
                 if (numMatchingDigits > gSpecialVar_0x8004 && numMatchingDigits > 1)

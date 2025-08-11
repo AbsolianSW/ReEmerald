@@ -2222,28 +2222,28 @@ void ZeroEnemyPartyMons(void)
         ZeroMonData(&gEnemyParty[i]);
 }
 
-void CreateMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId)
+void CreateMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId, const u8* otName, u8 trainerGender)
 {
     u32 mail;
     ZeroMonData(mon);
-    CreateBoxMon(&mon->box, species, level, fixedIV, hasFixedPersonality, fixedPersonality, otIdType, fixedOtId);
+    CreateBoxMon(&mon->box, species, level, fixedIV, hasFixedPersonality, fixedPersonality, otIdType, fixedOtId,otName,trainerGender);
     SetMonData(mon, MON_DATA_LEVEL, &level);
     mail = MAIL_NONE;
     SetMonData(mon, MON_DATA_MAIL, &mail);
     CalculateMonStats(mon);
 }
 
-void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId)
+void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId,const u8* otName, u8 trainerGender)
 {
     u8 speciesName[POKEMON_NAME_LENGTH + 1];
     u32 personality;
     u32 value;
+    u8 idIndex;
     bool8 shinyBlock = 0;
     u16 checksum;
     u8 nature;
 
     ZeroBoxMonData(boxMon);
-
     if (hasFixedPersonality) 
         personality = fixedPersonality;
     else
@@ -2255,17 +2255,11 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
 
     // Determine original trainer ID
-    if (otIdType == OT_ID_RANDOM_NO_SHINY)
+    if (otIdType == OT_ID_DUMMY_NO_SHINY)
     {
-        //u32 shinyValue;
-        //do
-        //{
-            // Choose random OT IDs until one that results in a non-shiny Pokémon
-            value = Random32();
-            shinyBlock = 1;
-            SetBoxMonData(boxMon, MON_DATA_SHINYBLOCK, &shinyBlock);
-            //shinyValue = GET_SHINY_VALUE(value, personality);
-        //} while (shinyValue < GetShinyOdds());
+        value = 0;
+        shinyBlock = 1;
+        SetBoxMonData(boxMon, MON_DATA_SHINYBLOCK, &shinyBlock);
     }
     else if (otIdType == OT_ID_PRESET)
     {
@@ -2278,12 +2272,11 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
               | (gSaveBlock1Ptr->playerTrainerId[2] << 16)
               | (gSaveBlock1Ptr->playerTrainerId[3] << 24);
     }
-
-    SetBoxMonData(boxMon, MON_DATA_OT_ID, &value);
+    idIndex = GetOrCreateOtIndexbyId(value,otName,trainerGender);
+    SetBoxMonData(boxMon, MON_DATA_OT_INDEX,&idIndex);
     GetSpeciesName(speciesName, species);
     SetBoxMonData(boxMon, MON_DATA_NICKNAME, speciesName);
     SetBoxMonData(boxMon, MON_DATA_LANGUAGE, &gGameLanguage);
-    SetBoxMonData(boxMon, MON_DATA_OT_NAME, gSaveBlock1Ptr->playerName);
     SetBoxMonData(boxMon, MON_DATA_SPECIES, &species);
     SetBoxMonData(boxMon, MON_DATA_EXP, &gExperienceTables[gSpeciesInfo[species].growthRate][level]);
     SetBoxMonData(boxMon, MON_DATA_FRIENDSHIP, &gSpeciesInfo[species].friendship);
@@ -2292,7 +2285,6 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     SetBoxMonData(boxMon, MON_DATA_MET_LEVEL, &level);
     value = ITEM_POKE_BALL;
     SetBoxMonData(boxMon, MON_DATA_POKEBALL, &value);
-    SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock1Ptr->playerGender);
 
     if (fixedIV < USE_RANDOM_IVS)
     {
@@ -2344,7 +2336,7 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
     }
     while (nature != GetNatureFromPersonality(personality));
 
-    CreateMon(mon, species, level, fixedIV, TRUE, personality, OT_ID_PLAYER_ID, 0);
+    CreateMon(mon, species, level, fixedIV, TRUE, personality, OT_ID_PLAYER_ID, 0,gSaveBlock1Ptr->playerName,gSaveBlock1Ptr->playerGender);
 }
 
 void CreateMonWithGenderNatureLetter(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 gender, u8 nature, u8 unownLetter)
@@ -2374,7 +2366,7 @@ void CreateMonWithGenderNatureLetter(struct Pokemon *mon, u16 species, u8 level,
             || gender != GetGenderFromSpeciesAndPersonality(species, personality));
     }
 
-    CreateMon(mon, species, level, fixedIV, TRUE, personality, OT_ID_PLAYER_ID, 0);
+    CreateMon(mon, species, level, fixedIV, TRUE, personality, OT_ID_PLAYER_ID, 0,gSaveBlock1Ptr->playerName,gSaveBlock1Ptr->playerGender);
 }
 
 // This is only used to create Wally's Ralts.
@@ -2389,27 +2381,16 @@ void CreateMaleMon(struct Pokemon *mon, u16 species, u8 level)
         personality = Random32();
     }
     while (GetGenderFromSpeciesAndPersonality(species, personality) != MON_MALE);
-    CreateMon(mon, species, level, USE_RANDOM_IVS, TRUE, personality, OT_ID_PRESET, otId);
+    CreateMon(mon, species, level, USE_RANDOM_IVS, TRUE, personality, OT_ID_PRESET, otId,gText_Dummy, MALE);
 }
 
 void CreateMonWithIVsPersonality(struct Pokemon *mon, u16 species, u8 level, u32 ivs, u32 personality)
 {
-    CreateMon(mon, species, level, 0, TRUE, personality, OT_ID_PLAYER_ID, 0);
+    CreateMon(mon, species, level, 0, TRUE, personality, OT_ID_PLAYER_ID, 0,gSaveBlock1Ptr->playerName,gSaveBlock1Ptr->playerGender);
     SetMonData(mon, MON_DATA_IVS, &ivs);
     CalculateMonStats(mon);
 }
 
-void CreateMonWithIVsOTID(struct Pokemon *mon, u16 species, u8 level, u8 *ivs, u32 otId)
-{
-    CreateMon(mon, species, level, 0, FALSE, 0, OT_ID_PRESET, otId);
-    SetMonData(mon, MON_DATA_HP_IV, &ivs[STAT_HP]);
-    SetMonData(mon, MON_DATA_ATK_IV, &ivs[STAT_ATK]);
-    SetMonData(mon, MON_DATA_DEF_IV, &ivs[STAT_DEF]);
-    SetMonData(mon, MON_DATA_SPEED_IV, &ivs[STAT_SPEED]);
-    SetMonData(mon, MON_DATA_SPATK_IV, &ivs[STAT_SPATK]);
-    SetMonData(mon, MON_DATA_SPDEF_IV, &ivs[STAT_SPDEF]);
-    CalculateMonStats(mon);
-}
 
 void CreateMonWithEVSpread(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 evSpread)
 {
@@ -2418,7 +2399,7 @@ void CreateMonWithEVSpread(struct Pokemon *mon, u16 species, u8 level, u8 fixedI
     u16 evAmount;
     u8 evsBits;
 
-    CreateMon(mon, species, level, fixedIV, FALSE, 0, OT_ID_PLAYER_ID, 0);
+    CreateMon(mon, species, level, fixedIV, FALSE, 0, OT_ID_PLAYER_ID, 0,gSaveBlock1Ptr->playerName,gSaveBlock1Ptr->playerGender);
 
     evsBits = evSpread;
 
@@ -2450,7 +2431,7 @@ void CreateBattleTowerMon(struct Pokemon *mon, struct BattleTowerPokemon *src)
     u8 language;
     u8 value;
 
-    CreateMon(mon, src->species, src->level, 0, TRUE, src->personality, OT_ID_PRESET, src->otId);
+    CreateMon(mon, src->species, src->level, 0, TRUE, src->personality, OT_ID_DUMMY_NO_SHINY, src->otId,gText_Dummy,MALE);
 
     for (i = 0; i < MAX_MON_MOVES; i++)
         SetMonMoveSlot(mon, src->moves[i], i);
@@ -2513,7 +2494,7 @@ void CreateBattleTowerMon_HandleLevel(struct Pokemon *mon, struct BattleTowerPok
     else
         level = src->level;
 
-    CreateMon(mon, src->species, level, 0, TRUE, src->personality, OT_ID_PRESET, src->otId);
+    CreateMon(mon, src->species, level, 0, TRUE, src->personality, OT_ID_DUMMY_NO_SHINY, src->otId,gText_Dummy,MALE);
 
     for (i = 0; i < MAX_MON_MOVES; i++)
         SetMonMoveSlot(mon, src->moves[i], i);
@@ -2576,8 +2557,8 @@ void CreateApprenticeMon(struct Pokemon *mon, const struct Apprentice *src, u8 m
               MAX_PER_STAT_IVS,
               TRUE,
               personality,
-              OT_ID_PRESET,
-              otId);
+              OT_ID_DUMMY_NO_SHINY,
+              otId,gText_Dummy,MALE);
 
     SetMonData(mon, MON_DATA_HELD_ITEM, &src->party[monId].item);
     for (i = 0; i < MAX_MON_MOVES; i++)
@@ -2589,7 +2570,6 @@ void CreateApprenticeMon(struct Pokemon *mon, const struct Apprentice *src, u8 m
 
     language = src->language;
     SetMonData(mon, MON_DATA_LANGUAGE, &language);
-    SetMonData(mon, MON_DATA_OT_NAME, GetApprenticeNameInLanguage(src->id, language));
     CalculateMonStats(mon);
 }
 
@@ -2606,7 +2586,7 @@ void CreateMonWithEVSpreadNatureOTID(struct Pokemon *mon, u16 species, u8 level,
         i = Random32();
     } while (nature != GetNatureFromPersonality(i));
 
-    CreateMon(mon, species, level, fixedIV, TRUE, i, OT_ID_PRESET, otId);
+    CreateMon(mon, species, level, fixedIV, TRUE, i, OT_ID_PRESET, otId,gText_Dummy,MALE);
     evsBits = evSpread;
     for (i = 0; i < NUM_STATS; i++)
     {
@@ -2645,7 +2625,7 @@ void ConvertPokemonToBattleTowerPokemon(struct Pokemon *mon, struct BattleTowerP
 
     dest->level = GetMonData(mon, MON_DATA_LEVEL, NULL);
     dest->ppBonuses = GetMonData(mon, MON_DATA_PP_BONUSES, NULL);
-    dest->otId = GetMonData(mon, MON_DATA_OT_ID, NULL);
+    dest->otId = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
     dest->hpEV = GetMonData(mon, MON_DATA_HP_EV, NULL);
     dest->attackEV = GetMonData(mon, MON_DATA_ATK_EV, NULL);
     dest->defenseEV = GetMonData(mon, MON_DATA_DEF_EV, NULL);
@@ -2669,7 +2649,7 @@ static void CreateEventMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedI
 {
     bool32 isModernFatefulEncounter = TRUE;
 
-    CreateMon(mon, species, level, fixedIV, hasFixedPersonality, fixedPersonality, otIdType, fixedOtId);
+    CreateMon(mon, species, level, fixedIV, hasFixedPersonality, fixedPersonality, otIdType, fixedOtId,gSaveBlock1Ptr->playerName,gSaveBlock1Ptr->playerGender);
 }
 
 // If FALSE, should load this game's Deoxys form. If TRUE, should load normal Deoxys form
@@ -3711,8 +3691,8 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_PERSONALITY:
         retVal = boxMon->personality;
         break;
-    case MON_DATA_OT_ID:
-        retVal = boxMon->otId;
+    case MON_DATA_OT_INDEX:
+        retVal = boxMon->otIndex;
         break;
     case MON_DATA_NICKNAME:
     {
@@ -3764,19 +3744,6 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_SANITY_IS_EGG:
         retVal = boxMon->isEgg;
         break;
-    case MON_DATA_OT_NAME:
-    {
-        retVal = 0;
-
-        while (retVal < PLAYER_NAME_LENGTH)
-        {
-            data[retVal] = boxMon->otName[retVal];
-            retVal++;
-        }
-
-        data[retVal] = EOS;
-        break;
-    }
     case MON_DATA_MARKINGS:
         retVal = boxMon->markings;
         break;
@@ -3866,9 +3833,6 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         break;
     case MON_DATA_POKEBALL:
         retVal = boxMon->pokeball;
-        break;
-    case MON_DATA_OT_GENDER:
-        retVal = boxMon->otGender;
         break;
     case MON_DATA_HP_IV:
         retVal = boxMon->hpIV;
@@ -4061,8 +4025,8 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     case MON_DATA_PERSONALITY:
         SET32(boxMon->personality);
         break;
-    case MON_DATA_OT_ID:
-        SET32(boxMon->otId);
+    case MON_DATA_OT_INDEX:
+        SET8(boxMon->otIndex);
         break;
     case MON_DATA_NICKNAME:
     {
@@ -4083,13 +4047,6 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     case MON_DATA_SANITY_IS_EGG:
         SET8(boxMon->isEgg);
         break;
-    case MON_DATA_OT_NAME:
-    {
-        s32 i;
-        for (i = 0; i < PLAYER_NAME_LENGTH; i++)
-            boxMon->otName[i] = data[i];
-        break;
-    }
     case MON_DATA_MARKINGS:
         SET8(boxMon->markings);
         break;
@@ -4222,9 +4179,6 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         boxMon->pokeball = pokeball;
         break;
     }
-    case MON_DATA_OT_GENDER:
-        SET8(boxMon->otGender);
-        break;
     case MON_DATA_HP_IV:
         SET8(boxMon->hpIV);
         break;
@@ -4316,9 +4270,8 @@ void CopyMon(void *dest, void *src, size_t size)
 u8 GiveMonToPlayer(struct Pokemon *mon)
 {
     s32 i;
-    SetMonData(mon, MON_DATA_OT_NAME, gSaveBlock1Ptr->playerName);
-    SetMonData(mon, MON_DATA_OT_GENDER, &gSaveBlock1Ptr->playerGender);
-    SetMonData(mon, MON_DATA_OT_ID, gSaveBlock1Ptr->playerTrainerId);
+    u8 idIndex = GetOrCreateOtIndexbyId((gSaveBlock1Ptr->playerTrainerId[3] << 24) | (gSaveBlock1Ptr->playerTrainerId[2] << 16) | (gSaveBlock1Ptr->playerTrainerId[1] << 8) | gSaveBlock1Ptr->playerTrainerId[0],gSaveBlock1Ptr->playerName,gSaveBlock1Ptr->playerGender);
+    SetMonData(mon, MON_DATA_OT_INDEX, &idIndex);
     for (i = 0; i < PARTY_SIZE; i++)
     {
         if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL) == SPECIES_NONE)
@@ -4473,8 +4426,8 @@ void CreateSecretBaseEnemyParty(struct SecretBase *secretBaseRecord)
                 15,
                 TRUE,
                 gBattleResources->secretBase->party.personality[i],
-                OT_ID_RANDOM_NO_SHINY,
-                0);
+                OT_ID_DUMMY_NO_SHINY,
+                0,gText_Dummy,MALE);
 
             SetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, &gBattleResources->secretBase->party.heldItems[i]);
             SetMonData(&gEnemyParty[i], MON_DATA_NATURE, &gBattleResources->secretBase->party.nature[i]);
@@ -4599,14 +4552,13 @@ void CopyPlayerPartyMonToBattleData(u8 battlerId, u8 partyIndex)
     gBattleMons[battlerId].spDefense = GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPDEF, NULL);
     gBattleMons[battlerId].isEgg = GetMonData(&gPlayerParty[partyIndex], MON_DATA_IS_EGG, NULL);
     gBattleMons[battlerId].abilityNum = GetMonData(&gPlayerParty[partyIndex], MON_DATA_ABILITY_NUM, NULL);
-    gBattleMons[battlerId].otId = GetMonData(&gPlayerParty[partyIndex], MON_DATA_OT_ID, NULL);
+    gBattleMons[battlerId].otId = gSaveBlock2Ptr->otData[GetMonData(&gPlayerParty[partyIndex], MON_DATA_OT_INDEX)].Id;
     gBattleMons[battlerId].type1 = gSpeciesInfo[gBattleMons[battlerId].species].types[0];
     gBattleMons[battlerId].type2 = gSpeciesInfo[gBattleMons[battlerId].species].types[1];
     gBattleMons[battlerId].ability = GetAbilityBySpecies(gBattleMons[battlerId].species, gBattleMons[battlerId].abilityNum);
     GetMonData(&gPlayerParty[partyIndex], MON_DATA_NICKNAME, nickname);
     StringCopy_Nickname(gBattleMons[battlerId].nickname, nickname);
-    GetMonData(&gPlayerParty[partyIndex], MON_DATA_OT_NAME, gBattleMons[battlerId].otName);
-
+    StringCopy(gBattleMons[battlerId].otName, gSaveBlock2Ptr->otData[GetMonData(&gPlayerParty[partyIndex], MON_DATA_OT_INDEX)].name);
     hpSwitchout = &gBattleStruct->hpOnSwitchout[GetBattlerSide(battlerId)];
     *hpSwitchout = gBattleMons[battlerId].hp;
 
@@ -6444,7 +6396,7 @@ static void Task_PlayMapChosenOrBattleBGM(u8 taskId)
 const u32 *GetMonFrontSpritePal(struct Pokemon *mon)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
-    u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
+    u32 otId = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
     u8 shinyBlock = GetMonData(mon, MON_DATA_SHINYBLOCK, 0);
     return GetMonSpritePalFromSpeciesAndPersonality(species, otId, personality, shinyBlock);
@@ -6467,7 +6419,7 @@ const u32 *GetMonSpritePalFromSpeciesAndPersonality(u16 species, u32 otId, u32 p
 const struct CompressedSpritePalette *GetMonSpritePalStruct(struct Pokemon *mon)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
-    u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
+    u32 otId = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
     u8 shinyBlock = GetMonData(mon, MON_DATA_SHINYBLOCK, 0);
     return GetMonSpritePalStructFromOtIdPersonality(species, otId, personality, shinyBlock);
@@ -6515,8 +6467,8 @@ bool8 IsTradedMon(struct Pokemon *mon)
 {
     u8 otName[PLAYER_NAME_LENGTH + 1];
     u32 otId;
-    GetMonData(mon, MON_DATA_OT_NAME, otName);
-    otId = GetMonData(mon, MON_DATA_OT_ID, 0);
+    StringCopy(otName, gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].name);
+    otId = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
     return IsOtherTrainer(otId, otName);
 }
 
@@ -6644,7 +6596,7 @@ void SetWildMonHeldItem(void)
 
 bool8 IsMonShiny(struct Pokemon *mon)
 {
-    u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
+    u32 otId = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
     return IsShinyOtIdPersonality(otId, personality);
 }
@@ -8059,7 +8011,7 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                     gPrintNameHash += gSpeciesNames[gPrintSpecies][gPrintIndex2];
                 }
                 gPrintPersonalityValue += gPrintNameHash << 8;
-                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.NoItemDefaultMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.NoItemDefaultMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.NoItemDefaultMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.NoItemDefaultMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_DUMMY_NO_SHINY, 0,gText_Dummy,MALE);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
@@ -8071,7 +8023,7 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                     gPrintNameHash += gSpeciesNames[gPrintSpecies][gPrintIndex2];
 
                 gPrintPersonalityValue += gPrintNameHash << 8;
-                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.NoItemCustomMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_DUMMY_NO_SHINY, 0,gText_Dummy,MALE);
 
                 for (gPrintIndex2 = 0; gPrintIndex2 < MAX_MON_MOVES; gPrintIndex2++)
                 {
@@ -8089,7 +8041,7 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                     gPrintNameHash += gSpeciesNames[gPrintSpecies][gPrintIndex2];
 
                 gPrintPersonalityValue += gPrintNameHash << 8;
-                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_DUMMY_NO_SHINY, 0,gText_Dummy,MALE);
 
                 SetMonData(&party[gPrintIndex1], MON_DATA_HELD_ITEM, &gTrainers[trainerNum].party.ItemDefaultMoves[gPrintIndex1].heldItem);
                 break;
@@ -8103,7 +8055,7 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                     gPrintNameHash += gSpeciesNames[gPrintSpecies][gPrintIndex2];
 
                 gPrintPersonalityValue += gPrintNameHash << 8;
-                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].lvl, gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].iv * MAX_PER_STAT_IVS / 255, TRUE, gPrintPersonalityValue, OT_ID_DUMMY_NO_SHINY, 0,gText_Dummy,MALE);
 
                 SetMonData(&party[gPrintIndex1], MON_DATA_HELD_ITEM, &gTrainers[trainerNum].party.ItemCustomMoves[gPrintIndex1].heldItem);
 
@@ -8123,7 +8075,7 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
                     gPrintNameHash += gSpeciesNames[gPrintSpecies][gPrintIndex2];
 
                 gPrintPersonalityValue += gPrintNameHash << 8;
-                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.Everything[gPrintIndex1].lvl, USE_RANDOM_IVS, TRUE, gPrintPersonalityValue, OT_ID_RANDOM_NO_SHINY, 0);
+                CreateMon(&party[gPrintIndex1], gPrintSpecies, gTrainers[trainerNum].party.Everything[gPrintIndex1].lvl, USE_RANDOM_IVS, TRUE, gPrintPersonalityValue, OT_ID_DUMMY_NO_SHINY, 0,gText_Dummy,MALE);
 
                 SetMonData(&party[gPrintIndex1], MON_DATA_HELD_ITEM, &gTrainers[trainerNum].party.Everything[gPrintIndex1].heldItem);
                 SetMonData(&party[gPrintIndex1], MON_DATA_NATURE, &gTrainers[trainerNum].party.Everything[gPrintIndex1].nature);
@@ -8152,71 +8104,157 @@ static u8 CreateNPCTrainerPartySkeleton(struct Pokemon *party, u16 trainerNum)
     return gTrainers[trainerNum].partySize;
 }
 
-//Species @ Item Name
-//Level: 100
+//Species@Item Name
+//Level:100
 //Naturename Nature
-//Ability: Ability Name
-//EVs: 4 Def / 252 SpA / 252 Spe etc
-//IVS: 4 Def / 4 SpA etc
+//Ability:Ability Name
+//EVs: 4 Def/252 SpA/252 Spe etc
+//IVS: 4 Def/4 SpA etc
 //- Move Name 1
 //- Move Name 2
 //- Move Name 3
 //- Move Name 4
+static const u8 sShowdownStr1[] = _("\n");
+static const u8 sShowdownStr2[] = _("(");
+static const u8 sShowdownStr3[] = _(")(");
+static const u8 sShowdownStr4[] = _(")â");//converted to @ symbol later
+static const u8 sShowdownStr5[] = _("\nLevel:");
+static const u8 sShowdownStr6[] = _(" Nature\nAbility:");
+static const u8 sShowdownStr7[] = _("\nEVs:");
+static const u8 sShowdownStr8[] = _(" HP/");
+static const u8 sShowdownStr9[] = _(" Atk/");
+static const u8 sShowdownStr10[] = _(" Def/");
+static const u8 sShowdownStr11[] = _(" SpA/");
+static const u8 sShowdownStr12[] = _(" SpD/");
+static const u8 sShowdownStr13[] = _(" Spe\nIVs:");
+static const u8 sShowdownStr14[] = _(" Spe\n- ");
+static const u8 sShowdownStr15[] = _("\n- ");
+
 static void PrintMonShowdownData(struct Pokemon mon, u16 trainerNum)
 {
-    DebugPrintf("\n%S(%S)(%S) @ %S\nLevel: %d\n%S Nature\nAbility: %S\nEVs: %d HP / %d Atk / %d Def / %d SpA / %d SpD / %d Spe\nIVs: %d HP / %d Atk / %d Def / %d SpA / %d SpD / %d Spe\n- %S\n- %S\n- %S\n- %S"
-        , (gStringVar1)
-        , gSpeciesNames[GetMonData(&mon, MON_DATA_SPECIES)]
-        , (GetMonGender(&mon)? GetMonGender(&mon) == MON_FEMALE ? gText_F:gText_ExpandedPlaceholder_Empty:gText_M)
-        , gItems[GetMonData(&mon, MON_DATA_HELD_ITEM)].name
-        , GetMonData(&mon, MON_DATA_LEVEL)
-        , gNatureNamePointers[GetMonData(&mon, MON_DATA_NATURE)]
-        , gAbilityNames[gSpeciesInfo[GetMonData(&mon, MON_DATA_SPECIES)].abilities[GetMonData(&mon, MON_DATA_ABILITY_NUM)]]
-        , GetMonData(&mon, MON_DATA_HP_EV)
-        , GetMonData(&mon, MON_DATA_ATK_EV)
-        , GetMonData(&mon, MON_DATA_DEF_EV)
-        , GetMonData(&mon, MON_DATA_SPATK_EV)
-        , GetMonData(&mon, MON_DATA_SPDEF_EV)
-        , GetMonData(&mon, MON_DATA_SPEED_EV)
-        , GetMonData(&mon, MON_DATA_HP_IV)
-        , GetMonData(&mon, MON_DATA_ATK_IV)
-        , GetMonData(&mon, MON_DATA_DEF_IV)
-        , GetMonData(&mon, MON_DATA_SPATK_IV)
-        , GetMonData(&mon, MON_DATA_SPDEF_IV)
-        , GetMonData(&mon, MON_DATA_SPEED_IV)
-        ,gMoveNames[GetMonData(&mon, MON_DATA_MOVE1)]
-        ,gMoveNames[GetMonData(&mon, MON_DATA_MOVE2)]
-        ,gMoveNames[GetMonData(&mon, MON_DATA_MOVE3)]
-        ,gMoveNames[GetMonData(&mon, MON_DATA_MOVE4)]
-        );
+    StringCopy(gStringVar3, sShowdownStr1);
+    StringAppend(gStringVar3, gStringVar1);
+    StringAppend(gStringVar3, sShowdownStr2);
+    StringAppend(gStringVar3, gSpeciesNames[GetMonData(&mon, MON_DATA_SPECIES)]);
+    StringAppend(gStringVar3, sShowdownStr3);
+    StringAppend(gStringVar3, (GetMonGender(&mon)? GetMonGender(&mon) == MON_FEMALE ? gText_F:gText_ExpandedPlaceholder_Empty:gText_M));
+    StringAppend(gStringVar3, sShowdownStr4);
+    StringAppend(gStringVar3, gItems[GetMonData(&mon, MON_DATA_HELD_ITEM)].name);
+    StringAppend(gStringVar3, sShowdownStr5);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_LEVEL),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr1);
+    StringAppend(gStringVar3, gNatureNamePointers[GetMonData(&mon, MON_DATA_NATURE)]);
+    StringAppend(gStringVar3, sShowdownStr6);
+    StringAppend(gStringVar3, gAbilityNames[gSpeciesInfo[GetMonData(&mon, MON_DATA_SPECIES)].abilities[GetMonData(&mon, MON_DATA_ABILITY_NUM)]]);
+    StringAppend(gStringVar3, sShowdownStr7);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_HP_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr8);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_ATK_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr9);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_DEF_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr10);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_SPATK_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr11);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_SPDEF_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr12);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_SPEED_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr13);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_HP_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr8);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_ATK_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr9);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_DEF_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr10);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_SPATK_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr11);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_SPDEF_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr12);
+    ConvertUIntToDecimalStringN(gStringVar4,GetMonData(&mon, MON_DATA_SPEED_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3,gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr14);
+    StringAppend(gStringVar3, gMoveNames[GetMonData(&mon, MON_DATA_MOVE1)]);
+    StringAppend(gStringVar3, sShowdownStr15);
+    StringAppend(gStringVar3, gMoveNames[GetMonData(&mon, MON_DATA_MOVE2)]);
+    StringAppend(gStringVar3, sShowdownStr15);
+    StringAppend(gStringVar3, gMoveNames[GetMonData(&mon, MON_DATA_MOVE3)]);
+    StringAppend(gStringVar3, sShowdownStr15);
+    StringAppend(gStringVar3, gMoveNames[GetMonData(&mon, MON_DATA_MOVE4)]);
+    DebugPrintf("%S",gStringVar3);
 }
 static void PrintBoxMonShowdownData(struct BoxPokemon mon)
 {
-    DebugPrintf("\n%S(%S)(%S) @ %S\nLevel: %d\n%S Nature\nAbility: %S\nEVs: %d HP / %d Atk / %d Def / %d SpA / %d SpD / %d Spe\nIVs: %d HP / %d Atk / %d Def / %d SpA / %d SpD / %d Spe\n- %S\n- %S\n- %S\n- %S"
-        , gStringVar1
-        , gSpeciesNames[GetBoxMonData(&mon, MON_DATA_SPECIES)]
-        , (GetBoxMonGender(&mon)? GetBoxMonGender(&mon) == MON_FEMALE ? gText_F:gText_ExpandedPlaceholder_Empty:gText_M)
-        , gItems[GetBoxMonData(&mon, MON_DATA_HELD_ITEM)].name
-        , GetBoxMonData(&mon, MON_DATA_LEVEL)
-        , gNatureNamePointers[GetBoxMonData(&mon, MON_DATA_NATURE)]
-        , gAbilityNames[gSpeciesInfo[GetBoxMonData(&mon, MON_DATA_SPECIES)].abilities[GetBoxMonData(&mon, MON_DATA_ABILITY_NUM)]]
-        , GetBoxMonData(&mon, MON_DATA_HP_EV)
-        , GetBoxMonData(&mon, MON_DATA_ATK_EV)
-        , GetBoxMonData(&mon, MON_DATA_DEF_EV)
-        , GetBoxMonData(&mon, MON_DATA_SPATK_EV)
-        , GetBoxMonData(&mon, MON_DATA_SPDEF_EV)
-        , GetBoxMonData(&mon, MON_DATA_SPEED_EV)
-        , GetBoxMonData(&mon, MON_DATA_HP_IV)
-        , GetBoxMonData(&mon, MON_DATA_ATK_IV)
-        , GetBoxMonData(&mon, MON_DATA_DEF_IV)
-        , GetBoxMonData(&mon, MON_DATA_SPATK_IV)
-        , GetBoxMonData(&mon, MON_DATA_SPDEF_IV)
-        , GetBoxMonData(&mon, MON_DATA_SPEED_IV)
-        ,gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE1)]
-        ,gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE2)]
-        ,gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE3)]
-        ,gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE4)]
-        );
+    StringCopy(gStringVar3, sShowdownStr1);
+    StringAppend(gStringVar3, gStringVar1);
+    StringAppend(gStringVar3, sShowdownStr2);
+    StringAppend(gStringVar3, gSpeciesNames[GetBoxMonData(&mon, MON_DATA_SPECIES)]);
+    StringAppend(gStringVar3, sShowdownStr3);
+    StringAppend(gStringVar3, (GetBoxMonGender(&mon)? GetBoxMonGender(&mon) == MON_FEMALE ? gText_F:gText_ExpandedPlaceholder_Empty:gText_M));
+    StringAppend(gStringVar3, sShowdownStr4);
+    StringAppend(gStringVar3, gItems[GetBoxMonData(&mon, MON_DATA_HELD_ITEM)].name);
+    StringAppend(gStringVar3, sShowdownStr5);
+    ConvertUIntToDecimalStringN(gStringVar4,GetLevelFromBoxMonExp(&mon),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr1);
+    StringAppend(gStringVar3, gNatureNamePointers[GetBoxMonData(&mon, MON_DATA_NATURE)]);
+    StringAppend(gStringVar3, sShowdownStr6);
+    StringAppend(gStringVar3, gAbilityNames[gSpeciesInfo[GetBoxMonData(&mon, MON_DATA_SPECIES)].abilities[GetBoxMonData(&mon, MON_DATA_ABILITY_NUM)]]);
+    StringAppend(gStringVar3, sShowdownStr7);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_HP_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr8);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_ATK_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr9);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_DEF_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr10);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_SPATK_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr11);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_SPDEF_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr12);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_SPEED_EV),STR_CONV_MODE_LEFT_ALIGN,3);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr13);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_HP_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr8);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_ATK_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr9);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_DEF_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr10);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_SPATK_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr11);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_SPDEF_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3, gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr12);
+    ConvertUIntToDecimalStringN(gStringVar4,GetBoxMonData(&mon, MON_DATA_SPEED_IV),STR_CONV_MODE_LEFT_ALIGN,2);
+    StringAppend(gStringVar3,gStringVar4);
+    StringAppend(gStringVar3, sShowdownStr14);
+    StringAppend(gStringVar3, gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE1)]);
+    StringAppend(gStringVar3, sShowdownStr15);
+    StringAppend(gStringVar3, gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE2)]);
+    StringAppend(gStringVar3, sShowdownStr15);
+    StringAppend(gStringVar3, gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE3)]);
+    StringAppend(gStringVar3, sShowdownStr15);
+    StringAppend(gStringVar3, gMoveNames[GetBoxMonData(&mon, MON_DATA_MOVE4)]);
+    DebugPrintf("%S",gStringVar3);
 }
 
 static const u8 sTextMyMon[] = _("My Mon ");
@@ -8233,7 +8271,6 @@ static void PrintPartyShowdownData(u16 trainerNum)
         }
         PrintMonShowdownData(gPrintParty[i], trainerNum);
     }
-    Free(&i);
 }
 
 static void PrintBoxMonsShowdownData()
@@ -8248,15 +8285,12 @@ static void PrintBoxMonsShowdownData()
             if (GetBoxMonData(gPrintBoxMon, MON_DATA_SPECIES) != SPECIES_NONE)
             {
                 StringCopy(gStringVar1, sTextMyMon);
-                ConvertUIntToDecimalStringN(gStringVar2, j++, STR_CONV_MODE_LEFT_ALIGN, 2);
+                ConvertUIntToDecimalStringN(gStringVar2, j++, STR_CONV_MODE_LEFT_ALIGN, 4);
                 StringAppend(gStringVar1, gStringVar2);
                 PrintBoxMonShowdownData(*gPrintBoxMon);
             }
         }
     }
-    Free(&i);
-    Free(&j);
-    Free(&boxIndex);
 }
 
 static void PrintTrainerShowdownData(u16 trainerNum, u8 fightNumber)
@@ -8265,6 +8299,7 @@ static void PrintTrainerShowdownData(u16 trainerNum, u8 fightNumber)
     StringCopy(gStringVar1, gTrainerClassNames[gTrainers[trainerNum].trainerClass]);
     StringAppend(gStringVar1,gText_EmptySpace);
     StringAppend(gStringVar1,gTrainers[trainerNum].trainerName);
+    //StringCopy(gStringVar1,gTrainers[trainerNum].trainerName);
     if(fightNumber)
     {
         StringAppend(gStringVar1,gText_EmptySpace);
@@ -8287,9 +8322,6 @@ static void PrintTrainersShowdownData()
         }
         PrintTrainerShowdownData(i,(n?n+1:n));
     }
-    //Free(&i);
-    //Free(&j);
-    //Free(&n);
 }
 
 #define MODE_PARTY 0
@@ -8311,6 +8343,7 @@ void PrintShowdownData(u8 mode, u16 trainerNum)
             PrintPartyShowdownData(0);
             break;
         case MODE_BOX:
+            gPrintPartySize = gPlayerPartyCount;
             for(i=0;i<gPlayerPartyCount;i++)
             {
                 gPrintParty[i] = gPlayerParty[i];
@@ -8324,4 +8357,26 @@ void PrintShowdownData(u8 mode, u16 trainerNum)
         case MODE_ALL_TRAINER_DATA:
                 PrintTrainersShowdownData();
     }
+}
+
+u8 GetOrCreateOtIndexbyId(u32 otId,const u8* name,u8 gender)
+{
+    u8 i;
+    u8 j=0;
+    for(i=0;i<gSaveBlock2Ptr->savedOTs;i++)
+    {
+        if(otId == gSaveBlock2Ptr->otData[i].Id)
+        {
+            return i;
+        }
+    }
+    gSaveBlock2Ptr->otData[i].Id = otId;
+    while(name[j] != EOS)
+    {
+        gSaveBlock2Ptr->otData[i].name[j] = name[j++];
+    }
+    gSaveBlock2Ptr->otData[i].name[j] = EOS;
+    gSaveBlock2Ptr->otData[i].gender = gender;
+    gSaveBlock2Ptr->savedOTs++;
+    return i;
 }

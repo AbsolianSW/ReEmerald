@@ -6,13 +6,12 @@
 // Property labels for Get(Box)MonData / Set(Box)MonData
 enum {
     MON_DATA_PERSONALITY,
-    MON_DATA_OT_ID,
+    MON_DATA_OT_INDEX,
     MON_DATA_NICKNAME,
     MON_DATA_LANGUAGE,
     MON_DATA_SANITY_IS_BAD_EGG,
     MON_DATA_SANITY_HAS_SPECIES,
     MON_DATA_SANITY_IS_EGG,
-    MON_DATA_OT_NAME,
     MON_DATA_MARKINGS,
     MON_DATA_CHECKSUM,
     MON_DATA_ENCRYPT_SEPARATOR,
@@ -54,7 +53,6 @@ enum {
     MON_DATA_ABILITY_NUM,
     MON_DATA_TOUGH,
     MON_DATA_SHEEN,
-    MON_DATA_OT_GENDER,
     MON_DATA_COOL_RIBBON,
     MON_DATA_BEAUTY_RIBBON,
     MON_DATA_CUTE_RIBBON,
@@ -102,39 +100,40 @@ struct BoxPokemon
 {
     u32 personality;
     //4
-    u32 otId;
-    //8
-    u8 nickname[POKEMON_NAME_LENGTH];
-    u8 otName[PLAYER_NAME_LENGTH];
+    u8 otIndex;
+    u8 nickname[10];
+    u8 unused1;
+    //16
+    u8 unused2;
     u8 hpEV;
     u8 attackEV;
     u8 defenseEV;
-    //28
+    //20
     u8 speedEV;
     u8 spAttackEV;
     u8 spDefenseEV;
     u8 cool;
-    //32
+    //24
     u8 beauty;
     u8 cute;
     u8 smart;
     u8 tough;
-    //36
+    //28
     u8 sheen;
     u8 metLocation;
     u8 ppBonuses;
     u8 friendship;
-    //40
+    //32
     u32 move1:9;
     u32 move2:9;
     u32 pp1:7;
     u32 pp2:7;
-    //44
+    //36
     u32 move3:9;
     u32 move4:9;
     u32 pp3:7;
     u32 pp4:7;
-    //48
+    //40
     u32 hpIV : 5;
     u32 attackIV : 5;
     u32 defenseIV : 5;
@@ -143,7 +142,7 @@ struct BoxPokemon
     u32 spDefenseIV : 5;
     u32 isBadEgg : 1;
     u32 isEgg : 1;
-    //52
+    //44
     u32 species:9;
     u32 hasSpecies : 1;
     u32 isDead : 1;
@@ -152,7 +151,7 @@ struct BoxPokemon
     u32 abilityNum : 1;
     u32 markings : 4;
     u32 pokeball : 4;
-    //56
+    //48
     u32 coolRibbon : 3;
     u32 beautyRibbon : 3;
     u32 cuteRibbon : 3;
@@ -166,12 +165,12 @@ struct BoxPokemon
     u32 pokerus:8;
     u32 language:3;
     u32 isAce:1;
-    //60
+    //52
     u32 experience:21;
     u32 heldItem:9;
-    u32 otGender : 1;
+    u32 unused3 : 1;
     u32 blockShiny: 1;
-    //64
+    //56
 };
 
 struct Pokemon
@@ -356,13 +355,12 @@ void ZeroBoxMonData(struct BoxPokemon *boxMon);
 void ZeroMonData(struct Pokemon *mon);
 void ZeroPlayerPartyMons(void);
 void ZeroEnemyPartyMons(void);
-void CreateMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId);
-void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId);
+void CreateMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId,const u8* otName, u8 trainerGender);
+void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId,const  u8* otName, u8 trainerGender);
 void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 nature);
 void CreateMonWithGenderNatureLetter(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 gender, u8 nature, u8 unownLetter);
 void CreateMaleMon(struct Pokemon *mon, u16 species, u8 level);
 void CreateMonWithIVsPersonality(struct Pokemon *mon, u16 species, u8 level, u32 ivs, u32 personality);
-void CreateMonWithIVsOTID(struct Pokemon *mon, u16 species, u8 level, u8 *ivs, u32 otId);
 void CreateMonWithEVSpread(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 evSpread);
 void CreateBattleTowerMon(struct Pokemon *mon, struct BattleTowerPokemon *src);
 void CreateBattleTowerMon_HandleLevel(struct Pokemon *mon, struct BattleTowerPokemon *src, bool8 lvl50);
@@ -512,5 +510,6 @@ u32 GetShinyOdds();
 u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl);
 void PrintShowdownData(u8 mode, u16 trainerNum);
 void IndexToEvSpread(u32 index);
+u8 GetOrCreateOtIndexbyId(u32 otId,const u8* name,u8 gender);
 
 #endif // GUARD_POKEMON_H

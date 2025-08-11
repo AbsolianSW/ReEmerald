@@ -157,7 +157,9 @@ static u8 WriteSaveProfile(u16 profileNum)
         for (i = 0; i < NUM_SECTORS_PER_PROFILE; i++)
             HandleWriteSector(profileNum+i, gRamSaveSectorLocations[SECTOR_ID_SAVEBLOCK1_START+i]);
         for(i=0;i<(SECTOR_ID_PKMN_STORAGE_END-SECTOR_ID_PKMN_STORAGE_START+1);i++)
-        HandleWriteSector(SECTOR_ID_PKMN_STORAGE_START+i,gRamSaveSectorLocations[SECTOR_ID_SAVEBLOCK1_END+i+1]);
+        {
+            HandleWriteSector(SECTOR_ID_PKMN_STORAGE_START+i,gRamSaveSectorLocations[SECTOR_ID_SAVEBLOCK1_END+i+1]);
+        }
         if (gDamagedSaveSectors)
         {
             // At least one sector save failed
@@ -217,7 +219,6 @@ static u8 HandleWriteSectorNBytes(u8 sectorId, u8 *data, u16 size)
 
 static u8 TryWriteSector(u8 sector, u8 *data)
 {
-    DebugPrintf("Writing sector %d", sector);
     if (ProgramFlashSectorAndVerify(sector, data)) // is damaged?
     {
         // Failed

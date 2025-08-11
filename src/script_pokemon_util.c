@@ -73,7 +73,7 @@ u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 i
     u8 ivs[3] = {MAX_PER_STAT_IVS,MAX_PER_STAT_IVS,MAX_PER_STAT_IVS};
     struct Pokemon mon;
 
-    CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
+    CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0,gSaveBlock1Ptr->playerName,gSaveBlock1Ptr->playerGender);
     heldItem[0] = item;
     heldItem[1] = item >> 8;
     SetMonData(&mon, MON_DATA_HELD_ITEM, heldItem);
@@ -202,7 +202,7 @@ void CreateScriptedWildMon(u16 species, u8 level, u16 item)
     u8 heldItem[2];
 
     ZeroEnemyPartyMons();
-    CreateMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, 0, 0, OT_ID_PLAYER_ID, 0);
+    CreateMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, 0, 0, OT_ID_PLAYER_ID, 0,gSaveBlock1Ptr->playerName,gSaveBlock1Ptr->playerGender);
     if (item)
     {
         heldItem[0] = item;

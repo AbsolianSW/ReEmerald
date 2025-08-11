@@ -227,7 +227,6 @@ void MgbaClose(void)
 void MgbaPrintf(s32 level, const char* ptr, ...)
 {
     va_list args;
-
     level &= 0x7;
     va_start(args, ptr);
     #if (PRETTY_PRINT_HANDLER == PRETTY_PRINT_MINI_PRINTF)

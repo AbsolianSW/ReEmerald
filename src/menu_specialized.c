@@ -886,16 +886,12 @@ s32 GetBoxOrPartyMonData(u16 boxId, u16 monId, s32 request, u8 *dst)
 
     if (boxId == TOTAL_BOXES_COUNT) // Party mon.
     {
-        if (request == MON_DATA_NICKNAME || request == MON_DATA_OT_NAME)
-            ret = GetMonData(&gPlayerParty[monId], request, dst);
-        else
+        if (request == MON_DATA_NICKNAME)
             ret = GetMonData(&gPlayerParty[monId], request);
     }
     else
     {
-        if (request == MON_DATA_NICKNAME || request == MON_DATA_OT_NAME)
-            ret = GetAndCopyBoxMonDataAt(boxId, monId, request, dst);
-        else
+        if (request == MON_DATA_NICKNAME)
             ret = GetBoxMonDataAt(boxId, monId, request);
     }
 
@@ -1072,7 +1068,7 @@ void GetConditionMenuMonGfx(void *tilesDst, void *palDst, u16 boxId, u16 monId, 
     if (partyId != numMons)
     {
         u16 species = GetBoxOrPartyMonData(boxId, monId, MON_DATA_SPECIES_OR_EGG, NULL);
-        u32 trainerId = GetBoxOrPartyMonData(boxId, monId, MON_DATA_OT_ID, NULL);
+        u32 trainerId = gSaveBlock2Ptr->otData[GetBoxOrPartyMonData(boxId, monId, MON_DATA_OT_INDEX, NULL)].Id;
         u32 personality = GetBoxOrPartyMonData(boxId, monId, MON_DATA_PERSONALITY, NULL);
 
         LoadSpecialPokePic(&gMonFrontPicTable[species], tilesDst, species, personality, TRUE);

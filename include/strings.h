@@ -3104,5 +3104,9 @@ extern const u8 gText_F[];
 extern const u8 gText_Boss[];
 extern const u8 gText_ProfileNewVar1[];
 extern const u8 gText_ProfileVar1[];
+extern const u8 gText_LinkOpponentName[];
+extern const u8 gText_AIOpponentName[];
+extern const u8 gText_Dummy[];
+extern const u8 gText_FBrain[];
 
 #endif // GUARD_STRINGS_H

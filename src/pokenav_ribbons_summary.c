@@ -413,7 +413,7 @@ static void GetMonSpeciesPersonalityOtId(u16 *species, u32 *personality, u32 *ot
         struct Pokemon *mon = &gPlayerParty[monInfo->monId];
         *species = GetMonData(mon, MON_DATA_SPECIES);
         *personality = GetMonData(mon, MON_DATA_PERSONALITY);
-        *otId = GetMonData(mon, MON_DATA_OT_ID);
+        *otId = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
     }
     else
     {
@@ -421,7 +421,7 @@ static void GetMonSpeciesPersonalityOtId(u16 *species, u32 *personality, u32 *ot
         struct BoxPokemon *boxMon = GetBoxedMonPtr(monInfo->boxId, monInfo->monId);
         *species = GetBoxMonData(boxMon, MON_DATA_SPECIES);
         *personality = GetBoxMonData(boxMon, MON_DATA_PERSONALITY);
-        *otId = GetBoxMonData(boxMon, MON_DATA_OT_ID);
+        *otId = gSaveBlock2Ptr->otData[GetBoxMonData(boxMon, MON_DATA_OT_INDEX)].Id;
     }
 }
 

@@ -21,6 +21,7 @@
 #include "reshow_battle_screen.h"
 #include "sound.h"
 #include "string_util.h"
+#include "strings.h"
 #include "task.h"
 #include "text.h"
 #include "util.h"
@@ -580,10 +581,10 @@ static u32 CopyRecordedOpponentMonData(u8 monId, u8 *dst)
         battleMon.spDefense = GetMonData(&gEnemyParty[monId], MON_DATA_SPDEF);
         battleMon.isEgg = GetMonData(&gEnemyParty[monId], MON_DATA_IS_EGG);
         battleMon.abilityNum = GetMonData(&gEnemyParty[monId], MON_DATA_ABILITY_NUM);
-        battleMon.otId = GetMonData(&gEnemyParty[monId], MON_DATA_OT_ID);
+        battleMon.otId = gSaveBlock2Ptr->otData[GetMonData(&gEnemyParty[monId], MON_DATA_OT_INDEX)].Id;
         GetMonData(&gEnemyParty[monId], MON_DATA_NICKNAME, nickname);
         StringCopy_Nickname(battleMon.nickname, nickname);
-        GetMonData(&gEnemyParty[monId], MON_DATA_OT_NAME, battleMon.otName);
+        StringCopy(battleMon.otName, gSaveBlock2Ptr->otData[GetMonData(&gPlayerParty[monId], MON_DATA_OT_INDEX)].name);
         src = (u8 *)&battleMon;
         for (size = 0; size < sizeof(battleMon); size++)
             dst[size] = src[size];
@@ -634,7 +635,7 @@ static u32 CopyRecordedOpponentMonData(u8 monId, u8 *dst)
         size = 1;
         break;
     case REQUEST_OTID_BATTLE:
-        data32 = GetMonData(&gEnemyParty[monId], MON_DATA_OT_ID);
+        data32 = gSaveBlock2Ptr->otData[GetMonData(&gEnemyParty[monId], MON_DATA_OT_INDEX)].Id;
         dst[0] = (data32 & 0x000000FF);
         dst[1] = (data32 & 0x0000FF00) >> 8;
         dst[2] = (data32 & 0x00FF0000) >> 16;
@@ -871,6 +872,7 @@ static void SetRecordedOpponentMonData(u8 monId)
     struct BattlePokemon *battlePokemon = (struct BattlePokemon *)&gBattleBufferA[gActiveBattler][3];
     struct MovePpInfo *moveData = (struct MovePpInfo *)&gBattleBufferA[gActiveBattler][3];
     s32 i;
+    u8 idIndex;
 
     switch (gBattleBufferA[gActiveBattler][1])
     {
@@ -947,7 +949,8 @@ static void SetRecordedOpponentMonData(u8 monId)
         SetMonData(&gEnemyParty[monId], MON_DATA_PP1 + gBattleBufferA[gActiveBattler][1] - REQUEST_PPMOVE1_BATTLE, &gBattleBufferA[gActiveBattler][3]);
         break;
     case REQUEST_OTID_BATTLE:
-        SetMonData(&gEnemyParty[monId], MON_DATA_OT_ID, &gBattleBufferA[gActiveBattler][3]);
+        idIndex = GetOrCreateOtIndexbyId(gBattleBufferA[gActiveBattler][3],gText_LinkOpponentName,MALE);
+        SetMonData(&gEnemyParty[monId], MON_DATA_OT_INDEX, &idIndex);
         break;
     case REQUEST_EXP_BATTLE:
         SetMonData(&gEnemyParty[monId], MON_DATA_EXP, &gBattleBufferA[gActiveBattler][3]);

@@ -5706,7 +5706,7 @@
       "name": "Island3_BerryForest_Layout",
       "width": 57,
       "height": 47,
-      "border_width": 3,
+      "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Dewford",

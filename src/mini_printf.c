@@ -90,10 +90,16 @@ static inline char mini_pchar_decode(char encoded)
         ret = '&'; // ampersand
     else if (encoded == CHAR_HYPHEN)
         ret = '-'; // hyphen
+    else if (encoded == CHAR_COLON)
+        ret = ':'; // hyphen
     else if (encoded == CHAR_MALE)
         ret = 'M'; 
     else if (encoded == CHAR_FEMALE)
         ret = 'F';
+    else if (encoded == CHAR_a_CIRCUMFLEX)//for showdown export
+        ret = '@';
+    else if (encoded == CHAR_NEWLINE)
+        ret = '\n';
     else if (encoded == CHAR_e_GRAVE || encoded == CHAR_e_ACUTE || encoded == CHAR_e_CIRCUMFLEX || encoded == CHAR_e_DIAERESIS)
         ret = 'e';
     return ret;

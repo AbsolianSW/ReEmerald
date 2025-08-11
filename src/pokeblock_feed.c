@@ -734,7 +734,7 @@ static bool8 LoadMonAndSceneGfx(struct Pokemon *mon)
         // Load mon palette
         species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
         personality = GetMonData(mon, MON_DATA_PERSONALITY);
-        trainerId = GetMonData(mon, MON_DATA_OT_ID);
+        trainerId = gSaveBlock2Ptr->otData[GetMonData(mon, MON_DATA_OT_INDEX)].Id;
         palette = GetMonSpritePalStructFromOtIdPersonality(species, trainerId, personality, FALSE);
 
         LoadCompressedSpritePalette(palette);
