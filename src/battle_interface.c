@@ -75,7 +75,7 @@ enum
     HEALTHBOX_GFX_STATUS_BRN_BATTLER0,  //status brn
     HEALTHBOX_GFX_34,
     HEALTHBOX_GFX_35,
-    HEALTHBOX_GFX_36, //misc [Black section]
+    HEALTHBOX_GFX_STATUS_TXC_BATTLER0, //misc [Black section]
     HEALTHBOX_GFX_37, //misc [Black section]
     HEALTHBOX_GFX_38, //misc [Black section]
     HEALTHBOX_GFX_39, //misc [Blank Health Window?]

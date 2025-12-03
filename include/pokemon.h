@@ -93,8 +93,37 @@ enum {
     MON_DATA_SPATK2,
     MON_DATA_SPDEF2,
     MON_DATA_IS_DEAD,
-    MON_DATA_NATURE
+    MON_DATA_NATURE,
+    MON_DATA_ACE_INFO
 };
+
+//ace info
+#define ACE_INFO_TEAM_LEADER 1 << 0
+#define ACE_INFO_TYCOON 2 << 0
+#define ACE_INFO_SAVANT 3 << 0
+#define ACE_INFO_SPECIALIZER 4 << 0
+#define ACE_INFO_HUNTER 5 << 0
+#define ACE_INFO_ATTACKER 1 << 3
+#define ACE_INFO_DEFENDER 2 << 3
+#define ACE_INFO_SPECIAL_ATTACKER 3 << 3
+#define ACE_INFO_SPECIAL_DEFENDER 4 << 3
+#define ACE_INFO_SPEEDSTER 5 << 3
+#define ACE_INFO_TOXICOLOGIST 1 << 6
+#define ACE_INFO_RESISTANT 2 << 6
+#define ACE_INFO_GRIT 3 << 6
+#define ACE_INFO_FIGHTER 4 << 6
+#define ACE_INFO_SNIPER 5 << 6
+#define ACE_INFO_CONVERSION 1 << 9
+#define ACE_INFO_TECHNICIAN 2 << 9
+#define ACE_INFO_PRANKSTER 3 << 9
+#define ACE_INFO_ENDURANCE 4 << 9
+#define ACE_INFO_ENFORCER 5 << 9
+
+#define BITMASK_ACE_TIER_1 (u16)7 << 0
+#define BITMASK_ACE_TIER_2 (u16)7 << 3
+#define BITMASK_ACE_TIER_3 (u16)7 << 6
+#define BITMASK_ACE_TIER_4 (u16)7 << 9
+
 
 struct BoxPokemon
 {
@@ -102,10 +131,9 @@ struct BoxPokemon
     //4
     u8 otIndex;
     u8 nickname[10];
-    u8 unused1;
-    //16
-    u8 unused2;
     u8 hpEV;
+    //16
+    u16 aceInfo;
     u8 attackEV;
     u8 defenseEV;
     //20
@@ -164,11 +192,11 @@ struct BoxPokemon
     u32 effortRibbon : 1;
     u32 pokerus:8;
     u32 language:3;
-    u32 isAce:1;
+    u32 unused3:1;
     //52
     u32 experience:21;
     u32 heldItem:9;
-    u32 unused3 : 1;
+    u32 unused4 : 1;
     u32 blockShiny: 1;
     //56
 };
@@ -250,6 +278,7 @@ struct BattlePokemon
     /*0x4C*/ u32 status1;
     /*0x50*/ u32 status2;
     /*0x54*/ u32 otId;
+    /*0x54*/ u16 AceInfo;
 };
 
 struct SpeciesInfo
@@ -511,5 +540,7 @@ u16 GetRivalStarterSpecies(u16 placeholderIndex, u16 lvl);
 void PrintShowdownData(u8 mode, u16 trainerNum);
 void IndexToEvSpread(u32 index);
 u8 GetOrCreateOtIndexbyId(u32 otId,const u8* name,u8 gender);
+void SetAce(u8 partyIndex);
+void UpdatePlayerAceInfo(u16 newInfo);
 
 #endif // GUARD_POKEMON_H

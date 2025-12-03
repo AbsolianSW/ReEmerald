@@ -21,7 +21,7 @@ static u8 TryWriteSector(u8, u8 *);
 static u8 HandleWriteSector(u16, const struct SaveSectorLocation);
 static u8 HandleReplaceSector(u16, const struct SaveSectorLocation);
 
-// Divide save blocks into individual chunks to be written to flash sectors
+// All of the below is inaccurate
 
 /*
  * Sector Layout:
@@ -80,7 +80,7 @@ struct
 STATIC_ASSERT(sizeof(struct SaveBlockGeneral) <= SECTOR_DATA_SIZE, SaveBlock2FreeSpace);
 STATIC_ASSERT(sizeof(struct SaveBlockProfile) <= SECTOR_DATA_SIZE * (SECTOR_ID_SAVEBLOCK1_END - SECTOR_ID_SAVEBLOCK1_START + 1), SaveBlock1FreeSpace);
 STATIC_ASSERT(sizeof(struct PokemonStorage) <= SECTOR_DATA_SIZE * (SECTOR_ID_PKMN_STORAGE_END - SECTOR_ID_PKMN_STORAGE_START + 1), PokemonStorageFreeSpace);
-STATIC_ASSERT(sizeof(struct BoxPokemon) <= 80, BoxPokemonSize);
+STATIC_ASSERT(sizeof(struct BoxPokemon) <= 56, BoxPokemonSize);
 
 u32 gLastSaveCounter;
 u32 gDamagedSaveSectors;

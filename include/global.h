@@ -941,6 +941,8 @@ struct SaveBlockProfile
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
     struct Challenges challenges;
+    u8 hasAceSwap;
+    u8 aceEvBackup[NUM_STATS];
     // sizeof: 3DF0
 };
 

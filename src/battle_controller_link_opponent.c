@@ -595,6 +595,7 @@ static u32 CopyLinkOpponentMonData(u8 monId, u8 *dst)
         battleMon.spAttack = GetMonData(&gEnemyParty[monId], MON_DATA_SPATK);
         battleMon.spDefense = GetMonData(&gEnemyParty[monId], MON_DATA_SPDEF);
         battleMon.isEgg = GetMonData(&gEnemyParty[monId], MON_DATA_IS_EGG);
+        battleMon.AceInfo = GetMonData(&gEnemyParty[monId], MON_DATA_ACE_INFO);
         battleMon.abilityNum = GetMonData(&gEnemyParty[monId], MON_DATA_ABILITY_NUM);
         battleMon.otId = gSaveBlock2Ptr->otData[GetMonData(&gPlayerParty[gBattlerPartyIndexes[gBattleAnimTarget]], MON_DATA_OT_INDEX)].Id;
         GetMonData(&gEnemyParty[monId], MON_DATA_NICKNAME, nickname);
@@ -928,6 +929,7 @@ static void SetLinkOpponentMonData(u8 monId)
             SetMonData(&gEnemyParty[monId], MON_DATA_SPEED, &battlePokemon->speed);
             SetMonData(&gEnemyParty[monId], MON_DATA_SPATK, &battlePokemon->spAttack);
             SetMonData(&gEnemyParty[monId], MON_DATA_SPDEF, &battlePokemon->spDefense);
+            SetMonData(&gEnemyParty[monId], MON_DATA_ACE_INFO, &battlePokemon->AceInfo);
         }
         break;
     case REQUEST_SPECIES_BATTLE:

@@ -3149,8 +3149,20 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         gBattleMovePower = gBattleMoves[move].power;
     else
         gBattleMovePower = powerOverride;
+
+    
+    if((attacker->AceInfo&BITMASK_ACE_TIER_4)==ACE_INFO_TECHNICIAN && gBattleMovePower <=60)
+    {
+        gBattleMovePower = (gBattleMovePower*150)/100;
+    }
     if (!typeOverride)
+    {
         type = gBattleMoves[move].type;
+        if((attacker->AceInfo&BITMASK_ACE_TIER_4)==ACE_INFO_CONVERSION && type == TYPE_NORMAL)
+        {
+            type = attacker->type1;
+        }
+    }
     else
         type = typeOverride & DYNAMIC_TYPE_MASK;
 
@@ -3185,14 +3197,14 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     if (attacker->ability == ABILITY_HUGE_POWER || attacker->ability == ABILITY_PURE_POWER)
         attack *= 2;
 
-    if (ShouldGetStatBadgeBoost(FLAG_BADGE01_GET, battlerIdAtk))
-        attack = (110 * attack) / 100;
-    if (ShouldGetStatBadgeBoost(FLAG_BADGE05_GET, battlerIdDef))
-        defense = (110 * defense) / 100;
-    if (ShouldGetStatBadgeBoost(FLAG_BADGE07_GET, battlerIdAtk))
-        spAttack = (110 * spAttack) / 100;
-    if (ShouldGetStatBadgeBoost(FLAG_BADGE07_GET, battlerIdDef))
-        spDefense = (110 * spDefense) / 100;
+    //if (ShouldGetStatBadgeBoost(FLAG_BADGE01_GET, battlerIdAtk))
+    //    attack = (110 * attack) / 100;
+    //if (ShouldGetStatBadgeBoost(FLAG_BADGE05_GET, battlerIdDef))
+    //    defense = (110 * defense) / 100;
+    //if (ShouldGetStatBadgeBoost(FLAG_BADGE07_GET, battlerIdAtk))
+    //    spAttack = (110 * spAttack) / 100;
+    //if (ShouldGetStatBadgeBoost(FLAG_BADGE07_GET, battlerIdDef))
+    //    spDefense = (110 * spDefense) / 100; //don't badge boost
 
     // Apply type-bonus hold item
     for (i = 0; i < ARRAY_COUNT(sHoldEffectToType); i++)
@@ -3291,7 +3303,22 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
         if(doAbilityPopup)
             CreateAbilityPopUp(battlerIdAtk, attacker->ability, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0);
     }
-
+    if ((defender->AceInfo&BITMASK_ACE_TIER_2)==ACE_INFO_DEFENDER)
+    {
+        defense = (120*defense)/100;
+    }
+    if ((defender->AceInfo&BITMASK_ACE_TIER_2)==ACE_INFO_SPECIAL_DEFENDER)
+    {
+        spDefense = (120*spDefense)/100;
+    }
+    if ((attacker->AceInfo&BITMASK_ACE_TIER_2)==ACE_INFO_ATTACKER)
+    {
+        attack = (120*attack)/100;
+    }
+    if ((attacker->AceInfo&BITMASK_ACE_TIER_2)==ACE_INFO_SPECIAL_ATTACKER)
+    {
+        spAttack = (120*spAttack)/100;
+    }
     // Self-destruct / Explosion cut defense in half
     if (gBattleMoves[gCurrentMove].effect == EFFECT_EXPLOSION)
         defense /= 2;
@@ -3960,6 +3987,9 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
     case MON_DATA_SHINYBLOCK:
         retVal = boxMon->blockShiny;
         break;
+    case MON_DATA_ACE_INFO:
+        retVal = boxMon->aceInfo;
+        break;
     default:
         break;
     }
@@ -4257,6 +4287,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
     case MON_DATA_SHINYBLOCK:
         SET8(boxMon->blockShiny);
         break;
+    case MON_DATA_ACE_INFO:
+        SET8(boxMon->aceInfo);
+        break;
     default:
         break;
     }
@@ -4552,6 +4585,7 @@ void CopyPlayerPartyMonToBattleData(u8 battlerId, u8 partyIndex)
     gBattleMons[battlerId].spDefense = GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPDEF, NULL);
     gBattleMons[battlerId].isEgg = GetMonData(&gPlayerParty[partyIndex], MON_DATA_IS_EGG, NULL);
     gBattleMons[battlerId].abilityNum = GetMonData(&gPlayerParty[partyIndex], MON_DATA_ABILITY_NUM, NULL);
+    gBattleMons[battlerId].AceInfo = GetMonData(&gPlayerParty[partyIndex], MON_DATA_ACE_INFO, NULL);
     gBattleMons[battlerId].otId = gSaveBlock2Ptr->otData[GetMonData(&gPlayerParty[partyIndex], MON_DATA_OT_INDEX)].Id;
     gBattleMons[battlerId].type1 = gSpeciesInfo[gBattleMons[battlerId].species].types[0];
     gBattleMons[battlerId].type2 = gSpeciesInfo[gBattleMons[battlerId].species].types[1];
@@ -5830,74 +5864,89 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
     u16 heldItem;
     u8 holdEffect;
     int i, multiplier;
-
+    u16 overtrainableAce;
+    if(GetMonData(mon, MON_DATA_ACE_INFO) > 1)
+    {
+        overtrainableAce = TRUE;
+    }
+    
     for (i = 0; i < NUM_STATS; i++)
     {
         evs[i] = GetMonData(mon, MON_DATA_HP_EV + i, 0);
         totalEVs += evs[i];
     }
-
+    
     for (i = 0; i < NUM_STATS; i++)
     {
-        if (totalEVs >= MAX_TOTAL_EVS)
-            break;
-
+        if (totalEVs >= MAX_TOTAL_EVS &&!overtrainableAce)
+        break;
+        
         if (CheckPartyHasHadPokerus(mon, 0))
-            multiplier = 2;
+        multiplier = 2;
         else
-            multiplier = 1;
-
+        multiplier = 1;
+        
         switch (i)
         {
-        case STAT_HP:
+            case STAT_HP:
             evIncrease = gSpeciesInfo[defeatedSpecies].evYield_HP * multiplier;
             break;
-        case STAT_ATK:
+            case STAT_ATK:
             evIncrease = gSpeciesInfo[defeatedSpecies].evYield_Attack * multiplier;
             break;
-        case STAT_DEF:
+            case STAT_DEF:
             evIncrease = gSpeciesInfo[defeatedSpecies].evYield_Defense * multiplier;
             break;
-        case STAT_SPEED:
+            case STAT_SPEED:
             evIncrease = gSpeciesInfo[defeatedSpecies].evYield_Speed * multiplier;
             break;
-        case STAT_SPATK:
+            case STAT_SPATK:
             evIncrease = gSpeciesInfo[defeatedSpecies].evYield_SpAttack * multiplier;
             break;
-        case STAT_SPDEF:
+            case STAT_SPDEF:
             evIncrease = gSpeciesInfo[defeatedSpecies].evYield_SpDefense * multiplier;
             break;
         }
-
+        
         heldItem = GetMonData(mon, MON_DATA_HELD_ITEM, 0);
         if (heldItem == ITEM_ENIGMA_BERRY)
         {
             if (gMain.inBattle)
-                holdEffect = gEnigmaBerries[0].holdEffect;
+            holdEffect = gEnigmaBerries[0].holdEffect;
             else
-                holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
+            holdEffect = gSaveBlock1Ptr->enigmaBerry.holdEffect;
         }
         else
         {
             holdEffect = ItemId_GetHoldEffect(heldItem);
         }
-
+        
         if (holdEffect == HOLD_EFFECT_MACHO_BRACE)
-            evIncrease *= 2;
-
+        evIncrease *= 2;
+        
         if (totalEVs + (s16)evIncrease > MAX_TOTAL_EVS)
+        {
             evIncrease = ((s16)evIncrease + MAX_TOTAL_EVS) - (totalEVs + evIncrease);
-
+        }
         if (evs[i] + (s16)evIncrease > MAX_PER_STAT_EVS)
         {
             int val1 = (s16)evIncrease + MAX_PER_STAT_EVS;
             int val2 = evs[i] + evIncrease;
             evIncrease = val1 - val2;
         }
-
+        
         evs[i] += evIncrease;
         totalEVs += evIncrease;
         SetMonData(mon, MON_DATA_HP_EV + i, &evs[i]);
+    }
+    if(totalEVs<=MAX_PER_STAT_EVS && overtrainableAce)
+    {
+        gSaveBlock1Ptr->aceEvBackup[STAT_HP] = GetMonData(mon, MON_DATA_HP_EV + STAT_HP);
+        gSaveBlock1Ptr->aceEvBackup[STAT_ATK] = GetMonData(mon, MON_DATA_HP_EV + STAT_ATK);
+        gSaveBlock1Ptr->aceEvBackup[STAT_DEF] = GetMonData(mon, MON_DATA_HP_EV + STAT_DEF);
+        gSaveBlock1Ptr->aceEvBackup[STAT_SPATK] = GetMonData(mon, MON_DATA_HP_EV + STAT_SPATK);
+        gSaveBlock1Ptr->aceEvBackup[STAT_SPDEF] = GetMonData(mon, MON_DATA_HP_EV + STAT_SPDEF);
+        gSaveBlock1Ptr->aceEvBackup[STAT_SPEED] = GetMonData(mon, MON_DATA_HP_EV + STAT_SPEED);
     }
 }
 
@@ -8379,4 +8428,35 @@ u8 GetOrCreateOtIndexbyId(u32 otId,const u8* name,u8 gender)
     gSaveBlock2Ptr->otData[i].gender = gender;
     gSaveBlock2Ptr->savedOTs++;
     return i;
+}
+
+void UpdatePlayerAceInfo(u16 newInfo)
+{
+    u32 i;
+    u16 oldInfo;
+    for(i=0;i<gSaveBlock1Ptr->playerPartyCount;i++)
+    {
+        oldInfo = GetMonData(&gSaveBlock1Ptr->playerParty[i],MON_DATA_ACE_INFO);
+        if(oldInfo)
+        {
+            oldInfo &=newInfo;
+            SetMonData(&gSaveBlock1Ptr->playerParty[i],MON_DATA_ACE_INFO,&oldInfo);
+        }
+    }
+}
+
+void SetAce(u8 partyIndex)
+{
+    u16 zero,i = 0;
+    u16 acebase = 1>>16;
+    if(!(gSaveBlock1Ptr->hasAceSwap||FlagGet(FLAG_IS_CHAMPION)))
+    {
+        return;
+    }
+    for(i=0;i<gSaveBlock1Ptr->playerPartyCount;i++)
+    {
+        SetMonData(&gSaveBlock1Ptr->playerParty[i],MON_DATA_ACE_INFO,&zero);
+        break;
+    }
+    SetMonData(&gSaveBlock1Ptr->playerParty[partyIndex],MON_DATA_ACE_INFO,&acebase);
 }

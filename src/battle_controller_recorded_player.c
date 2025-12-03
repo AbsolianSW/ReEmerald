@@ -564,6 +564,7 @@ static u32 CopyRecordedPlayerMonData(u8 monId, u8 *dst)
         battleMon.spDefense = GetMonData(&gPlayerParty[monId], MON_DATA_SPDEF);
         battleMon.isEgg = GetMonData(&gPlayerParty[monId], MON_DATA_IS_EGG);
         battleMon.abilityNum = GetMonData(&gPlayerParty[monId], MON_DATA_ABILITY_NUM);
+        battleMon.AceInfo = GetMonData(&gPlayerParty[monId], MON_DATA_ACE_INFO);
         battleMon.otId = gSaveBlock2Ptr->otData[GetMonData(&gPlayerParty[monId], MON_DATA_OT_INDEX)].Id;
         GetMonData(&gPlayerParty[monId], MON_DATA_NICKNAME, nickname);
         StringCopy_Nickname(battleMon.nickname, nickname);
@@ -896,6 +897,7 @@ static void SetRecordedPlayerMonData(u8 monId)
             SetMonData(&gPlayerParty[monId], MON_DATA_SPEED, &battlePokemon->speed);
             SetMonData(&gPlayerParty[monId], MON_DATA_SPATK, &battlePokemon->spAttack);
             SetMonData(&gPlayerParty[monId], MON_DATA_SPDEF, &battlePokemon->spDefense);
+            SetMonData(&gPlayerParty[monId], MON_DATA_ACE_INFO, &battlePokemon->AceInfo);
         }
         break;
     case REQUEST_SPECIES_BATTLE:

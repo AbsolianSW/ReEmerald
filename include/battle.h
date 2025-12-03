@@ -728,5 +728,6 @@ extern u8 gMultiUsePlayerCursor;
 extern u8 gNumberOfMovesToChoose;
 extern u8 gBattleControllerData[MAX_BATTLERS_COUNT];
 extern u8 gBattlerAbility;
+extern u8 gGiveOutAceXp;
 
 #endif // GUARD_BATTLE_H

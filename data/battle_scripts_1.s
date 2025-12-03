@@ -4272,6 +4272,14 @@ BattleScript_AbilityNoSpecificStatLoss::
 	setbyte cMULTISTRING_CHOOSER, B_MSG_STAT_FELL_EMPTY
 	return
 
+BattleScript_DefiantMind::
+	setstatchanger STAT_SPATK, 1, FALSE
+	statbuffchange STAT_CHANGE_ALLOW_PTR, BattleScript_StatUpEnd
+	jumpifbyte CMP_NOT_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_StatUpDoAnim
+	pause B_WAIT_TIME_SHORT
+	goto BattleScript_StatUpPrintString
+
+
 BattleScript_StickyHoldActivates::
 	pause B_WAIT_TIME_SHORT
 	call BattleScript_AbilityPopUpTarget

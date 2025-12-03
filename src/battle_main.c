@@ -233,6 +233,7 @@ EWRAM_DATA u16 gBattleMovePower = 0;
 EWRAM_DATA u16 gMoveToLearn = 0;
 EWRAM_DATA u8 gBattleMonForms[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u8 gBattlerAbility = 0;
+EWRAM_DATA u8 gGiveOutAceXp = 0;
 
 void (*gPreBattleCallback1)(void);
 void (*gBattleMainFunc)(void);
@@ -4633,6 +4634,7 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
 {
     u8 strikesFirst = 0;
     u8 speedMultiplierBattler1 = 0, speedMultiplierBattler2 = 0;
+    u8 priorityBattler1 = 0, priorityBattler2 = 0;
     u32 speedBattler1 = 0, speedBattler2 = 0;
     u8 holdEffect = 0;
     u8 holdEffectParam = 0;
@@ -4701,11 +4703,15 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
             speedBattler2 = (speedBattler1 * 150) / 100;
     }
     // badge boost
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
-        && FlagGet(FLAG_BADGE03_GET)
-        && GetBattlerSide(battler1) == B_SIDE_PLAYER)
+    //if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
+    //    && FlagGet(FLAG_BADGE03_GET)
+    //    && GetBattlerSide(battler1) == B_SIDE_PLAYER)
+    //{
+    //    speedBattler1 = (speedBattler1 * 110) / 100;
+    //}
+    if((gBattleMons[battler1].AceInfo&BITMASK_ACE_TIER_2) == ACE_INFO_SPEEDSTER)//special ace ability
     {
-        speedBattler1 = (speedBattler1 * 110) / 100;
+        speedBattler1 = (speedBattler1 * 120) / 100;
     }
 
     if (holdEffect == HOLD_EFFECT_MACHO_BRACE)
@@ -4735,11 +4741,15 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
     }
 
     // badge boost
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
-        && FlagGet(FLAG_BADGE03_GET)
-        && GetBattlerSide(battler2) == B_SIDE_PLAYER)
+    //if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK | BATTLE_TYPE_FRONTIER))
+    //    && FlagGet(FLAG_BADGE03_GET)
+    //    && GetBattlerSide(battler2) == B_SIDE_PLAYER)
+    //{
+    //    speedBattler2 = (speedBattler2 * 110) / 100;
+    //}
+    if((gBattleMons[battler2].AceInfo&BITMASK_ACE_TIER_2) == ACE_INFO_SPEEDSTER)//special ace ability
     {
-        speedBattler2 = (speedBattler2 * 110) / 100;
+        speedBattler2 = (speedBattler2 * 120) / 100;
     }
 
     if (holdEffect == HOLD_EFFECT_MACHO_BRACE)
@@ -4780,10 +4790,20 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
     }
 
     // both move priorities are different than 0
-    if (gBattleMoves[moveBattler1].priority != 0 || gBattleMoves[moveBattler2].priority != 0)
+    priorityBattler1 = gBattleMoves[moveBattler1].priority;
+    priorityBattler2 = gBattleMoves[moveBattler2].priority;
+    if((gBattleMons[battler1].AceInfo&BITMASK_ACE_TIER_4)==ACE_INFO_PRANKSTER &&gBattleMoves[moveBattler1].power == 0)
+    {
+        priorityBattler1++;
+    }
+    if((gBattleMons[battler2].AceInfo&BITMASK_ACE_TIER_4)==ACE_INFO_PRANKSTER &&gBattleMoves[moveBattler2].power == 0)
+    {
+        priorityBattler2++;
+    }
+    if (priorityBattler1 != 0 || priorityBattler2 != 0)
     {
         // both priorities are the same
-        if (gBattleMoves[moveBattler1].priority == gBattleMoves[moveBattler2].priority)
+        if (priorityBattler1 == priorityBattler2)
         {
             if (speedBattler1 == speedBattler2 && Random() & 1)
                 strikesFirst = 2; // same speeds, same priorities
@@ -4792,7 +4812,7 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
 
             // else battler1 has more speed
         }
-        else if (gBattleMoves[moveBattler1].priority < gBattleMoves[moveBattler2].priority)
+        else if (priorityBattler1 < priorityBattler2)
             strikesFirst = 1; // battler2's move has greater priority
 
         // else battler1's move has greater priority
